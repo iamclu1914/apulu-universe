@@ -5,8 +5,30 @@ topic: vawn-project
 
 # Vawn Project
 
-The Vawn hip-hop artist project — the unifying context behind all systems in this knowledge base.
+## When to reference this hub
 
----
+Start here for anything about Vawn as an artist — identity, music catalog, releases, videos, social content, brand direction. For mixing-specific work, go to [[../vawn-mix-engine/_index]].
 
-- [[overview]] — Project summary, all systems (Apulu, Mix Engine, AI Filmmaking), shared design philosophy.
+## Reading order for Claude
+
+1. This file (context).
+2. [[overview]] — who Vawn is, sound, positioning.
+3. [[Noir Music Video Production Package]] — when current music-video work is relevant.
+
+## Notes in this topic
+
+- **[[overview]]** — Vawn project overview: artist identity, sound, positioning, current phase.
+- **[[Noir Music Video Production Package]]** — Production package and creative brief for the noir music video series.
+
+## Related hubs
+
+- [[../vawn-mix-engine/_index]] — mixing and mastering for Vawn tracks.
+- [[../ai-filmmaking/_index]] — AI video tooling used for Vawn visuals.
+- [[../cross-topic/_index]] — pipeline and prompt patterns used in Vawn content production.
+
+## Related catalogs and journals
+
+- `catalogs/vawn-lyrics.md` — full lyrics catalog.
+- `journals/vawn/briefings/` — daily briefings on Vawn status and activity.
+- `journals/vawn/discovery/` — discovery research briefs.
+- `journals/vawn/health/` — daily health notes.

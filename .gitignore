@@ -48,3 +48,8 @@ pipeline/output/
 
 # Projects with their own git repos
 projects/apulu-prompt-generator/.git/
+
+# Obsidian runtime state (churn on every app use)
+.obsidian/graph.json
+.obsidian/workspace.json
+.obsidian/workspaces.json

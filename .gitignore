@@ -1,0 +1,50 @@
+# Paperclip (cloned dependency, not our code)
+paperclip/
+# But track our Paperclip integration scripts
+!scripts/paperclip/
+!scripts/paperclip/test_heartbeat.py
+
+# Code / build artifacts
+node_modules/
+*.log
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Claude runtime
+.claude/worktrees/
+.claude/.credentials.json
+.claude/scheduled_tasks.lock
+
+# Ruflo / agentdb runtime artifacts
+*.rvf
+*.rvf.lock
+ruvector.db
+agentdb.rvf
+agentdb.rvf.lock
+
+# Lock files
+.text_post_lock_*
+
+# Pipeline outputs (not tracked in vault history)
+pipeline/output/
+
+# Secrets (never commit)
+**/credentials.json
+**/credentials.*.json
+.env
+.env.*
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Projects with their own git repos
+projects/apulu-prompt-generator/.git/

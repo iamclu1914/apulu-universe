@@ -1,3 +1,5 @@
+> **Archived 2026-04-14.** Superseded by [[../wiki/ai-filmmaking/ai-short-film-prompt-library]].
+
 # AI Short Film – Full Prompt Library (Higgsfield Blog)
 
 Source: https://higgsfield.ai/blog/ai-short-film-youtube-guide

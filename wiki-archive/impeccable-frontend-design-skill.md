@@ -1,3 +1,5 @@
+> **Archived 2026-04-14.** Superseded by [[../wiki/design-engineering/impeccable-frontend-design]].
+
 ---
 name: frontend-design
 description: Create distinctive, production-grade frontend interfaces with high design quality. Generates creative, polished code that avoids generic AI aesthetics. Use when the user asks to build web components, pages, artifacts, posters, or applications, or when any design skill requires project context.

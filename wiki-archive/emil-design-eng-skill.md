@@ -1,3 +1,5 @@
+> **Archived 2026-04-14.** Superseded by `C:/Users/rdyal/.claude/skills/emil-design-eng/SKILL.md`.
+
 ---
 name: emil-design-eng
 description: This skill encodes Emil Kowalski's philosophy on UI polish, component design, animation decisions, and the invisible details that make software feel great.

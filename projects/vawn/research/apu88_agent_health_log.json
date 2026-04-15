@@ -1,0 +1,59 @@
+{
+  "2026-04-12": [
+    {
+      "timestamp": "2026-04-12T08:07:34.126833",
+      "agent_health": {
+        "EngagementAgent": {
+          "name": "EngagementAgent",
+          "status": "HealthStatus.CRITICAL",
+          "health_score": 0.0,
+          "last_activity": null,
+          "runs_24h": 0,
+          "success_rate": 0.0,
+          "issues": [
+            "No recent activity detected",
+            "Agent process not running",
+            "Agent file missing: C:\\Users\\rdyal\\Vawn\\engagementagent.py"
+          ],
+          "recovery_attempts": 0,
+          "last_recovery": null
+        },
+        "EngagementBot": {
+          "name": "EngagementBot",
+          "status": "HealthStatus.CRITICAL",
+          "health_score": 0.0,
+          "last_activity": null,
+          "runs_24h": 0,
+          "success_rate": 0.0,
+          "issues": [
+            "No recent activity detected",
+            "Agent process not running",
+            "Agent file missing: C:\\Users\\rdyal\\Vawn\\engagementbot.py"
+          ],
+          "recovery_attempts": 0,
+          "last_recovery": null
+        }
+      },
+      "recovery_actions": [
+        {
+          "agent": "EngagementAgent",
+          "issues": [
+            "No recent activity detected",
+            "Agent process not running",
+            "Agent file missing: C:\\Users\\rdyal\\Vawn\\engagementagent.py"
+          ],
+          "success": false
+        },
+        {
+          "agent": "EngagementBot",
+          "issues": [
+            "No recent activity detected",
+            "Agent process not running",
+            "Agent file missing: C:\\Users\\rdyal\\Vawn\\engagementbot.py"
+          ],
+          "success": false
+        }
+      ]
+    }
+  ]
+}

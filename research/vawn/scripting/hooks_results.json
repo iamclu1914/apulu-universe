@@ -1,0 +1,49 @@
+{
+  "project": "vawn",
+  "generated": "2026-04-07T23:56:57.529929",
+  "topic": "I make music about dependability. I have twin girls who just turned one. Here's what that pressure actually sounds like.",
+  "hooks": {
+    "hooks": [
+      {
+        "number": 1,
+        "spoken_hook": "Nobody talks about what it actually sounds like when you're terrified of letting your kids down. I put it in a song.",
+        "visual_hook": "Close-up of two baby shoes side by side on a studio console, beat slowly fading in underneath",
+        "text_overlay": "THIS IS WHAT PRESSURE SOUNDS LIKE",
+        "hook_type": "curiosity",
+        "energy": "quiet, heavy, intimate — pulls you in before you realize it"
+      },
+      {
+        "number": 2,
+        "spoken_hook": "People say music is an escape. Mine isn't. I make music about showing up every single day whether you feel like it or not.",
+        "visual_hook": "Artist at the studio board, back to camera, no eye contact — slow turn halfway through the line",
+        "text_overlay": "NOT AN ESCAPE. A RECORD.",
+        "hook_type": "contrarian",
+        "energy": "calm defiance, anti-hype, grounded authority"
+      },
+      {
+        "number": 3,
+        "spoken_hook": "I was in the booth at midnight. Twin girls asleep at home. I laid down a verse and cried after. That take made the album.",
+        "visual_hook": "Dark studio, single light over the mic, artist walking into frame mid-sentence like the camera caught something real",
+        "text_overlay": "THAT TAKE MADE THE ALBUM",
+        "hook_type": "story",
+        "energy": "raw, cinematic, no performance — feels like a confession"
+      },
+      {
+        "number": 4,
+        "spoken_hook": "My daughters turned one. I have eleven songs finished about never letting them see me quit. That's the whole album.",
+        "visual_hook": "Split frame — one side a birthday moment, other side a notebook of lyrics, cuts between both on the beat",
+        "text_overlay": "11 SONGS. ONE PROMISE.",
+        "hook_type": "result",
+        "energy": "earned, deliberate, weight behind every word — no celebration, just accountability"
+      },
+      {
+        "number": 5,
+        "spoken_hook": "Hold on — before you keep scrolling, tell me the last time a rap song made you feel like you had to be better tomorrow.",
+        "visual_hook": "Artist looks directly into camera and physically steps closer, like breaking the fourth wall mid-scroll",
+        "text_overlay": "WAIT. ACTUALLY ANSWER THAT.",
+        "hook_type": "pattern_interrupt",
+        "energy": "disruptive but not loud — stops the thumb with directness, not chaos"
+      }
+    ]
+  }
+}

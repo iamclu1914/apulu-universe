@@ -1,0 +1,57 @@
+{
+  "agents": {
+    "prompt_coordination_researcher": {
+      "agentId": "prompt_coordination_researcher",
+      "agentType": "researcher",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "research_focus": [
+          "multi_agent_coordination",
+          "semantic_prompt_chaining",
+          "token_optimization",
+          "context_preservation"
+        ],
+        "target_system": "AI mixing engine with 5 specialized agents",
+        "constraints": [
+          "maintain artist identity consistency",
+          "preserve locked standards",
+          "real-time session requirements"
+        ],
+        "model": "sonnet"
+      },
+      "createdAt": "2026-04-12T21:02:00.506Z",
+      "domain": "prompt_engineering",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "adaptive_mixing_researcher": {
+      "agentId": "adaptive_mixing_researcher",
+      "agentType": "researcher",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "research_focus": [
+          "dynamic_prompt_adaptation",
+          "context_aware_standards",
+          "audio_characteristic_analysis",
+          "artist_identity_preservation"
+        ],
+        "target_domain": "Hip-hop mixing with locked artist standards",
+        "constraints": [
+          "preserve Vawn signature sound",
+          "maintain consistency across tracks",
+          "real-time adaptation requirements"
+        ],
+        "model": "sonnet"
+      },
+      "createdAt": "2026-04-12T21:02:05.374Z",
+      "domain": "ai_adaptation",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    }
+  },
+  "version": "3.0.0"
+}

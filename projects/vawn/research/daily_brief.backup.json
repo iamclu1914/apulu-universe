@@ -1,0 +1,122 @@
+{
+  "date": "2026-04-14",
+  "trends": [],
+  "audience_intel": [
+    {
+      "artist": "Baby Keem",
+      "observation": "Keem posted a two-word text post on X \u2014 'what's new' \u2014 on January 4, 2025, with zero context, no music link, no promo. It pulled 5.1M views and 67K likes. His Instagram maintains a 16% engagement rate with only 6 posts total, averaging 192K likes per post. The extreme scarcity of content makes every post feel like an event.",
+      "format": "text",
+      "takeaway": "Vawn's 'anti-hype, quiet authority' brand IS this strategy \u2014 but Vawn can do it with more intentionality. One deliberate, cryptic or weighted text post per week ('11 tracks. One shot.' or 'Brooklyn raised me. Atlanta made me.') treats scarcity as a brand asset, not a gap. Vawn has a personal story Keem doesn't publicly use \u2014 fatherhood, twin girls, stakes \u2014 which gives the silence more weight."
+    },
+    {
+      "artist": "Killer Mike",
+      "observation": "In December 2025, a clip from Killer Mike's appearance on Real Time with Bill Maher went viral when he overwhelmed the host in a debate about Haiti and American foreign policy. The clip spread across Twitter/X, Instagram Reels, and TikTok without Mike posting it himself \u2014 fan-clipped video pulled massive organic reach. His bio actively promotes his weekly podcast 'Conversate with Killer Mike,' positioning him as an intellectual, not just a rapper.",
+      "format": "video",
+      "takeaway": "Killer Mike turns ideas into content, not just music. Vawn's thematic territory \u2014 Fear of Failure, Long-game mentality, Pattern Recognition \u2014 maps directly to conversational, debate-worthy content. A short-form video series where Vawn breaks down one hard truth (about the music industry, fatherhood under pressure, building without cosigns) could generate the same kind of clip-and-share virality. Mike does it on TV; Vawn can do it in a 60-second vertical format from the studio couch."
+    },
+    {
+      "artist": "6LACK",
+      "observation": "6LACK's highest-engagement Instagram posts are personal, low-production photo dumps with long, reflective captions \u2014 not promotional content. His post recapping the U.S. leg of his SIHAL tour averaged 56K likes and 656 comments. He wrote about being recognized with '6LACK Day' in DeKalb County, about watching T-Pain perform, and about his crew and family. The tone is grateful, present, and earned \u2014 never hype.",
+      "format": "photo",
+      "takeaway": "6LACK's audience rewards emotional transparency over polish. Vawn has a parallel emotional narrative that 6LACK doesn't \u2014 he's a new father to twin girls, building an album on no sleep, with genuine stakes. A photo post of Vawn in the studio at 2AM with a caption that names the fear ('I don't know if this is good enough, but I'm still here') aligns with Vawn's brand AND the format that 6LACK's audience has proven they respond to. Gap: 6LACK doesn't name the fear directly. Vawn can."
+    },
+    {
+      "artist": "JID",
+      "observation": "JID's highest-engagement content consistently comes from freestyle and loose session clips \u2014 unpolished, often filmed on phones in small rooms or studios \u2014 that showcase pure technical ability with no cinematic production. These clips circulate in hip-hop community pages and fan accounts on Instagram and TikTok, generating reach far beyond his ~1M follower base. He rarely posts structured promotional content.",
+      "format": "reel",
+      "takeaway": "JID's clips work because they prove the skill without staging it. Vawn's boom-bap psychedelic sound is a differentiator that is hard to describe but easy to hear \u2014 a 45-second raw session clip where the beat switches from orchestral to trap and Vawn rides both without breaking cadence would demonstrate the range in a way a press bio cannot. Gap: JID doesn't attach personal narrative to his skill clips. Vawn could speak one line of context before each freestyle \u2014 'this is what I'm building for' \u2014 and own a lane JID leaves empty."
+    },
+    {
+      "artist": "Smino",
+      "observation": "Smino's social content leans heavily into community and collaboration \u2014 he frequently posts behind-the-scenes studio content tagging producers and artists, uses Instagram carousels to document creative process (mood boards, track-building stages), and engages in back-and-forth banter in comment sections that turns into viral threads. His audience treats him as an insider, not a star.",
+      "format": "carousel",
+      "takeaway": "Smino has built a 'come inside the room' aesthetic that rewards loyal followers with access. Vawn's debut album is a 11-track build happening in real time \u2014 each track in production is a chapter. A carousel series called something like 'Track 4' showing one lyric fragment, a studio photo, and a 3-second beat clip would turn album rollout into serialized storytelling. Gap: Smino does this casually. Vawn can do it with the intentionality of a novelist \u2014 each post is a clue, not a reveal."
+    },
+    {
+      "artist": "Saba",
+      "observation": "Saba's most engaged content \u2014 particularly around his album CARE FOR ME and subsequent releases \u2014 consistently involves written posts: handwritten lyrics shared as photos, typed notes about what a song cost him emotionally, and text-based reflections with no image. His audience skews deeply literary and will read every word. Engagement on these posts runs disproportionately high in saves and shares vs. likes, indicating they're being bookmarked and sent person-to-person.",
+      "format": "text",
+      "takeaway": "Saba's saves-and-shares pattern means his content travels privately \u2014 DM to DM \u2014 which is exactly how long-game artists build word-of-mouth. Vawn's thematic territories (Dependability, Journey, Fear of Failure) are built for this format. A post that simply reads: 'I told my daughters I'd finish this album before they could walk. They're almost walking.' doesn't need a hashtag or a link. It travels on its own. Gap: Saba writes about the past. Vawn is in the middle of the story right now \u2014 that's more urgent."
+    }
+  ],
+  "catalog_lines": [
+    {
+      "bar": "Corner of Campbellton and Greenbriar, 2019.",
+      "track": "STILL MOVING",
+      "territory": "Journey",
+      "ig_hook": "Some corners hold a whole era of you.",
+      "x_post": "There's an intersection that still lives in my chest. You know the one. #StillMoving #ATL",
+      "tiktok_pov": "POV: revisiting that corner",
+      "_source": "local_catalog"
+    },
+    {
+      "bar": "You were there for the part I don't talk about in the music.",
+      "track": "YOU WERE THERE",
+      "territory": "Love \u00b7 Dependability",
+      "ig_hook": "The real ones know what never made the tracklist.",
+      "x_post": "Not everything becomes a song. Some people just hold the parts you never perform. #YouWereThere",
+      "tiktok_pov": "POV: they knew the unrecorded version",
+      "_source": "local_catalog"
+    },
+    {
+      "bar": "Something about saying the hard thing out loud to someone real",
+      "track": "I CHOSE THIS",
+      "territory": "Fear of Failure",
+      "ig_hook": "Saying it out loud to the right person changes everything.",
+      "x_post": "There's a specific relief that only comes from telling the truth to someone who can actually hold it. #IChoseThis",
+      "tiktok_pov": "POV: finally saying it aloud",
+      "_source": "local_catalog"
+    }
+  ],
+  "pipeline_intel": {
+    "saturated_angles": [
+      "AI music novelty content \u2014 Suno-made songs going viral purely for the gimmick or humor factor, not artistry (see @blunted.wav 3.1M plays on a birthday song meme)",
+      "Freestyle rap clips with viral hooks \u2014 short-form freestyles leaning on hype and shock value over lyricism (see @itsloganreich 9.7M plays)",
+      "Nostalgia-driven boom bap compilations \u2014 YouTube channels recycling 90s golden era mixes as passive background content with no artist POV attached",
+      "R&B/trap-soul playlist aggregation \u2014 faceless channels packaging Chris Brown, SZA, Summer Walker without original voice or curation identity",
+      "Reaction and discovery content around already-famous artists \u2014 LL Cool J throwbacks, Lil Tecca, Juice WRLD retrospectives dominating Instagram engagement"
+    ],
+    "open_gaps": [
+      "The independent artist who uses AI tools (Suno) seriously \u2014 not as a joke, but as a legitimate production and ideation layer \u2014 with full transparency about the creative process",
+      "Psychedelic boom bap as a living, breathing sound being made NOW \u2014 YouTube and TikTok treat it as a nostalgic artifact; nobody is planting a flag for its present and future",
+      "The husband-father-artist identity in hip-hop \u2014 the tension between providing, creating, and being present is almost completely uncovered in the lyrical rap space",
+      "Underground hip hop fans feel unseen and underserved on algorithmic platforms \u2014 the @spring25ji post asking 'where's the underground hip hop Spotify' with 2660 engagements signals real demand with no clear supply",
+      "Long-game mentality and anti-hype positioning in rap \u2014 in a culture obsessed with overnight moments, the artist who publicly commits to the slow build has almost no competition and earns deep loyalty"
+    ],
+    "performance_outliers": [
+      {
+        "content": "@blunted.wav Suno-generated birthday song comment-to-song video (3.1M plays)",
+        "why_it_worked": "Participation loop \u2014 it transformed audience comments into content, making viewers feel ownership. The Suno tag added novelty. Humor lowered the barrier to share. The format is infinitely repeatable and self-fueling.",
+        "platform": "TikTok"
+      },
+      {
+        "content": "@itsloganreich freestyle clip ('she ain't tell him i invented that shi') \u2014 9.7M plays",
+        "why_it_worked": "One quotable, punchy bar did all the work. The hook was screenshot-worthy and easily reposted without context. Short runtime, immediate payoff, identity signal for rap fans who pride themselves on catching clever lines.",
+        "platform": "TikTok"
+      },
+      {
+        "content": "Underground Sound 2026 Cypher \u2014 311K views on YouTube",
+        "why_it_worked": "Cypher format creates a 'who's the best?' debate engine that sustains engagement long after upload. The '2026' framing signals freshness to an audience tired of nostalgia-only content. Community identity and discovery combined in one package.",
+        "platform": "YouTube"
+      }
+    ],
+    "top_ideas": [
+      {
+        "title": "Film yourself writing one bar for your daughters \u2014 then record the take",
+        "format": "video",
+        "confidence": "high"
+      },
+      {
+        "title": "\"Underground hip hop fans want a home. Here's what I'm building.\" \u2014 direct address to camera, no music yet",
+        "format": "video",
+        "confidence": "high"
+      },
+      {
+        "title": "Show the Suno session \u2014 not as a gimmick, but as a real tool in the creative stack",
+        "format": "video",
+        "confidence": "high"
+      }
+    ]
+  },
+  "_pipeline_enriched": "2026-04-13"
+}

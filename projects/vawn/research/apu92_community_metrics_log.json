@@ -1,0 +1,36 @@
+{
+  "entries": [
+    {
+      "timestamp": "2026-04-12T10:12:38.705566",
+      "community_metrics": {
+        "artists_supported": 0,
+        "collaborations_discovered": 0,
+        "cultural_connections": 0,
+        "quality_conversations": 0,
+        "authenticity_score": 0.0,
+        "community_value_score": 0.0
+      },
+      "engagement_summary": {
+        "opportunities_assessed": 5,
+        "actions_taken": 1,
+        "artists_supported": 0,
+        "collaborations_discovered": 0,
+        "quality_conversations": 0,
+        "community_connections": 0,
+        "engagement_breakdown": {
+          "community_building": 1
+        },
+        "top_opportunities": [
+          {
+            "platform": "tiktok",
+            "author": "lyrical_genius_99",
+            "engagement_type": "community_building",
+            "quality_score": 0.7999999999999999,
+            "community_value": 0.5,
+            "action_taken": "like_only"
+          }
+        ]
+      }
+    }
+  ]
+}

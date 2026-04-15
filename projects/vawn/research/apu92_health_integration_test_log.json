@@ -1,0 +1,189 @@
+{
+  "test_suite": "APU-92 Health & Integration Validation",
+  "execution_timestamp": "2026-04-12T10:11:10.203019",
+  "agent": "Dex - Community (75dd5aa3-6dfb-4d13-b424-48343f1fd7e2)",
+  "health_monitoring_tests": {
+    "test_timestamp": "2026-04-12T10:11:07.489879",
+    "test_version": "APU-92 Health Integration Test v1.0",
+    "tests_performed": [
+      {
+        "test_name": "resilience_manager_initialization",
+        "status": "passed",
+        "details": "OperationalResilienceManager initialized successfully",
+        "timestamp": "2026-04-12T10:11:07.489879"
+      },
+      {
+        "test_name": "system_health_check",
+        "status": "passed",
+        "health_report": {
+          "timestamp": "2026-04-12T10:11:07.489879",
+          "overall_health": "excellent",
+          "components": {
+            "agent": {
+              "component": "agent_process",
+              "status": "healthy",
+              "health_score": 1.0,
+              "issues": [],
+              "last_activity": "2026-04-12T10:11:07.489879"
+            },
+            "api": {
+              "component": "api_connectivity",
+              "status": "healthy",
+              "health_score": 1.0,
+              "issues": [],
+              "coverage": {
+                "anthropic": "available",
+                "credentials": "available"
+              },
+              "coverage_percentage": 100.0
+            },
+            "platforms": {
+              "component": "platform_integrations",
+              "status": "healthy",
+              "health_score": 1.0,
+              "issues": [],
+              "platforms": {
+                "bluesky": "configured",
+                "instagram": "configured",
+                "tiktok": "configured",
+                "x": "configured",
+                "threads": "configured"
+              }
+            },
+            "filesystem": {
+              "component": "filesystem",
+              "status": "healthy",
+              "health_score": 1.0,
+              "issues": [],
+              "required_files": {
+                "C:\\Users\\rdyal\\Vawn\\research": "available",
+                "C:\\Users\\rdyal\\Vawn\\src": "available"
+              }
+            }
+          },
+          "overall_score": 1.0
+        },
+        "timestamp": "2026-04-12T10:11:09.612745"
+      },
+      {
+        "test_name": "auto_recovery_system",
+        "status": "passed",
+        "recovery_result": {
+          "timestamp": "2026-04-12T10:11:09.612745",
+          "failure_type": "filesystem",
+          "recovery_attempted": true,
+          "recovery_successful": true,
+          "actions_taken": []
+        },
+        "timestamp": "2026-04-12T10:11:09.612745"
+      },
+      {
+        "test_name": "apu92_bot_integration",
+        "status": "passed",
+        "status_report": {
+          "agent": "Dex - Community (75dd5aa3-6dfb-4d13-b424-48343f1fd7e2)",
+          "version": "APU-92 Community Engagement Bot v1.0",
+          "timestamp": "2026-04-12T10:11:09.612745",
+          "system_health": {
+            "timestamp": "2026-04-12T10:11:09.612745",
+            "overall_health": "excellent",
+            "components": {
+              "agent": {
+                "component": "agent_process",
+                "status": "healthy",
+                "health_score": 1.0,
+                "issues": [],
+                "last_activity": "2026-04-12T10:11:09.612745"
+              },
+              "api": {
+                "component": "api_connectivity",
+                "status": "healthy",
+                "health_score": 1.0,
+                "issues": [],
+                "coverage": {
+                  "anthropic": "available",
+                  "credentials": "available"
+                },
+                "coverage_percentage": 100.0
+              },
+              "platforms": {
+                "component": "platform_integrations",
+                "status": "healthy",
+                "health_score": 1.0,
+                "issues": [],
+                "platforms": {
+                  "bluesky": "configured",
+                  "instagram": "configured",
+                  "tiktok": "configured",
+                  "x": "configured",
+                  "threads": "configured"
+                }
+              },
+              "filesystem": {
+                "component": "filesystem",
+                "status": "healthy",
+                "health_score": 1.0,
+                "issues": [],
+                "required_files": {
+                  "C:\\Users\\rdyal\\Vawn\\research": "available",
+                  "C:\\Users\\rdyal\\Vawn\\src": "available"
+                }
+              }
+            },
+            "overall_score": 1.0
+          },
+          "community_metrics": {
+            "artists_supported": 0,
+            "collaborations_discovered": 0,
+            "cultural_connections": 0,
+            "quality_conversations": 0,
+            "authenticity_score": 0.0,
+            "community_value_score": 0.0
+          },
+          "recent_cycles": 0,
+          "configuration": {
+            "max_engagements_per_run": 15,
+            "quality_threshold": 0.6,
+            "cultural_relevance_threshold": 0.7,
+            "artist_support_priority": 0.8,
+            "community_building_focus": true,
+            "authenticity_requirement": 0.85
+          },
+          "status": "operational"
+        },
+        "timestamp": "2026-04-12T10:11:10.192443"
+      },
+      {
+        "test_name": "ecosystem_compatibility",
+        "status": "passed",
+        "details": "Ecosystem logging integration successful",
+        "timestamp": "2026-04-12T10:11:10.201514"
+      }
+    ],
+    "overall_status": "excellent",
+    "issues_found": [],
+    "recommendations": [
+      "Health monitoring system ready for production integration",
+      "Consider enabling automated health monitoring cycles"
+    ]
+  },
+  "ecosystem_integration_tests": {
+    "test_timestamp": "2026-04-12T10:11:10.201514",
+    "apu_compatibility": {},
+    "file_compatibility": {
+      "apu88_engagement_monitor_log.json": "compatible",
+      "apu83_engagement_monitor_log.json": "compatible",
+      "apu74_intelligent_engagement_log.json": "not_found",
+      "engagement_log.json": "compatible"
+    },
+    "logging_compatibility": {
+      "vawn_config": "compatible"
+    },
+    "overall_integration_status": "compatible"
+  },
+  "overall_assessment": {
+    "status": "excellent",
+    "message": "APU-92 ready for production deployment"
+  },
+  "deployment_readiness": "ready"
+}

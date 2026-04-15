@@ -1,0 +1,30 @@
+{
+  "patch_version": "apu81_integration_v1",
+  "created": "2026-04-12T05:05:10.584099",
+  "enhanced_agent_patterns": {
+    "APU81EngagementBot": {
+      "metrics_extraction": {
+        "likes_pattern": "Enhanced: (\\d+) likes",
+        "filtered_pattern": "(\\d+) filtered",
+        "quality_pattern": "quality threshold: ([\\d.]+)/10"
+      },
+      "status_classification": {
+        "healthy": "success_rate >= 0.8 and recent_engagements > 0",
+        "idle": "success_rate >= 0.8 and recent_engagements == 0",
+        "warning": "0.5 <= success_rate < 0.8",
+        "failed": "success_rate < 0.5"
+      },
+      "enhanced_metrics": [
+        "filter_efficiency",
+        "quality_threshold",
+        "collaboration_discoveries",
+        "unique_accounts_engaged"
+      ]
+    }
+  },
+  "compatibility": {
+    "original_engagement_bot": "supported",
+    "apu44_monitor": "supported",
+    "metrics_log": "supported"
+  }
+}

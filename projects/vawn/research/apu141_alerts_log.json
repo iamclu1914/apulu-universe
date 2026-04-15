@@ -1,0 +1,118 @@
+{
+  "2026-04-13": [
+    {
+      "type": "critical_issue",
+      "severity": "critical",
+      "message": "Agent code execution failures detected",
+      "action_required": "Review agent logs and fix code issues immediately",
+      "component": "agent_failure",
+      "timestamp": "2026-04-13T20:13:49.045699"
+    },
+    {
+      "type": "critical_issue",
+      "severity": "high",
+      "message": "API infrastructure unavailable",
+      "action_required": "Check server status and network connectivity",
+      "component": "infrastructure_failure",
+      "timestamp": "2026-04-13T20:13:49.045699"
+    },
+    {
+      "type": "infrastructure_alert",
+      "severity": "high",
+      "message": "API infrastructure critically degraded (0.0%)",
+      "action_required": "Check server status and network connectivity",
+      "component": "api_infrastructure",
+      "timestamp": "2026-04-13T20:13:49.045699"
+    },
+    {
+      "type": "agent_alert",
+      "severity": "high",
+      "message": "Agent functionality degraded (10.0%)",
+      "action_required": "Review agent logs and code for issues",
+      "component": "agent_functionality",
+      "timestamp": "2026-04-13T20:13:49.045699"
+    },
+    {
+      "type": "critical_issue",
+      "severity": "critical",
+      "message": "Agent code execution failures detected",
+      "action_required": "Review agent logs and fix code issues immediately",
+      "component": "agent_failure",
+      "timestamp": "2026-04-13T20:24:17.106127"
+    },
+    {
+      "type": "agent_alert",
+      "severity": "high",
+      "message": "Agent functionality degraded (10.0%)",
+      "action_required": "Review agent logs and code for issues",
+      "component": "agent_functionality",
+      "timestamp": "2026-04-13T20:24:17.106127"
+    }
+  ],
+  "2026-04-14": [
+    {
+      "type": "critical_issue",
+      "severity": "critical",
+      "message": "Agent code execution failures detected",
+      "action_required": "Review agent logs and fix code issues immediately",
+      "component": "agent_failure",
+      "timestamp": "2026-04-14T02:02:30.196067"
+    },
+    {
+      "type": "critical_issue",
+      "severity": "high",
+      "message": "API infrastructure unavailable",
+      "action_required": "Check server status and network connectivity",
+      "component": "infrastructure_failure",
+      "timestamp": "2026-04-14T02:02:30.196067"
+    },
+    {
+      "type": "infrastructure_alert",
+      "severity": "high",
+      "message": "API infrastructure critically degraded (0.0%)",
+      "action_required": "Check server status and network connectivity",
+      "component": "api_infrastructure",
+      "timestamp": "2026-04-14T02:02:30.196067"
+    },
+    {
+      "type": "agent_alert",
+      "severity": "high",
+      "message": "Agent functionality degraded (10.0%)",
+      "action_required": "Review agent logs and code for issues",
+      "component": "agent_functionality",
+      "timestamp": "2026-04-14T02:02:30.196067"
+    },
+    {
+      "type": "critical_issue",
+      "severity": "critical",
+      "message": "Agent code execution failures detected",
+      "action_required": "Review agent logs and fix code issues immediately",
+      "component": "agent_failure",
+      "timestamp": "2026-04-14T16:02:31.232163"
+    },
+    {
+      "type": "critical_issue",
+      "severity": "high",
+      "message": "API infrastructure unavailable",
+      "action_required": "Check server status and network connectivity",
+      "component": "infrastructure_failure",
+      "timestamp": "2026-04-14T16:02:31.232163"
+    },
+    {
+      "type": "infrastructure_alert",
+      "severity": "high",
+      "message": "API infrastructure critically degraded (0.0%)",
+      "action_required": "Check server status and network connectivity",
+      "component": "api_infrastructure",
+      "timestamp": "2026-04-14T16:02:31.232163"
+    },
+    {
+      "type": "agent_alert",
+      "severity": "high",
+      "message": "Agent functionality degraded (10.0%)",
+      "action_required": "Review agent logs and code for issues",
+      "component": "agent_functionality",
+      "timestamp": "2026-04-14T16:02:31.232163"
+    }
+  ]
+}

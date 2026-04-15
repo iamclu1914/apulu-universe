@@ -1,0 +1,37 @@
+{
+  "date": "2026-04-10",
+  "generated": "2026-04-10T20:34:58.451834",
+  "overall_success": true,
+  "passed": 2,
+  "failed": 0,
+  "total": 2,
+  "elapsed_seconds": 5.12,
+  "scripts": [
+    {
+      "name": "health_monitor",
+      "label": "Health Monitor",
+      "path": "C:\\Users\\rdyal\\Apulu Universe\\pipeline\\brain\\health_monitor.py",
+      "started": "2026-04-10T20:34:58.452834",
+      "stdout": "\n============================================================\n  Health Monitor -- 2026-04-10\n============================================================\n  [ OK ] NotebookLM Auth: {\"status\": \"ok\", \"notebooks\": 25}\n  [ OK ] Discovery Freshness: {\"x\": {\"status\": \"fresh\", \"age_hours\": 14.9}, \"tiktok\": {\"status\": \"fresh\", \"age_hours\": 14.9}, \"ins\n  [ OK ] Bridge: {\"status\": \"ok\", \"enriched_today\": true}\n  [ OK ] Catalog Fallback: {\"status\": \"ok\", \"bars\": 3}\n  [ OK ] Yesterday's Posts: {\"status\": \"ok\", \"images_posted\": 6, \"slots_completed\": 6, \"platforms\": []}\n  [ OK ] Image Supply: {\"status\": \"ok\", \"total_images\": 85, \"unposted_today\": 79}\n  [ OK ] Engagement Feedback: {\"status\": \"ok\", \"best_pillar\": \"Audience\", \"score\": 46}\n  [ OK ] Local Catalog: {\"status\": \"ok\", \"tracks\": 24, \"bars\": 210}\n  [Obsidian] Wrote Health -- 2026-04-10.md\n\n  Critical: 0 | Warnings: 0\n============================================================\n\n",
+      "stderr": "",
+      "returncode": 0,
+      "success": true,
+      "error": null,
+      "elapsed_seconds": 4.55,
+      "finished": "2026-04-10T20:35:03.007363"
+    },
+    {
+      "name": "daily_briefing",
+      "label": "Daily Briefing",
+      "path": "C:\\Users\\rdyal\\Apulu Universe\\pipeline\\brain\\daily_briefing.py",
+      "started": "2026-04-10T20:35:03.007363",
+      "stdout": "\n============================================================\n  Daily Briefing -- 2026-04-10\n============================================================\n  [Obsidian] Wrote Daily Briefing -- 2026-04-10.md\n  Pillar: Conversion | Yesterday: 6 posts, 3 score\n============================================================\n\n",
+      "stderr": "",
+      "returncode": 0,
+      "success": true,
+      "error": null,
+      "elapsed_seconds": 0.56,
+      "finished": "2026-04-10T20:35:03.566856"
+    }
+  ]
+}

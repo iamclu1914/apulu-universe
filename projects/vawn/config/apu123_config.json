@@ -1,0 +1,18 @@
+{
+  "anthropic_api_key": "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",
+  "quality_threshold": 0.6,
+  "monitoring_interval": 30,
+  "platforms": [
+    "instagram",
+    "tiktok",
+    "x",
+    "threads",
+    "bluesky"
+  ],
+  "response_types": [
+    "question",
+    "supportive",
+    "story",
+    "educational"
+  ]
+}

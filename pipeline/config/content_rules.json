@@ -1,0 +1,164 @@
+{
+  "generated": "2026-04-14T06:25:02.665334",
+  "never_say": [
+    "stream",
+    "listen",
+    "press play",
+    "available now",
+    "grind don't stop",
+    "built different",
+    "level up",
+    "stay focused",
+    "no days off",
+    "locked in",
+    "embrace the process"
+  ],
+  "never_reference": [
+    "track names like LYR02, TRACK 7 -- internal catalog IDs",
+    "streaming platforms",
+    "gospel content"
+  ],
+  "formatting": {
+    "no_markdown": true,
+    "no_emoji_decoration": true,
+    "straight_quotes_only": true
+  },
+  "platform_constraints": {
+    "threads": {
+      "no_hashtags": true,
+      "uses_topics": true
+    },
+    "bluesky": {
+      "max_chars": 250
+    },
+    "x": {
+      "max_chars": 200
+    },
+    "tiktok": {
+      "max_caption_lines": 2
+    }
+  },
+  "platform_rules": {
+    "instagram": "3-5 lines, micro-story, hook first, 5-10 hashtags at end",
+    "tiktok": "1-2 lines ONLY, caption IS the hook, 3-5 hashtags",
+    "threads": "1-3 raw sentences, end with question, NO hashtags -- uses Topics",
+    "x": "One bar or hot take, max 200 chars, 1-2 hashtags",
+    "bluesky": "Same energy as X, max 250 chars, 1-2 hashtags"
+  },
+  "voice": {
+    "brand": "anti-hype, quiet authority, pattern recognition, earned confidence",
+    "cadence": "T.I. authority + J. Cole depth",
+    "avoid": "motivational poster language, generic rapper talk, forced metaphors"
+  },
+  "humanizer": {
+    "ai_vocabulary_to_strip": [
+      "additionally",
+      "align with",
+      "crucial",
+      "delve",
+      "emphasizing",
+      "enduring",
+      "enhance",
+      "fostering",
+      "garner",
+      "highlight",
+      "interplay",
+      "intricate",
+      "intricacies",
+      "key",
+      "landscape",
+      "pivotal",
+      "showcase",
+      "tapestry",
+      "testament",
+      "underscore",
+      "valuable",
+      "vibrant"
+    ],
+    "significance_inflation": [
+      "stands as",
+      "serves as",
+      "is a testament",
+      "is a reminder",
+      "vital role",
+      "pivotal moment",
+      "underscores",
+      "highlights its importance",
+      "reflects broader",
+      "setting the stage",
+      "key turning point",
+      "evolving landscape",
+      "indelible mark",
+      "deeply rooted"
+    ],
+    "copula_avoidance": [
+      "serves as",
+      "stands as",
+      "functions as",
+      "marks a",
+      "represents a",
+      "boasts",
+      "features",
+      "offers"
+    ],
+    "superficial_ing_phrases": [
+      "showcasing",
+      "reflecting",
+      "contributing to",
+      "emphasizing",
+      "highlighting",
+      "underscoring",
+      "ensuring",
+      "cultivating",
+      "fostering",
+      "encompassing"
+    ],
+    "filler_phrases": [
+      "In order to",
+      "At this point in time",
+      "It is important to note",
+      "Due to the fact that",
+      "has the ability to",
+      "In the event that"
+    ],
+    "generic_closers": [
+      "The future looks bright",
+      "exciting times ahead",
+      "journey toward excellence",
+      "a step in the right direction"
+    ],
+    "sycophantic_artifacts": [
+      "Great question!",
+      "I hope this helps!",
+      "Let me know if",
+      "You're absolutely right"
+    ],
+    "style_rules": [
+      "No em dash overuse -- replace with commas or periods",
+      "No boldface/markdown in captions",
+      "No emojis as decoration (genuine expression only)",
+      "Straight quotes only, never curly",
+      "No rule-of-three forced triplets",
+      "No negative parallelism (not just X, it's Y)",
+      "No synonym cycling for the same concept"
+    ],
+    "soul_rules": [
+      "Have opinions -- react to things, don't just report them",
+      "Vary rhythm -- short punchy then longer ones that breathe",
+      "Acknowledge complexity -- mixed feelings are human",
+      "Be specific about feelings, not vague about significance",
+      "Let the punchline land alone on its own line",
+      "Let some mess in -- perfect structure feels algorithmic",
+      "Sound like a person texting real thoughts, not a press release"
+    ]
+  },
+  "humanizer_required": true,
+  "cta_rotation": [
+    "save this if it hit",
+    "send this to someone who needs to hear it",
+    "drop a comment if you felt that",
+    "follow for more -- album on the way",
+    "",
+    ""
+  ]
+}

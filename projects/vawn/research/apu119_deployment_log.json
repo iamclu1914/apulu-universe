@@ -1,0 +1,189 @@
+{
+  "deployment_timestamp": "2026-04-13T02:12:51.532652",
+  "deployment_duration": 1.237879,
+  "deployment_status": {
+    "components": {
+      "main": {
+        "status": "deployed",
+        "path": "C:\\Users\\rdyal\\Vawn\\src\\apu119_engagement_monitor.py",
+        "size": 25917
+      },
+      "integration": {
+        "status": "deployed",
+        "path": "C:\\Users\\rdyal\\Vawn\\src\\apu119_system_integration.py",
+        "size": 22819
+      },
+      "monitoring": {
+        "status": "deployed",
+        "path": "C:\\Users\\rdyal\\Vawn\\src\\apu119_monitoring_alerts.py",
+        "size": 31578
+      },
+      "architecture": {
+        "status": "deployed",
+        "path": "C:\\Users\\rdyal\\Vawn\\docs\\APU-119-engagement-monitor-architecture.md",
+        "size": 7475
+      }
+    }
+  },
+  "validation_results": {
+    "start_time": "2026-04-13T02:12:51.946598",
+    "tests": [
+      {
+        "name": "component_files",
+        "description": "Verify all APU-119 component files exist",
+        "passed": true,
+        "execution_time": 0.0005090236663818359,
+        "result": {
+          "main": {
+            "exists": true,
+            "path": "C:\\Users\\rdyal\\Vawn\\src\\apu119_engagement_monitor.py",
+            "size": 25917
+          },
+          "integration": {
+            "exists": true,
+            "path": "C:\\Users\\rdyal\\Vawn\\src\\apu119_system_integration.py",
+            "size": 22819
+          },
+          "monitoring": {
+            "exists": true,
+            "path": "C:\\Users\\rdyal\\Vawn\\src\\apu119_monitoring_alerts.py",
+            "size": 31578
+          },
+          "architecture": {
+            "exists": true,
+            "path": "C:\\Users\\rdyal\\Vawn\\docs\\APU-119-engagement-monitor-architecture.md",
+            "size": 7475
+          },
+          "all_components_exist": true
+        },
+        "error": null
+      },
+      {
+        "name": "database_setup",
+        "description": "Verify APU-119 databases can be created and accessed",
+        "passed": true,
+        "execution_time": 0.020768404006958008,
+        "result": {
+          "databases": {
+            "C:\\Users\\rdyal\\Vawn\\database\\apu119_engagement_optimization.db": {
+              "creation": "success",
+              "operations": "success",
+              "test_records": 1
+            },
+            "C:\\Users\\rdyal\\Vawn\\database\\apu119_alerts.db": {
+              "creation": "success",
+              "operations": "success",
+              "test_records": 1
+            }
+          },
+          "all_databases_ok": true
+        },
+        "error": null
+      },
+      {
+        "name": "module_imports",
+        "description": "Verify APU-119 modules can be imported successfully",
+        "passed": true,
+        "execution_time": 0.7519383430480957,
+        "result": {
+          "imports": {
+            "apu119_engagement_monitor": "success",
+            "apu119_system_integration": "success",
+            "apu119_monitoring_alerts": "success"
+          },
+          "all_imports_ok": true
+        },
+        "error": null
+      },
+      {
+        "name": "system_initialization",
+        "description": "Verify APU-119 systems initialize correctly",
+        "passed": true,
+        "execution_time": 0.029353857040405273,
+        "result": {
+          "initialization": {
+            "engagement_monitor": {
+              "status": "success",
+              "health": "healthy",
+              "components": 3
+            },
+            "system_integration": {
+              "status": "success",
+              "active_systems": 2,
+              "total_systems": 3
+            }
+          },
+          "all_systems_ok": true
+        },
+        "error": null
+      },
+      {
+        "name": "apu_integration",
+        "description": "Verify integration with existing APU systems",
+        "passed": true,
+        "execution_time": 0.0027976036071777344,
+        "result": {
+          "integration_tests": {
+            "overall_health": "degraded",
+            "systems": {
+              "apu101": {
+                "status": "no_data",
+                "response_time": 0.0,
+                "data_points": 0,
+                "error_count": 0
+              },
+              "apu112": {
+                "status": "error",
+                "response_time": 0.002003908157348633,
+                "data_points": 0,
+                "error_count": 1
+              },
+              "apu113": {
+                "status": "no_data",
+                "response_time": 0.0,
+                "data_points": 0,
+                "error_count": 0
+              }
+            },
+            "recommendations": [
+              "Verify apu101 data availability",
+              "Investigate apu112 integration errors",
+              "Verify apu113 data availability"
+            ]
+          },
+          "integration_health": "degraded"
+        },
+        "error": null
+      },
+      {
+        "name": "performance_baseline",
+        "description": "Establish performance baseline for APU-119",
+        "passed": true,
+        "execution_time": 0.009145975112915039,
+        "result": {
+          "performance": {
+            "health_check_time": 0.0059986114501953125,
+            "database_operation_time": 0.0,
+            "overall_health": "healthy"
+          },
+          "baseline_established": true
+        },
+        "error": null
+      }
+    ],
+    "summary": {
+      "total_tests": 6,
+      "passed_tests": 6,
+      "failed_tests": 0,
+      "success_rate": 1.0,
+      "total_execution_time": 0.8145132064819336
+    },
+    "end_time": "2026-04-13T02:12:52.770531"
+  },
+  "backup_created": true,
+  "system_info": {
+    "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "platform": "win32",
+    "vawn_dir": "C:\\Users\\rdyal\\Vawn"
+  }
+}

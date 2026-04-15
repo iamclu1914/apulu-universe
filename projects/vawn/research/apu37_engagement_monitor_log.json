@@ -1,0 +1,137 @@
+{
+  "2026-04-10": [
+    {
+      "timestamp": "2026-04-10T12:16:26.244300",
+      "api_status": {
+        "current": {
+          "available": false,
+          "status_code": 404,
+          "response_time_ms": 221,
+          "timestamp": "2026-04-10T12:16:26.243301",
+          "healthy": false
+        },
+        "availability_24h": 0.0,
+        "avg_response_time_24h": 0,
+        "downtime_incidents": 1,
+        "status": "down",
+        "total_checks_24h": 1
+      },
+      "agent_health": {
+        "engagementagent": {
+          "last_run": "2026-04-10T12:08:17.334557",
+          "runs_today": 20,
+          "recent_errors": 0,
+          "status": "healthy",
+          "last_detail": "No comments to process"
+        },
+        "engagementagentenhanced": {
+          "last_run": "2026-04-10T12:15:58.497020",
+          "runs_today": 1,
+          "recent_errors": 1,
+          "status": "error_prone",
+          "last_detail": "API unavailable: Comments endpoint unavailable (HTTP 404)"
+        },
+        "engagementbot": {
+          "last_run": "2026-04-10T12:08:24.160014",
+          "runs_today": 11,
+          "recent_errors": 0,
+          "status": "healthy",
+          "last_detail": "Bluesky: 10 likes, 0 follows"
+        }
+      },
+      "engagement_metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_available": true,
+            "avg_engagement": 1.1538461538461537,
+            "engagement_rate": 0.08875739644970414
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_available": true,
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_available": true,
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_available": true,
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_available": true,
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_dependent": true
+        },
+        "overall_engagement_rate": 0.2711864406779661,
+        "total_posts": 59
+      },
+      "alerts": [
+        {
+          "type": "api_down",
+          "severity": "critical",
+          "message": "Comments API is unavailable (HTTP 404)",
+          "detail": "Comment processing cannot function",
+          "action": "Check backend API deployment"
+        },
+        {
+          "type": "agent_error",
+          "severity": "medium",
+          "message": "engagementagentenhanced has recent errors",
+          "agent": "engagementagentenhanced",
+          "detail": "API unavailable: Comments endpoint unavailable (HTTP 404)",
+          "action": "Review agent logs"
+        },
+        {
+          "type": "no_comments_api_down",
+          "severity": "info",
+          "message": "No comments processed due to API unavailability",
+          "action": "Normal - wait for API recovery"
+        }
+      ],
+      "summary": {
+        "api_healthy": false,
+        "agents_healthy": 2,
+        "total_alerts": 3,
+        "critical_alerts": 1,
+        "high_priority_alerts": 1
+      }
+    }
+  ]
+}

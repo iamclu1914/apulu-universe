@@ -1,0 +1,12 @@
+[
+  {
+    "timestamp": "2026-04-13T06:06:37.577647",
+    "platform": "instagram",
+    "quality_score": 0.45,
+    "quality_level": "needs_improvement",
+    "improvement_suggestions": [
+      "Add more specific references to the user's content",
+      "Make response sound more genuine and less generic"
+    ]
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "2026-04-11": [
+    {
+      "timestamp": "2026-04-11T14:05:45.929165",
+      "alert_events": [
+        {
+          "timestamp": "2026-04-11T14:05:45.929165",
+          "alert_type": "engagement_drop",
+          "severity": "critical",
+          "platform": "x",
+          "department": null,
+          "message": "CRITICAL: x engagement completely failed (0.0)",
+          "metric_value": 0.0,
+          "threshold_value": 0.0,
+          "auto_resolved": false
+        },
+        {
+          "timestamp": "2026-04-11T14:05:45.929165",
+          "alert_type": "engagement_drop",
+          "severity": "critical",
+          "platform": "tiktok",
+          "department": null,
+          "message": "CRITICAL: tiktok engagement completely failed (0.0)",
+          "metric_value": 0.0,
+          "threshold_value": 0.0,
+          "auto_resolved": false
+        },
+        {
+          "timestamp": "2026-04-11T14:05:45.929165",
+          "alert_type": "engagement_drop",
+          "severity": "critical",
+          "platform": "threads",
+          "department": null,
+          "message": "CRITICAL: threads engagement completely failed (0.0)",
+          "metric_value": 0.0,
+          "threshold_value": 0.0,
+          "auto_resolved": false
+        }
+      ],
+      "alert_summary": {
+        "active_count": 3,
+        "severity": "critical",
+        "latest_alerts": [
+          "CRITICAL: x engagement completely failed (0.0)",
+          "CRITICAL: tiktok engagement completely failed (0.0)",
+          "CRITICAL: threads engagement completely failed (0.0)"
+        ]
+      }
+    }
+  ]
+}

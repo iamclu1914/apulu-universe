@@ -1,0 +1,141 @@
+{
+  "timestamp": "2026-04-12T00:22:09.644808",
+  "total_execution_time": 8.749702215194702,
+  "overall_score": 0.823076923076923,
+  "category_scores": {
+    "dependency": {
+      "passed": 4,
+      "total": 5,
+      "pass_rate": 0.8,
+      "average_score": 0.8,
+      "status": "healthy"
+    },
+    "community": {
+      "passed": 3,
+      "total": 4,
+      "pass_rate": 0.75,
+      "average_score": 0.875,
+      "status": "healthy"
+    },
+    "integration": {
+      "passed": 3,
+      "total": 4,
+      "pass_rate": 0.75,
+      "average_score": 0.8,
+      "status": "healthy"
+    }
+  },
+  "total_tests": 13,
+  "passed_tests": 10,
+  "failed_tests": 3,
+  "detailed_results": [
+    {
+      "test_name": "atproto_import_test",
+      "category": "dependency",
+      "success": true,
+      "score": 1.0,
+      "message": "atproto library successfully imported and instantiated",
+      "execution_time": 7.240501880645752
+    },
+    {
+      "test_name": "critical_imports_test",
+      "category": "dependency",
+      "success": true,
+      "score": 1.0,
+      "message": "Critical imports: 8/8 successful",
+      "execution_time": 0.6975483894348145
+    },
+    {
+      "test_name": "bluesky_credentials_test",
+      "category": "dependency",
+      "success": false,
+      "score": 0.0,
+      "message": "Credential test error: cannot import name 'get_bluesky_credentials' from 'vawn_config' (C:\\Users\\rdyal\\Vawn\\vawn_config.py)",
+      "execution_time": 0.0
+    },
+    {
+      "test_name": "vawn_config_integration_test",
+      "category": "dependency",
+      "success": true,
+      "score": 1.0,
+      "message": "vawn_config integration functional",
+      "execution_time": 0.012670278549194336
+    },
+    {
+      "test_name": "file_system_permissions_test",
+      "category": "dependency",
+      "success": true,
+      "score": 1.0,
+      "message": "File system permissions operational",
+      "execution_time": 0.011021614074707031
+    },
+    {
+      "test_name": "relationship_tracking_test",
+      "category": "community",
+      "success": true,
+      "score": 1.0,
+      "message": "Relationship tracking functional",
+      "execution_time": 0.0006201267242431641
+    },
+    {
+      "test_name": "community_health_analysis_test",
+      "category": "community",
+      "success": false,
+      "score": 0.5,
+      "message": "Community health analysis functional",
+      "execution_time": 0.0
+    },
+    {
+      "test_name": "relationship_persistence_test",
+      "category": "community",
+      "success": true,
+      "score": 1.0,
+      "message": "Relationship persistence functional",
+      "execution_time": 0.012087583541870117
+    },
+    {
+      "test_name": "sentiment_loyalty_calculations_test",
+      "category": "community",
+      "success": true,
+      "score": 1.0,
+      "message": "Sentiment and loyalty calculations functional",
+      "execution_time": 0.001010894775390625
+    },
+    {
+      "test_name": "apu_ecosystem_integration_test",
+      "category": "integration",
+      "success": true,
+      "score": 1.0,
+      "message": "APU ecosystem integration: 3/3 files accessible",
+      "execution_time": 0.003999948501586914
+    },
+    {
+      "test_name": "system_recovery_engine_test",
+      "category": "integration",
+      "success": true,
+      "score": 0.7,
+      "message": "System recovery engine functional - 70.0% operational",
+      "execution_time": 0.7461919784545898
+    },
+    {
+      "test_name": "fallback_engagement_engine_test",
+      "category": "integration",
+      "success": true,
+      "score": 1.0,
+      "message": "Fallback engagement engine functional",
+      "execution_time": 0.0
+    },
+    {
+      "test_name": "log_integration_test",
+      "category": "integration",
+      "success": false,
+      "score": 0.5,
+      "message": "Log integration functional",
+      "execution_time": 0.023051738739013672
+    }
+  ],
+  "recommendations": [
+    "Check Bluesky credentials in vawn_config",
+    "Check APU ecosystem file accessibility"
+  ]
+}

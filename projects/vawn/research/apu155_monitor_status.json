@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-14T08:21:10.578916",
+  "session_id": "apu155_1776169270",
+  "system_status": "degraded",
+  "api_health_percentage": 0.2222222222222222,
+  "community_score": 0.0,
+  "data_confidence": 0.0,
+  "data_age_hours": 999.0,
+  "alerts_count": 4,
+  "fallback_mode_active": true,
+  "platforms_analyzed": 0,
+  "cycle_duration": 2.037841320037842
+}

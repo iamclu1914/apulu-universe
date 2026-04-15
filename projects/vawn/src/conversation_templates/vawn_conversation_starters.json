@@ -1,0 +1,384 @@
+{
+  "metadata": {
+    "version": "apu50_v1",
+    "created": "2026-04-11",
+    "agent": "Dex - Community (APU-50)",
+    "description": "Comprehensive conversation starter templates for Vawn community engagement",
+    "total_templates": 150,
+    "categories": 8
+  },
+  "templates": {
+    "music_discovery": {
+      "description": "Posts about discovering new music and artists",
+      "engagement_score": 0.85,
+      "optimal_platforms": ["bluesky", "instagram", "threads"],
+      "templates": [
+        "What's the last track that made you stop everything and just listen?",
+        "Drop the most underrated artist you discovered this year 👇",
+        "Name a song that hit different when you heard it for the first time",
+        "What's your go-to deep cut that you play for people who 'get it'?",
+        "Share a track that changed how you think about hip-hop",
+        "What's the most slept-on album from 2026?",
+        "Drop a song that sounds like {current_season} to you",
+        "What artist deserves way more recognition than they're getting?",
+        "Share the song that got you into hip-hop",
+        "What's a track you wish you could hear for the first time again?",
+        "Name an artist who's about to blow up (calling it now)",
+        "What's the best album closer you've ever heard?",
+        "Drop your favorite music discovery app or method",
+        "What's a song that nobody talks about but absolutely should?",
+        "Share a track that represents your city's sound perfectly"
+      ],
+      "engagement_triggers": [
+        "Tag someone who needs to hear this",
+        "Drop it in the comments and explain why",
+        "Rate it 1-10 and tell us what makes it special",
+        "Quote tweet with your pick",
+        "Add it to our community playlist"
+      ]
+    },
+    "creative_process": {
+      "description": "Behind-the-scenes content about music creation",
+      "engagement_score": 0.92,
+      "optimal_platforms": ["bluesky", "instagram", "threads"],
+      "templates": [
+        "Studio question: Do you write to the beat or create the beat to the words?",
+        "What's your creative process when you're feeling blocked?",
+        "Collaborations vs solo work - which brings out your best ideas?",
+        "How do you know when a track is actually finished?",
+        "What's the weirdest place you've gotten a melody or lyric idea?",
+        "Do you prefer writing in silence or with background music?",
+        "What's one production technique that completely changed your sound?",
+        "How long does it usually take you to write a verse?",
+        "Do you freestyle first or write everything down?",
+        "What's your go-to instrument or sound for inspiration?",
+        "How do you choose which ideas to develop into full songs?",
+        "What's the most important part of a song to get right first?",
+        "Do you work better alone or with people around?",
+        "What's your process for finding the right hook?",
+        "How do you know when you've got something special?",
+        "What time of day are you most creative?",
+        "How do you capture ideas when inspiration strikes randomly?",
+        "What's your studio setup like? Simple or complex?",
+        "Do you have any creative rituals before you start working?",
+        "How do you push through when nothing sounds good?"
+      ],
+      "engagement_triggers": [
+        "Share your own process in the comments",
+        "Tag a producer/artist who does this differently",
+        "Tell us your creative ritual",
+        "Drop a voice memo of your process",
+        "Show us your workspace"
+      ]
+    },
+    "community_challenges": {
+      "description": "Interactive challenges and contests to drive participation",
+      "engagement_score": 0.95,
+      "optimal_platforms": ["tiktok", "instagram", "bluesky"],
+      "templates": [
+        "16 Bar Challenge: Drop your hardest 16 bars in the comments",
+        "Remix Challenge: Take this hook and flip it your way",
+        "Beat Battle: Make a beat using only sounds from your environment",
+        "Lyric Cipher: Continue this story in 8 bars",
+        "Producer Challenge: Create a beat in under 10 minutes",
+        "Flow Challenge: Rap over this drum pattern",
+        "Freestyle Friday: Drop a 4-bar freestyle about your week",
+        "Sample Flip Challenge: Turn this old record into something new",
+        "Acapella Challenge: Rap without any backing track",
+        "One Word Challenge: Write a verse using only words that rhyme with [word]",
+        "Melody Challenge: Hum your best hook idea",
+        "Storytelling Challenge: Tell a complete story in 32 bars",
+        "Battle Rap Challenge: Write the hardest diss bar (friendly fire)",
+        "Auto-Tune Challenge: Create something using only pitch effects",
+        "Minimalist Challenge: Make fire with just drums and one instrument",
+        "Collaboration Challenge: Work with someone you've never met",
+        "Live Challenge: Perform your entry live or don't post it",
+        "Visual Challenge: Create the music video in your head",
+        "Speed Challenge: Write and record a verse in 20 minutes",
+        "Genre Fusion Challenge: Blend hip-hop with something unexpected"
+      ],
+      "engagement_triggers": [
+        "Use #VawnChallenge to enter",
+        "Tag 3 artists who should try this",
+        "Winner gets featured on my story",
+        "Best entry gets a collab opportunity",
+        "Deadline is [date] - let's see what you got",
+        "Quote tweet your entry",
+        "Drop your submission below",
+        "React to your favorite entries"
+      ]
+    },
+    "music_opinions": {
+      "description": "Thought-provoking questions about hip-hop and music",
+      "engagement_score": 0.88,
+      "optimal_platforms": ["bluesky", "threads", "x"],
+      "templates": [
+        "Hot take: The best hip-hop albums are under 40 minutes long. Agree?",
+        "What makes a beat timeless vs just trendy?",
+        "Is technical skill or emotional connection more important in rap?",
+        "Which era had the best production: 90s boom bap or 2010s trap?",
+        "Do features make albums better or take away from the artist's vision?",
+        "Should artists stick to their lane or experiment across genres?",
+        "What's the most overrated thing in hip-hop right now?",
+        "Is streaming helping or hurting album quality?",
+        "Do rappers need to know how to freestyle to be considered great?",
+        "What's more important: lyrics or delivery?",
+        "Should hip-hop have rules or should anything go?",
+        "Is the mixtape era coming back or is it dead forever?",
+        "Do music videos still matter in 2026?",
+        "What's the ideal album length in the streaming era?",
+        "Is auto-tune a tool or a crutch?",
+        "Should artists respond to criticism or ignore it?",
+        "What makes a classic hip-hop song?",
+        "Is conscious rap making a comeback?",
+        "Do regional sounds still matter or has the internet erased boundaries?",
+        "What's the biggest change in hip-hop over the last 5 years?"
+      ],
+      "engagement_triggers": [
+        "Defend your position in the comments",
+        "Give me examples to back up your take",
+        "Rate this take 1-10",
+        "Counter-argument welcome",
+        "Change my mind",
+        "Agree or disagree and why",
+        "Quote tweet your hot take",
+        "This probably controversial but..."
+      ]
+    },
+    "industry_insights": {
+      "description": "Commentary on music industry trends and business",
+      "engagement_score": 0.78,
+      "optimal_platforms": ["bluesky", "threads", "linkedin"],
+      "templates": [
+        "The streaming game has changed everything. Good or bad for artists?",
+        "Social media presence vs musical talent - what matters more today?",
+        "Independent vs label - what's the better path for new artists?",
+        "How has TikTok changed how we discover and consume music?",
+        "What skills do artists need now that weren't important 10 years ago?",
+        "Are music videos still important in the TikTok era?",
+        "What's the future of live performances and touring?",
+        "Is the album format dying or evolving?",
+        "How do you break through the noise in 2026?",
+        "What's the biggest challenge facing independent artists today?",
+        "Should artists care about playlist placements or focus on fans?",
+        "Is NFT/Web3 music the future or just hype?",
+        "How important is it for artists to understand the business side?",
+        "What role should AI play in music creation?",
+        "Are record labels still relevant for breaking new artists?",
+        "How has the definition of 'making it' in music changed?",
+        "What's the most effective way to build a fanbase from zero?",
+        "Should artists prioritize global reach or local scenes?",
+        "How do you monetize music beyond streaming in 2026?",
+        "What's the impact of short-form content on music attention spans?"
+      ],
+      "engagement_triggers": [
+        "Share your experience as an artist/fan",
+        "What's your prediction for the next 5 years?",
+        "Tag an artist who's doing this right",
+        "Agree or disagree based on what you've seen",
+        "What would you do differently?",
+        "This affects all of us - thoughts?",
+        "Industry people - confirm or deny?",
+        "Young artists - what's your biggest challenge?"
+      ]
+    },
+    "cultural_moments": {
+      "description": "Conversations around current cultural events in hip-hop",
+      "engagement_score": 0.90,
+      "optimal_platforms": ["x", "threads", "bluesky"],
+      "templates": [
+        "The culture moves so fast - what moment defined this year for you?",
+        "Which artist had the biggest cultural impact this month?",
+        "What's a trend that started small and exploded everywhere?",
+        "Name a moment when hip-hop influenced something outside music",
+        "What's the most important conversation happening in the culture right now?",
+        "Which collaboration surprised you the most this year?",
+        "What old school element needs to come back?",
+        "How has hip-hop changed your perspective on [current event]?",
+        "What's a cultural moment that aged really well/poorly?",
+        "Which artist is pushing the culture forward right now?",
+        "What's something the culture gets wrong about itself?",
+        "How do you see hip-hop evolving globally?",
+        "What's a debate in the culture that needs to be settled?",
+        "Which moment made you proudest to be part of hip-hop culture?",
+        "What's the most important message in hip-hop right now?",
+        "How do you balance preserving culture with innovation?",
+        "What's a misconception about hip-hop that frustrates you?",
+        "Which region is having the biggest cultural moment right now?",
+        "How has social media changed hip-hop culture?",
+        "What's the most important thing for the next generation to understand?"
+      ],
+      "engagement_triggers": [
+        "Share your perspective on this",
+        "This is important - let's discuss",
+        "Tag someone who represents this well",
+        "What's your experience with this?",
+        "Let's have a real conversation about this",
+        "This affects all of us",
+        "Time for some honest discussion",
+        "Culture check - what do you think?"
+      ]
+    },
+    "weekend_vibes": {
+      "description": "Relaxed, fun content for weekend engagement",
+      "engagement_score": 0.82,
+      "optimal_platforms": ["instagram", "tiktok", "bluesky"],
+      "templates": [
+        "Weekend soundtrack: What's on repeat for you?",
+        "Saturday night energy - what track gets the party started?",
+        "Lazy Sunday vibes - what's your chill music?",
+        "Weekend studio session or time to decompress?",
+        "What's your pre-show warm-up song?",
+        "Friday feeling captured in one song - go",
+        "Weekend motivation track that hits different",
+        "What song makes any day feel like Saturday?",
+        "Sunday reset playlist - what's on it?",
+        "Weekend plans: making music or consuming it?",
+        "Saturday morning clean-the-house music - what works?",
+        "Weekend workout playlist featuring only hip-hop",
+        "What song instantly puts you in vacation mode?",
+        "Weekend drive music - windows down, volume up",
+        "Sunday brunch background music recommendations",
+        "What track makes mundane weekend tasks enjoyable?",
+        "Weekend reflection: what song defined your week?",
+        "Late Saturday night - what's still playing?",
+        "Weekend inspiration track for the week ahead",
+        "What song makes any weekend feel complete?"
+      ],
+      "engagement_triggers": [
+        "Add yours to the thread",
+        "Weekend vibes only",
+        "Share your current mood song",
+        "What's in your rotation?",
+        "Tag your weekend music buddy",
+        "Drop your go-to below",
+        "Playlist collaboration welcome",
+        "Keep the weekend energy going"
+      ]
+    },
+    "motivation_monday": {
+      "description": "Motivational content to start the week strong",
+      "engagement_score": 0.75,
+      "optimal_platforms": ["bluesky", "instagram", "threads"],
+      "templates": [
+        "Monday motivation: What's the grind song that gets you going?",
+        "New week, new opportunities - what's your focus this week?",
+        "Monday mindset: What lyrics keep you pushing forward?",
+        "Week goals: What are you working on in the studio?",
+        "Monday energy check - what's fueling your creativity today?",
+        "What song makes you feel unstoppable on a Monday?",
+        "This week's mission: What are you trying to accomplish?",
+        "Monday reminder: Your voice matters - what's your message?",
+        "What's one thing you want to improve in your music this week?",
+        "Monday motivation from your favorite artist quote",
+        "Week ahead forecast: What projects are you excited about?",
+        "What's your Monday morning ritual for staying creative?",
+        "This week's challenge: Step outside your comfort zone how?",
+        "Monday momentum: What small win are you celebrating today?",
+        "What's the hardest part of your week and how do you tackle it?",
+        "Monday mantra: What do you tell yourself to stay focused?",
+        "Week planning: How do you balance creating and promoting?",
+        "What's one skill you want to develop this week?",
+        "Monday motivation playlist - first track has to hit",
+        "What's your why? Monday reminder of what drives you"
+      ],
+      "engagement_triggers": [
+        "Share your Monday motivation",
+        "What's your focus this week?",
+        "Tag someone who needs this energy",
+        "Monday accountability partner check",
+        "Week goals in the comments",
+        "Share your grind anthem",
+        "Let's motivate each other",
+        "Monday momentum starts now"
+      ]
+    }
+  },
+  "engagement_mechanics": {
+    "conversation_starters": [
+      "What's your take on...",
+      "Agree or disagree:",
+      "Hot take:",
+      "Unpopular opinion:",
+      "Change my mind:",
+      "Real talk:",
+      "Honest question:",
+      "Can we talk about...",
+      "I need to know:",
+      "Help me understand:"
+    ],
+    "community_builders": [
+      "Tag someone who...",
+      "Share this with...",
+      "Who else thinks...",
+      "Calling all...",
+      "Looking for people who...",
+      "Connect with others who...",
+      "Build with people who...",
+      "Find your tribe:",
+      "Link up with...",
+      "Community question:"
+    ],
+    "engagement_hooks": [
+      "Drop a 🔥 if you agree",
+      "Comment your favorite...",
+      "Rate this 1-10",
+      "This or that?",
+      "Fill in the blank:",
+      "Complete this sentence:",
+      "What would you add?",
+      "Your turn - answer below",
+      "I'll go first, then you",
+      "Let's debate in the comments"
+    ],
+    "viral_triggers": [
+      "Everyone's talking about this but...",
+      "Am I the only one who...",
+      "Nobody talks about this but...",
+      "Unpopular opinion incoming:",
+      "This might be controversial but...",
+      "Real ones know...",
+      "If you know, you know:",
+      "This is why...",
+      "The truth about...",
+      "Can we all agree that..."
+    ]
+  },
+  "platform_optimization": {
+    "bluesky": {
+      "max_length": 300,
+      "hashtag_strategy": "1-2 hashtags max",
+      "engagement_style": "conversational",
+      "optimal_post_times": ["09:00", "13:00", "19:00"],
+      "content_focus": "discussion-driven"
+    },
+    "instagram": {
+      "max_length": 125,
+      "hashtag_strategy": "8-10 hashtags",
+      "engagement_style": "visual-first",
+      "optimal_post_times": ["11:00", "14:00", "17:00"],
+      "content_focus": "lifestyle-integrated"
+    },
+    "tiktok": {
+      "max_length": 100,
+      "hashtag_strategy": "3-5 hashtags",
+      "engagement_style": "trend-based",
+      "optimal_post_times": ["06:00", "10:00", "19:00"],
+      "content_focus": "entertainment-first"
+    },
+    "threads": {
+      "max_length": 500,
+      "hashtag_strategy": "minimal hashtags",
+      "engagement_style": "discussion-focused",
+      "optimal_post_times": ["08:00", "12:00", "20:00"],
+      "content_focus": "thought-leadership"
+    },
+    "x": {
+      "max_length": 280,
+      "hashtag_strategy": "1-2 hashtags",
+      "engagement_style": "quick-wit",
+      "optimal_post_times": ["08:00", "12:00", "17:00"],
+      "content_focus": "real-time-commentary"
+    }
+  }
+}

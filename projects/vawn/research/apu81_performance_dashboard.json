@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-04-12T05:10:41.693412",
+  "period": "last_30_days",
+  "summary": {
+    "total_automated_engagements": 0,
+    "platforms_active": 0,
+    "total_time_saved_hours": 0,
+    "total_monthly_value": 0,
+    "total_monthly_costs": 0,
+    "net_monthly_roi": 0,
+    "community_targets_discovered": 0
+  },
+  "detailed_metrics": {
+    "engagement": {
+      "automated_engagement": {
+        "bluesky_legacy": {
+          "likes": 0,
+          "follows": 0,
+          "filtered": 0
+        }
+      },
+      "community_discoveries": {
+        "hubs": 0,
+        "influencers": 0
+      },
+      "collaboration_targets": {},
+      "quality_scores": {},
+      "platform_activity": {},
+      "time_saved_estimates": {
+        "bluesky_legacy": 0.0
+      },
+      "total_processed": 0
+    },
+    "roi": {
+      "time_period_days": 30,
+      "platform_roi": {},
+      "overall_roi": {
+        "total_time_saved_hours": 0,
+        "total_monthly_value": 0,
+        "total_monthly_costs": 0,
+        "net_monthly_value": 0,
+        "overall_roi_ratio": "infinite",
+        "cost_per_hour_saved": 0.0
+      },
+      "cost_benefit_analysis": {},
+      "efficiency_metrics": {}
+    },
+    "quality": {
+      "platform_quality_scores": {},
+      "filtering_efficiency": {},
+      "target_audience_fit": {},
+      "recommendations": []
+    },
+    "trends": {
+      "engagement_growth": {},
+      "efficiency_trends": {},
+      "roi_trends": {},
+      "recommendations": []
+    }
+  },
+  "platform_performance": {},
+  "action_items": []
+}

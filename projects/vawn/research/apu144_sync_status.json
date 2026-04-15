@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-04-13T22:07:14.863806",
+  "integration_id": "apu144_integration_1776132434",
+  "systems": {
+    "apu101": {
+      "system_name": "APU-101 Engagement Coordinator",
+      "available": false,
+      "version": null,
+      "last_sync": null,
+      "status": "unavailable"
+    },
+    "apu141": {
+      "system_name": "APU-141 Enhanced Engagement Monitor",
+      "available": true,
+      "version": "active",
+      "last_sync": "2026-04-13T22:07:14.863806",
+      "status": "active"
+    },
+    "apu112": {
+      "system_name": "APU-112 Sentiment Analysis System",
+      "available": false,
+      "version": null,
+      "last_sync": null,
+      "status": "unavailable"
+    }
+  }
+}

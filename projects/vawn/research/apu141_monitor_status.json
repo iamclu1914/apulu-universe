@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-04-14T16:03:21.059589",
+  "session_id": "apu166_fix_1776197001",
+  "status": "credentials_missing",
+  "health_score": 0.2,
+  "health_category": "degraded",
+  "diagnosis": "root_cause_identified",
+  "critical_issues_count": 1,
+  "alerts_count": 1,
+  "platforms_status": {
+    "instagram": "credentials_missing",
+    "tiktok": "credentials_missing",
+    "x": "credentials_missing",
+    "threads": "credentials_missing",
+    "bluesky": "partial_config"
+  },
+  "resolution_progress": "diagnosis_complete",
+  "agent_responsible": "Dex - Community",
+  "issue_id": "APU-166"
+}

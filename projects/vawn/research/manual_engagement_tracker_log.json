@@ -1,0 +1,747 @@
+{
+  "2026-04-10": [
+    {
+      "scan_timestamp": "2026-04-10T18:07:41.685005",
+      "total_entries_needed": 45,
+      "platforms_affected": 4,
+      "entries": [
+        {
+          "image": "vawn-studio-recording-session-11.jpg",
+          "date": "2026-04-04",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_221020_de2c0fe8-5176-4d63-8193-1a96c4ff39bc.jpg",
+          "date": "2026-04-04",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_221020_de2c0fe8-5176-4d63-8193-1a96c4ff39bc.jpg",
+          "date": "2026-04-05",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_221020_de2c0fe8-5176-4d63-8193-1a96c4ff39bc.jpg",
+          "date": "2026-04-05",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_043031_47aa4f62-4942-40e2-8a35-9400212c76dd.jpg",
+          "date": "2026-04-04",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_043031_47aa4f62-4942-40e2-8a35-9400212c76dd.jpg",
+          "date": "2026-04-04",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_043031_47aa4f62-4942-40e2-8a35-9400212c76dd.jpg",
+          "date": "2026-04-04",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-studio-casual-portrait-3.jpg",
+          "date": "2026-04-04",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-studio-casual-portrait-3.jpg",
+          "date": "2026-04-04",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-studio-casual-portrait-3.jpg",
+          "date": "2026-04-04",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "lyric-card-2026-04-04-track-7.png",
+          "date": "2026-04-04",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "lyric-card-2026-04-04-track-7.png",
+          "date": "2026-04-04",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_233117_4d6b1ace-5755-43a0-89f8-8ab6bdd90fc8.jpg",
+          "date": "2026-04-04",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_233117_4d6b1ace-5755-43a0-89f8-8ab6bdd90fc8.jpg",
+          "date": "2026-04-04",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_233117_4d6b1ace-5755-43a0-89f8-8ab6bdd90fc8.jpg",
+          "date": "2026-04-05",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "hf_20260403_233117_4d6b1ace-5755-43a0-89f8-8ab6bdd90fc8.jpg",
+          "date": "2026-04-05",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "lyric-card-2026-04-05.png",
+          "date": "2026-04-05",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "Professional Artist Portrait.jpg",
+          "date": "2026-04-05",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "Professional Artist Portrait.jpg",
+          "date": "2026-04-05",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "Professional Artist Portrait.jpg",
+          "date": "2026-04-05",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-courtside-rhude-jacket-smiling.jpg",
+          "date": "2026-04-05",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "09_tight_profile_closeup.jpg",
+          "date": "2026-04-05",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "09_tight_profile_closeup.jpg",
+          "date": "2026-04-05",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "09_tight_profile_closeup.jpg",
+          "date": "2026-04-05",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-atlanta-rooftop-beige-coat-skyline.jpg",
+          "date": "2026-04-08",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-atlanta-rooftop-beige-coat-skyline.jpg",
+          "date": "2026-04-08",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-atlanta-rooftop-beige-coat-skyline.jpg",
+          "date": "2026-04-08",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-graffiti-alley-maroon-tracksuit-smiling.jpg",
+          "date": "2026-04-08",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-graffiti-alley-maroon-tracksuit-smiling.jpg",
+          "date": "2026-04-08",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-graffiti-alley-maroon-tracksuit-smiling.jpg",
+          "date": "2026-04-08",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+          "date": "2026-04-08",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+          "date": "2026-04-08",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+          "date": "2026-04-09",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+          "date": "2026-04-09",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-stadium-suite-beige-suit-navy-polo.jpg",
+          "date": "2026-04-08",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-stadium-suite-beige-suit-navy-polo.jpg",
+          "date": "2026-04-08",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-stadium-suite-beige-suit-navy-polo.jpg",
+          "date": "2026-04-09",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-courtside-hawks-focused-seated.jpg",
+          "date": "2026-04-09",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-courtside-hawks-focused-seated.jpg",
+          "date": "2026-04-09",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-courtside-hawks-focused-seated.jpg",
+          "date": "2026-04-09",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-house-party-plaid-flannel-green-trackpants.jpg",
+          "date": "2026-04-09",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-marina-dock-black-palace-halfzip-walking.png",
+          "date": "2026-04-09",
+          "platform": "x",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-portrait-dark-puma-tracksuit-closeup.png",
+          "date": "2026-04-09",
+          "platform": "tiktok",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-portrait-dark-puma-tracksuit-closeup.png",
+          "date": "2026-04-09",
+          "platform": "instagram",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        },
+        {
+          "image": "vawn-portrait-dark-puma-tracksuit-closeup.png",
+          "date": "2026-04-09",
+          "platform": "threads",
+          "status": "pending",
+          "note": "manual entry needed \u2014 no read API available",
+          "created_at": "2026-04-10T18:07:41.685005"
+        }
+      ],
+      "by_platform": {
+        "x": [
+          {
+            "image": "vawn-studio-recording-session-11.jpg",
+            "date": "2026-04-04",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "hf_20260403_221020_de2c0fe8-5176-4d63-8193-1a96c4ff39bc.jpg",
+            "date": "2026-04-04",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "lyric-card-2026-04-04-track-7.png",
+            "date": "2026-04-04",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "hf_20260403_233117_4d6b1ace-5755-43a0-89f8-8ab6bdd90fc8.jpg",
+            "date": "2026-04-05",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "lyric-card-2026-04-05.png",
+            "date": "2026-04-05",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-courtside-rhude-jacket-smiling.jpg",
+            "date": "2026-04-05",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+            "date": "2026-04-08",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+            "date": "2026-04-09",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-house-party-plaid-flannel-green-trackpants.jpg",
+            "date": "2026-04-09",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-marina-dock-black-palace-halfzip-walking.png",
+            "date": "2026-04-09",
+            "platform": "x",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          }
+        ],
+        "tiktok": [
+          {
+            "image": "hf_20260403_221020_de2c0fe8-5176-4d63-8193-1a96c4ff39bc.jpg",
+            "date": "2026-04-05",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "hf_20260403_043031_47aa4f62-4942-40e2-8a35-9400212c76dd.jpg",
+            "date": "2026-04-04",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-studio-casual-portrait-3.jpg",
+            "date": "2026-04-04",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "hf_20260403_233117_4d6b1ace-5755-43a0-89f8-8ab6bdd90fc8.jpg",
+            "date": "2026-04-04",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "Professional Artist Portrait.jpg",
+            "date": "2026-04-05",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "09_tight_profile_closeup.jpg",
+            "date": "2026-04-05",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-atlanta-rooftop-beige-coat-skyline.jpg",
+            "date": "2026-04-08",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-graffiti-alley-maroon-tracksuit-smiling.jpg",
+            "date": "2026-04-08",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-stadium-suite-beige-suit-navy-polo.jpg",
+            "date": "2026-04-08",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-stadium-suite-beige-suit-navy-polo.jpg",
+            "date": "2026-04-09",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-courtside-hawks-focused-seated.jpg",
+            "date": "2026-04-09",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-portrait-dark-puma-tracksuit-closeup.png",
+            "date": "2026-04-09",
+            "platform": "tiktok",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          }
+        ],
+        "threads": [
+          {
+            "image": "hf_20260403_221020_de2c0fe8-5176-4d63-8193-1a96c4ff39bc.jpg",
+            "date": "2026-04-05",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "hf_20260403_043031_47aa4f62-4942-40e2-8a35-9400212c76dd.jpg",
+            "date": "2026-04-04",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-studio-casual-portrait-3.jpg",
+            "date": "2026-04-04",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "hf_20260403_233117_4d6b1ace-5755-43a0-89f8-8ab6bdd90fc8.jpg",
+            "date": "2026-04-04",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "Professional Artist Portrait.jpg",
+            "date": "2026-04-05",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "09_tight_profile_closeup.jpg",
+            "date": "2026-04-05",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-atlanta-rooftop-beige-coat-skyline.jpg",
+            "date": "2026-04-08",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-graffiti-alley-maroon-tracksuit-smiling.jpg",
+            "date": "2026-04-08",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-stadium-suite-beige-suit-navy-polo.jpg",
+            "date": "2026-04-08",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-courtside-hawks-focused-seated.jpg",
+            "date": "2026-04-09",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-portrait-dark-puma-tracksuit-closeup.png",
+            "date": "2026-04-09",
+            "platform": "threads",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          }
+        ],
+        "instagram": [
+          {
+            "image": "hf_20260403_043031_47aa4f62-4942-40e2-8a35-9400212c76dd.jpg",
+            "date": "2026-04-04",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-studio-casual-portrait-3.jpg",
+            "date": "2026-04-04",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "lyric-card-2026-04-04-track-7.png",
+            "date": "2026-04-04",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "hf_20260403_233117_4d6b1ace-5755-43a0-89f8-8ab6bdd90fc8.jpg",
+            "date": "2026-04-05",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "Professional Artist Portrait.jpg",
+            "date": "2026-04-05",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "09_tight_profile_closeup.jpg",
+            "date": "2026-04-05",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-atlanta-rooftop-beige-coat-skyline.jpg",
+            "date": "2026-04-08",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-graffiti-alley-maroon-tracksuit-smiling.jpg",
+            "date": "2026-04-08",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+            "date": "2026-04-08",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+            "date": "2026-04-09",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-courtside-hawks-focused-seated.jpg",
+            "date": "2026-04-09",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          },
+          {
+            "image": "vawn-portrait-dark-puma-tracksuit-closeup.png",
+            "date": "2026-04-09",
+            "platform": "instagram",
+            "status": "pending",
+            "note": "manual entry needed \u2014 no read API available",
+            "created_at": "2026-04-10T18:07:41.685005"
+          }
+        ]
+      },
+      "summary": {
+        "x": 10,
+        "tiktok": 12,
+        "threads": 11,
+        "instagram": 12
+      }
+    }
+  ]
+}

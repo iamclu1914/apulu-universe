@@ -1,0 +1,2090 @@
+{
+  "2026-04-11": [
+    {
+      "time": "2026-04-11T04:06:03.144215",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "rap",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-11T04:06:01.865867",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 417,
+          "engagement_time_ms": 846,
+          "total_time_ms": 7418
+        },
+        "start_time": "2026-04-11T04:05:55.724727"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T05:03:17.139569",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "lyrical rap",
+        "posts_processed": 20,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 83,
+          "timestamp": "2026-04-11T05:03:16.046136",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 126,
+          "engagement_time_ms": 942,
+          "total_time_ms": 7212
+        },
+        "start_time": "2026-04-11T05:03:09.915874"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T05:04:35.692525",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "boom bap",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 82,
+          "timestamp": "2026-04-11T05:04:34.689946",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 124,
+          "engagement_time_ms": 876,
+          "total_time_ms": 8312
+        },
+        "start_time": "2026-04-11T05:04:27.380189"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T15:21:59.260184",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "beat maker",
+        "posts_processed": 25,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 90,
+          "timestamp": "2026-04-11T15:21:58.325923",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 132,
+          "engagement_time_ms": 797,
+          "total_time_ms": 8282
+        },
+        "start_time": "2026-04-11T15:21:50.976719"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T17:00:16.329094",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "freestyle",
+        "posts_processed": 23,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-11T17:00:12.477540",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 2645,
+          "engagement_time_ms": 1172,
+          "total_time_ms": 13973
+        },
+        "start_time": "2026-04-11T17:00:02.338788"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T17:00:16.432005",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "bars",
+        "posts_processed": 22,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 87,
+          "timestamp": "2026-04-11T17:00:12.521174",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 3064,
+          "engagement_time_ms": 813,
+          "total_time_ms": 14075
+        },
+        "start_time": "2026-04-11T17:00:02.339788"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T19:00:12.996232",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "lyrical rap",
+        "posts_processed": 20,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 84,
+          "timestamp": "2026-04-11T19:00:11.929302",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 150,
+          "engagement_time_ms": 906,
+          "total_time_ms": 10879
+        },
+        "start_time": "2026-04-11T19:00:02.113913"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T20:00:10.574515",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "studio",
+        "posts_processed": 22,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 90,
+          "timestamp": "2026-04-11T20:00:09.212283",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 524,
+          "engagement_time_ms": 818,
+          "total_time_ms": 8539
+        },
+        "start_time": "2026-04-11T20:00:02.033732"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T21:00:10.509295",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "bars",
+        "posts_processed": 23,
+        "posts_filtered": 2,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 93,
+          "timestamp": "2026-04-11T21:00:08.488479",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1220,
+          "engagement_time_ms": 796,
+          "total_time_ms": 8568
+        },
+        "start_time": "2026-04-11T21:00:01.939730"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T23:00:10.938373",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "trap soul",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 87,
+          "timestamp": "2026-04-11T23:00:09.886911",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 146,
+          "engagement_time_ms": 900,
+          "total_time_ms": 8699
+        },
+        "start_time": "2026-04-11T23:00:02.237843"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-11T23:00:11.309661",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "beat maker",
+        "posts_processed": 25,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 93,
+          "timestamp": "2026-04-11T23:00:10.248599",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 191,
+          "engagement_time_ms": 842,
+          "total_time_ms": 9211
+        },
+        "start_time": "2026-04-11T23:00:02.086239"
+      },
+      "success": true
+    }
+  ],
+  "2026-04-12": [
+    {
+      "time": "2026-04-12T01:00:09.132153",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "freestyle",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 83,
+          "timestamp": "2026-04-12T01:00:08.130740",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 200,
+          "engagement_time_ms": 796,
+          "total_time_ms": 7128
+        },
+        "start_time": "2026-04-12T01:00:02.002251"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T02:00:15.919953",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "rap",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 89,
+          "timestamp": "2026-04-12T02:00:14.608617",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 425,
+          "engagement_time_ms": 823,
+          "total_time_ms": 13056
+        },
+        "start_time": "2026-04-12T02:00:02.821645"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T03:00:14.075973",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "lyrical rap",
+        "posts_processed": 18,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 83,
+          "timestamp": "2026-04-12T03:00:12.840862",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 280,
+          "engagement_time_ms": 926,
+          "total_time_ms": 11695
+        },
+        "start_time": "2026-04-12T03:00:02.366396"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T05:00:10.370533",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "atlanta rap",
+        "posts_processed": 22,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 134,
+          "timestamp": "2026-04-12T05:00:09.196869",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 211,
+          "engagement_time_ms": 947,
+          "total_time_ms": 8202
+        },
+        "start_time": "2026-04-12T05:00:02.167637"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T05:00:10.572409",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "new music",
+        "posts_processed": 22,
+        "posts_filtered": 2,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 88,
+          "timestamp": "2026-04-12T05:00:09.147734",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 530,
+          "engagement_time_ms": 857,
+          "total_time_ms": 8434
+        },
+        "start_time": "2026-04-12T05:00:02.122171"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T07:00:12.816888",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "studio",
+        "posts_processed": 23,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 88,
+          "timestamp": "2026-04-12T07:00:11.443454",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 539,
+          "engagement_time_ms": 805,
+          "total_time_ms": 10401
+        },
+        "start_time": "2026-04-12T07:00:02.400850"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T08:00:10.739291",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "recording",
+        "posts_processed": 22,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-12T08:00:09.116498",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 821,
+          "engagement_time_ms": 782,
+          "total_time_ms": 8996
+        },
+        "start_time": "2026-04-12T08:00:01.741501"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T09:00:12.541751",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "indie rap",
+        "posts_processed": 23,
+        "posts_filtered": 6,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 89,
+          "timestamp": "2026-04-12T09:00:11.144875",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 441,
+          "engagement_time_ms": 949,
+          "total_time_ms": 9076
+        },
+        "start_time": "2026-04-12T09:00:03.463050"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T11:00:11.215384",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "trap soul",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 138,
+          "timestamp": "2026-04-12T11:00:10.193854",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 173,
+          "engagement_time_ms": 843,
+          "total_time_ms": 7867
+        },
+        "start_time": "2026-04-12T11:00:03.346388"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T11:00:11.915915",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "boom bap",
+        "posts_processed": 24,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 84,
+          "timestamp": "2026-04-12T11:00:10.835375",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 222,
+          "engagement_time_ms": 843,
+          "total_time_ms": 8638
+        },
+        "start_time": "2026-04-12T11:00:03.276261"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T13:00:13.142751",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "lyrical rap",
+        "posts_processed": 18,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 83,
+          "timestamp": "2026-04-12T13:00:10.254746",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1961,
+          "engagement_time_ms": 894,
+          "total_time_ms": 9801
+        },
+        "start_time": "2026-04-12T13:00:03.325439"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T14:00:12.603732",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "atlanta rap",
+        "posts_processed": 20,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-12T14:00:11.123812",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 524,
+          "engagement_time_ms": 933,
+          "total_time_ms": 9497
+        },
+        "start_time": "2026-04-12T14:00:03.104938"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T15:00:14.916192",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "studio",
+        "posts_processed": 23,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 115,
+          "timestamp": "2026-04-12T15:00:11.874247",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 2243,
+          "engagement_time_ms": 790,
+          "total_time_ms": 11505
+        },
+        "start_time": "2026-04-12T15:00:03.409779"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T17:00:21.905607",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "freestyle",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-12T17:00:20.520525",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 506,
+          "engagement_time_ms": 810,
+          "total_time_ms": 18555
+        },
+        "start_time": "2026-04-12T17:00:03.348719"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T17:00:21.996064",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "atlanta rap",
+        "posts_processed": 20,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 90,
+          "timestamp": "2026-04-12T17:00:20.524527",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 442,
+          "engagement_time_ms": 947,
+          "total_time_ms": 19189
+        },
+        "start_time": "2026-04-12T17:00:02.789708"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T19:00:16.034060",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "producer",
+        "posts_processed": 24,
+        "posts_filtered": 2,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 84,
+          "timestamp": "2026-04-12T19:00:13.166983",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 2050,
+          "engagement_time_ms": 783,
+          "total_time_ms": 12337
+        },
+        "start_time": "2026-04-12T19:00:03.679995"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T20:00:13.104801",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "atlanta rap",
+        "posts_processed": 20,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 87,
+          "timestamp": "2026-04-12T20:00:11.872415",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 219,
+          "engagement_time_ms": 974,
+          "total_time_ms": 10791
+        },
+        "start_time": "2026-04-12T20:00:02.293353"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T21:00:14.879448",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "studio",
+        "posts_processed": 23,
+        "posts_filtered": 3,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 121,
+          "timestamp": "2026-04-12T21:00:13.482480",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 556,
+          "engagement_time_ms": 812,
+          "total_time_ms": 11177
+        },
+        "start_time": "2026-04-12T21:00:03.682570"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-12T23:00:16.369270",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 0,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 0,
+        "follows": 0,
+        "errors": 1,
+        "search_term": "freestyle",
+        "posts_processed": 0,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 84,
+          "timestamp": "2026-04-12T23:00:11.508537",
+          "status": "healthy"
+        },
+        "performance": {},
+        "start_time": "2026-04-12T23:00:03.107794"
+      },
+      "success": false
+    },
+    {
+      "time": "2026-04-12T23:00:17.529777",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "hip hop",
+        "posts_processed": 25,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 82,
+          "timestamp": "2026-04-12T23:00:11.822067",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 4880,
+          "engagement_time_ms": 811,
+          "total_time_ms": 14807
+        },
+        "start_time": "2026-04-12T23:00:02.720917"
+      },
+      "success": true
+    }
+  ],
+  "2026-04-13": [
+    {
+      "time": "2026-04-13T01:00:13.371541",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "trap soul",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 110,
+          "timestamp": "2026-04-13T01:00:12.285714",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 133,
+          "engagement_time_ms": 923,
+          "total_time_ms": 9885
+        },
+        "start_time": "2026-04-13T01:00:03.471041"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T02:00:14.615462",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "hip hop",
+        "posts_processed": 25,
+        "posts_filtered": 2,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 84,
+          "timestamp": "2026-04-13T02:00:13.103806",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 651,
+          "engagement_time_ms": 839,
+          "total_time_ms": 12293
+        },
+        "start_time": "2026-04-13T02:00:02.320133"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T03:00:13.470108",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "lyrical rap",
+        "posts_processed": 18,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-13T03:00:12.399225",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 131,
+          "engagement_time_ms": 936,
+          "total_time_ms": 9946
+        },
+        "start_time": "2026-04-13T03:00:03.522270"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T05:00:10.720972",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "atlanta rap",
+        "posts_processed": 20,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-13T05:00:09.577885",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 135,
+          "engagement_time_ms": 960,
+          "total_time_ms": 8074
+        },
+        "start_time": "2026-04-13T05:00:02.619074"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T05:00:11.116740",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "hip hop",
+        "posts_processed": 25,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 95,
+          "timestamp": "2026-04-13T05:00:09.592826",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 587,
+          "engagement_time_ms": 911,
+          "total_time_ms": 9110
+        },
+        "start_time": "2026-04-13T05:00:01.987665"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T07:00:11.085725",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "freestyle",
+        "posts_processed": 24,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-13T07:00:09.994574",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 318,
+          "engagement_time_ms": 769,
+          "total_time_ms": 7750
+        },
+        "start_time": "2026-04-13T07:00:03.334084"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T08:00:13.383042",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "rap",
+        "posts_processed": 24,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-13T08:00:10.476652",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 2067,
+          "engagement_time_ms": 804,
+          "total_time_ms": 11337
+        },
+        "start_time": "2026-04-13T08:00:02.029699"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T09:00:13.663807",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "atlanta rap",
+        "posts_processed": 20,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 87,
+          "timestamp": "2026-04-13T09:00:09.640774",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 3057,
+          "engagement_time_ms": 941,
+          "total_time_ms": 10271
+        },
+        "start_time": "2026-04-13T09:00:03.386587"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T10:05:51.104472",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "new artist",
+        "posts_processed": 25,
+        "posts_filtered": 6,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-13T10:05:48.872244",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 681,
+          "engagement_time_ms": 1545,
+          "total_time_ms": 9784
+        },
+        "start_time": "2026-04-13T10:05:41.317734"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T11:00:13.301735",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "underground hip hop",
+        "posts_processed": 24,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-13T11:00:10.542380",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1833,
+          "engagement_time_ms": 921,
+          "total_time_ms": 9429
+        },
+        "start_time": "2026-04-13T11:00:03.870736"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T11:00:13.922728",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "new artist",
+        "posts_processed": 23,
+        "posts_filtered": 7,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 84,
+          "timestamp": "2026-04-13T11:00:10.545365",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 2534,
+          "engagement_time_ms": 824,
+          "total_time_ms": 9985
+        },
+        "start_time": "2026-04-13T11:00:03.936511"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T13:00:13.943385",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "recording",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-13T13:00:10.153187",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 3012,
+          "engagement_time_ms": 775,
+          "total_time_ms": 10215
+        },
+        "start_time": "2026-04-13T13:00:03.726903"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T14:00:16.524891",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 0,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 0,
+        "follows": 0,
+        "errors": 1,
+        "search_term": "studio",
+        "posts_processed": 0,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-13T14:00:11.728597",
+          "status": "healthy"
+        },
+        "performance": {},
+        "start_time": "2026-04-13T14:00:04.056661"
+      },
+      "success": false
+    },
+    {
+      "time": "2026-04-13T15:00:22.951954",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "studio",
+        "posts_processed": 22,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-13T15:00:20.668928",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1462,
+          "engagement_time_ms": 791,
+          "total_time_ms": 18667
+        },
+        "start_time": "2026-04-13T15:00:04.263318"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T17:00:16.704074",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "freestyle",
+        "posts_processed": 23,
+        "posts_filtered": 4,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 84,
+          "timestamp": "2026-04-13T17:00:14.818442",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1044,
+          "engagement_time_ms": 802,
+          "total_time_ms": 12461
+        },
+        "start_time": "2026-04-13T17:00:04.222704"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T17:00:16.844533",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "underground hip hop",
+        "posts_processed": 24,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 90,
+          "timestamp": "2026-04-13T17:00:14.826346",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 994,
+          "engagement_time_ms": 1004,
+          "total_time_ms": 12570
+        },
+        "start_time": "2026-04-13T17:00:04.263388"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T19:00:14.774501",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "boom bap",
+        "posts_processed": 24,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 87,
+          "timestamp": "2026-04-13T19:00:12.921964",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 904,
+          "engagement_time_ms": 908,
+          "total_time_ms": 10651
+        },
+        "start_time": "2026-04-13T19:00:04.106080"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T20:00:14.592913",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "indie rap",
+        "posts_processed": 23,
+        "posts_filtered": 4,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-13T20:00:13.514978",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 131,
+          "engagement_time_ms": 940,
+          "total_time_ms": 8409
+        },
+        "start_time": "2026-04-13T20:00:06.181505"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T21:00:12.332730",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "atlanta rap",
+        "posts_processed": 20,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-13T21:00:11.248545",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 128,
+          "engagement_time_ms": 950,
+          "total_time_ms": 8463
+        },
+        "start_time": "2026-04-13T21:00:03.866844"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T23:00:23.889975",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "studio",
+        "posts_processed": 25,
+        "posts_filtered": 2,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 88,
+          "timestamp": "2026-04-13T23:00:21.737825",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1198,
+          "engagement_time_ms": 944,
+          "total_time_ms": 17861
+        },
+        "start_time": "2026-04-13T23:00:06.027126"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-13T23:00:23.966934",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "new music",
+        "posts_processed": 24,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 88,
+          "timestamp": "2026-04-13T23:00:21.737825",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1337,
+          "engagement_time_ms": 888,
+          "total_time_ms": 17687
+        },
+        "start_time": "2026-04-13T23:00:06.278200"
+      },
+      "success": true
+    }
+  ],
+  "2026-04-14": [
+    {
+      "time": "2026-04-14T01:00:13.691067",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "rap",
+        "posts_processed": 24,
+        "posts_filtered": 2,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 98,
+          "timestamp": "2026-04-14T01:00:12.301485",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 559,
+          "engagement_time_ms": 823,
+          "total_time_ms": 9272
+        },
+        "start_time": "2026-04-14T01:00:04.416495"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T02:00:14.821327",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "bars",
+        "posts_processed": 24,
+        "posts_filtered": 3,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 88,
+          "timestamp": "2026-04-14T02:00:13.534930",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 414,
+          "engagement_time_ms": 865,
+          "total_time_ms": 10354
+        },
+        "start_time": "2026-04-14T02:00:04.463540"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T03:00:15.280556",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "indie rap",
+        "posts_processed": 23,
+        "posts_filtered": 2,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 115,
+          "timestamp": "2026-04-14T03:00:14.126888",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 147,
+          "engagement_time_ms": 997,
+          "total_time_ms": 11001
+        },
+        "start_time": "2026-04-14T03:00:04.275163"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T05:00:12.932654",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "hip hop",
+        "posts_processed": 24,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 155,
+          "timestamp": "2026-04-14T05:00:11.661527",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 409,
+          "engagement_time_ms": 856,
+          "total_time_ms": 8391
+        },
+        "start_time": "2026-04-14T05:00:04.538983"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T05:00:14.895029",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "studio",
+        "posts_processed": 23,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 82,
+          "timestamp": "2026-04-14T05:00:12.746063",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1325,
+          "engagement_time_ms": 818,
+          "total_time_ms": 10355
+        },
+        "start_time": "2026-04-14T05:00:04.538983"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T07:00:12.053000",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "trap soul",
+        "posts_processed": 23,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 82,
+          "timestamp": "2026-04-14T07:00:10.790200",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 325,
+          "engagement_time_ms": 931,
+          "total_time_ms": 9010
+        },
+        "start_time": "2026-04-14T07:00:03.041080"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T08:00:10.585542",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "indie rap",
+        "posts_processed": 23,
+        "posts_filtered": 2,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 84,
+          "timestamp": "2026-04-14T08:00:09.397174",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 227,
+          "engagement_time_ms": 953,
+          "total_time_ms": 7662
+        },
+        "start_time": "2026-04-14T08:00:02.920555"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T09:00:12.787186",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "new music",
+        "posts_processed": 23,
+        "posts_filtered": 3,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-14T09:00:10.496314",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1463,
+          "engagement_time_ms": 821,
+          "total_time_ms": 9381
+        },
+        "start_time": "2026-04-14T09:00:03.404465"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T11:00:14.977633",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "lyrical rap",
+        "posts_processed": 17,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-14T11:00:10.382588",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 3661,
+          "engagement_time_ms": 931,
+          "total_time_ms": 11241
+        },
+        "start_time": "2026-04-14T11:00:03.734803"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T11:00:15.074531",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "new artist",
+        "posts_processed": 23,
+        "posts_filtered": 3,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 91,
+          "timestamp": "2026-04-14T11:00:10.498289",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 3698,
+          "engagement_time_ms": 873,
+          "total_time_ms": 11279
+        },
+        "start_time": "2026-04-14T11:00:03.793903"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T13:00:12.516309",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "boom bap",
+        "posts_processed": 24,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 89,
+          "timestamp": "2026-04-14T13:00:10.556073",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 1049,
+          "engagement_time_ms": 904,
+          "total_time_ms": 8971
+        },
+        "start_time": "2026-04-14T13:00:03.543065"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T14:00:14.921548",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "new music",
+        "posts_processed": 22,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 88,
+          "timestamp": "2026-04-14T14:00:10.870687",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 3240,
+          "engagement_time_ms": 804,
+          "total_time_ms": 11119
+        },
+        "start_time": "2026-04-14T14:00:03.797117"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T15:00:22.878385",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "lyrical rap",
+        "posts_processed": 17,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 83,
+          "timestamp": "2026-04-14T15:00:18.688209",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 3221,
+          "engagement_time_ms": 964,
+          "total_time_ms": 18887
+        },
+        "start_time": "2026-04-14T15:00:03.989362"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T17:00:11.535883",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "new music",
+        "posts_processed": 23,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 86,
+          "timestamp": "2026-04-14T17:00:10.025894",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 708,
+          "engagement_time_ms": 794,
+          "total_time_ms": 7806
+        },
+        "start_time": "2026-04-14T17:00:03.725369"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T17:00:12.128446",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "bars",
+        "posts_processed": 22,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 87,
+          "timestamp": "2026-04-14T17:00:10.655608",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 704,
+          "engagement_time_ms": 765,
+          "total_time_ms": 8249
+        },
+        "start_time": "2026-04-14T17:00:03.877685"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T19:00:11.219881",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "indie rap",
+        "posts_processed": 23,
+        "posts_filtered": 3,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 83,
+          "timestamp": "2026-04-14T19:00:09.993558",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 216,
+          "engagement_time_ms": 990,
+          "total_time_ms": 7625
+        },
+        "start_time": "2026-04-14T19:00:03.593109"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T20:00:15.561980",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "freestyle",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 89,
+          "timestamp": "2026-04-14T20:00:14.438540",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 278,
+          "engagement_time_ms": 807,
+          "total_time_ms": 11138
+        },
+        "start_time": "2026-04-14T20:00:04.419511"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T21:00:15.731020",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "trap soul",
+        "posts_processed": 23,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 89,
+          "timestamp": "2026-04-14T21:00:14.005098",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 752,
+          "engagement_time_ms": 913,
+          "total_time_ms": 12180
+        },
+        "start_time": "2026-04-14T21:00:03.529168"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T23:00:15.829278",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "freestyle",
+        "posts_processed": 25,
+        "posts_filtered": 0,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 85,
+          "timestamp": "2026-04-14T23:00:14.496044",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 411,
+          "engagement_time_ms": 888,
+          "total_time_ms": 12470
+        },
+        "start_time": "2026-04-14T23:00:03.342854"
+      },
+      "success": true
+    },
+    {
+      "time": "2026-04-14T23:00:15.966843",
+      "version": "enhanced",
+      "bluesky": {
+        "likes": 10,
+        "follows": 0
+      },
+      "metrics": {
+        "likes": 10,
+        "follows": 0,
+        "errors": 0,
+        "search_term": "lyrical rap",
+        "posts_processed": 17,
+        "posts_filtered": 1,
+        "api_health": {
+          "available": true,
+          "response_time_ms": 89,
+          "timestamp": "2026-04-14T23:00:14.492044",
+          "status": "healthy"
+        },
+        "performance": {
+          "search_time_ms": 298,
+          "engagement_time_ms": 1144,
+          "total_time_ms": 12611
+        },
+        "start_time": "2026-04-14T23:00:03.342854"
+      },
+      "success": true
+    }
+  ]
+}

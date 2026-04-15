@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(notebooklm list:*)",
+      "Bash(node server.js)",
+      "Bash(curl -s http://localhost:3200/api/game-state)",
+      "WebFetch(domain:docs.paperclip.ing)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:paperclip.ing)",
+      "Bash(pnpm paperclipai:*)",
+      "Bash(curl -s -X POST http://localhost:3100/api/companies/855d2200-1fe6-4a85-b585-3620bb41b22f/agents -H 'Content-Type: application/json' -d '{\"name\":\"test-probe\",\"role\":\"Test\",\"adapterType\":\"claude_local\",\"adapterConfig\":{\"cwd\":\"C:/Users/rdyal/Apulu Universe\"},\"budgetMonthlyCents\":100}')",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s -X POST http://localhost:3100/api/companies/855d2200-1fe6-4a85-b585-3620bb41b22f/agents -H 'Content-Type: application/json' -d '{\"name\":\"test-probe\",\"role\":\"general\",\"adapterType\":\"claude_local\",\"adapterConfig\":{\"cwd\":\"C:/Users/rdyal/Apulu Universe\"},\"budgetMonthlyCents\":100}')",
+      "Bash(curl -s -X PATCH http://localhost:3100/api/companies/855d2200-1fe6-4a85-b585-3620bb41b22f/agents/36479353-0bad-40d9-8cd1-f68eea2d38fa -H 'Content-Type: application/json' -d '{\"reportsTo\":\"some-id\"}')",
+      "Bash(curl -s -X PATCH http://localhost:3100/api/agents/36479353-0bad-40d9-8cd1-f68eea2d38fa -H 'Content-Type: application/json' -d '{\"status\":\"paused\"}')",
+      "Bash(curl -s -X PATCH http://localhost:3100/api/agents/36479353-0bad-40d9-8cd1-f68eea2d38fa -H 'Content-Type: application/json' -d '{\"reportsTo\":\"test-id-123\"}')",
+      "Bash(curl -s -X DELETE \"http://localhost:3100/api/agents/36479353-0bad-40d9-8cd1-f68eea2d38fa\")",
+      "Bash(curl -s -X POST http://localhost:3100/api/companies/855d2200-1fe6-4a85-b585-3620bb41b22f/agents -H 'Content-Type: application/json' -d '{\"name\":\"test-process\",\"role\":\"general\",\"adapterType\":\"process\",\"adapterConfig\":{\"command\":\"python test.py\",\"cwd\":\"C:/Users/rdyal/Vawn\"},\"budgetMonthlyCents\":100}')",
+      "Bash(curl -s -X DELETE \"http://localhost:3100/api/agents/55e18604-463a-4267-9ec2-7cdd1e101682\")",
+      "Bash(python scripts/paperclip/setup_agents.py)",
+      "Bash(curl -s http://localhost:3100/api/companies/855d2200-1fe6-4a85-b585-3620bb41b22f/agents)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f'{len\\(d\\)} agents:'\\); [print\\(f'  {k}: {v[:12]}...'\\) for k,v in d.items\\(\\)]\")",
+      "Bash(python -c ':*)",
+      "Bash(python marketing_dispatch.py --slot hashtag-scan --dry-run)",
+      "Skill(codex:rescue)",
+      "Read(//c/Users/rdyal/Vawn/Ai Mix Engineer/vawn-mix-engine/**)",
+      "Bash(python -m src.main mix config/on_my_way.yaml --dry-run)",
+      "Bash(python -m src.main mix config/on_my_way.yaml)",
+      "Bash(node C:/Users/rdyal/.claude/plugins/cache/openai-codex/codex/1.0.3/scripts/codex-companion.mjs task --write --fresh --effort high 'You are working in the vawn-mix-engine repo \\(autonomous hip-hop mixing/mastering pipeline for REAPER using iZotope plugins via reapy\\). The user complains vocals and instruments jump up and down in volume — needs better clipping AND automation for level consistency.:*)",
+      "Bash(tasklist)",
+      "Bash(python -c \"import reapy; print\\(reapy.connect\\(\\)\\); print\\('connected'\\)\")"
+    ]
+  }
+}

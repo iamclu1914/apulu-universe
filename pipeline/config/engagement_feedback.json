@@ -1,0 +1,30 @@
+{
+  "generated": "2026-04-14T06:25:02.668117",
+  "pillar_scores": {
+    "BTS": 1,
+    "Engagement": 3,
+    "Conversion": 1,
+    "Audience": 0,
+    "Video": 0
+  },
+  "best_pillar": "Engagement",
+  "best_pillar_score": 3,
+  "platform_performance": {
+    "bluesky": {
+      "avg_score": 0.4
+    },
+    "tiktok": {
+      "avg_score": 0.0
+    },
+    "instagram": {
+      "avg_score": 0.0
+    },
+    "threads": {
+      "avg_score": 0.0
+    },
+    "x": {
+      "avg_score": 0.0
+    }
+  },
+  "recommendation": "Engagement pillar posts performed best this week (score: 3) -- lean into that energy"
+}

@@ -1,0 +1,722 @@
+[
+  {
+    "timestamp": "2026-04-11T17:00:17.135180",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-11T17:00:17.201839",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-11T19:00:13.749524",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-11T19:00:13.842369",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-11T21:00:11.163641",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-11T21:00:11.232929",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-11T23:00:12.025676",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-11T23:00:12.095736",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T01:00:09.893931",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T01:00:09.970361",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T03:00:14.806886",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T03:00:14.935241",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T05:00:11.260499",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T05:00:11.391258",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T07:00:13.491068",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T07:00:13.613330",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T09:00:13.301830",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T09:00:13.393452",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T11:00:11.843544",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T11:00:11.937295",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T13:00:13.724634",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T13:00:13.856393",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T15:00:15.625336",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T15:00:15.748345",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T17:00:22.810892",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T17:00:22.920000",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T19:00:16.662936",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T19:00:16.816048",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T21:00:15.541867",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T21:00:15.674094",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T23:00:17.132672",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-12T23:00:17.330826",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T01:00:14.006581",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T01:00:14.142378",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T03:00:14.051616",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T03:00:14.137100",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T05:00:12.355179",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T05:00:12.525135",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T07:00:11.696657",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T07:00:11.800060",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T09:00:14.230222",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T09:00:14.398034",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T11:00:14.564170",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T11:00:14.677092",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T13:00:14.466495",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T13:00:14.580406",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T15:00:23.980411",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T15:00:24.197719",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T17:00:17.567873",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T17:00:17.778400",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T19:00:15.525769",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T19:00:15.699805",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T21:00:13.007604",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T21:00:13.105219",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T23:00:24.819034",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-13T23:00:24.926602",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T01:00:14.391441",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T01:00:14.517887",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T03:00:16.039240",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T03:00:16.160001",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T05:00:15.597538",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T05:00:15.734632",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T07:00:12.779276",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T07:00:12.901842",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T09:00:13.387370",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T09:00:13.504601",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T11:00:15.716819",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T11:00:15.845974",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T13:00:13.131924",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T13:00:13.260898",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T15:00:23.647293",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T15:00:23.782042",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T17:00:12.832884",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T17:00:12.982564",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T19:00:11.798737",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T19:00:11.945667",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T21:00:16.585543",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T21:00:16.849278",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T23:00:16.680498",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  },
+  {
+    "timestamp": "2026-04-14T23:00:16.894139",
+    "video_pillar_score": 0.05,
+    "improvement_from_baseline": 0.05,
+    "target_progress": 3.3333333333333335,
+    "daily_actions": 84,
+    "effectiveness": 0.8200000000000001,
+    "platforms_coordinated": 5
+  }
+]

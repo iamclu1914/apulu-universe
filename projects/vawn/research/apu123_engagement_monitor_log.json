@@ -1,0 +1,39 @@
+[
+  {
+    "timestamp": "2026-04-13T06:06:37.577647",
+    "apu_version": "123",
+    "interaction": {
+      "platform": "instagram",
+      "author": "test_user",
+      "content": "Just dropped my first beat! Been working on this for weeks. What do you think?",
+      "community_topic": "music_production"
+    },
+    "response": {
+      "content": "Thanks for sharing this! What made you want to post about this today?",
+      "type": "question",
+      "personalization_level": "low",
+      "follow_up_questions": [
+        "What's your experience with this?"
+      ],
+      "community_hooks": [
+        "Others might want to share their thoughts too"
+      ]
+    },
+    "quality": {
+      "timestamp": "2026-04-13T06:06:37.569493",
+      "quality_level": "needs_improvement",
+      "overall_score": 0.45,
+      "breakdown": {
+        "personalization": 0.3,
+        "conversation": 0.5,
+        "engagement": 0.6,
+        "authenticity": 0.4
+      },
+      "improvement_suggestions": [
+        "Add more specific references to the user's content",
+        "Make response sound more genuine and less generic"
+      ],
+      "historical_trend": "insufficient_data"
+    }
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-12T00:23:51.910340",
+  "department_coordination_scores": {
+    "a_and_r": 0.8,
+    "creative_revenue": 0.8166666666666667,
+    "operations": 0.8166666666666667,
+    "legal": 0.8200000000000001
+  },
+  "overall_coordination": 0.8133333333333334,
+  "synergy_level": 0.6852333333333334
+}

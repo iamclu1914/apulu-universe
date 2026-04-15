@@ -1,0 +1,360 @@
+{
+  "2026-04-11": [
+    {
+      "timestamp": "2026-04-11T02:09:11.696958",
+      "version": "apu51_community_intelligence",
+      "community_health": {
+        "overall_score": 0.178,
+        "health_status": "critical",
+        "component_scores": {
+          "sentiment": 0.2,
+          "engagement": 0.317,
+          "response": 0.0,
+          "growth": 0.03
+        },
+        "strengths": [],
+        "improvement_areas": [
+          "Community sentiment needs attention",
+          "Engagement patterns could be optimized",
+          "Response system reliability",
+          "Community growth strategy needed"
+        ],
+        "timestamp": "2026-04-11T02:09:11.696958"
+      },
+      "sentiment_analysis": {
+        "overall_sentiment": 0.0,
+        "sentiment_distribution": {
+          "positive": 0,
+          "neutral": 0,
+          "negative": 0
+        },
+        "emotional_themes": [],
+        "community_satisfaction": 0.0,
+        "analyzed_count": 0
+      },
+      "cross_platform_analysis": {
+        "platform_performance": {
+          "instagram": {
+            "engagement_rate": 0.08875739644970414,
+            "posts_count": 13,
+            "avg_engagement": 1.1538461538461537,
+            "performance_score": 0.11538461538461538
+          },
+          "bluesky": {
+            "engagement_rate": 0.00591715976331361,
+            "posts_count": 13,
+            "avg_engagement": 0.07692307692307693,
+            "performance_score": 0.007692307692307693
+          },
+          "x": {
+            "engagement_rate": 0.0,
+            "posts_count": 10,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          },
+          "tiktok": {
+            "engagement_rate": 0.0,
+            "posts_count": 12,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          },
+          "threads": {
+            "engagement_rate": 0.0,
+            "posts_count": 11,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          }
+        },
+        "engagement_efficiency": {},
+        "content_effectiveness": {},
+        "timing_insights": {},
+        "cross_platform_trends": {
+          "top_performer": "instagram",
+          "average_performance": 0.024615384615384615,
+          "performance_variance": 0.0508507504031951,
+          "total_reach_estimate": 310,
+          "platform_diversity_score": 0.9984983746709826
+        }
+      },
+      "predictions": {
+        "sentiment_forecast": {
+          "predicted_trend": "neutral",
+          "confidence": 0.5,
+          "recommendation": "Focus on building stronger emotional connections"
+        },
+        "engagement_forecast": {
+          "predicted_trend": "stable",
+          "confidence": 0.5,
+          "recommendation": "Experiment with new content formats to drive growth"
+        },
+        "community_growth_projection": {
+          "projected_growth": "stable",
+          "confidence": 0.5,
+          "recommendation": "Identify growth catalysts and test new strategies"
+        },
+        "risk_indicators": [],
+        "opportunities": [],
+        "forecast_confidence": 0.8,
+        "generated_at": "2026-04-11T02:09:11.696958"
+      },
+      "intelligence_alerts": [
+        {
+          "type": "community_health_low",
+          "severity": "critical",
+          "message": "Community health score is 0.18 (critical)",
+          "recommendation": "Community sentiment needs attention; Engagement patterns could be optimized; Response system reliability; Community growth strategy needed",
+          "strengths": ""
+        }
+      ],
+      "summary": {
+        "community_health_score": 0.178,
+        "community_health_status": "critical",
+        "overall_sentiment": 0.0,
+        "community_satisfaction": 0.0,
+        "top_platform": "instagram",
+        "total_intelligence_alerts": 1,
+        "critical_alerts": 1,
+        "forecast_confidence": 0.8,
+        "generated_by": "APU-51 Community Intelligence Engine"
+      }
+    },
+    {
+      "timestamp": "2026-04-11T02:13:37.188128",
+      "version": "apu51_community_intelligence",
+      "community_health": {
+        "overall_score": 0.178,
+        "health_status": "critical",
+        "component_scores": {
+          "sentiment": 0.2,
+          "engagement": 0.317,
+          "response": 0.0,
+          "growth": 0.03
+        },
+        "strengths": [],
+        "improvement_areas": [
+          "Community sentiment needs attention",
+          "Engagement patterns could be optimized",
+          "Response system reliability",
+          "Community growth strategy needed"
+        ],
+        "timestamp": "2026-04-11T02:13:37.188128"
+      },
+      "sentiment_analysis": {
+        "overall_sentiment": 0.0,
+        "sentiment_distribution": {
+          "positive": 0,
+          "neutral": 0,
+          "negative": 0
+        },
+        "emotional_themes": [],
+        "community_satisfaction": 0.0,
+        "analyzed_count": 0
+      },
+      "cross_platform_analysis": {
+        "platform_performance": {
+          "instagram": {
+            "engagement_rate": 0.08875739644970414,
+            "posts_count": 13,
+            "avg_engagement": 1.1538461538461537,
+            "performance_score": 0.11538461538461538
+          },
+          "bluesky": {
+            "engagement_rate": 0.00591715976331361,
+            "posts_count": 13,
+            "avg_engagement": 0.07692307692307693,
+            "performance_score": 0.007692307692307693
+          },
+          "x": {
+            "engagement_rate": 0.0,
+            "posts_count": 10,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          },
+          "tiktok": {
+            "engagement_rate": 0.0,
+            "posts_count": 12,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          },
+          "threads": {
+            "engagement_rate": 0.0,
+            "posts_count": 11,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          }
+        },
+        "engagement_efficiency": {},
+        "content_effectiveness": {},
+        "timing_insights": {},
+        "cross_platform_trends": {
+          "top_performer": "instagram",
+          "average_performance": 0.024615384615384615,
+          "performance_variance": 0.0508507504031951,
+          "total_reach_estimate": 310,
+          "platform_diversity_score": 0.9984983746709826
+        }
+      },
+      "predictions": {
+        "sentiment_forecast": {
+          "predicted_trend": "neutral",
+          "confidence": 0.5,
+          "recommendation": "Focus on building stronger emotional connections"
+        },
+        "engagement_forecast": {
+          "predicted_trend": "stable",
+          "confidence": 0.5,
+          "recommendation": "Experiment with new content formats to drive growth"
+        },
+        "community_growth_projection": {
+          "projected_growth": "at_risk",
+          "confidence": 0.8,
+          "recommendation": "Focus on community retention and satisfaction"
+        },
+        "risk_indicators": [],
+        "opportunities": [],
+        "forecast_confidence": 0.8,
+        "generated_at": "2026-04-11T02:13:37.188128"
+      },
+      "intelligence_alerts": [
+        {
+          "type": "community_health_low",
+          "severity": "critical",
+          "message": "Community health score is 0.18 (critical)",
+          "recommendation": "Community sentiment needs attention; Engagement patterns could be optimized; Response system reliability; Community growth strategy needed",
+          "strengths": ""
+        }
+      ],
+      "summary": {
+        "community_health_score": 0.178,
+        "community_health_status": "critical",
+        "overall_sentiment": 0.0,
+        "community_satisfaction": 0.0,
+        "top_platform": "instagram",
+        "total_intelligence_alerts": 1,
+        "critical_alerts": 1,
+        "forecast_confidence": 0.8,
+        "generated_by": "APU-51 Community Intelligence Engine"
+      }
+    },
+    {
+      "timestamp": "2026-04-11T02:16:13.124457",
+      "version": "apu51_community_intelligence",
+      "community_health": {
+        "overall_score": 0.178,
+        "health_status": "critical",
+        "component_scores": {
+          "sentiment": 0.2,
+          "engagement": 0.317,
+          "response": 0.0,
+          "growth": 0.03
+        },
+        "strengths": [],
+        "improvement_areas": [
+          "Community sentiment needs attention",
+          "Engagement patterns could be optimized",
+          "Response system reliability",
+          "Community growth strategy needed"
+        ],
+        "timestamp": "2026-04-11T02:16:13.124457"
+      },
+      "sentiment_analysis": {
+        "overall_sentiment": 0.0,
+        "sentiment_distribution": {
+          "positive": 0,
+          "neutral": 10,
+          "negative": 0
+        },
+        "emotional_themes": [],
+        "community_satisfaction": 0.0,
+        "analyzed_count": 10,
+        "sentiment_trend": "stable",
+        "satisfaction_trend": "stable"
+      },
+      "cross_platform_analysis": {
+        "platform_performance": {
+          "instagram": {
+            "engagement_rate": 0.08875739644970414,
+            "posts_count": 13,
+            "avg_engagement": 1.1538461538461537,
+            "performance_score": 0.11538461538461538
+          },
+          "bluesky": {
+            "engagement_rate": 0.00591715976331361,
+            "posts_count": 13,
+            "avg_engagement": 0.07692307692307693,
+            "performance_score": 0.007692307692307693
+          },
+          "x": {
+            "engagement_rate": 0.0,
+            "posts_count": 10,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          },
+          "tiktok": {
+            "engagement_rate": 0.0,
+            "posts_count": 12,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          },
+          "threads": {
+            "engagement_rate": 0.0,
+            "posts_count": 11,
+            "avg_engagement": 0.0,
+            "performance_score": 0.0
+          }
+        },
+        "engagement_efficiency": {},
+        "content_effectiveness": {},
+        "timing_insights": {},
+        "cross_platform_trends": {
+          "top_performer": "instagram",
+          "average_performance": 0.024615384615384615,
+          "performance_variance": 0.0508507504031951,
+          "total_reach_estimate": 310,
+          "platform_diversity_score": 0.9984983746709826
+        }
+      },
+      "predictions": {
+        "sentiment_forecast": {
+          "predicted_trend": "neutral",
+          "confidence": 0.5,
+          "recommendation": "Focus on building stronger emotional connections"
+        },
+        "engagement_forecast": {
+          "predicted_trend": "stable",
+          "confidence": 0.5,
+          "recommendation": "Experiment with new content formats to drive growth"
+        },
+        "community_growth_projection": {
+          "projected_growth": "at_risk",
+          "confidence": 0.8,
+          "recommendation": "Focus on community retention and satisfaction"
+        },
+        "risk_indicators": [],
+        "opportunities": [],
+        "forecast_confidence": 0.8,
+        "generated_at": "2026-04-11T02:16:13.124457"
+      },
+      "intelligence_alerts": [
+        {
+          "type": "community_health_low",
+          "severity": "critical",
+          "message": "Community health score is 0.18 (critical)",
+          "recommendation": "Community sentiment needs attention; Engagement patterns could be optimized; Response system reliability; Community growth strategy needed",
+          "strengths": ""
+        }
+      ],
+      "summary": {
+        "community_health_score": 0.178,
+        "community_health_status": "critical",
+        "overall_sentiment": 0.0,
+        "community_satisfaction": 0.0,
+        "top_platform": "instagram",
+        "total_intelligence_alerts": 1,
+        "critical_alerts": 1,
+        "forecast_confidence": 0.8,
+        "generated_by": "APU-51 Community Intelligence Engine"
+      }
+    }
+  ]
+}

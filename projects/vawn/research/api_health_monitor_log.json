@@ -1,0 +1,184 @@
+{
+  "2026-04-11": [
+    {
+      "timestamp": "2026-04-11T02:20:57.529599",
+      "health_status": {
+        "overall_status": "critical",
+        "endpoints": {
+          "comments": {
+            "name": "comments",
+            "url": "https://apulustudio.onrender.com/api/posts/comments",
+            "status": "error",
+            "response_time_ms": 131.62,
+            "error": "HTTP 401",
+            "last_checked": "2026-04-11T02:20:57.139453",
+            "critical": true,
+            "status_code": 401
+          },
+          "posts": {
+            "name": "posts",
+            "url": "https://apulustudio.onrender.com/api/posts",
+            "status": "error",
+            "response_time_ms": 93.03,
+            "error": "HTTP 401",
+            "last_checked": "2026-04-11T02:20:57.271068",
+            "critical": true,
+            "status_code": 401
+          },
+          "health": {
+            "name": "health",
+            "url": "https://apulustudio.onrender.com/api/health",
+            "status": "not_found",
+            "response_time_ms": 72.87,
+            "error": "Endpoint not implemented",
+            "last_checked": "2026-04-11T02:20:57.364100",
+            "critical": false,
+            "status_code": 404
+          },
+          "api_root": {
+            "name": "api_root",
+            "url": "https://apulustudio.onrender.com/api",
+            "status": "not_found",
+            "response_time_ms": 92.63,
+            "error": "Endpoint not implemented",
+            "last_checked": "2026-04-11T02:20:57.436973",
+            "critical": false,
+            "status_code": 404
+          }
+        },
+        "last_check": "2026-04-11T02:20:57.529599",
+        "critical_failures": 2,
+        "healthy_count": 0,
+        "total_endpoints": 4,
+        "summary": {
+          "healthy": 0,
+          "failed": 4,
+          "critical_failures": 2
+        }
+      },
+      "alerts": [
+        {
+          "type": "critical_endpoint_failure",
+          "severity": "critical",
+          "message": "Critical API endpoint 'comments' is error",
+          "endpoint": "comments",
+          "url": "https://apulustudio.onrender.com/api/posts/comments",
+          "error": "HTTP 401",
+          "impact": "Community intelligence data collection disabled",
+          "recommendation": "Activate alternative comment collection system",
+          "timestamp": "2026-04-11T02:20:57.529599"
+        },
+        {
+          "type": "critical_endpoint_failure",
+          "severity": "critical",
+          "message": "Critical API endpoint 'posts' is error",
+          "endpoint": "posts",
+          "url": "https://apulustudio.onrender.com/api/posts",
+          "error": "HTTP 401",
+          "impact": "Community intelligence data collection disabled",
+          "recommendation": "Activate alternative comment collection system",
+          "timestamp": "2026-04-11T02:20:57.529599"
+        },
+        {
+          "type": "api_system_critical",
+          "severity": "high",
+          "message": "API system health is critical (2 critical failures)",
+          "impact": "APU-51 intelligence engine operating with limited data",
+          "recommendation": "Enable enhanced fallback systems and notify development team",
+          "timestamp": "2026-04-11T02:20:57.529599"
+        }
+      ],
+      "monitor_version": "apu51_v1.0"
+    },
+    {
+      "timestamp": "2026-04-11T20:02:47.812449",
+      "health_status": {
+        "overall_status": "critical",
+        "endpoints": {
+          "comments": {
+            "name": "comments",
+            "url": "https://apulustudio.onrender.com/api/posts/comments",
+            "status": "error",
+            "response_time_ms": 170.09,
+            "error": "HTTP 401",
+            "last_checked": "2026-04-11T20:02:47.347846",
+            "critical": true,
+            "status_code": 401
+          },
+          "posts": {
+            "name": "posts",
+            "url": "https://apulustudio.onrender.com/api/posts",
+            "status": "error",
+            "response_time_ms": 64.54,
+            "error": "HTTP 401",
+            "last_checked": "2026-04-11T20:02:47.517932",
+            "critical": true,
+            "status_code": 401
+          },
+          "health": {
+            "name": "health",
+            "url": "https://apulustudio.onrender.com/api/health",
+            "status": "not_found",
+            "response_time_ms": 82.79,
+            "error": "Endpoint not implemented",
+            "last_checked": "2026-04-11T20:02:47.583469",
+            "critical": false,
+            "status_code": 404
+          },
+          "api_root": {
+            "name": "api_root",
+            "url": "https://apulustudio.onrender.com/api",
+            "status": "not_found",
+            "response_time_ms": 122.58,
+            "error": "Endpoint not implemented",
+            "last_checked": "2026-04-11T20:02:47.666259",
+            "critical": false,
+            "status_code": 404
+          }
+        },
+        "last_check": "2026-04-11T20:02:47.788836",
+        "critical_failures": 2,
+        "healthy_count": 0,
+        "total_endpoints": 4,
+        "summary": {
+          "healthy": 0,
+          "failed": 4,
+          "critical_failures": 2
+        }
+      },
+      "alerts": [
+        {
+          "type": "critical_endpoint_failure",
+          "severity": "critical",
+          "message": "Critical API endpoint 'comments' is error",
+          "endpoint": "comments",
+          "url": "https://apulustudio.onrender.com/api/posts/comments",
+          "error": "HTTP 401",
+          "impact": "Community intelligence data collection disabled",
+          "recommendation": "Activate alternative comment collection system",
+          "timestamp": "2026-04-11T20:02:47.788836"
+        },
+        {
+          "type": "critical_endpoint_failure",
+          "severity": "critical",
+          "message": "Critical API endpoint 'posts' is error",
+          "endpoint": "posts",
+          "url": "https://apulustudio.onrender.com/api/posts",
+          "error": "HTTP 401",
+          "impact": "Community intelligence data collection disabled",
+          "recommendation": "Activate alternative comment collection system",
+          "timestamp": "2026-04-11T20:02:47.788836"
+        },
+        {
+          "type": "api_system_critical",
+          "severity": "high",
+          "message": "API system health is critical (2 critical failures)",
+          "impact": "APU-51 intelligence engine operating with limited data",
+          "recommendation": "Enable enhanced fallback systems and notify development team",
+          "timestamp": "2026-04-11T20:02:47.788836"
+        }
+      ],
+      "monitor_version": "apu51_v1.0"
+    }
+  ]
+}

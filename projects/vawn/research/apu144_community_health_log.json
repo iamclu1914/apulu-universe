@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2026-04-13T22:06:55.166298",
+    "overall_health": {
+      "average_health_score": 0.703,
+      "best_performing_platform": "instagram",
+      "platforms_needing_attention": []
+    },
+    "platform_scores": {
+      "instagram": 0.703,
+      "tiktok": 0.703,
+      "x": 0.703,
+      "threads": 0.703,
+      "bluesky": 0.703
+    }
+  },
+  {
+    "timestamp": "2026-04-13T22:07:14.147674",
+    "overall_health": {
+      "average_health_score": 0.703,
+      "best_performing_platform": "instagram",
+      "platforms_needing_attention": []
+    },
+    "platform_scores": {
+      "instagram": 0.703,
+      "tiktok": 0.703,
+      "x": 0.703,
+      "threads": 0.703,
+      "bluesky": 0.703
+    }
+  }
+]

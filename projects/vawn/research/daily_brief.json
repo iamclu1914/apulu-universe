@@ -1,0 +1,168 @@
+{
+  "date": "2026-04-14",
+  "trends": [
+    {
+      "angle": "[X] @joeyBADASS: My sentiment is this type of thing happens all the time. This is just a recent example that I think is clear. Btw the topic was about sparring in hip ",
+      "format": "text",
+      "platforms": [
+        "X"
+      ],
+      "hook": "engagement=5079, velocity=211.6",
+      "evidence": "pipeline/x, score=244"
+    },
+    {
+      "angle": "[X] @spring25ji: Where’s the underground hip hop Spotify https://t.co/PMOEKIUv0E",
+      "format": "text",
+      "platforms": [
+        "X"
+      ],
+      "hook": "engagement=2659, velocity=110.8",
+      "evidence": "pipeline/x, score=126"
+    },
+    {
+      "angle": "[X] @Macmonal: @andfuckfeminism He was prepared to dodge, \"Which American artists would you like to collab with next???\" He was not prepared for memories of Gloss in",
+      "format": "text",
+      "platforms": [
+        "X"
+      ],
+      "hook": "engagement=2070, velocity=86.2",
+      "evidence": "pipeline/x, score=109"
+    },
+    {
+      "angle": "[TikTok] @ariathome (42.3M plays): Was jamming in Harold Sq when this dude @GospelGabe78 pulled up asking me to switch to some old school vibes. Was definitely the play seeing as we had",
+      "format": "video",
+      "platforms": [
+        "TikTok"
+      ],
+      "hook": "shares=228100, virality=1140513",
+      "evidence": "pipeline/tiktok, score=1142158"
+    },
+    {
+      "angle": "[TikTok] @nolifeshaq (22.8M plays): #fypシ #foryoupage #lilnasx",
+      "format": "reel",
+      "platforms": [
+        "TikTok"
+      ],
+      "hook": "shares=205600, virality=1028038",
+      "evidence": "pipeline/tiktok, score=1028179"
+    }
+  ],
+  "audience_intel": [
+    {
+      "artist": "Baby Keem",
+      "observation": "Keem posted a two-word text post on X — 'what's new' — on January 4, 2025, with zero context, no music link, no promo. It pulled 5.1M views and 67K likes. His Instagram maintains a 16% engagement rate with only 6 posts total, averaging 192K likes per post. The extreme scarcity of content makes every post feel like an event.",
+      "format": "text",
+      "takeaway": "Vawn's 'anti-hype, quiet authority' brand IS this strategy — but Vawn can do it with more intentionality. One deliberate, cryptic or weighted text post per week ('11 tracks. One shot.' or 'Brooklyn raised me. Atlanta made me.') treats scarcity as a brand asset, not a gap. Vawn has a personal story Keem doesn't publicly use — fatherhood, twin girls, stakes — which gives the silence more weight."
+    },
+    {
+      "artist": "Killer Mike",
+      "observation": "In December 2025, a clip from Killer Mike's appearance on Real Time with Bill Maher went viral when he overwhelmed the host in a debate about Haiti and American foreign policy. The clip spread across Twitter/X, Instagram Reels, and TikTok without Mike posting it himself — fan-clipped video pulled massive organic reach. His bio actively promotes his weekly podcast 'Conversate with Killer Mike,' positioning him as an intellectual, not just a rapper.",
+      "format": "video",
+      "takeaway": "Killer Mike turns ideas into content, not just music. Vawn's thematic territory — Fear of Failure, Long-game mentality, Pattern Recognition — maps directly to conversational, debate-worthy content. A short-form video series where Vawn breaks down one hard truth (about the music industry, fatherhood under pressure, building without cosigns) could generate the same kind of clip-and-share virality. Mike does it on TV; Vawn can do it in a 60-second vertical format from the studio couch."
+    },
+    {
+      "artist": "6LACK",
+      "observation": "6LACK's highest-engagement Instagram posts are personal, low-production photo dumps with long, reflective captions — not promotional content. His post recapping the U.S. leg of his SIHAL tour averaged 56K likes and 656 comments. He wrote about being recognized with '6LACK Day' in DeKalb County, about watching T-Pain perform, and about his crew and family. The tone is grateful, present, and earned — never hype.",
+      "format": "photo",
+      "takeaway": "6LACK's audience rewards emotional transparency over polish. Vawn has a parallel emotional narrative that 6LACK doesn't — he's a new father to twin girls, building an album on no sleep, with genuine stakes. A photo post of Vawn in the studio at 2AM with a caption that names the fear ('I don't know if this is good enough, but I'm still here') aligns with Vawn's brand AND the format that 6LACK's audience has proven they respond to. Gap: 6LACK doesn't name the fear directly. Vawn can."
+    },
+    {
+      "artist": "JID",
+      "observation": "JID's highest-engagement content consistently comes from freestyle and loose session clips — unpolished, often filmed on phones in small rooms or studios — that showcase pure technical ability with no cinematic production. These clips circulate in hip-hop community pages and fan accounts on Instagram and TikTok, generating reach far beyond his ~1M follower base. He rarely posts structured promotional content.",
+      "format": "reel",
+      "takeaway": "JID's clips work because they prove the skill without staging it. Vawn's boom-bap psychedelic sound is a differentiator that is hard to describe but easy to hear — a 45-second raw session clip where the beat switches from orchestral to trap and Vawn rides both without breaking cadence would demonstrate the range in a way a press bio cannot. Gap: JID doesn't attach personal narrative to his skill clips. Vawn could speak one line of context before each freestyle — 'this is what I'm building for' — and own a lane JID leaves empty."
+    },
+    {
+      "artist": "Smino",
+      "observation": "Smino's social content leans heavily into community and collaboration — he frequently posts behind-the-scenes studio content tagging producers and artists, uses Instagram carousels to document creative process (mood boards, track-building stages), and engages in back-and-forth banter in comment sections that turns into viral threads. His audience treats him as an insider, not a star.",
+      "format": "carousel",
+      "takeaway": "Smino has built a 'come inside the room' aesthetic that rewards loyal followers with access. Vawn's debut album is a 11-track build happening in real time — each track in production is a chapter. A carousel series called something like 'Track 4' showing one lyric fragment, a studio photo, and a 3-second beat clip would turn album rollout into serialized storytelling. Gap: Smino does this casually. Vawn can do it with the intentionality of a novelist — each post is a clue, not a reveal."
+    },
+    {
+      "artist": "Saba",
+      "observation": "Saba's most engaged content — particularly around his album CARE FOR ME and subsequent releases — consistently involves written posts: handwritten lyrics shared as photos, typed notes about what a song cost him emotionally, and text-based reflections with no image. His audience skews deeply literary and will read every word. Engagement on these posts runs disproportionately high in saves and shares vs. likes, indicating they're being bookmarked and sent person-to-person.",
+      "format": "text",
+      "takeaway": "Saba's saves-and-shares pattern means his content travels privately — DM to DM — which is exactly how long-game artists build word-of-mouth. Vawn's thematic territories (Dependability, Journey, Fear of Failure) are built for this format. A post that simply reads: 'I told my daughters I'd finish this album before they could walk. They're almost walking.' doesn't need a hashtag or a link. It travels on its own. Gap: Saba writes about the past. Vawn is in the middle of the story right now — that's more urgent."
+    }
+  ],
+  "catalog_lines": [
+    {
+      "bar": "Corner of Campbellton and Greenbriar, 2019.",
+      "track": "STILL MOVING",
+      "territory": "Journey",
+      "ig_hook": "Some corners hold a whole era of you.",
+      "x_post": "There's an intersection that still lives in my chest. You know the one. #StillMoving #ATL",
+      "tiktok_pov": "POV: revisiting that corner",
+      "_source": "local_catalog"
+    },
+    {
+      "bar": "You were there for the part I don't talk about in the music.",
+      "track": "YOU WERE THERE",
+      "territory": "Love · Dependability",
+      "ig_hook": "The real ones know what never made the tracklist.",
+      "x_post": "Not everything becomes a song. Some people just hold the parts you never perform. #YouWereThere",
+      "tiktok_pov": "POV: they knew the unrecorded version",
+      "_source": "local_catalog"
+    },
+    {
+      "bar": "Something about saying the hard thing out loud to someone real",
+      "track": "I CHOSE THIS",
+      "territory": "Fear of Failure",
+      "ig_hook": "Saying it out loud to the right person changes everything.",
+      "x_post": "There's a specific relief that only comes from telling the truth to someone who can actually hold it. #IChoseThis",
+      "tiktok_pov": "POV: finally saying it aloud",
+      "_source": "local_catalog"
+    }
+  ],
+  "pipeline_intel": {
+    "saturated_angles": [
+      "AI music panic content — YouTube's 'Musicians Are Panicking About This New AI' (315K views) signals this narrative is fully mainstream and flooded with takes from every corner of the internet",
+      "Festival hype and Coachella recap posts — Young Thug at Coachella, Summer Smash announcements, and FOMO-driven R&B recap content are dominating Instagram engagement right now",
+      "Old school / golden era nostalgia — 90s boom bap mixes, Guilty Simpson underground tags, and 'classic meets modern' framings (Frieren underground hip-hop mage) are everywhere in the lyrical rap niche",
+      "Trap-soul playlist and vibe aggregation — The BLXD TrapSoul Mix (498K views) shows this lane is crowded with passive listening content that competes purely on volume and brand recognition",
+      "Viral freestyle and reaction content — Logan Reich freestyle clip (9.7M plays) and bad music reaction formats (7.4M plays) represent high-volume entertainment content that dominates TikTok discovery but requires no depth"
+    ],
+    "open_gaps": [
+      "The quiet builder narrative in hip-hop — nobody is documenting the grounded, anti-hype, long-game artist journey from the inside with real stakes (married, twin daughters, debut album) without performative struggle content",
+      "Psychedelic boom bap as a distinct sound identity — the underground cypher space (311K YouTube views) exists but no one is clearly owning the intersection of Atlanta trap authority + psychedelic boom bap + orchestral soul as a named, visual brand",
+      "Fatherhood and partnership as rap themes with teeth — love and dependability as lyrical territories are underrepresented in hip-hop content strategy; most artists avoid domestic life or exploit it for sympathy, leaving room for someone to make it feel earned and authoritative",
+      "Pattern recognition and long-game mentality as content philosophy — the underground rap audience on X and Reddit craves intellectual framing around music but gets very little of it from artists themselves; this is a trust-building gap wide open for a lyrical artist with a distinct worldview",
+      "The debut album as a serialized, stake-driven story — most independent artists announce albums with generic countdown content; nobody is treating the 11-track debut as a narrative arc with characters, decisions, and real consequences worth following"
+    ],
+    "performance_outliers": [
+      {
+        "content": "TikTok street session video — @ariathome jamming in Harold Square, spontaneous old school pivot moment (42.3M plays)",
+        "why_it_worked": "It combined authenticity, physical place, unexpected human interaction, and a genre pivot moment in real time — all the emotional triggers for shareability (surprise, community, nostalgia) without feeling staged. The specificity of the location and the stranger's request made it feel like a scene from a real life, not content.",
+        "platform": "tiktok"
+      },
+      {
+        "content": "Underground Sound Cypher 2026 — YouTube compilation (311K views)",
+        "why_it_worked": "Aggregated talent around a scene identity rather than a single artist, which lowered the barrier to share and raised the sense of cultural belonging. The 'cypher' format carries legacy weight in hip-hop that signals legitimacy instantly — it's a credibility shortcut the algorithm rewards because the audience self-selects as serious listeners.",
+        "platform": "youtube"
+      },
+      {
+        "content": "Joey Bada$$ sparring commentary post (5,079 engagement on X)",
+        "why_it_worked": "Hip-hop community discourse with a credible, respected voice attached to it performs at the top of X consistently. It wasn't promotional — it was a perspective from someone with earned authority wading into a real conversation. The engagement came from identity alignment: people sharing it to signal which side of the discourse they stand on.",
+        "platform": "x"
+      }
+    ],
+    "top_ideas": [
+      {
+        "title": "I'm building an album for two people who can't hear it yet — here's what that pressure actually sounds like",
+        "format": "reel",
+        "confidence": "high"
+      },
+      {
+        "title": "The difference between an artist who talks about the long game and one who's actually playing it (thread)",
+        "format": "thread",
+        "confidence": "high"
+      },
+      {
+        "title": "What does psychedelic boom bap actually sound like in 2026? I'll show you — 60 seconds",
+        "format": "reel",
+        "confidence": "high"
+      }
+    ]
+  },
+  "_pipeline_enriched": "2026-04-14"
+}

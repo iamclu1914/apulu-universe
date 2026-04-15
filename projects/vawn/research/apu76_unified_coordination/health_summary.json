@@ -1,0 +1,116 @@
+{
+  "overall_status": "fair",
+  "systems": {
+    "APU74IntelligentEngagementBot": {
+      "agent": "APU74IntelligentEngagementBot",
+      "type": "engagement_bot",
+      "status": "healthy",
+      "last_run": "2026-04-11T22:03:12.698961",
+      "runs_today": 1,
+      "runs_yesterday": 0,
+      "recent_errors": 0,
+      "health_score": 0.8179526179166667,
+      "issues": [],
+      "expected_interval": 15,
+      "priority": "critical"
+    },
+    "APU68UnifiedEngagementBot": {
+      "agent": "APU68UnifiedEngagementBot",
+      "type": "engagement_bot",
+      "status": "error",
+      "last_run": "2026-04-11T20:00:11.324668",
+      "runs_today": 6,
+      "runs_yesterday": 0,
+      "recent_errors": 3,
+      "health_score": 0.6456903318055556,
+      "issues": [
+        "3 recent errors"
+      ],
+      "expected_interval": 60,
+      "priority": "high"
+    },
+    "EngagementBotEnhanced": {
+      "agent": "EngagementBotEnhanced",
+      "type": "engagement_bot",
+      "status": "healthy",
+      "last_run": "2026-04-11T21:00:10.528410",
+      "runs_today": 12,
+      "runs_yesterday": 0,
+      "recent_errors": 0,
+      "health_score": 0.8606626493055556,
+      "issues": [],
+      "expected_interval": 60,
+      "priority": "medium"
+    },
+    "APU73ResilientMonitor": {
+      "agent": "APU73ResilientMonitor",
+      "type": "monitor",
+      "status": "healthy",
+      "last_run": "2026-04-11T22:07:03.456110",
+      "runs_today": 1,
+      "runs_yesterday": 0,
+      "recent_errors": 0,
+      "health_score": 0.8500000000000001,
+      "issues": [],
+      "expected_interval": 5,
+      "priority": "critical"
+    },
+    "APU72AdvancedMonitor": {
+      "agent": "APU72AdvancedMonitor",
+      "type": "monitor",
+      "status": "inactive",
+      "last_run": null,
+      "runs_today": 0,
+      "runs_yesterday": 0,
+      "recent_errors": 0,
+      "health_score": 0.0,
+      "issues": [
+        "No recent activity found in research logs"
+      ],
+      "expected_interval": 30,
+      "priority": "medium"
+    }
+  },
+  "alerts": [
+    {
+      "type": "system_error",
+      "priority": "medium",
+      "system": "APU68UnifiedEngagementBot",
+      "message": "APU68UnifiedEngagementBot is error",
+      "details": [
+        "3 recent errors"
+      ],
+      "health_score": 0.6456903318055556,
+      "last_seen": "2026-04-11T20:00:11.324668",
+      "timestamp": "2026-04-11T22:07:03.457111"
+    },
+    {
+      "type": "system_inactive",
+      "priority": "medium",
+      "system": "APU72AdvancedMonitor",
+      "message": "APU72AdvancedMonitor is inactive",
+      "details": [
+        "No recent activity found in research logs"
+      ],
+      "health_score": 0.0,
+      "last_seen": null,
+      "timestamp": "2026-04-11T22:07:03.457111"
+    }
+  ],
+  "recommendations": [],
+  "coordination_metrics": {
+    "total_systems": 5,
+    "healthy_systems": 3,
+    "critical_systems": 2,
+    "average_health_score": 0.6348611198055556,
+    "system_types": {
+      "engagement_bots": 3,
+      "monitors": 2
+    },
+    "coordination_effectiveness": 0.76,
+    "alert_count_by_priority": {
+      "medium": 2
+    }
+  },
+  "timestamp": "2026-04-11T22:07:03.427381"
+}

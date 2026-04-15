@@ -1,0 +1,43 @@
+{
+  "2026-04-10": [
+    {
+      "timestamp": "2026-04-10T22:03:23.800434",
+      "version": "apu48_community_v1",
+      "community_health": {
+        "overall_score": 0.2015593220338983,
+        "status": "needs_attention",
+        "metrics": {
+          "engagement_quality": 0.025423728813559324,
+          "conversation_health": 0.0,
+          "community_growth": 0.0,
+          "platform_diversity": 0.9823728813559323,
+          "response_quality": 0.0
+        },
+        "timestamp": "2026-04-10T22:03:23.800434",
+        "recommendations": [
+          "Focus on creating more engaging content that encourages comments and saves",
+          "Ask questions and create polls to stimulate community discussion",
+          "Improve reply quality with more personalized, question-asking responses",
+          "Create content that naturally invites community participation",
+          "Analyze successful posts to identify growth patterns",
+          "Increase posting frequency on platforms showing growth potential",
+          "Enhance engagement agent responses to be more conversational",
+          "Train agents to ask follow-up questions and show genuine interest"
+        ]
+      },
+      "trending_topics": {
+        "trending_topics": [],
+        "trend_indicators": [],
+        "total_conversations": 0,
+        "timestamp": "2026-04-10T22:03:23.800434"
+      },
+      "alert_level": "critical",
+      "next_actions": [
+        "IMMEDIATE: Review engagement strategy and content quality",
+        "IMMEDIATE: Increase personalized responses and community interaction",
+        "Create content around current events to spark conversations",
+        "Ask community questions to identify interests"
+      ]
+    }
+  ]
+}

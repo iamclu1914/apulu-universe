@@ -1,0 +1,179 @@
+{
+  "timestamp": "2026-04-11T16:03:37.589330",
+  "status": "monitoring_active",
+  "current_health_score": 0.31933333333333336,
+  "health_trend": [
+    0.31933333333333336
+  ],
+  "active_alerts": 0,
+  "recent_alerts": [],
+  "recent_interventions": [],
+  "monitoring_config": {
+    "monitor_interval_seconds": 30,
+    "alert_cooldown_minutes": 15,
+    "intervention_cooldown_hours": 2,
+    "crisis_threshold": 0.25,
+    "declining_trend_threshold": -0.15,
+    "live_dashboard_update_seconds": 10
+  },
+  "current_data": {
+    "timestamp": "2026-04-11T16:03:37.580529",
+    "community_health": {
+      "overall_score": 0.31933333333333336,
+      "status": "needs_attention",
+      "metrics": {
+        "engagement_quality": 0.0,
+        "conversation_health": 0.11000000000000001,
+        "community_growth": 0.5,
+        "platform_diversity": 0.9866666666666667,
+        "response_quality": 0.0
+      },
+      "timestamp": "2026-04-11T16:03:37.589330",
+      "recommendations": [
+        "Focus on creating more engaging content that encourages comments and saves",
+        "Ask questions and create polls to stimulate community discussion",
+        "Improve reply quality with more personalized, question-asking responses",
+        "Create content that naturally invites community participation",
+        "Enhance engagement agent responses to be more conversational",
+        "Train agents to ask follow-up questions and show genuine interest"
+      ]
+    },
+    "department_analytics": {
+      "legal": {
+        "total_relevant_interactions": 0,
+        "urgent_issues": [],
+        "response_times": [],
+        "department_health_score": 0.5,
+        "key_topics": [],
+        "recommendations": [
+          "Monitor for copyright and legal mentions more actively"
+        ],
+        "alerts": []
+      },
+      "a_and_r": {
+        "total_relevant_interactions": 0,
+        "urgent_issues": [],
+        "response_times": [],
+        "department_health_score": 0.5,
+        "key_topics": [],
+        "recommendations": [
+          "Increase monitoring of artist discovery and demo submissions"
+        ],
+        "alerts": []
+      },
+      "creative_revenue": {
+        "total_relevant_interactions": 0,
+        "urgent_issues": [],
+        "response_times": [],
+        "department_health_score": 0.5,
+        "key_topics": [],
+        "recommendations": [
+          "Track campaign performance and conversion metrics more closely"
+        ],
+        "alerts": []
+      },
+      "operations": {
+        "total_relevant_interactions": 0,
+        "urgent_issues": [],
+        "response_times": [],
+        "department_health_score": 0.5,
+        "key_topics": [],
+        "recommendations": [
+          "Monitor system health and operational feedback"
+        ],
+        "alerts": []
+      },
+      "chairman": {
+        "overall_organizational_health": 0.5,
+        "total_urgent_issues": 0,
+        "departments_at_risk": [
+          {
+            "department": "legal",
+            "head": "Nelly",
+            "health_score": 0.5,
+            "urgent_issues": 0
+          },
+          {
+            "department": "a_and_r",
+            "head": "Timbo",
+            "health_score": 0.5,
+            "urgent_issues": 0
+          },
+          {
+            "department": "creative_revenue",
+            "head": "Letitia",
+            "health_score": 0.5,
+            "urgent_issues": 0
+          },
+          {
+            "department": "operations",
+            "head": "Nari",
+            "health_score": 0.5,
+            "urgent_issues": 0
+          }
+        ],
+        "strategic_recommendations": [
+          "Schedule 1:1 with department heads: Nelly, Timbo, Letitia, Nari"
+        ],
+        "executive_alerts": []
+      }
+    },
+    "realtime_metrics": {
+      "recent_engagement_count": 0,
+      "recent_engagement_rate": 0.0,
+      "platform_activity": {
+        "instagram": {
+          "recent_posts": 0,
+          "recent_engagement": 0,
+          "activity_rate": 0.0
+        },
+        "tiktok": {
+          "recent_posts": 0,
+          "recent_engagement": 0,
+          "activity_rate": 0.0
+        },
+        "x": {
+          "recent_posts": 0,
+          "recent_engagement": 0,
+          "activity_rate": 0.0
+        },
+        "threads": {
+          "recent_posts": 0,
+          "recent_engagement": 0,
+          "activity_rate": 0.0
+        },
+        "bluesky": {
+          "recent_posts": 0,
+          "recent_engagement": 0,
+          "activity_rate": 0.0
+        }
+      },
+      "response_velocity": 0.0,
+      "sentiment_velocity": 0.0,
+      "community_activity_score": 0.2
+    },
+    "platform_status": {
+      "instagram": "operational",
+      "tiktok": "operational",
+      "x": "operational",
+      "threads": "operational",
+      "bluesky": "operational"
+    },
+    "trend_analysis": {
+      "trend": "insufficient_data",
+      "confidence": 0.0
+    },
+    "crisis_indicators": {
+      "indicators": [
+        "critical_health_score"
+      ],
+      "crisis_level": 1,
+      "requires_intervention": false
+    }
+  },
+  "system_status": {
+    "monitoring_active": false,
+    "data_collection": "operational",
+    "intervention_system": "ready"
+  }
+}

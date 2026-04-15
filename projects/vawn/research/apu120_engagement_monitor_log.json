@@ -1,0 +1,219 @@
+{
+  "2026-04-13": [
+    {
+      "timestamp": "2026-04-13T04:04:37.270168",
+      "version": "apu120_advanced",
+      "monitor_type": "engagement_advanced",
+      "agents": {
+        "engagement_agent": {
+          "last_run": "2026-04-13T04:01:58.907019",
+          "runs_today": 1,
+          "runs_24h": 1,
+          "recent_errors": 0,
+          "recent_successes": 1,
+          "status": "healthy",
+          "health_score": 0.7242668419074075,
+          "activity_pattern": "healthy_idle",
+          "success_rate": 1.0,
+          "api_dependency_met": true,
+          "api_dependency_status": {
+            "comments": {
+              "status": "not_implemented",
+              "response_time": 182,
+              "message": "Endpoint not yet implemented",
+              "timestamp": "2026-04-13T04:04:36.975174"
+            }
+          },
+          "has_run_ever": true,
+          "status_description": "Agent running, no work available (normal)",
+          "work_available": false,
+          "detailed_analysis": {}
+        },
+        "engagement_bot": {
+          "last_run": "2026-04-12T23:00:18.393839",
+          "runs_today": 6,
+          "runs_24h": 35,
+          "recent_errors": 0,
+          "recent_successes": 34,
+          "status": "stale",
+          "health_score": 0.9068967412063493,
+          "activity_pattern": "stale",
+          "success_rate": 0.9714285714285714,
+          "api_dependency_met": true,
+          "api_dependency_status": {
+            "posts": {
+              "status": "available",
+              "response_time": 215,
+              "message": "Endpoint responding normally",
+              "timestamp": "2026-04-13T04:04:37.190643"
+            },
+            "metrics": {
+              "status": "not_implemented",
+              "response_time": 77,
+              "message": "Endpoint not yet implemented",
+              "timestamp": "2026-04-13T04:04:37.268167"
+            }
+          },
+          "has_run_ever": true,
+          "status_description": "Agent stale - hasn't run in 5.1h",
+          "work_available": false,
+          "detailed_analysis": {}
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 16,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-10",
+            "avg_engagement": 0.9375,
+            "engagement_rate": 0.05859375,
+            "performance": "low",
+            "data_quality": "api_data"
+          },
+          "bluesky": {
+            "posts": 18,
+            "total_likes": 2,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-11",
+            "avg_engagement": 0.1111111111111111,
+            "engagement_rate": 0.006172839506172839,
+            "performance": "low",
+            "data_quality": "api_data"
+          },
+          "x": {
+            "posts": 15,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-11",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none",
+            "data_quality": "api_data"
+          },
+          "tiktok": {
+            "posts": 15,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-10",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none",
+            "data_quality": "api_data"
+          },
+          "threads": {
+            "posts": 14,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-10",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none",
+            "data_quality": "api_data"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 10,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "data_consistency": "inconsistent_high_replies",
+          "api_status": "possible_api_issue"
+        },
+        "overall_engagement_rate": 0.21794871794871795,
+        "total_posts": 78,
+        "top_performer": "instagram"
+      },
+      "api_health": {
+        "comments": {
+          "status": "not_implemented",
+          "response_time": 186,
+          "message": "Endpoint not yet implemented",
+          "timestamp": "2026-04-13T04:04:36.462582"
+        },
+        "posts": {
+          "status": "available",
+          "response_time": 247,
+          "message": "Endpoint responding normally",
+          "timestamp": "2026-04-13T04:04:36.709936"
+        },
+        "metrics": {
+          "status": "not_implemented",
+          "response_time": 79,
+          "message": "Endpoint not yet implemented",
+          "timestamp": "2026-04-13T04:04:36.789802"
+        },
+        "auth": {
+          "status": "available",
+          "response_time": 0,
+          "message": "Skipped - valid token exists",
+          "timestamp": "2026-04-13T04:04:36.789802"
+        }
+      },
+      "alerts": [
+        {
+          "type": "api_not_implemented",
+          "severity": "low",
+          "message": "Expected APIs not implemented: comments, metrics",
+          "endpoints": [
+            "comments",
+            "metrics"
+          ],
+          "action": "Normal - these features are still in development"
+        },
+        {
+          "type": "agent_stale",
+          "severity": "high",
+          "message": "engagement_bot stale - requires manual intervention",
+          "agent": "engagement_bot",
+          "action": "Check Windows Task Scheduler and agent logs"
+        },
+        {
+          "type": "platform_zero_engagement",
+          "severity": "medium",
+          "message": "Multiple API-connected platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check content quality and posting strategy"
+        },
+        {
+          "type": "comment_data_inconsistent",
+          "severity": "medium",
+          "message": "Comment data inconsistent: 10 replies but 0 comments seen",
+          "action": "Check comment API endpoint and data logging"
+        }
+      ],
+      "summary": {
+        "healthy_agents": 1,
+        "total_agents": 2,
+        "total_alerts": 4,
+        "high_priority_alerts": 1,
+        "api_endpoints_available": 2,
+        "api_endpoints_total": 4,
+        "system_status": "degraded",
+        "top_platform": "instagram",
+        "overall_health_score": 0.8155817915568784,
+        "data_quality_score": 0.6499999999999999
+      }
+    }
+  ]
+}

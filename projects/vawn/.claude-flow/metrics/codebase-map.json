@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-12T23:57:10.680Z",
+  "projectRoot": "C:\\Users\\rdyal\\Vawn",
+  "structure": {
+    "hasPackageJson": false,
+    "hasTsConfig": false,
+    "hasClaudeConfig": true,
+    "hasClaudeFlow": true
+  },
+  "scannedAt": 1776038230681
+}

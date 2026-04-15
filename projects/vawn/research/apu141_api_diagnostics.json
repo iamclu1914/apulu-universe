@@ -1,0 +1,163 @@
+{
+  "diagnostic_run": "2026-04-13T20:04:41.575817",
+  "base_url": "https://apulustudio.onrender.com/api",
+  "total_endpoints": 13,
+  "endpoints": {
+    "API Health Check": {
+      "endpoint": "API Health Check",
+      "url": "https://apulustudio.onrender.com/api/health",
+      "timestamp": "2026-04-13T20:04:41.575817",
+      "status": "endpoint_not_found",
+      "response_code": 404,
+      "response_time_ms": 243,
+      "error": "Endpoint returns 404 - not implemented or incorrect URL",
+      "response_data": null
+    },
+    "API Status": {
+      "endpoint": "API Status",
+      "url": "https://apulustudio.onrender.com/api/status",
+      "timestamp": "2026-04-13T20:04:42.320943",
+      "status": "endpoint_not_found",
+      "response_code": 404,
+      "response_time_ms": 109,
+      "error": "Endpoint returns 404 - not implemented or incorrect URL",
+      "response_data": null
+    },
+    "Get Posts": {
+      "endpoint": "Get Posts",
+      "url": "https://apulustudio.onrender.com/api/posts",
+      "timestamp": "2026-04-13T20:04:42.930845",
+      "status": "auth_failed",
+      "response_code": 401,
+      "response_time_ms": 107,
+      "error": "Authentication failed - token may be expired",
+      "response_data": null
+    },
+    "Get Posts (limited)": {
+      "endpoint": "Get Posts (limited)",
+      "url": "https://apulustudio.onrender.com/api/posts?limit=5",
+      "timestamp": "2026-04-13T20:04:43.539409",
+      "status": "auth_failed",
+      "response_code": 401,
+      "response_time_ms": 125,
+      "error": "Authentication failed - token may be expired",
+      "response_data": null
+    },
+    "Get All Comments": {
+      "endpoint": "Get All Comments",
+      "url": "https://apulustudio.onrender.com/api/comments",
+      "timestamp": "2026-04-13T20:04:44.165955",
+      "status": "endpoint_not_found",
+      "response_code": 404,
+      "response_time_ms": 74,
+      "error": "Endpoint returns 404 - not implemented or incorrect URL",
+      "response_data": null
+    },
+    "Get Post Comments": {
+      "endpoint": "Get Post Comments",
+      "url": "https://apulustudio.onrender.com/api/posts/comments",
+      "timestamp": "2026-04-13T20:04:44.741712",
+      "status": "auth_failed",
+      "response_code": 401,
+      "response_time_ms": 107,
+      "error": "Authentication failed - token may be expired",
+      "response_data": null
+    },
+    "Instagram Posts": {
+      "endpoint": "Instagram Posts",
+      "url": "https://apulustudio.onrender.com/api/posts?platform=instagram&limit=5",
+      "timestamp": "2026-04-13T20:04:45.350646",
+      "status": "auth_failed",
+      "response_code": 401,
+      "response_time_ms": 68,
+      "error": "Authentication failed - token may be expired",
+      "response_data": null
+    },
+    "TikTok Posts": {
+      "endpoint": "TikTok Posts",
+      "url": "https://apulustudio.onrender.com/api/posts?platform=tiktok&limit=5",
+      "timestamp": "2026-04-13T20:04:45.920777",
+      "status": "auth_failed",
+      "response_code": 401,
+      "response_time_ms": 134,
+      "error": "Authentication failed - token may be expired",
+      "response_data": null
+    },
+    "X Posts": {
+      "endpoint": "X Posts",
+      "url": "https://apulustudio.onrender.com/api/posts?platform=x&limit=5",
+      "timestamp": "2026-04-13T20:04:46.555927",
+      "status": "auth_failed",
+      "response_code": 401,
+      "response_time_ms": 84,
+      "error": "Authentication failed - token may be expired",
+      "response_data": null
+    },
+    "Threads Posts": {
+      "endpoint": "Threads Posts",
+      "url": "https://apulustudio.onrender.com/api/posts?platform=threads&limit=5",
+      "timestamp": "2026-04-13T20:04:47.141332",
+      "status": "auth_failed",
+      "response_code": 401,
+      "response_time_ms": 108,
+      "error": "Authentication failed - token may be expired",
+      "response_data": null
+    },
+    "Bluesky Posts": {
+      "endpoint": "Bluesky Posts",
+      "url": "https://apulustudio.onrender.com/api/posts?platform=bluesky&limit=5",
+      "timestamp": "2026-04-13T20:04:47.750645",
+      "status": "auth_failed",
+      "response_code": 401,
+      "response_time_ms": 86,
+      "error": "Authentication failed - token may be expired",
+      "response_data": null
+    },
+    "User Profile": {
+      "endpoint": "User Profile",
+      "url": "https://apulustudio.onrender.com/api/user/profile",
+      "timestamp": "2026-04-13T20:04:48.337921",
+      "status": "endpoint_not_found",
+      "response_code": 404,
+      "response_time_ms": 63,
+      "error": "Endpoint returns 404 - not implemented or incorrect URL",
+      "response_data": null
+    },
+    "User Stats": {
+      "endpoint": "User Stats",
+      "url": "https://apulustudio.onrender.com/api/user/stats",
+      "timestamp": "2026-04-13T20:04:48.902058",
+      "status": "endpoint_not_found",
+      "response_code": 404,
+      "response_time_ms": 71,
+      "error": "Endpoint returns 404 - not implemented or incorrect URL",
+      "response_data": null
+    }
+  },
+  "summary": {
+    "healthy": 0,
+    "endpoint_not_found": 5,
+    "auth_failed": 8,
+    "connection_error": 0,
+    "timeout": 0,
+    "other_errors": 0
+  },
+  "critical_issues": [
+    {
+      "endpoint": "Get Posts",
+      "issue": "Authentication failed - token may be expired",
+      "impact": "High - Core engagement monitoring affected"
+    },
+    {
+      "endpoint": "Get Post Comments",
+      "issue": "Authentication failed - token may be expired",
+      "impact": "High - Core engagement monitoring affected"
+    }
+  ],
+  "recommendations": [
+    "Authentication issues detected - refresh access token",
+    "Multiple 404 errors suggest API structure has changed or base URL is incorrect",
+    "Critical engagement monitoring endpoints are failing - immediate attention required"
+  ],
+  "overall_health_score": 0.0
+}

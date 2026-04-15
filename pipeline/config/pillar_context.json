@@ -1,0 +1,59 @@
+{
+  "generated": "2026-04-14T06:25:02.663191",
+  "today": {
+    "date": "2026-04-14",
+    "day": "Tuesday",
+    "pillar": "Lyric"
+  },
+  "week_ahead": [
+    {
+      "date": "2026-04-14",
+      "day": "Tuesday",
+      "pillar": "Lyric"
+    },
+    {
+      "date": "2026-04-15",
+      "day": "Wednesday",
+      "pillar": "BTS"
+    },
+    {
+      "date": "2026-04-16",
+      "day": "Thursday",
+      "pillar": "Engagement"
+    },
+    {
+      "date": "2026-04-17",
+      "day": "Friday",
+      "pillar": "Conversion"
+    },
+    {
+      "date": "2026-04-18",
+      "day": "Saturday",
+      "pillar": "Audience"
+    },
+    {
+      "date": "2026-04-19",
+      "day": "Sunday",
+      "pillar": "Video"
+    },
+    {
+      "date": "2026-04-20",
+      "day": "Monday",
+      "pillar": "Awareness"
+    }
+  ],
+  "pillar_guide": {
+    "Awareness": "artist identity, brand positioning",
+    "Lyric": "quotable bars, wordplay, lyric breakdown",
+    "BTS": "studio process, behind-the-scenes, craft",
+    "Engagement": "questions, relatable moments, community",
+    "Conversion": "follow/save CTA, album anticipation",
+    "Audience": "mirror comparable artist strategies",
+    "Video": "cinematic, motion, visual storytelling"
+  },
+  "slot_energy": {
+    "morning": "sharp, intentional, quiet confidence -- not loud motivation",
+    "midday": "peak swagger, charismatic, commanding the room",
+    "evening": "storytelling, depth, J. Cole wordplay, the night belongs to the thinkers"
+  }
+}

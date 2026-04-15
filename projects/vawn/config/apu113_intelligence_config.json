@@ -1,0 +1,37 @@
+{
+  "intelligence": {
+    "analysis_interval_minutes": 30,
+    "historical_window_days": 30,
+    "prediction_horizon_days": 7,
+    "alert_threshold_score": 0.3,
+    "intelligence_refresh_minutes": 15
+  },
+  "platforms": {
+    "enabled": [
+      "instagram",
+      "tiktok",
+      "x",
+      "threads",
+      "bluesky"
+    ],
+    "priority_weights": {
+      "instagram": 0.25,
+      "tiktok": 0.25,
+      "x": 0.2,
+      "threads": 0.15,
+      "bluesky": 0.15
+    }
+  },
+  "reporting": {
+    "auto_generate_reports": true,
+    "stakeholder_alerts": true,
+    "export_format": "json",
+    "report_schedule": "daily"
+  },
+  "intelligence_thresholds": {
+    "critical_decline": 0.2,
+    "significant_growth": 0.8,
+    "strategy_misalignment": 0.3,
+    "cross_platform_divergence": 0.4
+  }
+}

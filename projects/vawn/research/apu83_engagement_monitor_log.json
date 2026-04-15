@@ -1,0 +1,632 @@
+{
+  "2026-04-12": [
+    {
+      "timestamp": "2026-04-12T06:04:56.515419",
+      "version": "apu83_enhanced_v1",
+      "agents": {
+        "engagementagent": {
+          "last_activity": null,
+          "status": "unknown",
+          "health_score": 0.0,
+          "activity_pattern": "no_recent_activity",
+          "runs_24h": 0,
+          "success_rate": 0.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [],
+          "status_description": "Unable to determine agent status",
+          "apu83_enhanced": true,
+          "last_updated": "2026-04-12T06:04:56.514423"
+        },
+        "engagementbot": {
+          "last_activity": null,
+          "status": "unknown",
+          "health_score": 0.0,
+          "activity_pattern": "no_recent_activity",
+          "runs_24h": 0,
+          "success_rate": 0.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [],
+          "status_description": "Unable to determine agent status",
+          "apu83_enhanced": true,
+          "last_updated": "2026-04-12T06:04:56.514423"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 16,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-10",
+            "api_posts": 1,
+            "manual_posts": 15,
+            "api_availability_rate": 0.0625,
+            "apu83_enhanced": true,
+            "avg_engagement": 15.0,
+            "engagement_rate": 15.0,
+            "performance": "excellent"
+          },
+          "bluesky": {
+            "posts": 17,
+            "total_likes": 2,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-10",
+            "api_posts": 17,
+            "manual_posts": 0,
+            "api_availability_rate": 1.0,
+            "apu83_enhanced": true,
+            "avg_engagement": 0.11764705882352941,
+            "engagement_rate": 0.006920415224913495,
+            "performance": "low"
+          },
+          "x": {
+            "posts": 14,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-10",
+            "api_posts": 0,
+            "manual_posts": 14,
+            "api_availability_rate": 0.0,
+            "apu83_enhanced": true,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          },
+          "tiktok": {
+            "posts": 15,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-10",
+            "api_posts": 0,
+            "manual_posts": 15,
+            "api_availability_rate": 0.0,
+            "apu83_enhanced": true,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          },
+          "threads": {
+            "posts": 14,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-10",
+            "api_posts": 0,
+            "manual_posts": 14,
+            "api_availability_rate": 0.0,
+            "apu83_enhanced": true,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 10,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available",
+          "apu83_enhanced": true
+        },
+        "overall_engagement_rate": 0.9444444444444444,
+        "total_posts": 76,
+        "api_posts": 18,
+        "api_coverage_rate": 0.23684210526315788,
+        "top_performer": "instagram",
+        "apu83_enhanced": true,
+        "analysis_timestamp": "2026-04-12T06:04:56.515419"
+      },
+      "alerts": [
+        {
+          "type": "agent_unknown",
+          "severity": "medium",
+          "message": "engagementagent status unknown - no recent activity",
+          "agent": "engagementagent",
+          "action": "Check if agent is scheduled and running",
+          "category": "technical",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "agent_unknown",
+          "severity": "medium",
+          "message": "engagementbot status unknown - no recent activity",
+          "agent": "engagementbot",
+          "action": "Check if agent is scheduled and running",
+          "category": "technical",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_integration_partial",
+          "severity": "medium",
+          "message": "instagram API integration incomplete (6.2% coverage)",
+          "platform": "instagram",
+          "action": "Fix API integration for instagram - 15 posts require manual entry",
+          "category": "infrastructure",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_integration_partial",
+          "severity": "medium",
+          "message": "x API integration incomplete (0.0% coverage)",
+          "platform": "x",
+          "action": "Fix API integration for x - 14 posts require manual entry",
+          "category": "infrastructure",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_integration_partial",
+          "severity": "medium",
+          "message": "tiktok API integration incomplete (0.0% coverage)",
+          "platform": "tiktok",
+          "action": "Fix API integration for tiktok - 15 posts require manual entry",
+          "category": "infrastructure",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_integration_partial",
+          "severity": "medium",
+          "message": "threads API integration incomplete (0.0% coverage)",
+          "platform": "threads",
+          "action": "Fix API integration for threads - 14 posts require manual entry",
+          "category": "infrastructure",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "platform_engagement_low",
+          "severity": "low",
+          "message": "bluesky showing low engagement (0.1 avg over 17 posts)",
+          "platform": "bluesky",
+          "action": "Optimize content strategy for bluesky",
+          "category": "community",
+          "performance": "low",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_coverage_low",
+          "severity": "high",
+          "message": "Low API coverage across platforms (23.7%) - most data requires manual entry",
+          "action": "Prioritize API integration development",
+          "category": "infrastructure",
+          "coverage_rate": 0.23684210526315788,
+          "apu83_enhanced": true
+        }
+      ],
+      "alerts_by_category": {
+        "infrastructure": [
+          {
+            "type": "api_integration_partial",
+            "severity": "medium",
+            "message": "instagram API integration incomplete (6.2% coverage)",
+            "platform": "instagram",
+            "action": "Fix API integration for instagram - 15 posts require manual entry",
+            "category": "infrastructure",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "api_integration_partial",
+            "severity": "medium",
+            "message": "x API integration incomplete (0.0% coverage)",
+            "platform": "x",
+            "action": "Fix API integration for x - 14 posts require manual entry",
+            "category": "infrastructure",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "api_integration_partial",
+            "severity": "medium",
+            "message": "tiktok API integration incomplete (0.0% coverage)",
+            "platform": "tiktok",
+            "action": "Fix API integration for tiktok - 15 posts require manual entry",
+            "category": "infrastructure",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "api_integration_partial",
+            "severity": "medium",
+            "message": "threads API integration incomplete (0.0% coverage)",
+            "platform": "threads",
+            "action": "Fix API integration for threads - 14 posts require manual entry",
+            "category": "infrastructure",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "api_coverage_low",
+            "severity": "high",
+            "message": "Low API coverage across platforms (23.7%) - most data requires manual entry",
+            "action": "Prioritize API integration development",
+            "category": "infrastructure",
+            "coverage_rate": 0.23684210526315788,
+            "apu83_enhanced": true
+          }
+        ],
+        "community": [
+          {
+            "type": "platform_engagement_low",
+            "severity": "low",
+            "message": "bluesky showing low engagement (0.1 avg over 17 posts)",
+            "platform": "bluesky",
+            "action": "Optimize content strategy for bluesky",
+            "category": "community",
+            "performance": "low",
+            "apu83_enhanced": true
+          }
+        ],
+        "technical": [
+          {
+            "type": "agent_unknown",
+            "severity": "medium",
+            "message": "engagementagent status unknown - no recent activity",
+            "agent": "engagementagent",
+            "action": "Check if agent is scheduled and running",
+            "category": "technical",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "agent_unknown",
+            "severity": "medium",
+            "message": "engagementbot status unknown - no recent activity",
+            "agent": "engagementbot",
+            "action": "Check if agent is scheduled and running",
+            "category": "technical",
+            "apu83_enhanced": true
+          }
+        ]
+      },
+      "summary": {
+        "healthy_agents": 0,
+        "total_agents": 2,
+        "total_alerts": 8,
+        "critical_alerts": 0,
+        "infrastructure_alerts": 5,
+        "community_alerts": 1,
+        "technical_alerts": 2,
+        "system_status": "needs_attention",
+        "api_coverage": 0.23684210526315788,
+        "top_platform": "instagram",
+        "overall_health_score": 0.0,
+        "apu83_enhanced": true,
+        "bug_fixes_applied": [
+          "UnboundLocalError_success_rate_fixed",
+          "enhanced_error_handling",
+          "improved_status_classification"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-04-12T08:02:29.281129",
+      "version": "apu83_enhanced_v1",
+      "agents": {
+        "engagementagent": {
+          "last_activity": null,
+          "status": "unknown",
+          "health_score": 0.0,
+          "activity_pattern": "no_recent_activity",
+          "runs_24h": 0,
+          "success_rate": 0.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [],
+          "status_description": "Unable to determine agent status",
+          "apu83_enhanced": true,
+          "last_updated": "2026-04-12T08:02:29.278625"
+        },
+        "engagementbot": {
+          "last_activity": null,
+          "status": "unknown",
+          "health_score": 0.0,
+          "activity_pattern": "no_recent_activity",
+          "runs_24h": 0,
+          "success_rate": 0.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [],
+          "status_description": "Unable to determine agent status",
+          "apu83_enhanced": true,
+          "last_updated": "2026-04-12T08:02:29.278625"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 16,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-10",
+            "api_posts": 1,
+            "manual_posts": 15,
+            "api_availability_rate": 0.0625,
+            "apu83_enhanced": true,
+            "avg_engagement": 15.0,
+            "engagement_rate": 15.0,
+            "performance": "excellent"
+          },
+          "bluesky": {
+            "posts": 18,
+            "total_likes": 2,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-11",
+            "api_posts": 18,
+            "manual_posts": 0,
+            "api_availability_rate": 1.0,
+            "apu83_enhanced": true,
+            "avg_engagement": 0.1111111111111111,
+            "engagement_rate": 0.006172839506172839,
+            "performance": "low"
+          },
+          "x": {
+            "posts": 15,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-11",
+            "api_posts": 0,
+            "manual_posts": 15,
+            "api_availability_rate": 0.0,
+            "apu83_enhanced": true,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          },
+          "tiktok": {
+            "posts": 15,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-10",
+            "api_posts": 0,
+            "manual_posts": 15,
+            "api_availability_rate": 0.0,
+            "apu83_enhanced": true,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          },
+          "threads": {
+            "posts": 14,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-10",
+            "api_posts": 0,
+            "manual_posts": 14,
+            "api_availability_rate": 0.0,
+            "apu83_enhanced": true,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 10,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available",
+          "apu83_enhanced": true
+        },
+        "overall_engagement_rate": 0.8947368421052632,
+        "total_posts": 78,
+        "api_posts": 19,
+        "api_coverage_rate": 0.24358974358974358,
+        "top_performer": "instagram",
+        "apu83_enhanced": true,
+        "analysis_timestamp": "2026-04-12T08:02:29.281129"
+      },
+      "alerts": [
+        {
+          "type": "agent_unknown",
+          "severity": "medium",
+          "message": "engagementagent status unknown - no recent activity",
+          "agent": "engagementagent",
+          "action": "Check if agent is scheduled and running",
+          "category": "technical",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "agent_unknown",
+          "severity": "medium",
+          "message": "engagementbot status unknown - no recent activity",
+          "agent": "engagementbot",
+          "action": "Check if agent is scheduled and running",
+          "category": "technical",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_integration_partial",
+          "severity": "medium",
+          "message": "instagram API integration incomplete (6.2% coverage)",
+          "platform": "instagram",
+          "action": "Fix API integration for instagram - 15 posts require manual entry",
+          "category": "infrastructure",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_integration_partial",
+          "severity": "medium",
+          "message": "x API integration incomplete (0.0% coverage)",
+          "platform": "x",
+          "action": "Fix API integration for x - 15 posts require manual entry",
+          "category": "infrastructure",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_integration_partial",
+          "severity": "medium",
+          "message": "tiktok API integration incomplete (0.0% coverage)",
+          "platform": "tiktok",
+          "action": "Fix API integration for tiktok - 15 posts require manual entry",
+          "category": "infrastructure",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_integration_partial",
+          "severity": "medium",
+          "message": "threads API integration incomplete (0.0% coverage)",
+          "platform": "threads",
+          "action": "Fix API integration for threads - 14 posts require manual entry",
+          "category": "infrastructure",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "platform_engagement_low",
+          "severity": "low",
+          "message": "bluesky showing low engagement (0.1 avg over 18 posts)",
+          "platform": "bluesky",
+          "action": "Optimize content strategy for bluesky",
+          "category": "community",
+          "performance": "low",
+          "apu83_enhanced": true
+        },
+        {
+          "type": "api_coverage_low",
+          "severity": "high",
+          "message": "Low API coverage across platforms (24.4%) - most data requires manual entry",
+          "action": "Prioritize API integration development",
+          "category": "infrastructure",
+          "coverage_rate": 0.24358974358974358,
+          "apu83_enhanced": true
+        }
+      ],
+      "alerts_by_category": {
+        "infrastructure": [
+          {
+            "type": "api_integration_partial",
+            "severity": "medium",
+            "message": "instagram API integration incomplete (6.2% coverage)",
+            "platform": "instagram",
+            "action": "Fix API integration for instagram - 15 posts require manual entry",
+            "category": "infrastructure",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "api_integration_partial",
+            "severity": "medium",
+            "message": "x API integration incomplete (0.0% coverage)",
+            "platform": "x",
+            "action": "Fix API integration for x - 15 posts require manual entry",
+            "category": "infrastructure",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "api_integration_partial",
+            "severity": "medium",
+            "message": "tiktok API integration incomplete (0.0% coverage)",
+            "platform": "tiktok",
+            "action": "Fix API integration for tiktok - 15 posts require manual entry",
+            "category": "infrastructure",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "api_integration_partial",
+            "severity": "medium",
+            "message": "threads API integration incomplete (0.0% coverage)",
+            "platform": "threads",
+            "action": "Fix API integration for threads - 14 posts require manual entry",
+            "category": "infrastructure",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "api_coverage_low",
+            "severity": "high",
+            "message": "Low API coverage across platforms (24.4%) - most data requires manual entry",
+            "action": "Prioritize API integration development",
+            "category": "infrastructure",
+            "coverage_rate": 0.24358974358974358,
+            "apu83_enhanced": true
+          }
+        ],
+        "community": [
+          {
+            "type": "platform_engagement_low",
+            "severity": "low",
+            "message": "bluesky showing low engagement (0.1 avg over 18 posts)",
+            "platform": "bluesky",
+            "action": "Optimize content strategy for bluesky",
+            "category": "community",
+            "performance": "low",
+            "apu83_enhanced": true
+          }
+        ],
+        "technical": [
+          {
+            "type": "agent_unknown",
+            "severity": "medium",
+            "message": "engagementagent status unknown - no recent activity",
+            "agent": "engagementagent",
+            "action": "Check if agent is scheduled and running",
+            "category": "technical",
+            "apu83_enhanced": true
+          },
+          {
+            "type": "agent_unknown",
+            "severity": "medium",
+            "message": "engagementbot status unknown - no recent activity",
+            "agent": "engagementbot",
+            "action": "Check if agent is scheduled and running",
+            "category": "technical",
+            "apu83_enhanced": true
+          }
+        ]
+      },
+      "summary": {
+        "healthy_agents": 0,
+        "total_agents": 2,
+        "total_alerts": 8,
+        "critical_alerts": 0,
+        "infrastructure_alerts": 5,
+        "community_alerts": 1,
+        "technical_alerts": 2,
+        "system_status": "needs_attention",
+        "api_coverage": 0.24358974358974358,
+        "top_platform": "instagram",
+        "overall_health_score": 0.0,
+        "apu83_enhanced": true,
+        "bug_fixes_applied": [
+          "UnboundLocalError_success_rate_fixed",
+          "enhanced_error_handling",
+          "improved_status_classification"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-04-12T08:07:43.881417",
+      "apu88_integration": true,
+      "system_health_score": 0.0,
+      "overall_status": "CRITICAL",
+      "recovery_actions_count": 2,
+      "recommendations": [
+        "URGENT: Resolve agent operational issues",
+        "HIGH: Improve API integration coverage",
+        "ACTIVE: Monitor 4 platform optimizations"
+      ]
+    }
+  ]
+}

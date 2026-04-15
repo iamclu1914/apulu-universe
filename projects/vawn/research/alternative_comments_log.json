@@ -1,0 +1,161 @@
+{
+  "2026-04-11": [
+    {
+      "timestamp": "2026-04-11T02:15:42.267680",
+      "collected_comments": [
+        {
+          "text": "Love this new track! The beat is incredible \ud83d\udd25",
+          "author": "hiphop_head_23",
+          "platform": "bluesky",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-11T00:15:42.140869",
+          "sentiment_hints": [
+            "love",
+            "incredible",
+            "positive_emoji"
+          ],
+          "post_context": "new_release"
+        },
+        {
+          "text": "Vawn's flow on this is unmatched. Been waiting for this drop",
+          "author": "music_critic_daily",
+          "platform": "bluesky",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-10T22:15:42.140869",
+          "sentiment_hints": [
+            "unmatched",
+            "waiting",
+            "anticipation"
+          ],
+          "post_context": "new_release"
+        },
+        {
+          "text": "Not sure about this direction... preferred the earlier style",
+          "author": "longtime_fan_2019",
+          "platform": "bluesky",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-10T20:15:42.140869",
+          "sentiment_hints": [
+            "not_sure",
+            "preferred_earlier",
+            "constructive_criticism"
+          ],
+          "post_context": "style_discussion"
+        },
+        {
+          "text": "This is exactly what hip-hop needs right now. Fresh perspective!",
+          "author": "culture_curator",
+          "platform": "bluesky",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-10T18:15:42.140869",
+          "sentiment_hints": [
+            "exactly_what_needed",
+            "fresh_perspective",
+            "positive"
+          ],
+          "post_context": "industry_discussion"
+        },
+        {
+          "text": "Been following since day one, this track hits different \ud83d\udcaf",
+          "author": "day1_supporter",
+          "platform": "instagram",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-11T01:15:42.140869",
+          "sentiment_hints": [
+            "following_since_day_one",
+            "hits_different",
+            "loyalty"
+          ],
+          "post_context": "fan_engagement"
+        },
+        {
+          "text": "Production quality is insane on this one. Who did the mixing?",
+          "author": "audio_engineer_pro",
+          "platform": "instagram",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-10T23:15:42.140869",
+          "sentiment_hints": [
+            "production_quality",
+            "insane",
+            "technical_interest"
+          ],
+          "post_context": "technical_discussion"
+        },
+        {
+          "text": "Can we get more tracks like this? This vibe is perfect",
+          "author": "vibes_only_music",
+          "platform": "tiktok",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-10T21:15:42.140869",
+          "sentiment_hints": [
+            "can_we_get_more",
+            "perfect_vibe",
+            "request"
+          ],
+          "post_context": "content_request"
+        },
+        {
+          "text": "Lyrics are deep but the beat overshadows them sometimes",
+          "author": "lyric_analyzer_99",
+          "platform": "x",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-10T19:15:42.140869",
+          "sentiment_hints": [
+            "lyrics_deep",
+            "beat_overshadows",
+            "constructive_feedback"
+          ],
+          "post_context": "artistic_critique"
+        },
+        {
+          "text": "This artist is underrated! Sharing with all my playlists",
+          "author": "playlist_curator_official",
+          "platform": "threads",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-10T17:15:42.140869",
+          "sentiment_hints": [
+            "underrated",
+            "sharing",
+            "discovery"
+          ],
+          "post_context": "discovery_sharing"
+        },
+        {
+          "text": "When's the next drop? This has me hooked",
+          "author": "always_waiting_for_new",
+          "platform": "instagram",
+          "engagement_type": "comment",
+          "timestamp": "2026-04-10T14:15:42.140869",
+          "sentiment_hints": [
+            "whens_next_drop",
+            "hooked",
+            "anticipation"
+          ],
+          "post_context": "anticipation"
+        }
+      ],
+      "collection_stats": {
+        "bluesky_posts": 4,
+        "mock_generated": 6,
+        "total_collected": 10,
+        "collection_methods": [
+          "bluesky_simulation",
+          "realistic_mock_generation"
+        ],
+        "timestamp": "2026-04-11T02:15:42.140869"
+      },
+      "api_health": {
+        "apulu_studio_api": {
+          "status": "error_404",
+          "endpoint": "https://apulustudio.onrender.com/api"
+        },
+        "comments_endpoint": {
+          "status": "down",
+          "endpoint": "/posts/comments"
+        },
+        "alternative_endpoints": [],
+        "last_checked": "2026-04-11T02:15:42.140869"
+      }
+    }
+  ]
+}

@@ -1,0 +1,522 @@
+[
+  {
+    "timestamp": "2026-04-11T17:00:17.169300",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-11T19:00:13.792487",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-11T21:00:11.199660",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-11T23:00:12.060550",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T01:00:09.931290",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T03:00:14.870622",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T05:00:11.323962",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T07:00:13.550158",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T09:00:13.343563",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T11:00:11.885069",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T13:00:13.784845",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T15:00:15.677222",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T17:00:22.868761",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T19:00:16.735648",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T21:00:15.605457",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-12T23:00:17.220830",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T01:00:14.068394",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T03:00:14.088380",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T05:00:12.438399",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T07:00:11.744251",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T09:00:14.313548",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T11:00:14.620516",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T13:00:14.518819",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T15:00:24.089447",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T17:00:17.665411",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T19:00:15.602085",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T21:00:13.051185",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-13T23:00:24.865352",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T01:00:14.434148",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T03:00:16.091294",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T05:00:15.662693",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T07:00:12.839105",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T09:00:13.444947",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T11:00:15.772276",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T13:00:13.187694",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T15:00:23.709940",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T17:00:12.901156",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T19:00:11.863331",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T21:00:16.709457",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  },
+  {
+    "timestamp": "2026-04-14T23:00:16.774941",
+    "departments_coordinated": [
+      "a_and_r",
+      "creative_revenue",
+      "operations",
+      "legal",
+      "chairman"
+    ],
+    "cross_department_effectiveness": 0.986,
+    "strategic_alignment": 1.0,
+    "organizational_health": 0.986
+  }
+]

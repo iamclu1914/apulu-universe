@@ -1,0 +1,37 @@
+{
+  "date": "2026-04-09",
+  "generated": "2026-04-09T20:57:05.564241",
+  "overall_success": true,
+  "passed": 2,
+  "failed": 0,
+  "total": 2,
+  "elapsed_seconds": 3.05,
+  "scripts": [
+    {
+      "name": "health_monitor",
+      "label": "Health Monitor",
+      "path": "C:\\Users\\rdyal\\Apulu Universe\\pipeline\\brain\\health_monitor.py",
+      "started": "2026-04-09T20:57:05.564241",
+      "stdout": "\n============================================================\n  Health Monitor \u2014 2026-04-09\n============================================================\n  [ OK ] NotebookLM Auth: {\"status\": \"ok\", \"notebooks\": 19}\n  [ OK ] Discovery Freshness: {\"x\": {\"status\": \"fresh\", \"age_hours\": 15.4}, \"tiktok\": {\"status\": \"fresh\", \"age_hours\": 15.4}, \"ins\n  [ OK ] Bridge: {\"status\": \"ok\", \"enriched_today\": true}\n  [ OK ] Catalog Fallback: {\"status\": \"ok\", \"bars\": 3}\n  [ OK ] Yesterday's Posts: {\"status\": \"ok\", \"images_posted\": 7, \"slots_completed\": 7, \"platforms\": []}\n  [ OK ] Image Supply: {\"status\": \"ok\", \"total_images\": 83, \"unposted_today\": 77}\n  [ OK ] Engagement Feedback: {\"status\": \"ok\", \"best_pillar\": \"Audience\", \"score\": 46}\n  [ OK ] Local Catalog: {\"status\": \"ok\", \"tracks\": 24, \"bars\": 210}\n  [Obsidian] Wrote Health \u2014 2026-04-09.md\n\n  Critical: 0 | Warnings: 0\n============================================================\n\n",
+      "stderr": "",
+      "returncode": 0,
+      "success": true,
+      "error": null,
+      "elapsed_seconds": 2.92,
+      "finished": "2026-04-09T20:57:08.480776"
+    },
+    {
+      "name": "daily_briefing",
+      "label": "Daily Briefing",
+      "path": "C:\\Users\\rdyal\\Apulu Universe\\pipeline\\brain\\daily_briefing.py",
+      "started": "2026-04-09T20:57:08.480776",
+      "stdout": "\n============================================================\n  Daily Briefing \u2014 2026-04-09\n============================================================\n  [Obsidian] Wrote Daily Briefing \u2014 2026-04-09.md\n  Pillar: Engagement | Yesterday: 7 posts, 1 score\n============================================================\n\n",
+      "stderr": "",
+      "returncode": 0,
+      "success": true,
+      "error": null,
+      "elapsed_seconds": 0.13,
+      "finished": "2026-04-09T20:57:08.615621"
+    }
+  ]
+}

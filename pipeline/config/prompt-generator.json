@@ -1,0 +1,82 @@
+{
+  "project": "prompt-generator",
+  "profile": "AI video prompt research for the Apulu Prompt Generator. Focused on Higgsfield Cinema 2.5 prompting, character consistency techniques, camera movements, and high-quality AI video generation workflows.",
+  "niches": [
+    "higgsfield cinema",
+    "ai video generation",
+    "character consistency",
+    "ai image prompting",
+    "stable diffusion prompts",
+    "ai filmmaking"
+  ],
+  "config_path": "C:\\Users\\rdyal\\Vawn\\config.json",
+  "output_dir": "C:\\Users\\rdyal\\Apulu Universe\\research\\prompt-generator",
+
+  "pipelines": {
+    "youtube": {
+      "enabled": true,
+      "method": "yt-dlp",
+      "schedule": "weekly",
+      "max_results": 15,
+      "months": 3,
+      "keywords": [
+        "higgsfield cinema 2.5 tutorial",
+        "higgsfield prompting tips",
+        "ai video character consistency",
+        "higgsfield camera movements",
+        "ai video prompt engineering",
+        "consistent character ai video",
+        "higgsfield best settings"
+      ]
+    },
+    "reddit": {
+      "enabled": true,
+      "actor": "trudax/reddit-scraper-lite",
+      "schedule": "twice-weekly",
+      "max_results": 30,
+      "subreddits": [
+        "aivideo",
+        "StableDiffusion",
+        "midjourney",
+        "comfyui",
+        "AIFilmmaking",
+        "higgsfield"
+      ],
+      "sort": "hot",
+      "keywords_filter": [
+        "prompt", "character consistency", "higgsfield",
+        "camera movement", "style transfer", "reference image",
+        "seed", "workflow", "technique"
+      ]
+    },
+    "tiktok": {
+      "enabled": true,
+      "actor": "clockworks/tiktok-scraper",
+      "schedule": "weekly",
+      "max_results": 30,
+      "accounts": [],
+      "keywords": [
+        "higgsfield tutorial",
+        "ai video prompt",
+        "character consistency ai",
+        "ai filmmaking tips",
+        "ai generated music video"
+      ]
+    },
+    "x": {
+      "enabled": true,
+      "actor": "apidojo/tweet-scraper",
+      "schedule": "twice-weekly",
+      "max_results": 50,
+      "accounts": [
+        "@higaborhadegsfield_ai", "@HiggsFieldAI",
+        "@CivitaiArt", "@prompthero"
+      ],
+      "keywords": [
+        "higgsfield prompt", "higgsfield cinema",
+        "character consistency ai video",
+        "ai video workflow", "ai filmmaking prompt"
+      ]
+    }
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "2026-04-14": [
+    {
+      "timestamp": "2026-04-14T06:04:46.568496",
+      "version": "apu151_enhanced_v1",
+      "system_status": "critical",
+      "analysis": {
+        "data_quality": {
+          "metrics_completeness": 0.34285714285714286,
+          "engagement_freshness": 0,
+          "data_gaps": [],
+          "quality_score": 0.2057142857142857,
+          "recommendations": [
+            "URGENT: Data quality below minimum threshold",
+            "Refresh engagement data - stale by >12 hours"
+          ]
+        },
+        "engagement_velocity": {
+          "trending_posts": [],
+          "declining_posts": [
+            {
+              "image": "vawn-marina-dock-black-palace-halfzip-walking.png",
+              "platform": "bluesky",
+              "velocity": -1.0,
+              "recent_engagement": 0,
+              "baseline_engagement": 1
+            },
+            {
+              "image": "vawn-podcast-studio-blue-polo-bucket.jpg",
+              "platform": "bluesky",
+              "velocity": -1.0,
+              "recent_engagement": 0,
+              "baseline_engagement": 1
+            }
+          ],
+          "velocity_alerts": [],
+          "platform_momentum": {},
+          "overall_velocity": -0.047619047619047616
+        },
+        "cross_platform_analysis": {
+          "platform_rankings": {
+            "bluesky": {
+              "rank": 1,
+              "avg_engagement": 0.16666666666666666,
+              "total_posts": 12,
+              "total_engagement": 2
+            },
+            "tiktok": {
+              "rank": 2,
+              "avg_engagement": 0.0,
+              "total_posts": 10,
+              "total_engagement": 0
+            },
+            "instagram": {
+              "rank": 3,
+              "avg_engagement": 0.0,
+              "total_posts": 10,
+              "total_engagement": 0
+            },
+            "threads": {
+              "rank": 4,
+              "avg_engagement": 0.0,
+              "total_posts": 9,
+              "total_engagement": 0
+            },
+            "x": {
+              "rank": 5,
+              "avg_engagement": 0.0,
+              "total_posts": 9,
+              "total_engagement": 0
+            }
+          },
+          "content_performance_patterns": [
+            {
+              "content": "vawn-atlanta-rooftop-beige-coat-skyline.jpg",
+              "best_platform": "tiktok",
+              "worst_platform": "tiktok",
+              "performance_ratio": 0.0,
+              "platform_scores": {
+                "tiktok": 0,
+                "instagram": 0,
+                "threads": 0
+              }
+            },
+            {
+              "content": "vawn-graffiti-alley-maroon-tracksuit-smiling.jpg",
+              "best_platform": "tiktok",
+              "worst_platform": "tiktok",
+              "performance_ratio": 0.0,
+              "platform_scores": {
+                "tiktok": 0,
+                "instagram": 0,
+                "threads": 0
+              }
+            },
+            {
+              "content": "vawn-stadium-lounge-grey-sweater-seated.jpg",
+              "best_platform": "bluesky",
+              "worst_platform": "bluesky",
+              "performance_ratio": 0.0,
+              "platform_scores": {
+                "bluesky": 0,
+                "x": 0,
+                "instagram": 0
+              }
+            },
+            {
+              "content": "vawn-courtside-hawks-focused-seated.jpg",
+              "best_platform": "tiktok",
+              "worst_platform": "tiktok",
+              "performance_ratio": 0.0,
+              "platform_scores": {
+                "tiktok": 0,
+                "instagram": 0,
+                "threads": 0
+              }
+            },
+            {
+              "content": "vawn-marina-dock-black-palace-halfzip-walking.png",
+              "best_platform": "bluesky",
+              "worst_platform": "x",
+              "performance_ratio": 1.0,
+              "platform_scores": {
+                "bluesky": 1,
+                "x": 0,
+                "instagram": 0
+              }
+            },
+            {
+              "content": "vawn-portrait-dark-puma-tracksuit-closeup.png",
+              "best_platform": "tiktok",
+              "worst_platform": "tiktok",
+              "performance_ratio": 0.0,
+              "platform_scores": {
+                "tiktok": 0,
+                "instagram": 0,
+                "threads": 0
+              }
+            },
+            {
+              "content": "vawn-studio-portrait-puma-trackjacket-closeup.png",
+              "best_platform": "bluesky",
+              "worst_platform": "bluesky",
+              "performance_ratio": 0.0,
+              "platform_scores": {
+                "bluesky": 0,
+                "tiktok": 0,
+                "instagram": 0,
+                "threads": 0,
+                "x": 0
+              }
+            },
+            {
+              "content": "vawn-library-fireplace-beanie-close.jpg",
+              "best_platform": "tiktok",
+              "worst_platform": "tiktok",
+              "performance_ratio": 0.0,
+              "platform_scores": {
+                "tiktok": 0,
+                "instagram": 0,
+                "threads": 0
+              }
+            },
+            {
+              "content": "vawn-marina-boardwalk-black-halfzip-palace-cap-walking-dusk.png",
+              "best_platform": "tiktok",
+              "worst_platform": "tiktok",
+              "performance_ratio": 0.0,
+              "platform_scores": {
+                "tiktok": 0,
+                "instagram": 0,
+                "threads": 0
+              }
+            }
+          ],
+          "optimization_opportunities": [
+            "Focus more content on bluesky (top performer: 0.2 avg engagement)"
+          ],
+          "cross_platform_correlation": 0.0,
+          "platform_specific_insights": {}
+        },
+        "intelligent_recommendations": {
+          "immediate_actions": [
+            {
+              "action": "DATA QUALITY CRISIS: Implement data collection fixes",
+              "priority": "critical",
+              "timeline": "immediate",
+              "department": "operations"
+            }
+          ],
+          "strategic_initiatives": [
+            "Double down on bluesky content strategy (avg engagement: 0.2)",
+            "Double down on tiktok content strategy (avg engagement: 0.0)"
+          ],
+          "department_specific": {
+            "creative_revenue": [
+              "Focus more content on bluesky (top performer: 0.2 avg engagement)"
+            ],
+            "operations": [
+              "Improve data pipeline reliability and monitoring"
+            ]
+          },
+          "content_strategy": [
+            "Refresh strategy for declining content types (2 posts declining)"
+          ],
+          "community_building": [
+            "URGENT: Community health critical - implement immediate engagement campaign",
+            "Launch direct fan interaction initiatives to rebuild community connection"
+          ],
+          "priority_score": 0.5
+        },
+        "community_health": {
+          "overall_score": 0.2521333333333333,
+          "status": "needs_attention",
+          "metrics": {
+            "engagement_quality": 0.0,
+            "conversation_health": 0.11000000000000001,
+            "community_growth": 0.16666666666666663,
+            "platform_diversity": 0.984,
+            "response_quality": 0.0
+          },
+          "timestamp": "2026-04-14T06:04:46.568496",
+          "recommendations": [
+            "Focus on creating more engaging content that encourages comments and saves",
+            "Ask questions and create polls to stimulate community discussion",
+            "Improve reply quality with more personalized, question-asking responses",
+            "Create content that naturally invites community participation",
+            "Analyze successful posts to identify growth patterns",
+            "Increase posting frequency on platforms showing growth potential",
+            "Enhance engagement agent responses to be more conversational",
+            "Train agents to ask follow-up questions and show genuine interest"
+          ]
+        },
+        "department_analytics": {
+          "legal": {
+            "total_relevant_interactions": 0,
+            "urgent_issues": [],
+            "response_times": [],
+            "department_health_score": 0.5,
+            "key_topics": [],
+            "recommendations": [
+              "Monitor for copyright and legal mentions more actively"
+            ],
+            "alerts": []
+          },
+          "a_and_r": {
+            "total_relevant_interactions": 0,
+            "urgent_issues": [],
+            "response_times": [],
+            "department_health_score": 0.5,
+            "key_topics": [],
+            "recommendations": [
+              "Increase monitoring of artist discovery and demo submissions"
+            ],
+            "alerts": []
+          },
+          "creative_revenue": {
+            "total_relevant_interactions": 0,
+            "urgent_issues": [],
+            "response_times": [],
+            "department_health_score": 0.5,
+            "key_topics": [],
+            "recommendations": [
+              "Track campaign performance and conversion metrics more closely"
+            ],
+            "alerts": []
+          },
+          "operations": {
+            "total_relevant_interactions": 0,
+            "urgent_issues": [],
+            "response_times": [],
+            "department_health_score": 0.5,
+            "key_topics": [],
+            "recommendations": [
+              "Monitor system health and operational feedback"
+            ],
+            "alerts": []
+          },
+          "chairman": {
+            "overall_organizational_health": 0.5,
+            "total_urgent_issues": 0,
+            "departments_at_risk": [
+              {
+                "department": "legal",
+                "head": "Nelly",
+                "health_score": 0.5,
+                "urgent_issues": 0
+              },
+              {
+                "department": "a_and_r",
+                "head": "Timbo",
+                "health_score": 0.5,
+                "urgent_issues": 0
+              },
+              {
+                "department": "creative_revenue",
+                "head": "Letitia",
+                "health_score": 0.5,
+                "urgent_issues": 0
+              },
+              {
+                "department": "operations",
+                "head": "Nari",
+                "health_score": 0.5,
+                "urgent_issues": 0
+              }
+            ],
+            "strategic_recommendations": [
+              "Schedule 1:1 with department heads: Nelly, Timbo, Letitia, Nari"
+            ],
+            "executive_alerts": []
+          }
+        },
+        "community_trends": {
+          "trending_topics": [],
+          "trend_indicators": [],
+          "total_conversations": 0,
+          "timestamp": "2026-04-14T06:04:46.568496"
+        }
+      },
+      "summary": {
+        "overall_health_score": 0.18436190476190475,
+        "critical_alerts": 1,
+        "trending_opportunities": 0,
+        "data_quality_status": "critical",
+        "top_recommendations": [
+          {
+            "action": "DATA QUALITY CRISIS: Implement data collection fixes",
+            "priority": "critical",
+            "timeline": "immediate",
+            "department": "operations"
+          },
+          "Double down on bluesky content strategy (avg engagement: 0.2)",
+          "Double down on tiktok content strategy (avg engagement: 0.0)"
+        ],
+        "system_performance": "critical"
+      },
+      "next_review_time": "2026-04-14T08:04:46.568496"
+    }
+  ]
+}

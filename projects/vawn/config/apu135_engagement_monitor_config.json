@@ -1,0 +1,27 @@
+{
+  "monitoring": {
+    "check_interval_seconds": 30,
+    "recovery_enabled": true,
+    "quality_gates_enabled": true,
+    "dashboard_update_interval": 60
+  },
+  "systems_to_monitor": [
+    "EngagementBotEnhanced",
+    "APU68VideoEngagementEngine",
+    "APU68UnifiedEngagementBot",
+    "APU101EngagementCoordinator",
+    "APU59CommunityHealthOptimizer"
+  ],
+  "recovery_settings": {
+    "max_recovery_attempts": 3,
+    "recovery_cooldown_minutes": 5,
+    "escalation_threshold": 2,
+    "auto_restart_enabled": true
+  },
+  "quality_gates": {
+    "engagement_quality_threshold": 0.7,
+    "response_time_threshold_ms": 3000,
+    "error_rate_threshold": 0.05,
+    "activity_timeout_minutes": 15
+  }
+}

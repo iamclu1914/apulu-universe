@@ -1,0 +1,18 @@
+{
+  "2026-04-10": {
+    "engagement_drop": {
+      "count": 1,
+      "last_escalation": null,
+      "remediation_attempts": 0,
+      "escalated": false
+    }
+  },
+  "recent_alerts": [
+    {
+      "type": "engagement_drop",
+      "timestamp": "2026-04-10T12:07:38.628412",
+      "severity": "medium",
+      "message": "Multiple platforms showing zero engagement"
+    }
+  ]
+}

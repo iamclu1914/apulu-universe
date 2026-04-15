@@ -1,0 +1,197 @@
+{
+  "2026-04-10": [
+    {
+      "timestamp": "2026-04-10T18:06:32.406864",
+      "version": "apu44_enhanced_v1",
+      "agents": {
+        "engagementagent": {
+          "last_activity": "2026-04-10T14:01:52.295467",
+          "status": "idle",
+          "health_score": 1.0,
+          "activity_pattern": "healthy_idle",
+          "runs_24h": 26,
+          "success_rate": 1.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent running but no work available (normal)"
+        },
+        "engagementbot": {
+          "last_activity": "2026-04-10T16:02:17.360402",
+          "status": "healthy",
+          "health_score": 1.0,
+          "activity_pattern": "active_processing",
+          "runs_24h": 15,
+          "success_rate": 1.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent running and processing work successfully"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-09",
+            "api_posts": 1,
+            "manual_posts": 12,
+            "api_availability_rate": 0.07692307692307693,
+            "avg_engagement": 15.0,
+            "engagement_rate": 15.0,
+            "performance": "excellent"
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "api_posts": 13,
+            "manual_posts": 0,
+            "api_availability_rate": 1.0,
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361,
+            "performance": "low"
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-09",
+            "api_posts": 0,
+            "manual_posts": 10,
+            "api_availability_rate": 0.0,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-09",
+            "api_posts": 0,
+            "manual_posts": 12,
+            "api_availability_rate": 0.0,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "manual_entry_needed",
+            "last_activity": "2026-04-09",
+            "api_posts": 0,
+            "manual_posts": 11,
+            "api_availability_rate": 0.0,
+            "avg_engagement": 0,
+            "engagement_rate": 0,
+            "performance": "no_api_data"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 1.1428571428571428,
+        "total_posts": 59,
+        "api_posts": 14,
+        "api_coverage_rate": 0.23728813559322035,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "api_infrastructure_gap",
+          "severity": "high",
+          "message": "API integration missing for 4 platforms: instagram, x, tiktok, threads",
+          "platforms": [
+            "instagram",
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Implement missing API integrations (see platform-api-integration-roadmap.md)",
+          "category": "infrastructure"
+        },
+        {
+          "type": "api_coverage_low",
+          "severity": "high",
+          "message": "Low API coverage across platforms (23.7%) - most data requires manual entry",
+          "action": "Prioritize API integration development (see APU-44 roadmap)",
+          "category": "infrastructure"
+        }
+      ],
+      "alerts_by_category": {
+        "infrastructure": [
+          {
+            "type": "api_infrastructure_gap",
+            "severity": "high",
+            "message": "API integration missing for 4 platforms: instagram, x, tiktok, threads",
+            "platforms": [
+              "instagram",
+              "x",
+              "tiktok",
+              "threads"
+            ],
+            "action": "Implement missing API integrations (see platform-api-integration-roadmap.md)",
+            "category": "infrastructure"
+          },
+          {
+            "type": "api_coverage_low",
+            "severity": "high",
+            "message": "Low API coverage across platforms (23.7%) - most data requires manual entry",
+            "action": "Prioritize API integration development (see APU-44 roadmap)",
+            "category": "infrastructure"
+          }
+        ],
+        "community": [],
+        "technical": []
+      },
+      "summary": {
+        "healthy_agents": 2,
+        "total_agents": 2,
+        "total_alerts": 2,
+        "infrastructure_alerts": 2,
+        "community_alerts": 0,
+        "technical_alerts": 0,
+        "system_status": "needs_attention",
+        "api_coverage": 0.23728813559322035,
+        "top_platform": "instagram",
+        "overall_health_score": 1.0
+      }
+    }
+  ]
+}

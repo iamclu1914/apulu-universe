@@ -1,0 +1,93 @@
+{
+  "2026-04-11": [
+    {
+      "timestamp": "2026-04-11T14:05:45.929165",
+      "dashboard_summary": {
+        "timestamp": "2026-04-11T14:05:45.929165",
+        "realtime_metrics": {
+          "timestamp": "2026-04-11T14:05:45.929165",
+          "platform_scores": {
+            "instagram": 3.5,
+            "bluesky": 0.3,
+            "x": 0.0,
+            "tiktok": 0.0,
+            "threads": 0.0
+          },
+          "overall_health": 0.22599999999999998,
+          "department_health": {},
+          "video_pillar_score": 0,
+          "coordination_score": 0.40925,
+          "recovery_progress": {
+            "bluesky": 0.0,
+            "x": 0.0,
+            "tiktok": 0.0,
+            "threads": 0.0,
+            "instagram": 0.0
+          },
+          "alert_level": "critical",
+          "active_alerts": [
+            "CRITICAL: x engagement completely failed (0.0)",
+            "CRITICAL: tiktok engagement completely failed (0.0)",
+            "CRITICAL: threads engagement completely failed (0.0)"
+          ]
+        },
+        "performance_snapshot": {
+          "timestamp": "2026-04-11T14:05:45.929165",
+          "apu65_recovery_progress": 0.0,
+          "apu62_engagement_effectiveness": 0.8,
+          "apu61_narrative_optimization": 0.0,
+          "cross_system_coordination": 0.40925,
+          "community_health_index": 0.22599999999999998
+        },
+        "trends": {},
+        "system_status": {
+          "apu65_recovery": "behind_schedule",
+          "apu62_automation": "healthy",
+          "apu61_narrative": "needs_improvement",
+          "overall_integration": "coordination_issues"
+        },
+        "alert_summary": {
+          "active_count": 3,
+          "severity": "critical",
+          "latest_alerts": [
+            "CRITICAL: x engagement completely failed (0.0)",
+            "CRITICAL: tiktok engagement completely failed (0.0)",
+            "CRITICAL: threads engagement completely failed (0.0)"
+          ]
+        },
+        "recovery_status": {
+          "overall_progress": 0.0,
+          "platforms_on_track": 0,
+          "weeks_elapsed": 0.0
+        }
+      },
+      "realtime_metrics": {
+        "timestamp": "2026-04-11T14:05:45.929165",
+        "platform_scores": {
+          "instagram": 3.5,
+          "bluesky": 0.3,
+          "x": 0.0,
+          "tiktok": 0.0,
+          "threads": 0.0
+        },
+        "overall_health": 0.22599999999999998,
+        "department_health": {},
+        "video_pillar_score": 0,
+        "coordination_score": 0.40925,
+        "recovery_progress": {
+          "bluesky": 0.0,
+          "x": 0.0,
+          "tiktok": 0.0,
+          "threads": 0.0,
+          "instagram": 0.0
+        },
+        "alert_level": "critical",
+        "active_alerts": [
+          "CRITICAL: x engagement completely failed (0.0)",
+          "CRITICAL: tiktok engagement completely failed (0.0)",
+          "CRITICAL: threads engagement completely failed (0.0)"
+        ]
+      }
+    }
+  ]
+}

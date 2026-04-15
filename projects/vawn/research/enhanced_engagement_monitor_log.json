@@ -1,0 +1,1262 @@
+{
+  "2026-04-10": [
+    {
+      "timestamp": "2026-04-10T10:05:00.118056",
+      "version": "enhanced_v1_apu33",
+      "agents": {
+        "engagementagent": {
+          "last_activity": "2026-04-10T10:02:07.351930",
+          "status": "idle",
+          "health_score": 1.0,
+          "activity_pattern": "healthy_idle",
+          "runs_24h": 21,
+          "success_rate": 1.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent running but no work available (normal)"
+        },
+        "engagementbot": {
+          "last_activity": "2026-04-10T10:02:19.782456",
+          "status": "healthy",
+          "health_score": 1.0,
+          "activity_pattern": "active_processing",
+          "runs_24h": 8,
+          "success_rate": 1.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent running and processing work successfully"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 1.1538461538461537,
+            "engagement_rate": 0.08875739644970414,
+            "performance": "good"
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361,
+            "performance": "low"
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 0.2711864406779661,
+        "total_posts": 59,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "platform_performance",
+          "severity": "medium",
+          "message": "Multiple platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check API connections and engagement strategies"
+        }
+      ],
+      "summary": {
+        "healthy_agents": 2,
+        "total_agents": 2,
+        "total_alerts": 1,
+        "high_priority_alerts": 0,
+        "system_status": "operational",
+        "top_platform": "instagram",
+        "overall_health_score": 1.0
+      }
+    },
+    {
+      "timestamp": "2026-04-10T10:06:06.058596",
+      "version": "enhanced_v1_apu33",
+      "agents": {
+        "engagementagent": {
+          "last_activity": "2026-04-10T10:02:07.351930",
+          "status": "idle",
+          "health_score": 1.0,
+          "activity_pattern": "healthy_idle",
+          "runs_24h": 21,
+          "success_rate": 1.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent running but no work available (normal)"
+        },
+        "engagementbot": {
+          "last_activity": "2026-04-10T10:02:19.782456",
+          "status": "healthy",
+          "health_score": 1.0,
+          "activity_pattern": "active_processing",
+          "runs_24h": 8,
+          "success_rate": 1.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent running and processing work successfully"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 1.1538461538461537,
+            "engagement_rate": 0.08875739644970414,
+            "performance": "good"
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361,
+            "performance": "low"
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 0.2711864406779661,
+        "total_posts": 59,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "platform_performance",
+          "severity": "medium",
+          "message": "Multiple platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check API connections and engagement strategies"
+        }
+      ],
+      "summary": {
+        "healthy_agents": 2,
+        "total_agents": 2,
+        "total_alerts": 1,
+        "high_priority_alerts": 0,
+        "system_status": "operational",
+        "top_platform": "instagram",
+        "overall_health_score": 1.0
+      }
+    },
+    {
+      "timestamp": "2026-04-10T12:06:09.552194",
+      "version": "enhanced_v2_apu37",
+      "agents": {
+        "engagement_agent": {
+          "last_run": "2026-04-09T22:00:17.711960",
+          "runs_today": 16,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.7063588949884259,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 30,
+          "success_rate": 1.0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        },
+        "engagement_bot": {
+          "last_run": "2026-04-09T19:30:13.673155",
+          "runs_today": 7,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.6542521889409723,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 12,
+          "success_rate": 1.0,
+          "engagement_actions": 120,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 1.1538461538461537,
+            "engagement_rate": 0.08875739644970414,
+            "performance": "good"
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361,
+            "performance": "none"
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 0.2711864406779661,
+        "total_posts": 59,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "platform_performance",
+          "severity": "medium",
+          "message": "Multiple platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check API connections and engagement strategies"
+        },
+        {
+          "type": "no_comments",
+          "severity": "low",
+          "message": "No comments processed in the last 24 hours",
+          "suggestion": "Check if comment API endpoints are working"
+        }
+      ],
+      "recovery_actions": [
+        {
+          "timestamp": "2026-04-10T12:06:00.167096",
+          "agent": "engagement_agent",
+          "reason": "Stale for 14.1h",
+          "success": true,
+          "message": "Successfully executed engagement_agent",
+          "hours_stale": 14.094773040555555
+        },
+        {
+          "timestamp": "2026-04-10T12:06:07.548725",
+          "agent": "engagement_bot",
+          "reason": "Stale for 16.6h",
+          "success": true,
+          "message": "Successfully executed engagement_bot",
+          "hours_stale": 16.596248595555554
+        }
+      ],
+      "summary": {
+        "healthy_agents": 2,
+        "total_agents": 2,
+        "total_alerts": 2,
+        "high_priority_alerts": 0,
+        "auto_recoveries_attempted": 2,
+        "auto_recoveries_successful": 2,
+        "system_status": "operational",
+        "top_platform": "instagram",
+        "overall_health_score": 0.6803055419646991
+      }
+    },
+    {
+      "timestamp": "2026-04-10T12:07:38.557915",
+      "version": "enhanced_v2_apu37",
+      "agents": {
+        "engagement_agent": {
+          "last_run": "2026-04-09T22:00:17.711960",
+          "runs_today": 17,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.7058491321064815,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 31,
+          "success_rate": 1.0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        },
+        "engagement_bot": {
+          "last_run": "2026-04-09T19:30:13.673155",
+          "runs_today": 8,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.6537424260590279,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 13,
+          "success_rate": 1.0,
+          "engagement_actions": 130,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 1.1538461538461537,
+            "engagement_rate": 0.08875739644970414,
+            "performance": "good"
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361,
+            "performance": "none"
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 0.2711864406779661,
+        "total_posts": 59,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "platform_performance",
+          "severity": "medium",
+          "message": "Multiple platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check API connections and engagement strategies"
+        },
+        {
+          "type": "no_comments",
+          "severity": "low",
+          "message": "No comments processed in the last 24 hours",
+          "suggestion": "Check if comment API endpoints are working"
+        }
+      ],
+      "recovery_actions": [
+        {
+          "timestamp": "2026-04-10T12:07:28.222023",
+          "agent": "engagement_agent",
+          "reason": "Stale for 14.1h",
+          "success": true,
+          "message": "Successfully executed engagement_agent",
+          "hours_stale": 14.119241658888889
+        },
+        {
+          "timestamp": "2026-04-10T12:07:36.555872",
+          "agent": "engagement_bot",
+          "reason": "Stale for 16.6h",
+          "success": true,
+          "message": "Successfully executed engagement_bot",
+          "hours_stale": 16.620708018888887
+        }
+      ],
+      "summary": {
+        "healthy_agents": 2,
+        "total_agents": 2,
+        "total_alerts": 2,
+        "high_priority_alerts": 0,
+        "auto_recoveries_attempted": 2,
+        "auto_recoveries_successful": 2,
+        "system_status": "operational",
+        "top_platform": "instagram",
+        "overall_health_score": 0.6797957790827547
+      }
+    },
+    {
+      "timestamp": "2026-04-10T12:08:26.687793",
+      "version": "enhanced_v2_apu37",
+      "agents": {
+        "engagement_agent": {
+          "last_run": "2026-04-09T22:00:17.711960",
+          "runs_today": 19,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.7055646880555555,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 33,
+          "success_rate": 1.0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        },
+        "engagement_bot": {
+          "last_run": "2026-04-09T19:30:13.673155",
+          "runs_today": 10,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.6534579820081019,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 15,
+          "success_rate": 1.0,
+          "engagement_actions": 150,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 1.1538461538461537,
+            "engagement_rate": 0.08875739644970414,
+            "performance": "good"
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361,
+            "performance": "none"
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 0.2711864406779661,
+        "total_posts": 59,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "platform_performance",
+          "severity": "medium",
+          "message": "Multiple platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check API connections and engagement strategies"
+        },
+        {
+          "type": "no_comments",
+          "severity": "low",
+          "message": "No comments processed in the last 24 hours",
+          "suggestion": "Check if comment API endpoints are working"
+        }
+      ],
+      "recovery_actions": [
+        {
+          "timestamp": "2026-04-10T12:08:17.391457",
+          "agent": "engagement_agent",
+          "reason": "Stale for 14.1h",
+          "success": true,
+          "message": "Successfully executed engagement_agent",
+          "hours_stale": 14.132894973333334
+        },
+        {
+          "timestamp": "2026-04-10T12:08:24.686785",
+          "agent": "engagement_bot",
+          "reason": "Stale for 16.6h",
+          "success": true,
+          "message": "Successfully executed engagement_bot",
+          "hours_stale": 16.634366195000002
+        }
+      ],
+      "summary": {
+        "healthy_agents": 2,
+        "total_agents": 2,
+        "total_alerts": 2,
+        "high_priority_alerts": 0,
+        "auto_recoveries_attempted": 2,
+        "auto_recoveries_successful": 2,
+        "system_status": "operational",
+        "top_platform": "instagram",
+        "overall_health_score": 0.6795113350318287
+      }
+    },
+    {
+      "timestamp": "2026-04-10T14:02:02.366111",
+      "version": "enhanced_v2_apu37",
+      "agents": {
+        "engagement_agent": {
+          "last_run": "2026-04-09T22:00:17.711960",
+          "runs_today": 21,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.6661267304282408,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 35,
+          "success_rate": 1.0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        },
+        "engagement_bot": {
+          "last_run": "2026-04-09T19:30:13.673155",
+          "runs_today": 11,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.614020024380787,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 16,
+          "success_rate": 1.0,
+          "engagement_actions": 160,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 1.1538461538461537,
+            "engagement_rate": 0.08875739644970414,
+            "performance": "good"
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361,
+            "performance": "none"
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 0.2711864406779661,
+        "total_posts": 59,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "platform_performance",
+          "severity": "medium",
+          "message": "Multiple platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check API connections and engagement strategies"
+        },
+        {
+          "type": "no_comments",
+          "severity": "low",
+          "message": "No comments processed in the last 24 hours",
+          "suggestion": "Check if comment API endpoints are working"
+        }
+      ],
+      "recovery_actions": [
+        {
+          "timestamp": "2026-04-10T14:01:52.343277",
+          "agent": "engagement_agent",
+          "reason": "Stale for 16.0h",
+          "success": true,
+          "message": "Successfully executed engagement_agent",
+          "hours_stale": 16.025916939444446
+        },
+        {
+          "timestamp": "2026-04-10T14:02:00.363094",
+          "agent": "engagement_bot",
+          "reason": "Stale for 18.5h",
+          "success": true,
+          "message": "Successfully executed engagement_bot",
+          "hours_stale": 18.527408367222222
+        }
+      ],
+      "summary": {
+        "healthy_agents": 2,
+        "total_agents": 2,
+        "total_alerts": 2,
+        "high_priority_alerts": 0,
+        "auto_recoveries_attempted": 2,
+        "auto_recoveries_successful": 2,
+        "system_status": "operational",
+        "top_platform": "instagram",
+        "overall_health_score": 0.6400733774045139
+      }
+    },
+    {
+      "timestamp": "2026-04-10T18:01:25.178447",
+      "version": "enhanced_v1_apu33",
+      "agents": {
+        "engagementagent": {
+          "last_activity": "2026-04-10T14:01:52.295467",
+          "status": "idle",
+          "health_score": 1.0,
+          "activity_pattern": "healthy_idle",
+          "runs_24h": 26,
+          "success_rate": 1.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent running but no work available (normal)"
+        },
+        "engagementbot": {
+          "last_activity": "2026-04-10T16:02:17.360402",
+          "status": "healthy",
+          "health_score": 1.0,
+          "activity_pattern": "active_processing",
+          "runs_24h": 15,
+          "success_rate": 1.0,
+          "comments_processed": 0,
+          "engagement_actions": 0,
+          "recent_statuses": [
+            "ok",
+            "ok",
+            "ok",
+            "ok",
+            "ok"
+          ],
+          "status_description": "Agent running and processing work successfully"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 13,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 1.1538461538461537,
+            "engagement_rate": 0.08875739644970414,
+            "performance": "good"
+          },
+          "bluesky": {
+            "posts": 13,
+            "total_likes": 1,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.07692307692307693,
+            "engagement_rate": 0.00591715976331361,
+            "performance": "low"
+          },
+          "x": {
+            "posts": 10,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "tiktok": {
+            "posts": 12,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "threads": {
+            "posts": 11,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-09",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 0,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 0.2711864406779661,
+        "total_posts": 59,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "platform_performance",
+          "severity": "medium",
+          "message": "Multiple platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check API connections and engagement strategies"
+        }
+      ],
+      "summary": {
+        "healthy_agents": 2,
+        "total_agents": 2,
+        "total_alerts": 1,
+        "high_priority_alerts": 0,
+        "system_status": "operational",
+        "top_platform": "instagram",
+        "overall_health_score": 1.0
+      }
+    }
+  ],
+  "2026-04-13": [
+    {
+      "timestamp": "2026-04-13T04:01:45.314461",
+      "version": "enhanced_v2_apu37",
+      "agents": {
+        "engagement_agent": {
+          "last_run": null,
+          "runs_today": 0,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "unknown",
+          "health_score": 0.0,
+          "activity_pattern": "inactive",
+          "auto_recovery_attempted": false,
+          "auto_recovery_success": null,
+          "runs_24h": 0,
+          "success_rate": 0.0,
+          "engagement_actions": 0,
+          "recent_statuses": [],
+          "status_description": ""
+        },
+        "engagement_bot": {
+          "last_run": "2026-04-12T20:07:12.260243",
+          "runs_today": 0,
+          "recent_errors": 0,
+          "comments_processed": 0,
+          "status": "recovered",
+          "health_score": 0.6519495142592594,
+          "activity_pattern": "auto_recovered",
+          "auto_recovery_attempted": true,
+          "auto_recovery_success": true,
+          "runs_24h": 1,
+          "success_rate": 1.0,
+          "engagement_actions": 10,
+          "recent_statuses": [
+            "ok"
+          ],
+          "status_description": "Agent auto-recovered and running"
+        }
+      },
+      "metrics": {
+        "platform_stats": {
+          "instagram": {
+            "posts": 16,
+            "total_likes": 12,
+            "total_comments": 3,
+            "total_saves": 5,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-10",
+            "avg_engagement": 0.9375,
+            "engagement_rate": 0.05859375,
+            "performance": "low"
+          },
+          "bluesky": {
+            "posts": 18,
+            "total_likes": 2,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-11",
+            "avg_engagement": 0.1111111111111111,
+            "engagement_rate": 0.006172839506172839,
+            "performance": "low"
+          },
+          "x": {
+            "posts": 15,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-11",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "tiktok": {
+            "posts": 15,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-10",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          },
+          "threads": {
+            "posts": 14,
+            "total_likes": 0,
+            "total_comments": 0,
+            "total_saves": 0,
+            "total_reposts": 0,
+            "api_status": "available",
+            "last_activity": "2026-04-10",
+            "avg_engagement": 0.0,
+            "engagement_rate": 0.0,
+            "performance": "none"
+          }
+        },
+        "comment_stats": {
+          "total_comments_seen": 0,
+          "replies_sent": 10,
+          "response_rate": 0.0,
+          "recent_activity": false,
+          "api_status": "available_no_comments"
+        },
+        "overall_engagement_rate": 0.21794871794871795,
+        "total_posts": 78,
+        "top_performer": "instagram"
+      },
+      "alerts": [
+        {
+          "type": "platform_performance",
+          "severity": "medium",
+          "message": "Multiple platforms showing zero engagement: x, tiktok, threads",
+          "platforms": [
+            "x",
+            "tiktok",
+            "threads"
+          ],
+          "action": "Check API connections and engagement strategies"
+        },
+        {
+          "type": "no_comments",
+          "severity": "low",
+          "message": "No comments processed in the last 24 hours",
+          "suggestion": "Check if comment API endpoints are working"
+        }
+      ],
+      "recovery_actions": [
+        {
+          "timestamp": "2026-04-13T04:01:43.311438",
+          "agent": "engagement_bot",
+          "reason": "Stale for 7.9h",
+          "success": true,
+          "message": "Successfully executed engagement_bot",
+          "hours_stale": 7.906423594722222
+        }
+      ],
+      "summary": {
+        "healthy_agents": 1,
+        "total_agents": 2,
+        "total_alerts": 2,
+        "high_priority_alerts": 0,
+        "auto_recoveries_attempted": 1,
+        "auto_recoveries_successful": 1,
+        "system_status": "operational",
+        "top_platform": "instagram",
+        "overall_health_score": 0.3259747571296297
+      }
+    }
+  ]
+}

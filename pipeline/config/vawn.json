@@ -1,0 +1,101 @@
+{
+  "project": "vawn",
+  "profile": "Vawn is a Brooklyn-raised, Atlanta-based hip-hop artist. Wife and 1-year-old twin girls. Sound: psychedelic boom bap, authoritative Atlanta trap, polished trap-soul, orchestral soul hip-hop. NO gospel. Cadence: T.I. authority + J. Cole depth. Thematic territories: Fear of Failure, Dependability, Love, Journey. Brand: anti-hype, quiet authority, pattern recognition, long-game mentality, earned confidence. 11-track debut album in progress.",
+  "niches": [
+    "lyrical rap",
+    "lyrical hip-hop",
+    "suno music",
+    "ai music",
+    "underground hip-hop",
+    "independent artist"
+  ],
+  "platforms": ["x", "instagram", "tiktok", "threads", "bluesky"],
+  "comparable_artists": ["JID", "6LACK", "Killer Mike", "Dreamville", "Baby Keem", "Smino", "Saba"],
+  "config_path": "C:\\Users\\rdyal\\Vawn\\config.json",
+  "output_dir": "C:\\Users\\rdyal\\Apulu Universe\\research\\vawn",
+
+  "pipelines": {
+    "x": {
+      "enabled": true,
+      "actor": "apidojo/tweet-scraper",
+      "schedule": "daily",
+      "max_results": 100,
+      "accounts": [
+        "@HipHopDX", "@Okayplayer", "@DJBooth", "@2DopeBoyz",
+        "@RapRadar", "@RatedRnB", "@PassionWeiss", "@MusicAlly",
+        "@Defsounds", "@XXL", "@ComplexMusic", "@HotNewHipHop",
+        "@ThisisRnB"
+      ],
+      "keywords": [
+        "lyrical rap", "underground hip hop", "indie rapper",
+        "rap bars fire", "hip hop wordplay", "boom bap beat",
+        "trap soul", "suno music", "ai generated music",
+        "udio music", "ai rapper", "ATL hip hop",
+        "independent hip hop artist", "new rapper 2026"
+      ]
+    },
+    "instagram": {
+      "enabled": true,
+      "actor": "apify/instagram-scraper",
+      "profile_actor": "apify/instagram-profile-scraper",
+      "schedule": "daily",
+      "max_results": 50,
+      "accounts": [
+        "undergroundhiphopblog", "thewordisbond", "lyricalemonade",
+        "ratedrnb", "earmilk", "hotnewhiphop", "indihiphop",
+        "rnbmusic", "artistrack"
+      ],
+      "hashtags": [
+        "#undergroundhiphop", "#lyricalrap", "#bars", "#barsonly",
+        "#indierap", "#trapsoul", "#boomBap", "#atlhiphop",
+        "#sunoai", "#aimusic", "#independentartist", "#wordplay"
+      ]
+    },
+    "tiktok": {
+      "enabled": true,
+      "actor": "clockworks/tiktok-scraper",
+      "schedule": "daily",
+      "max_results": 50,
+      "accounts": [
+        "nolifeshaq", "lyricalemonade", "hiphopdx"
+      ],
+      "keywords": [
+        "lyrical rap", "underground rap", "freestyle bars",
+        "suno music", "ai music", "studio session",
+        "rap reaction", "independent rapper", "trap soul"
+      ]
+    },
+    "reddit": {
+      "enabled": false,
+      "actor": "trudax/reddit-scraper-lite",
+      "schedule": "daily",
+      "max_results": 30,
+      "subreddits": [
+        "hiphopheads", "makinghiphop", "indieheads",
+        "rnb", "sunoprompts", "udiomusic", "aimusic"
+      ],
+      "sort": "hot"
+    },
+    "youtube": {
+      "enabled": true,
+      "method": "yt-dlp",
+      "schedule": "daily",
+      "max_results": 20,
+      "months": 3,
+      "keywords": [
+        "lyrical rap 2026", "underground hip hop",
+        "suno ai music", "independent rapper",
+        "trap soul", "boom bap"
+      ]
+    }
+  },
+
+  "google_trends": {
+    "enabled": true,
+    "actor": "emastra/google-trends-scraper",
+    "terms": [
+      "lyrical rap", "underground hip hop", "suno ai",
+      "ai music", "trap soul", "independent rapper"
+    ]
+  }
+}

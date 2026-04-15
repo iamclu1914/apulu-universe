@@ -1,0 +1,13 @@
+{
+  "vawn_dir": "C:\\Users\\rdyal\\Vawn",
+  "pipeline_dir": "C:\\Users\\rdyal\\Apulu Universe\\pipeline",
+  "research_dir": "C:\\Users\\rdyal\\Apulu Universe\\research\\vawn",
+  "daily_brief_path": "C:\\Users\\rdyal\\Vawn\\research\\daily_brief.json",
+  "content_calendar_path": "C:\\Users\\rdyal\\Vawn\\research\\content_calendar.json",
+  "metrics_log_path": "C:\\Users\\rdyal\\Vawn\\research\\metrics_log.json",
+  "cascade_queue_path": "C:\\Users\\rdyal\\Vawn\\research\\cascade_queue.json",
+  "max_pipeline_trends": 5,
+  "max_total_trends": 12,
+  "top_n_per_platform": 3,
+  "discovery_platforms": ["x", "tiktok", "instagram", "reddit"]
+}

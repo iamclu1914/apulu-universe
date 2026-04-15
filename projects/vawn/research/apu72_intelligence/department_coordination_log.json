@@ -1,0 +1,92 @@
+{
+  "2026-04-11": [
+    {
+      "timestamp": "2026-04-11T18:07:30.514507",
+      "alerts_generated": 2,
+      "departments_alerted": [
+        "ar",
+        "marketing"
+      ],
+      "priority_breakdown": {
+        "critical": 0,
+        "high": 0,
+        "medium": 2,
+        "low": 0
+      },
+      "alerts": [
+        {
+          "timestamp": "2026-04-11T18:07:30.513510",
+          "department": "ar",
+          "alert_type": "community_feedback",
+          "priority": "medium",
+          "message": "Low community health may indicate artist development opportunities: 31.9%",
+          "required_response": "artist_community_analysis",
+          "escalation_path": [
+            "ar"
+          ],
+          "coordination_required": [
+            "marketing"
+          ]
+        },
+        {
+          "timestamp": "2026-04-11T18:07:30.513510",
+          "department": "marketing",
+          "alert_type": "campaign",
+          "priority": "medium",
+          "message": "Campaign optimization opportunities identified: 1 recommendations",
+          "required_response": "campaign_adjustment",
+          "escalation_path": [
+            "marketing"
+          ],
+          "coordination_required": [
+            "video"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-11T20:01:48.534410",
+      "alerts_generated": 2,
+      "departments_alerted": [
+        "marketing",
+        "ar"
+      ],
+      "priority_breakdown": {
+        "critical": 0,
+        "high": 0,
+        "medium": 2,
+        "low": 0
+      },
+      "alerts": [
+        {
+          "timestamp": "2026-04-11T20:01:48.520677",
+          "department": "ar",
+          "alert_type": "community_feedback",
+          "priority": "medium",
+          "message": "Low community health may indicate artist development opportunities: 31.9%",
+          "required_response": "artist_community_analysis",
+          "escalation_path": [
+            "ar"
+          ],
+          "coordination_required": [
+            "marketing"
+          ]
+        },
+        {
+          "timestamp": "2026-04-11T20:01:48.520677",
+          "department": "marketing",
+          "alert_type": "campaign",
+          "priority": "medium",
+          "message": "Campaign optimization opportunities identified: 1 recommendations",
+          "required_response": "campaign_adjustment",
+          "escalation_path": [
+            "marketing"
+          ],
+          "coordination_required": [
+            "video"
+          ]
+        }
+      ]
+    }
+  ]
+}

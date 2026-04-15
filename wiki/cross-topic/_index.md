@@ -1,3 +1,8 @@
+---
+type: hub
+topic: cross-topic
+---
+
 # Cross-Topic Analysis
 
 Comparison articles that draw connections across multiple knowledge base topics.

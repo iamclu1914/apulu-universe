@@ -1,3 +1,8 @@
+---
+type: hub
+topic: vawn-mix-engine
+---
+
 # Vawn Mix Engine
 
 Automated hip-hop mixing and mastering platform using REAPER + iZotope plugins. Python orchestrates a 5-stage pipeline from raw stems to release-ready master.

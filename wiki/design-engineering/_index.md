@@ -1,3 +1,8 @@
+---
+type: hub
+topic: design-engineering
+---
+
 # Design Engineering
 
 UI polish, animation philosophy, component craft, and the invisible details that make software feel great.

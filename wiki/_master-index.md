@@ -1,3 +1,8 @@
+---
+type: hub
+topic: wiki-root
+---
+
 # Knowledge Base Index
 
 ---

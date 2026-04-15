@@ -1,3 +1,8 @@
+---
+type: hub
+topic: vawn-project
+---
+
 # Vawn Project
 
 The Vawn hip-hop artist project — the unifying context behind all systems in this knowledge base.

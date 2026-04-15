@@ -1,3 +1,8 @@
+---
+type: hub
+topic: ai-filmmaking
+---
+
 # AI Filmmaking
 
 AI video production: tools, prompting techniques, and filmmaking workflows.

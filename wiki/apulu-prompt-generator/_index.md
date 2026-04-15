@@ -1,3 +1,8 @@
+---
+type: hub
+topic: apulu-prompt-generator
+---
+
 # Apulu Prompt Generator
 
 AI-powered creative direction system for music video prompt generation. Transforms lyrics, descriptions, and audio into image/video prompts for NB2, Kling 3.0, and Higgsfield.

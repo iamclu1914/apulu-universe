@@ -352,8 +352,44 @@ def cinematic_video():
     print(f"[OK] Theme: {anchor}")
     print("[INFO] Cinematic video generation via Apulu backend — this may take several minutes")
 
+    seedance_rules = (
+        "Generate a Higgsfield Cinema (Seedance 2.0) music video scene for Vawn anchored on this lyric: "
+        f"\"{anchor}\".\n\n"
+        "Follow these Seedance 2.0 rules in order of impact:\n"
+        "STRUCTURE: who, where, doing what, what changes, mood — in that order. "
+        "Max 4 story beats per generation. Max 3 characters per shot, 5 named total. "
+        "Match duration to complexity (Seedance stretches content for longer clips, it does not add events).\n"
+        "LANGUAGE: concrete visual description only — what the camera sees. "
+        "No emotion labels (replace 'angry' with 'jaw clenches'). No metaphors the lens cannot render. "
+        "No abstract quality words ('breathtaking', 'haunting'). All English; dialogue English by default.\n"
+        "CHARACTERS: give each character a unique visual anchor on first mention (wardrobe color, silhouette, accessory). "
+        "State positions and movement direction explicitly. Re-anchor positions after every cut — Seedance has no memory between shots. "
+        "Lock wardrobe on first appearance and keep it identical across clips (continuity glue). "
+        "Prefer physical state over emotional state ('shirt torn at the collar, knuckles scraped' > 'he looks beaten'). "
+        "For physical interactions, describe the contact point ('hand grips wrist, thumb over the pulse point').\n"
+        "CAMERA: one dominant camera move per shot — never compound (no 'orbit while zooming while tilting'). "
+        "No focal lengths above 75mm — use shot size terms (choker, ECU). "
+        "No reflections (mirrors, water, glass, blades). No U-turns or 180° vehicle spins — split across shots.\n"
+        "PROMPT STRUCTURE: open with environment before character. End with sound cues. "
+        "Describe light direction and quality explicitly even if a preset is set. "
+        "Name what is NOT moving as well as what is ('camera locked, only the smoke drifts').\n"
+        "DIALOGUE: 4–6 lines max at 15s. Mark the power-shift line. "
+        "Write delivery into the line as physical vocal behavior ('flat and quiet', 'through her teeth', 'almost to himself').\n"
+        "PACING: front-load the action when duration is under 8s — start at the peak. "
+        "15s clips = 3 beats min, 4 max. State what changes between first and last frame.\n"
+        "MULTI-CLIP: re-describe last frame of clip N at the top of clip N+1. "
+        "Emotional temperature moves one direction per clip (do not oscillate). "
+        "Genre can shift between clips; visual identity (Session Lock) cannot.\n"
+        "PRESETS: prefer DP Combo recipes — they are conflict-free. "
+        "When customizing, check conflict zones first. Null axes are valid — leave uncertain parameters null.\n"
+        "AVOID ENTIRELY: 'strobing', 'step-printing', 'undercranking', 'symmetrical', 'mirrored'. "
+        "No film titles (use director names only). No hidden objects (if the camera did not see it, it does not exist). "
+        "No prismatic or Petzval effects.\n"
+        "AUDIO: include rendered sound — ambient, foley, dialogue delivery. Music is post-only."
+    )
+
     payload = {
-        "messages": [{"role": "user", "content": f"Create a Higgsfield Cinema music video scene for Vawn based on: {anchor}"}],
+        "messages": [{"role": "user", "content": seedance_rules}],
         "mode": "hf-story",
         "scenes": 4,
     }

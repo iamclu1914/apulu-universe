@@ -348,6 +348,94 @@ priority: high
 
 ---
 
+## Core Rules — In Order of Impact
+
+### Structure
+
+- **Who, where, doing what, what changes, mood** — in that order.
+- **≤4 story beats per generation.**
+- **≤3 characters per shot, ≤5 named total.**
+- **Duration must match complexity** — Seedance stretches the same content slower for longer clips, it doesn't add events.
+
+### Language
+
+- **Concrete visual description only** — what the camera sees.
+- **No emotion labels** (`angry`, `afraid`) — describe the physical manifestation (`jaw clenches`, `hands press flat against the wall`).
+- **No metaphors the lens can't render** (`the city breathes` → `steam rises from grates, traffic flows`).
+- **No abstract quality words** (`breathtaking`, `haunting`) — ignored or produce generic output.
+
+### Characters
+
+- **Give each character a unique visual anchor on first mention** — wardrobe color, silhouette, accessory.
+- **State positions and movement direction explicitly.**
+- **Re-anchor positions after every cut** — Seedance has no memory between shots.
+
+### Camera
+
+- **One dominant camera move per shot** — compound instructions (`orbit while zooming while tilting`) confuse the engine.
+- **No focal lengths above 75mm** — use shot size terms instead (choker, ECU).
+- **No reflections** (mirrors, water, glass, blades) — duplicates characters unpredictably.
+- **No U-turns or 180° vehicle spins** — split across two shots instead.
+
+### What to Avoid Entirely
+
+- `Strobing`, `step-printing`, `undercranking` — triggers global low shutter, unsalvageable.
+- `Symmetrical` or `mirrored` — renders a literal mirror line down the frame.
+- **Film titles** — trigger content filters. Use director names only.
+- **Hidden objects** (`gun under the table`) — if the camera didn't see it, it doesn't exist.
+- **Prismatic or Petzval effects** — produce artifacts, not the intended look.
+
+### Audio
+
+Sound is rendered. Include it — ambient, foley, dialogue delivery. **Music is post only.**
+
+### Language of the Prompt
+
+Always English, regardless of chat language. Dialogue defaults to English — other languages only on explicit request.
+
+---
+
+## Advanced Craft — Structure, Characters, Dialogue, Pacing, Presets
+
+### Prompt Structure
+
+- **Open with environment before character** — give Seedance a stage to place people onto.
+- **End with sound** — audio cues at the end of the prompt anchor mood without competing with visual description.
+- **Describe light direction and quality explicitly**, even when a preset is set — presets set the system, in-prompt description fine-tunes the shot.
+- **Name what's NOT moving** as well as what is — `camera locked, only the smoke drifts` gives Seedance a contrast reference.
+
+### Characters (Continuity & Contact)
+
+- **Wardrobe is continuity glue** across clips — lock it on first appearance and never change it mid-sequence.
+- **Physical state over emotional state** — `shirt torn at the collar, knuckles scraped` tells Seedance more than `he looks beaten`.
+- If two characters are **interacting physically, describe the contact point explicitly** — `his hand grips her wrist, thumb over the pulse point`.
+
+### Dialogue
+
+- **Mark the power-shift line** — the moment one character gains or loses leverage. That's where Seedance needs to hold the tightest frame.
+- **4–6 lines maximum at 15 seconds.**
+- **Write delivery into the line** — `flat and quiet`, `through her teeth`, `almost to himself` — as physical vocal behavior, not emotion labels.
+
+### Pacing
+
+- **Front-load the action** — don't build to something if the duration is under 8 seconds. Start at the peak.
+- **15-second clips = 3 beats minimum, 4 maximum.** Two beats at 15 seconds feels empty.
+- **State what changes between the first and last frame** — if nothing changes, the clip has no arc.
+
+### Multi-Clip Sequences
+
+- **Last frame of clip N must be described at the top of clip N+1** — spatial re-anchor.
+- **Emotional temperature moves in one direction per clip** — don't oscillate within a single generation.
+- **Genre can shift between clips; visual identity (Session Lock) cannot.**
+
+### Presets
+
+- **DP Combo recipes are the safest starting point** — tested combinations with no internal conflicts.
+- When building a custom combination, **check the conflict zones before generating** — incompatible axes waste a generation.
+- **Null axes are valid** — if uncertain about a parameter, leave it null and let the engine decide rather than setting something that conflicts.
+
+---
+
 *Final research deliverable prepared by Pixel (AI Prompt Researcher) for APU-12. Ready for executive review and implementation authorization by Apulu Records leadership team.*
 
 ---

@@ -19,13 +19,16 @@ Knowledge base for Claude. **Read this first when starting any project.**
 | AI video/film (Higgsfield, Kling, Seedance) | [wiki/ai-filmmaking/_index.md](wiki/ai-filmmaking/_index.md) |
 | Design engineering, frontend quality | [wiki/design-engineering/_index.md](wiki/design-engineering/_index.md) |
 | Prompt engineering, creative pipelines | [wiki/cross-topic/_index.md](wiki/cross-topic/_index.md) |
-| Apulu Records operations (labels, deals, A&R) | `paperclip/` (separate workspace, out of vault reorganization scope) |
+| **Paperclip monitoring, retry/alert/breaker systems, agent failures** | [wiki/infrastructure/_index.md](wiki/infrastructure/_index.md) |
+| Apulu Records operations (org chart, routines, dispatcher, DLQ) | [wiki/paperclip-operations/_index.md](wiki/paperclip-operations/_index.md) |
+| Apulu Records *code* (Paperclip source) | `paperclip/` (separate workspace, out of vault reorganization scope) |
 
 ## Recent context for Vawn work
 
-- **Latest daily briefing:** newest file in `journals/vawn/briefings/` — sorted by filename (YYYY-MM-DD-daily-briefing.md)
-- **Latest health note:** newest file in `journals/vawn/health/`
-- **Latest discovery brief:** newest file in `journals/vawn/discovery/`
+- **Latest daily briefing:** newest file in `research/vawn/briefings/` — named `Daily Briefing -- YYYY-MM-DD.md`. Briefing includes an **Infrastructure status** block surfacing backend/auth/DLQ state. (Older briefings through 2026-04-14 live at `journals/vawn/briefings/` — archived location.)
+- **Latest health note:** newest file in `journals/vawn/health/` (daily Rex output) OR `research/vawn/briefings/Health -- YYYY-MM-DD.md` (CoS output). Both active in parallel — see [[research/vawn/_index]] for which is which.
+- **Latest discovery brief:** newest file in `research/vawn/discovery/` — named `Discovery Brief -- YYYY-MM-DD.md` plus per-platform pipeline notes. (Older briefs through 2026-04-14 live at `journals/vawn/discovery/` — archived location.)
+- **Live infrastructure snapshot:** `C:\Users\rdyal\Vawn\STATUS.md` — regenerated hourly by `\Vawn\StatusBoard` WTS task. Agents, backend probes, dispatch retries, DLQ, undelivered alerts. See [wiki/infrastructure/](wiki/infrastructure/_index.md) for architecture + runbooks.
 
 ## Research tickets
 

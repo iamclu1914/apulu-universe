@@ -16,12 +16,17 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+# Windows console defaults to cp1252 and crashes on emoji in TikTok text.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from pipeline_config import (
     load_project_config, get_apify_token, get_output_dir,
     save_json, today_str, now_iso,
 )
-from discovery.apify_client import ApifyRunner
+from discovery.apify_client import ApifyRunner, ApifyBillingExhaustedError
 
 
 def score_video(video):
@@ -108,6 +113,8 @@ def search_keywords(runner, keywords, max_results=50):
     try:
         items = runner.run_actor("clockworks/tiktok-scraper", input_data, timeout=180)
         return items
+    except ApifyBillingExhaustedError:
+        raise
     except Exception as e:
         print(f"  [ERROR] Keyword search failed: {e}")
         return []
@@ -127,6 +134,8 @@ def scrape_accounts(runner, accounts, max_per_account=20):
     try:
         items = runner.run_actor("clockworks/tiktok-scraper", input_data, timeout=180)
         return items
+    except ApifyBillingExhaustedError:
+        raise
     except Exception as e:
         print(f"  [ERROR] Account scrape failed: {e}")
         return []

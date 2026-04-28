@@ -22,7 +22,7 @@ from pipeline_config import (
     load_project_config, get_apify_token, get_output_dir,
     save_json, load_json, today_str, now_iso,
 )
-from discovery.apify_client import ApifyRunner
+from discovery.apify_client import ApifyRunner, ApifyBillingExhaustedError
 
 
 def score_tweet(tweet):
@@ -114,6 +114,8 @@ def search_keywords(runner, keywords, max_results=100):
     try:
         items = runner.run_actor("apidojo/tweet-scraper", input_data, timeout=120)
         return items
+    except ApifyBillingExhaustedError:
+        raise
     except Exception as e:
         print(f"  [ERROR] Keyword search failed: {e}")
         return []
@@ -135,6 +137,8 @@ def scrape_accounts(runner, accounts, max_per_account=20):
     try:
         items = runner.run_actor("apidojo/tweet-scraper", input_data, timeout=180)
         return items
+    except ApifyBillingExhaustedError:
+        raise
     except Exception as e:
         print(f"  [ERROR] Account scrape failed: {e}")
         return []

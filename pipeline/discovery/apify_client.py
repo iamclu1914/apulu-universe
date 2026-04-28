@@ -10,6 +10,15 @@ import requests
 APIFY_BASE = "https://api.apify.com/v2"
 
 
+class ApifyBillingExhaustedError(RuntimeError):
+    """Raised when Apify rejects calls with platform-feature-disabled (monthly cap hit).
+
+    This is account-wide: when raised, every paid actor will fail until the cap
+    is raised in the Apify console or the monthly cycle resets. Callers should
+    short-circuit remaining Apify-backed work rather than retry.
+    """
+
+
 class ApifyRunner:
     """Run Apify actors and retrieve results."""
 
@@ -17,6 +26,18 @@ class ApifyRunner:
         self.token = token
         self.session = requests.Session()
         self.session.headers["Authorization"] = f"Bearer {token}"
+
+    @staticmethod
+    def _maybe_raise_billing_exhausted(resp):
+        """Inspect a response for Apify's billing-cap signature and raise typed error."""
+        if resp.status_code != 403:
+            return
+        try:
+            err = (resp.json() or {}).get("error") or {}
+        except ValueError:
+            return
+        if err.get("type") == "platform-feature-disabled" and "usage" in (err.get("message") or "").lower():
+            raise ApifyBillingExhaustedError(err.get("message") or "Apify monthly usage limit hit")
 
     @staticmethod
     def _normalize_actor_id(actor_id):
@@ -40,6 +61,8 @@ class ApifyRunner:
         for attempt in range(retries + 1):
             try:
                 return self._run_actor_once(actor_id, input_data, timeout, memory_mb)
+            except ApifyBillingExhaustedError:
+                raise
             except Exception as e:
                 last_error = e
                 if attempt < retries:
@@ -56,6 +79,7 @@ class ApifyRunner:
             json=input_data,
             params={"timeout": timeout, "memory": memory_mb},
         )
+        self._maybe_raise_billing_exhausted(resp)
         resp.raise_for_status()
         run_data = resp.json()["data"]
         run_id = run_data["id"]
@@ -101,6 +125,7 @@ class ApifyRunner:
             params={"timeout": timeout},
             timeout=timeout + 30,
         )
+        self._maybe_raise_billing_exhausted(resp)
         resp.raise_for_status()
         items = resp.json()
         print(f"  [Apify] Got {len(items)} items from {actor_id}")

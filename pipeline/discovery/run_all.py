@@ -21,6 +21,15 @@ from pipeline_config import (
     save_json, load_json, now_iso, today_str,
 )
 from obsidian_formatter import write_obsidian_note
+from discovery.apify_client import ApifyBillingExhaustedError
+
+
+# Pipelines that depend on Apify and should short-circuit when the monthly cap is hit.
+APIFY_BACKED_PIPELINES = {"x", "instagram", "tiktok"}
+
+# Distinct exit code so WTS / paperclip_run_monitor can classify billing-cap failures
+# without false-flagging them as transient backend errors.
+EXIT_APIFY_BILLING_EXHAUSTED = 4
 
 
 def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
@@ -53,11 +62,19 @@ def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
 
     results = {}
     errors = {}
+    apify_billing_exhausted = False
 
     for name, (module_path, func_name) in pipelines.items():
         print(f"\n{'-'*40}")
         print(f"  Running: {name}")
         print(f"{'-'*40}")
+
+        if apify_billing_exhausted and name in APIFY_BACKED_PIPELINES:
+            msg = "Apify monthly usage hard limit exceeded -- skipping (raise cap in Apify console or wait for cycle reset)"
+            results[name] = {"status": "skipped", "error": msg}
+            errors[name] = msg
+            print(f"  [SKIP] {name}: {msg}")
+            continue
 
         try:
             mod = __import__(module_path, fromlist=[func_name])
@@ -83,6 +100,13 @@ def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
                     print(f"  [WARN] Obsidian note failed: {obs_err}")
 
             print(f"  [OK] {name}")
+
+        except ApifyBillingExhaustedError as e:
+            apify_billing_exhausted = True
+            results[name] = {"status": "billing_exhausted", "error": str(e)}
+            errors[name] = f"apify_billing_exhausted: {e}"
+            print(f"  [BILLING] {name}: Apify monthly cap hit -- {e}")
+            print(f"  [BILLING] Short-circuiting remaining Apify-backed pipelines: {sorted(APIFY_BACKED_PIPELINES)}")
 
         except Exception as e:
             results[name] = {"status": "error", "error": str(e)}
@@ -110,6 +134,7 @@ def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
                 top_content.append(item)
 
     brief["top_content"] = top_content
+    brief["apify_billing_exhausted"] = apify_billing_exhausted
     brief_path = output_dir / "discovery_brief.json"
     save_json(brief_path, brief)
 
@@ -123,10 +148,12 @@ def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
     print(f"\n{'='*60}")
     print(f"  Discovery Pipeline -- Summary")
     print(f"{'='*60}")
+    MARKERS = {"ok": "[OK]", "error": "[FAIL]", "billing_exhausted": "[BILLING]", "skipped": "[SKIP]"}
     for name, result in results.items():
-        marker = "[OK]" if result["status"] == "ok" else "[FAIL]"
+        status = result["status"]
+        marker = MARKERS.get(status, "[FAIL]")
         count = result.get("total", "?")
-        err = f" -- {result.get('error', '')[:60]}" if result["status"] == "error" else ""
+        err = f" -- {result.get('error', '')[:80]}" if status not in ("ok",) else ""
         print(f"  {marker} {name}: {count} items{err}")
     print(f"\n  Brief saved to: {brief_path}")
     print(f"{'='*60}\n")
@@ -142,4 +169,6 @@ if __name__ == "__main__":
     parser.add_argument("--no-notebooklm", action="store_true", help="Skip NotebookLM for YouTube")
     args = parser.parse_args()
 
-    run(args.project, args.only, args.skip, not args.no_notebooklm)
+    brief = run(args.project, args.only, args.skip, not args.no_notebooklm)
+    if brief.get("apify_billing_exhausted"):
+        sys.exit(EXIT_APIFY_BILLING_EXHAUSTED)

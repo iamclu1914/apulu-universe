@@ -57,8 +57,7 @@ def source_to_notebooklm(urls, notebook_title=None):
         async def _source():
             from notebooklm import NotebookLMClient
 
-            client = await NotebookLMClient.from_storage()
-            if True:
+            async with await NotebookLMClient.from_storage() as client:
                 title = notebook_title or f"YT Research {today_str()}"
                 nb = await client.notebooks.create(title)
                 print(f"  [NotebookLM] Created notebook: {nb.title} ({nb.id[:8]}...)")

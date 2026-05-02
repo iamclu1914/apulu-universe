@@ -28,7 +28,8 @@ Start here for anything about Vawn as an artist — identity, music catalog, rel
 
 ## Related catalogs and journals
 
-- `catalogs/vawn-lyrics.md` — full lyrics catalog.
+- `catalogs/vawn-lyrics.md` — **archived 2026-04-28**. Outdated tracks; no longer connected to any agent. See [[../../journals/vawn/incidents/2026-04-27-storage-quota-and-lyrics-cutover]].
 - `journals/vawn/briefings/` — daily briefings on Vawn status and activity.
 - `journals/vawn/discovery/` — discovery research briefs.
 - `journals/vawn/health/` — daily health notes.
+- `journals/vawn/incidents/` — incident postmortems (started 2026-04-28).

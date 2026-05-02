@@ -1,16 +1,25 @@
 ---
-title: Vawn — Full Lyrics Catalog
+title: Vawn — Full Lyrics Catalog (ARCHIVED)
 date: 2026-04-08
+archived: 2026-04-28
 tags:
   - catalog
   - project/vawn
   - lyrics
+  - archived
 ---
 
 # Vawn — Full Lyrics Catalog
 
+> [!warning] ARCHIVED 2026-04-28 — these tracks are outdated and not in use.
+> The live posting pipeline no longer reads any lyrics catalog. The local
+> `catalog/lyrics.json` files were deleted on 2026-04-28 after the
+> [[../journals/vawn/incidents/2026-04-27-storage-quota-and-lyrics-cutover|2026-04-27 incident]]
+> revealed the system had been serving fabricated bars. This file is kept
+> for historical reference only — do NOT use it to seed any agent.
+
 > [!info] 24 tracks · 210 bars · 4 territories
-> Source: artist-provided full lyrics. Local database at `catalog/lyrics.json`.
+> Source: artist-provided full lyrics (now stale).
 
 ## Territory Map
 

@@ -34,11 +34,17 @@ For live data, read `C:\Users\rdyal\Vawn\STATUS.md` — regenerated hourly. This
 ## Live state files (not wiki notes — read directly)
 
 - `C:\Users\rdyal\Vawn\STATUS.md` — Live dashboard (agents, backend, auth, DLQ)
-- `C:\Users\rdyal\Vawn\backend_health.json` — Apulu Studio probe state
+- `C:\Users\rdyal\Vawn\backend_health.json` — Apulu Studio probe state (now includes the `real_upload` probe added 2026-04-28)
 - `C:\Users\rdyal\Vawn\claude_auth_state.json` — Claude CLI auth probe result
 - `C:\Users\rdyal\Vawn\dispatch_log.jsonl` — Every dispatch attempt (success + retry history)
 - `C:\Users\rdyal\Vawn\dead_letter.jsonl` — Permanently-failed dispatches awaiting manual replay
 - `C:\Users\rdyal\Vawn\alert_fallback.jsonl` — Alerts SMTP couldn't deliver
+- `C:\Users\rdyal\Vawn\posting_liveness.json` — Outcome-verification snapshot (hourly, `posted_log_invariant.py`)
+- `~\.paperclip-watchdog-state.json` — Watchdog up/down state + alert dedup
+
+## Recent incidents
+
+- [[../../journals/vawn/incidents/2026-04-27-storage-quota-and-lyrics-cutover]] — 4-day silent posting outage. Three stacked failures: (1) Supabase SDK `.text`-on-dict regression masked errors as 500s, (2) dispatcher swallowed exit-0+signature as success, (3) bare-endpoint probe stayed green because it never sent a body. Produced structural defenses: `posted_log_invariant.py` (hourly), `real_upload` probe, `paperclip_watchdog_notify.py` (10-min downtime alerts), `cleanup_stale_issues.py` (daily).
 
 ## Related hubs
 

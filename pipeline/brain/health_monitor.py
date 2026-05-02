@@ -8,9 +8,12 @@ Usage:
 
 import json
 import os
+import smtplib
 import subprocess
 import sys
 from datetime import date, datetime, timedelta
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -21,6 +24,12 @@ RESEARCH_DIR = Path(r"C:\Users\rdyal\Apulu Universe\research\vawn")
 PIPELINE_CONFIG = Path(r"C:\Users\rdyal\Apulu Universe\pipeline\config")
 BRIEFINGS_DIR = RESEARCH_DIR / "briefings"
 EXPORTS_DIR = VAWN_DIR / "Social_Media_Exports" / "Instagram_Reel_1080x1920_9-16"
+CREDS_FILE = VAWN_DIR / "credentials.json"
+
+# Alert threshold: send email when any slot has this many failed platforms in
+# the last 24h. Set per Council verdict 2026-04-23 — "push, not pull" email
+# delivering what dashboards can't.
+SLOT_FAIL_ALERT_THRESHOLD = 2
 
 
 def check_notebooklm():
@@ -162,6 +171,118 @@ def check_local_catalog():
     }
 
 
+def check_slot_failures():
+    """Scan posted_log._posted_slots for posting slots in the last 24h where
+    SLOT_FAIL_ALERT_THRESHOLD or more platforms failed.
+
+    Handles two historical formats in _posted_slots:
+      • Nested dict  — {"midday": {"tiktok": false, "instagram": true, ...}}
+      • Flat bool    — {"midday_tiktok,instagram,threads": true}
+    """
+    log = load_json(VAWN_DIR / "posted_log.json")
+    slots = log.get("_posted_slots", {})
+    yesterday = (date.today() - timedelta(days=1)).isoformat()
+    today_val = date.today().isoformat()
+
+    failures = []
+    for date_key in (yesterday, today_val):
+        day = slots.get(date_key, {})
+        if not isinstance(day, dict):
+            continue
+        for slot_name, slot_val in day.items():
+            if isinstance(slot_val, dict):
+                failed = [p for p, ok in slot_val.items() if ok is False]
+                if len(failed) >= SLOT_FAIL_ALERT_THRESHOLD:
+                    failures.append({
+                        "date": date_key,
+                        "slot": slot_name,
+                        "failed_platforms": failed,
+                        "total_platforms": len(slot_val),
+                    })
+            elif slot_val is False:
+                # Flat-key slot recorded as whole-batch failure
+                failures.append({
+                    "date": date_key,
+                    "slot": slot_name,
+                    "failed_platforms": ["<batch>"],
+                    "total_platforms": None,
+                })
+
+    return {"status": "error" if failures else "ok", "failures": failures}
+
+
+def send_slot_failure_alert(failures):
+    """Email Clu a short summary of slot failures. Silent if creds are missing."""
+    if not failures:
+        return False
+    try:
+        creds = json.loads(CREDS_FILE.read_text(encoding="utf-8"))
+        gmail = creds.get("gmail") or {}
+        user = gmail.get("user")
+        app_pw = gmail.get("app_password")
+        to_email = gmail.get("to") or user
+    except (OSError, json.JSONDecodeError) as err:
+        print(f"  [WARN] Could not load credentials for slot-failure alert: {err}")
+        return False
+
+    if not (user and app_pw and to_email):
+        print("  [WARN] gmail creds missing in credentials.json — skipping alert")
+        return False
+
+    rows = "".join(
+        f"<tr>"
+        f"<td style='padding:4px 10px;border:1px solid #ddd'>{f['date']}</td>"
+        f"<td style='padding:4px 10px;border:1px solid #ddd'><b>{f['slot']}</b></td>"
+        f"<td style='padding:4px 10px;border:1px solid #ddd;color:#c0392b'>"
+        f"{', '.join(f['failed_platforms'])}"
+        f"</td>"
+        f"</tr>"
+        for f in failures
+    )
+    html = (
+        "<div style=\"font-family:-apple-system,Segoe UI,Arial,sans-serif\">"
+        "<h2 style='color:#c0392b;margin:0 0 10px'>Vawn posting-slot failures</h2>"
+        f"<p>{len(failures)} slot(s) failed on "
+        f"{SLOT_FAIL_ALERT_THRESHOLD}+ platforms in the last 24 hours.</p>"
+        "<table style='border-collapse:collapse'>"
+        "<tr style='background:#f0f0f0'>"
+        "<th style='padding:6px 10px;border:1px solid #ddd'>Date</th>"
+        "<th style='padding:6px 10px;border:1px solid #ddd'>Slot</th>"
+        "<th style='padding:6px 10px;border:1px solid #ddd'>Failed platforms</th>"
+        "</tr>"
+        f"{rows}"
+        "</table>"
+        "<p style='color:#666;font-size:12px;margin-top:16px'>"
+        "Sent by <code>health_monitor.py</code> (daily 7:15am ET). "
+        "See <code>dispatch_log.jsonl</code> and <code>posted_log.json</code> for details."
+        "</p></div>"
+    )
+    msg = MIMEMultipart("alternative")
+    msg["From"] = user
+    msg["To"] = to_email
+    msg["Subject"] = f"[Vawn alert] {len(failures)} slot failure(s) in last 24h"
+    msg.attach(MIMEText(html, "html"))
+
+    # Keep print messages ASCII-only: Windows Task Scheduler runs with cp1252
+    # stdout by default, so unicode arrows/emojis raise UnicodeEncodeError here.
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+            s.login(user, app_pw)
+            s.sendmail(user, to_email, msg.as_string())
+    except Exception as err:
+        try:
+            print(f"  [WARN] slot-failure alert SMTP failed: {err}")
+        except UnicodeEncodeError:
+            pass
+        return False
+
+    try:
+        print(f"  [ALERT SENT] {len(failures)} slot failure(s) -> {to_email}")
+    except UnicodeEncodeError:
+        pass
+    return True
+
+
 def run():
     """Run all health checks and write report."""
     BRIEFINGS_DIR.mkdir(parents=True, exist_ok=True)
@@ -170,16 +291,25 @@ def run():
     print(f"  Health Monitor -- {today_str()}")
     print(f"{'='*60}")
 
+    slot_failures = check_slot_failures()
     checks = {
         "NotebookLM Auth": check_notebooklm(),
         "Discovery Freshness": check_discovery_freshness(),
         "Bridge": check_bridge(),
         "Catalog Fallback": check_catalog_fallback(),
         "Yesterday's Posts": check_posting(),
+        "Slot Failures": slot_failures,
         "Image Supply": check_image_supply(),
         "Engagement Feedback": check_engagement_feedback(),
         "Local Catalog": check_local_catalog(),
     }
+
+    # Push-alert: email Clu if any posting slot failed on >= threshold platforms
+    # in the last 24h. Per Council verdict (2026-04-23) this is the primary
+    # detection mechanism for silent posting failures until the SessionStart
+    # probe (from Apollo verdict) covers the user-present case.
+    if slot_failures.get("status") == "error":
+        send_slot_failure_alert(slot_failures["failures"])
 
     # Print results
     critical = []

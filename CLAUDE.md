@@ -1,7 +1,9 @@
 # Apulu Records — Project Instructions
 
+@VAULT.md
+
 ## What This Is
-**Apulu Records** is an AI-powered record label running on [Paperclip](https://github.com/paperclipai/paperclip) — an open-source orchestration platform for managing teams of AI agents as a business. The label has 32 agents across 15 departments, organized under 4 division presidents, and manages artist Vawn as its first client (multi-artist extensible).
+**Apulu Records** is an AI-powered record label running on [Paperclip](https://github.com/paperclipai/paperclip) — an open-source orchestration platform for managing teams of AI agents as a business. The label has 16 agents under 3 division presidents, and manages artist Vawn as its first client (multi-artist extensible).
 
 ## Paperclip (Agent Orchestration)
 Paperclip runs at `http://localhost:3100`. Start it with:
@@ -9,52 +11,43 @@ Paperclip runs at `http://localhost:3100`. Start it with:
 cd "C:/Users/rdyal/Apulu Universe/paperclip" && pnpm dev
 ```
 
-### Org Structure
+### Org Structure (16 agents — current, 2026-04-16)
 ```
-Clu (Chairman of the Board / Creative Director)
+Clu (Chairman & CEO — you)
 │
-├── Nelly — Head of Legal
-│   └── Maven (VP Business Affairs)
+├── Camdyn (A&R President)  ← was "Timbo"
+│   ├── Cole (In-House Producer & Songwriter)
+│   ├── Onyx (Studio & Post-Production Lead)
+│   └── Rhythm (A&R Scout & Discovery Analyst)
 │
-├── Timbo — President of A&R
-│   ├── Cole (Staff Writer & Music Producer — full Suno v5.5 workflow)
-│   ├── Onyx (VP Studio / Post-Production)
-│   │   ├── Freq (Mix Engineer — REAPER + iZotope)
-│   │   ├── Slate (Mastering Engineer — Ozone 12)
-│   │   └── Proof (QC Engineer)
-│   └── Rhythm (Beat Scout) [paused — merged into Cole]
+├── Oaklyn (Marketing President)  ← was "Letitia"
+│   ├── Sage & Khari (Content & Visuals Team)  ← merged process agent
+│   ├── Dex (Community & Fan Engagement Manager)
+│   ├── Echo (Head of Publicity & DSP Relations)
+│   └── Sable (Artist Relations Manager)
 │
-├── Letitia — President, Creative & Revenue
-│   ├── Sage (Content Creator — captions, text posts)
-│   ├── Dex (Community Manager — engagement, replies)
-│   ├── Khari (Visual Producer — lyric cards, video)
-│   ├── Echo (Head of Publicity — earned media, press)
-│   ├── Sable (Head of Artist Management)
-│   ├── Tempo (Release Strategist — rollout timing)
-│   ├── Lens (Head of Visual & Music Video)
-│   │   └── Arc (Head of Film & TV)
-│   └── Road (Head of Touring & Live)
-│
-└── Nari — President, Operations & Strategy
-    ├── Rex (CTO — Paperclip, APIs, infrastructure)
-    ├── Cipher (CFO — P&L, DistroKid, streaming revenue)
-    │   └── Ledger (Royalties Analyst)
-    ├── Nova (Analytics Lead — serves all divisions)
-    ├── Scout (Discovery Analyst — Apify scraping)
-    ├── Indigo (Ideation Strategist)
-    ├── Pulse (Trend Analyst)
-    ├── Pixel (AI Prompt Researcher)
-    ├── Stream (VP Streaming Strategy — DSP relations)
-    ├── Ace (Head of Brand Partnerships)
-    └── Vibe (Head of Sync & Licensing)
+└── Aspyn (Operations President)  ← was "Nari"
+    ├── Rex (CTO & AI Infrastructure Lead)
+    ├── Nova (Analytics & Streaming Strategy Lead)
+    ├── Cipher (CFO & Finance Lead)
+    └── Vibe (Head of Partnerships & Revenue)
+
++ Nelly (General Counsel & Head of Business Affairs) — reports to Clu
 ```
+
+Agents marked `process` (heartbeat-enabled, run Python scripts):
+- Sage & Khari → `marketing_dispatch.py` (posting)
+- Dex → `engagement_agent.py` (engagement)
+- Nova → `metrics_agent.py` (analytics)
+
+All others are `claude_local` (Claude Code spawned on-demand by routine or issue assignment).
 
 ### Your Role (Clu)
 - **Chairman**: Set company direction, final authority on all major decisions
 - **Creative Director**: Approve lyrics, mixes, masters, music video treatments
 - Marketing and Research run **fully autonomous** — no approval needed
 - Production and Post-Production gate through your creative approval
-- Four direct reports: Nelly (Legal), Timbo (A&R), Letitia (Creative & Revenue), Nari (Operations)
+- Three division presidents (Camdyn, Oaklyn, Aspyn) + Nelly (Legal) report to you
 
 ### Paperclip Scripts
 ```bash
@@ -73,43 +66,46 @@ python scripts/paperclip/cos_briefing.py                 # Run CoS briefing manu
 
 # Config files
 scripts/paperclip/company_id.txt       # Company UUID
-scripts/paperclip/agent_ids.json       # All 32 agent UUIDs (keyed by original role)
+scripts/paperclip/agent_ids.json       # All 16 agent UUIDs (keyed by agent name)
 scripts/paperclip/routine_ids.json     # All 16 routine UUIDs
 ```
 
-### Skills (22 custom skills mapped to agents)
+### Skills (22 custom skills — mapped to current 16-agent org)
+Skills marked `(unassigned)` belong to roles that existed in the older 32-agent
+plan but aren't wired to a current agent — Clu invokes these directly until an
+agent is created.
 ```
 ~/.claude/skills/
-├── ar-music/              # Timbo — A&R creative direction, project planning
+├── ar-music/              # Camdyn — A&R creative direction, project planning
 ├── music-composition-skill/ # Cole — Suno v5.5 lyrics + production
-├── humanizer/             # Cole, Sage — strip AI writing patterns
-├── social-content/        # Sage — platform-specific captions
+├── humanizer/             # Cole, Sage & Khari — strip AI writing patterns
+├── social-content/        # Sage & Khari — platform-specific captions
 ├── community-management/  # Dex — fan engagement strategy
-├── visual-production/     # Khari — lyric cards, Ken Burns video
+├── visual-production/     # Sage & Khari — lyric cards, Ken Burns video
 ├── content-analytics/     # Nova — metrics, weekly digests
 ├── music-publicity/       # Echo — press pitches, narrative building
 ├── artist-management/     # Sable — career strategy, day-to-day
-├── release-strategy/      # Tempo — rollout timeline, cadence
-├── higgsfield-cinema-studio/ # Lens — AI video direction
-├── film-tv-development/   # Arc — artist IP into content
-├── touring-live/          # Road — booking, tour planning
-├── vawn-mix-engine/       # Onyx/Freq/Slate — 5-stage REAPER pipeline
+├── release-strategy/      # (unassigned) — rollout timeline, cadence (Clu or Oaklyn)
+├── higgsfield-cinema-studio/ # (unassigned) — AI video direction (Clu direct)
+├── film-tv-development/   # (unassigned) — artist IP into content
+├── touring-live/          # (unassigned) — booking, tour planning
+├── vawn-mix-engine/       # Onyx — 5-stage REAPER pipeline (mix/master/QC merged)
 ├── music-legal/           # Nelly — contracts, clearances, copyright
-├── business-affairs/      # Maven — deal negotiation, term sheets
+├── business-affairs/      # Nelly — deal negotiation, term sheets (VP role merged)
 ├── music-finance/         # Cipher — P&L, streaming economics
-├── royalties-admin/       # Ledger — split tracking, audit
-├── label-operations/      # Nari — KPIs, ops cadence, scaling
-├── streaming-strategy/    # Stream — DSP relations, playlisting
-├── brand-partnerships/    # Ace — endorsements, co-marketing
+├── royalties-admin/       # Cipher — split tracking, audit (analyst role merged)
+├── label-operations/      # Aspyn — KPIs, ops cadence, scaling
+├── streaming-strategy/    # Nova — DSP relations, playlisting
+├── brand-partnerships/    # Vibe — endorsements, co-marketing
 └── sync-licensing/        # Vibe — film/TV/ad placement
 ```
 
 ### Production Workflow (Suno)
 ```
-Timbo (A&R) → Creative Brief via ar-music skill
+Camdyn (A&R) → Creative Brief via ar-music skill
   → Cole → Full Suno v5.5 package (lyrics + production + style prompt)
     → Clu → Creative approval
-      → Generate in Suno → Stems to Onyx → Freq (mix) → Slate (master) → Proof (QC)
+      → Generate in Suno → Stems to Onyx (mix + master + QC — single studio lead)
         → Clu → Final approval → Release
 ```
 
@@ -125,14 +121,73 @@ python -m src.main enumerate-live "VST3: Ozone 12 (iZotope)"  # Live param dump
 **Key features:** iZotope AI Assistants (Vocal + Mix Assistant via playback), Unmask (instruments duck for vocal), FX buses (Reverb + Delay with vocal sends), LUFS feedback loop targeting -7.5, section-aware bus automation, `stems.exclude` config for skipping stems.
 **Level consistency (commit ad39457, 2026-04-14):** Boundary fade ramps on bus rides (pre 1.0s / post 0.5s), pre-Nectar lead vocal clip-gain envelope (75ms RMS, target −18 dBFS), BASS/808 BUS section ride differential, ride depth capped at ±1.2 dB, Nectar limiter wired (−1.0 dBTP), kick→bass-bus sidechain duck, signed LUFS adjustment (can attenuate hot mixes). Stage 4 (instrument processing) + bus processing now enabled by default.
 **Config:** Per-song YAML in `config/`, inherits from `default_config.yaml`. Set `ai_source: "suno"` for Suno stems. Suno bass stems are 808-style — use 808 treatment, not regular BASS EQ. **Stems paths:** point to local `sessions/<song>/stems/`, not G drive (G drive folders are stale).
-**Sessions:** `config/i_fell_in_love.yaml`, `config/on_my_way.yaml`
-**Known issues:** (1) Param maps drift — `nectar4` `eq1_b5_*` and `neutron5` `eq_b5/b6_*` referenced but don't exist (silent warnings). Regenerate with `enumerate_fx_params.py`. (2) Pre-master LUFS came in at −32 on On My Way test mix, 25 dB below target — internal gain staging is too quiet; maximizer can't make it up. Investigate before next mix.
+**Sessions:** `config/i_fell_in_love.yaml`, `config/on_my_way.yaml`, `config/on_my_way_kendrick_target.yaml` (MCA-bound, Kendrick reference)
+**Mix rules:** `wiki/vawn-mix-engine/mix-rules.md` — codified 2026-04-16 from real REAPER session. **Read this BEFORE any Vawn mix work.** Covers vocal peak clamp (engine fix done), clip-gain envelope folding (engine fix done), Sculptor on bass (manual fix until engine patched), TrackFX_SetParamNormalized requiring open FX UI (REAPER bug), master fader is not for balance, MCA workflow (`--mix-only`), and per-stem RMS targets.
+**Known issues:** (1) Param maps drift — `nectar4` `eq1_b5_*` and `neutron5` `eq_b5/b6_*` referenced but don't exist (silent warnings). Regenerate with `enumerate_fx_params.py`. (2) Pre-master LUFS came in at −32 on On My Way test mix, 25 dB below target — internal gain staging is too quiet; maximizer can't make it up. **Resolved 2026-04-16 by removing the over-conservative vocal peak clamp** in `src/decision_engine.py`. (3) Mix Assistant on bass stems sets Compressor 1 Band 1 ratio at 4-7:1 and enables Sculptor "Reduce Boxiness" — both crush the bass fundamental. Disable manually until engine fix lands. (4) `TrackFX_SetParamNormalized` silently fails when FX UI is closed — wrap with `TrackFX_SetOpen(true)` before set, `TrackFX_SetOpen(false)` after.
 
 ### Marketing Dispatcher
-All Marketing agents use `Vawn/marketing_dispatch.py` as their process adapter. When a Paperclip routine fires, it creates an issue, wakes the agent, and the dispatcher reads the issue title to determine which script to run.
+All Marketing agents use `Vawn/marketing_dispatch.py` as their process adapter. When a Paperclip routine fires, it creates an issue, wakes the agent, and the dispatcher reads the issue title to determine which script to run. The dispatcher now wraps every script execution through `dispatch_runner.run_with_retries` — see Bulletproofing Infrastructure below.
 ```bash
 python marketing_dispatch.py --slot morning-early --dry-run  # Test locally
+python marketing_dispatch.py --slot morning-early --no-retry  # Bypass retry wrapper
 ```
+
+### Bulletproofing Infrastructure (built 2026-04-16)
+
+Multi-layered resilience stack to prevent silent failures. Live dashboard at `C:\Users\rdyal\Vawn\STATUS.md` (regenerated hourly).
+
+**Automated monitoring (Windows Task Scheduler under `\Vawn\`)**:
+| Task | Cadence | Script | Purpose |
+|---|---|---|---|
+| `ValidateAdapters` | Daily 5:45am | `validate_adapters.py` | Smoke-tests every process-adapter config + every marketing dispatch slot. Catches argparse-level bugs before routines fire. |
+| `BackendHealthProbe` | 10 min | `backend_health_probe.py` | Probes `apulustudio.onrender.com` endpoints. Writes `backend_health.json` that `post_vawn.py` reads. Pre-warms Render free tier. |
+| `PaperclipRunMonitor` | 15 min | `paperclip_run_monitor.py` | Detects failed `heartbeat_runs` + stuck agents (status=error >30min). Signature detection: `claude_auth_expired`, `backend_5xx`, `missing_cron_arg`, `bluesky_auth`, `rate_limit`. |
+| `StatusBoard` | Hourly | `render_status.py` | Regenerates `STATUS.md` — unified dashboard of agents, backend, auth, dispatch history, DLQ, undelivered alerts. |
+
+**Dispatcher retry wrapper (`Vawn/dispatch_runner.py`)**:
+- Up to 3 retries with exponential backoff (30s, 2min, 8min) on transient failures
+- Short-circuits on non-retryable exit codes: **exit 2** (argparse/config bug), **exit 3** (circuit breaker tripped)
+- Failure-signature detection auto-classifies + alerts with specific action hints
+- Structured logging to `dispatch_log.jsonl`; exhausted retries write to `dead_letter.jsonl`
+
+**Circuit breaker in `post_vawn.py`**:
+Before generating Suno content, checks `backend_health.json`. If `overall == "degraded"` (and check is fresh <30min), exits 3 (retryable) without burning Suno tokens.
+
+**Retry-aware dedup in `post_vawn.py`**:
+`mark_slot_posted` tracks per-platform state. A slot only locks as `true` when ALL platforms succeed; partial failures store `{x: false, bluesky: false, instagram: true}` so next retry attempts only the failed ones.
+
+**Alert fallback (`Vawn/alert_fallback.jsonl`)**:
+When SMTP fails, `email_notify.send_notification` persists the alert to JSONL so nothing vanishes. The status dashboard shows pending count. Flush once SMTP is working:
+```bash
+python flush_alerts.py --clear-delivered
+```
+
+**Dead-letter queue (`Vawn/dlq.py`)**:
+```bash
+python dlq.py list                 # Show all DLQ entries
+python dlq.py show <id>            # Full detail
+python dlq.py replay <id>          # Re-run the original command
+python dlq.py clear --delivered    # Remove already-replayed entries
+python dlq.py stats                # Group by slot/signature/date
+```
+
+**Diagnostic commands**:
+```bash
+type C:\Users\rdyal\Vawn\STATUS.md              # Current snapshot
+python validate_adapters.py --verbose            # Spot-check adapter configs
+python paperclip_run_monitor.py --dry-run --window 1440  # Recent failures (24h)
+python backend_health_probe.py                   # Force-refresh backend probe
+python claude_auth_probe.py                      # Check Claude Code auth (manual — WTS can't read keychain)
+```
+
+**Common failure signatures + fixes**:
+| Signature | Cause | Action |
+|---|---|---|
+| `claude_auth_expired` | Claude Code OAuth token expired | Run `claude /login` — all 11 claude_local agents unblock |
+| `apulu_backend_5xx` | Apulu Studio handler bug or Render cold-start | Check Render logs at github.com/iamclu1914/ApuluStudio |
+| `missing_cron_arg` | Adapter points directly at post_vawn.py without args | Adapter must invoke `marketing_dispatch.py`, not `post_vawn.py` |
+| `bluesky_auth` | Bluesky app password wrong/expired | Regenerate at bsky.app settings, update `credentials.json` |
+| `rate_limit` | Suno / X rate-limited | Self-heals via retry backoff |
 
 ### Multi-Artist Config
 ```
@@ -153,7 +208,8 @@ node -e "const{Client}=require('./node_modules/.pnpm/pg@8.18.0/node_modules/pg')
 ## Vault Structure
 ```
 Apulu Universe/
-├── CLAUDE.md                ← You are here
+├── CLAUDE.md                ← You are here (project instructions)
+├── VAULT.md                 ← Entry point for vault readers (domain → hub map)
 ├── paperclip/               ← Paperclip installation (gitignored)
 ├── artists/                 ← Per-artist config (multi-tenant)
 │   └── vawn/
@@ -161,8 +217,10 @@ Apulu Universe/
 │       ├── content_rules.json
 │       └── pillar_schedule.json
 ├── scripts/paperclip/       ← Paperclip setup & management scripts
-├── docs/superpowers/specs/  ← Design specs
-├── docs/superpowers/plans/  ← Implementation plans
+├── docs/                    ← Design specs + implementation plans
+│   └── superpowers/
+│       ├── specs/
+│       └── plans/
 ├── projects/
 │   ├── vawn/                ← Junction → C:\Users\rdyal\Vawn
 │   └── apulu-prompt-generator/ ← Symlink → G:\My Drive\Apulu Prompt Generator
@@ -170,25 +228,35 @@ Apulu Universe/
 │   ├── pipeline_config.py   ← Shared config loader + helpers
 │   ├── obsidian_formatter.py← All output → Obsidian markdown
 │   ├── bridge.py            ← Connects pipeline ↔ Vawn posting system
-│   ├── config/
-│   │   ├── vawn.json        ← Project config (niches, accounts, keywords)
-│   │   ├── bridge_config.json
-│   │   ├── content_rules.json   ← Shared humanizer + voice + platform rules
-│   │   ├── pillar_context.json  ← Today's pillar + 7-day rotation
-│   │   └── engagement_feedback.json ← Best-performing pillar + scores
+│   ├── brain/               ← Daily briefing + health monitor (CoS agent scripts)
+│   ├── config/              ← vawn.json, content_rules, pillar_context, engagement_feedback
 │   ├── discovery/           ← Phase 0: Apify scrapers (X, IG, TikTok, Reddit, YouTube)
-│   ├── ideation/            ← Phase 2: Competitive analysis + ranked content ideas (pillar-aware)
+│   ├── ideation/            ← Phase 2: Competitive analysis + ranked content ideas
 │   ├── scripting/           ← Phase 3: Hooks, outlines, titles
-│   ├── cascade/             ← Phase 4: Video → platform-specific posts (content rules enforced)
-│   └── prompt-research/     ← AI video prompt research (Reddit, TikTok/X scoring, YouTube+NLM, prompt DB)
-├── research/                ← All pipeline output (per project, per phase)
+│   ├── cascade/             ← Phase 4: Video → platform-specific posts
+│   └── prompt-research/     ← AI video prompt research
+├── journals/                ← Dated operational notes (read with coffee)
 │   └── vawn/
-│       ├── discovery/       ← Scraped data + Obsidian notes
-│       ├── ideation/        ← Content ideas + competitive landscape
-│       ├── scripting/       ← Hooks, outlines, titles
-│       └── cascade/         ← Repurposed platform posts
+│       ├── briefings/       ← Daily briefings (incl. Infrastructure status block)
+│       ├── health/          ← Rex's daily health reports
+│       └── discovery/       ← Dated discovery summaries
+├── research/                ← Formal research tickets (APU-xxx) + dated research docs
+│   └── vawn/
+│       ├── press-opportunities/    ← Echo's weekly scans
+│       ├── sync-opportunities/     ← Vibe's weekly scans
+│       └── [other tickets]
+├── catalogs/                ← Structured reference data (e.g., vawn-lyrics.md)
+├── wiki/                    ← LLM-compiled knowledge base (topic hubs)
+│   ├── _master-index.md
+│   ├── infrastructure/      ← NEW: runbooks + architecture for bulletproofing stack
+│   ├── vawn-mix-engine/
+│   ├── vawn-project/
+│   ├── apulu-prompt-generator/
+│   ├── ai-filmmaking/
+│   ├── design-engineering/
+│   └── cross-topic/
+├── wiki-archive/            ← Older/deprecated wiki content
 ├── skills/                  ← Packaged .skill files
-├── wiki/                    ← LLM-compiled knowledge base
 ├── raw/                     ← Source material (skill drafts, etc.)
 └── output/                  ← General output staging
 ```
@@ -199,14 +267,40 @@ Apulu Universe/
 AI-powered music video creative direction tool. Node.js web app with server, agents, Vercel deployment. Generates style prompts for Higgsfield/Kling video production across 7 style worlds.
 
 ### Vawn (C:\Users\rdyal\Vawn\ → projects/vawn/ via junction)
-First artist on Apulu Records. Brooklyn-raised, Atlanta-based hip-hop. Fully autonomous social media + music production system orchestrated by Paperclip. Letitia's division handles marketing (16 cron routines, 3x daily posts to 5 platforms). Timbo's division handles A&R + studio (Suno generation via Cole, mixing via Onyx's team). Nari's division handles research, streaming strategy, analytics.
+First artist on Apulu Records. Brooklyn-raised, Atlanta-based hip-hop. Fully autonomous social media + music production system orchestrated by Paperclip. Oaklyn's division handles marketing (16 cron routines, 3x daily posts to 5 platforms). Camdyn's division handles A&R + studio (Suno generation via Cole, mixing via Onyx). Aspyn's division handles research, streaming strategy, analytics, and infrastructure.
 
-**Key files:**
-- `post_vawn.py` — Main posting engine (all 5 platforms, engagement-weighted image selection)
+**Core posting files:**
+- `post_vawn.py` — Main posting engine (all 5 platforms, engagement-weighted image selection, retry-aware dedup, circuit breaker)
 - `text_post_agent.py` — Text-only posts for X/Threads/Bluesky
+- `marketing_dispatch.py` — Dispatcher for Sage & Khari's process adapter; reads Paperclip issue title, routes via DISPATCH_TABLE, wraps subprocess through `dispatch_runner.run_with_retries`
+- `dispatch_runner.py` — Retry wrapper (3x exp backoff), signature detection, DLQ on exhaustion
+- `posted_log.json` — Per-platform slot state (supports partial-success retry)
+
+**Infrastructure monitoring (see Bulletproofing Infrastructure):**
+- `paperclip_run_monitor.py` — Failed `heartbeat_runs` + stuck agents; runs every 15 min
+- `backend_health_probe.py` — Apulu Studio endpoint probes; writes `backend_health.json`
+- `claude_auth_probe.py` — Claude CLI auth check (manual-only; WTS can't read keychain)
+- `validate_adapters.py` — Adapter config + dispatch table smoke test; runs daily 5:45am
+- `render_status.py` — Regenerates `STATUS.md`; runs hourly
+- `email_notify.py` — Shared SMTP helper; `APULU_GMAIL_APP_PASSWORD` env var override
+- `flush_alerts.py` — Replays undelivered alerts once SMTP works
+- `dlq.py` — Dead-letter queue CLI (list/show/replay/clear/stats)
+
+**Data/state files (consumed by dashboard + briefing):**
+- `STATUS.md` — Live infrastructure dashboard (regenerated hourly)
+- `backend_health.json` — Current + 24h probe history
+- `claude_auth_state.json` — Last probe result
+- `paperclip_monitor_state.json` — Dedup state for already-reported failures
+- `dispatch_log.jsonl` — All dispatch attempts (structured outcome per run)
+- `dead_letter.jsonl` — Permanently-failed dispatches
+- `alert_fallback.jsonl` — Alerts that couldn't send via SMTP
+- `validator_state.json` — Last adapter validation status
+
+**Other:**
 - `research_company.py` — Orchestrates 4 agents (trend, audience, catalog, content calendar)
 - `vawn_config.py` — Shared config, PILLAR_SCHEDULE, VAWN_PROFILE
 - `config.json` — Anthropic API key + Apify token
+- `credentials.json` — Bluesky direct-post creds + Apulu Studio API tokens
 
 **Image source:** `Social_Media_Exports/Instagram_Reel_1080x1920_9-16/` — all platforms use same 9:16 images, backend passes through original dimensions (no cropping).
 
@@ -282,52 +376,86 @@ The CoS agent replaced the standalone brain layer scripts. It runs `health_monit
 
 Output: `research/vawn/briefings/`
 
-## Schedule (Paperclip Routines — all times ET)
+## Schedule (all times ET)
 
-### Nari's Division — Research (Paperclip heartbeats)
+### Aspyn's Division — Research (Paperclip routines + WTS)
 ```
-5:30am  Scout (discovery)  → Apify scrape (X, IG, TikTok, Reddit)
-5:50am  Indigo (ideation)  → Competitive analysis + pillar-aware ideas
-6:10am  Pulse (trend)      → trend_agent, audience_agent, catalog_agent
-6:25am  Bridge             → Merges pipeline intel into daily_brief.json (Windows task)
-7:15am  CoS briefing       → Health monitor + daily briefing (read with coffee)
+5:30am  PipelineDiscovery (WTS)  → Apify scrape (X, IG, TikTok, Reddit, YouTube)
+5:45am  ValidateAdapters (WTS)   → Catch adapter-config bugs before 6am routines
+5:50am  PipelineIdeation (WTS)   → Competitive analysis + pillar-aware ideas
+6:10am  ResearchCompany (WTS)    → trend_agent, audience_agent, catalog_agent
+6:25am  Bridge (WTS)             → Merges pipeline intel into daily_brief.json
+7:15am  HealthMonitor (WTS)      → Pipeline health (notebook auth, Apify freshness)
+7:30am  DailyBriefing (WTS)      → Daily Obsidian briefing (incl. Infrastructure block)
+7:20am  EmailBriefing (WTS)      → Email briefing to clu@apuluthegod.com
+
+Rex     system-health-check (Paperclip, daily 10am UTC / 6am ET)
+Rhythm  artist-discovery-scan (Paperclip, daily 9:30am)
+Rhythm  playlist-monitor (Paperclip, daily 1pm)
+Rhythm  competitor-tracking (Paperclip, Fri 3pm UTC)
 ```
 
-### Letitia's Division — Marketing (Paperclip routines via marketing_dispatch.py)
+### Oaklyn's Division — Marketing (Paperclip routines via marketing_dispatch.py)
 ```
-6:00am  Sage: hashtag-scan       → Trending hashtags for all platforms
-6:30am  Khari: lyric-card       → Generate lyric card images
-6:45am  Khari: video-daily      → Ken Burns video from images
-8:00am  Sage: morning-early     → X + Bluesky (image + caption)
-9:15am  Sage: morning-main      → TikTok + IG Reel + Threads
-10:30am Sage: text-post-morning → X + Threads + Bluesky text-only
-12:00pm Sage: midday-early      → X + Bluesky
-12:45pm Sage: midday-main       → TikTok + IG + Threads
-3:30pm  Sage: text-post-afternoon→ X thread + Threads + Bluesky
-6:00pm  Sage: evening-early     → X + Bluesky + IG slideshow Reel
-8:15pm  Sage: evening-main      → TikTok + Threads
+6:00am  Sage & Khari: hashtag-scan       → Trending hashtags for all platforms
+6:30am  Sage & Khari: lyric-card         → Generate lyric card images
+6:45am  Sage & Khari: video-daily        → Ken Burns video from images
+8:00am  Sage & Khari: morning-early      → X + Bluesky (image + caption)
+9:15am  Sage & Khari: morning-main       → TikTok + IG Reel + Threads
+10:30am Sage & Khari: text-post-morning  → X + Threads + Bluesky text-only
+12:00pm Sage & Khari: midday-early       → X + Bluesky
+12:45pm Sage & Khari: midday-main        → TikTok + IG + Threads
+3:30pm  Sage & Khari: text-post-afternoon→ X thread + Threads + Bluesky
+6:00pm  Sage & Khari: evening-early      → X + Bluesky + IG slideshow Reel
+8:15pm  Sage & Khari: evening-main       → TikTok + Threads
+
 Every2h Dex: engagement-monitor → Comment monitoring + auto-reply
-Every5h Dex: engagement-bot    → Bluesky likes
-Sun 7am Khari: video-cinematic → Higgsfield cinematic video
-Sun 9am Nova: analytics-digest → Weekly performance report
-Sun 2pm Sage: recycle          → Recycle top 30-day-old images
+Every5h Dex: engagement-bot     → Bluesky likes
+Sun 7am Sage & Khari: video-cinematic → Higgsfield cinematic video
+Sun 2pm Sage & Khari: recycle   → Recycle top 30-day-old images
+
+Echo: press-opportunity-scan    (Wed 2pm)
 ```
 
-### Timbo's Division — A&R + Studio (event-driven)
-Triggered by creating issues in Paperclip assigned to Timbo.
+### Aspyn Division — Analytics, Finance, Partnerships
 ```
-Timbo → Creative Brief → Cole → Suno prompt → Clu approval → Generate
-Stems → Onyx → Freq (mix) → Slate (master) → Proof (QC) → Clu approval
+11am    Nova: content-performance-daily  → Per-post metrics
+Sun 9am Nova: analytics-digest          → Weekly performance report
+Sun 10pm Aspyn: weekly-ops-digest       → Weekly ops summary
+Mon 12pm Cipher: streaming-revenue-check → DSP revenue reconciliation
+Mon 2pm Vibe: sync-opportunity-scan     → Weekly sync licensing scan
 ```
 
-### Still on Windows Task Scheduler (parallel with Paperclip)
+### Camdyn's Division — A&R + Studio (event-driven)
+Triggered when Clu creates issues in Paperclip assigned to Camdyn.
+```
+Camdyn → Creative Brief → Cole → Suno prompt → Clu approval → Generate
+Stems → Onyx → mix/master/QC → Clu approval → Release
+```
+
+**Cultural Intelligence (Camdyn reads before every creative decision):**
+- Live radar: `research/vawn/ar-intel/Cultural Radar -- 2026-04-22.md` (updated biweekly via `vawn-cultural-radar` scheduled task)
+- Wiki article: `wiki/vawn-project/ar-cultural-intel.md` (compiled directives + competitor watchlist)
+- Key April 2026 signal: No dominant ATL sound exists. Bass-baritone cinematic lane is structurally uncrowded. Hollywood Toray is the only named competitor. Vibecession audience rewards specificity + earned authority over polish.
+
+### Infrastructure WTS tasks (bulletproofing stack, see section above)
+```
+Every 10 min  BackendHealthProbe      → Apulu Studio probes + Render pre-warm
+Every 15 min  PaperclipRunMonitor     → Failed runs + stuck agents
+Every hour    StatusBoard             → Regenerate C:\Users\rdyal\Vawn\STATUS.md
+Daily 5:45am  ValidateAdapters        → Adapter config + dispatch table smoke test
+```
+
+### Legacy WTS tasks (infrastructure, not posting)
 ```
 6:25am  Bridge             → pipeline/bridge.py
-7:00am  MetricsAgent       → metrics_agent.py
 Wed 10am LyricAnnotation   → lyric_annotation_agent.py
 Mon+Thu 6am PromptResearch  → prompt research scrapers
-All posting tasks          → Running in parallel with Paperclip routines
 ```
+
+### ⚠️ WTS posting tasks DISABLED (2026-04-16)
+Previously 17 WTS tasks duplicated Paperclip routines for posting. All disabled to prevent double-firing. Paperclip routines now own posting exclusively. **Do NOT re-enable** unless Paperclip is down for an extended period.
+Disabled tasks: MorningEarly, MorningMain, TextPostMorning, MiddayEarly, MiddayMain, TextPostAfternoon, EveningEarly, EveningMain, HashtagScan, LyricCardAgent, VideoAgent, VideoAgentCinematic, RecycleAgent, EngagementAgent, EngagementBot, AnalyticsDigest, MetricsAgent.
 
 ## Platforms
 X, Bluesky, Instagram, Threads, TikTok. **No LinkedIn. No blog posts.**
@@ -341,7 +469,9 @@ Lyrical rap, lyrical hip-hop, Suno music, AI music, underground hip-hop, indepen
 - **NotebookLM**: Browser auth at `~/.notebooklm/storage_state.json`
 - **Apulu Studio**: `https://apulustudio.onrender.com/api` (GitHub: iamclu1914/ApuluStudio)
 - **LATE/Zernio**: Posts to IG, TikTok, Threads, X via Apulu Studio backend
-- **Bluesky**: Direct AT Protocol posting via credentials.json
+- **Bluesky**: Direct AT Protocol posting via `credentials.json` — 19-char app password format (NOT account password). Regenerate at bsky.app settings if Bluesky posts start failing with auth errors.
+- **Gmail SMTP**: `clu@apuluthegod.com` via Google app password in `email_notify.py`. Rotate password at https://myaccount.google.com/apppasswords when it's revoked (Google does this periodically). Prefer env var `APULU_GMAIL_APP_PASSWORD` over hard-coding. When SMTP is broken, alerts queue in `alert_fallback.jsonl`; flush with `python flush_alerts.py --clear-delivered`.
+- **Claude Code**: OAuth token shared by all 11 claude_local agents. When expired (signature: `Not logged in · Please run /login` in failed runs), fix by running `claude /login` in a terminal. `PaperclipRunMonitor` detects this via signature match.
 
 ## Data Flow
 ```

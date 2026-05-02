@@ -21,15 +21,20 @@ from pipeline_config import (
     save_json, load_json, now_iso, today_str,
 )
 from obsidian_formatter import write_obsidian_note
-from discovery.apify_client import ApifyBillingExhaustedError
+from discovery.apify_client import (
+    ApifyBillingExhaustedError,
+    ApifyBudgetNearCapError,
+    ApifyDailyBudgetExceededError,
+)
 
 
 # Pipelines that depend on Apify and should short-circuit when the monthly cap is hit.
 APIFY_BACKED_PIPELINES = {"x", "instagram", "tiktok"}
 
-# Distinct exit code so WTS / paperclip_run_monitor can classify billing-cap failures
+# Distinct exit codes so WTS / paperclip_run_monitor can classify failures
 # without false-flagging them as transient backend errors.
-EXIT_APIFY_BILLING_EXHAUSTED = 4
+EXIT_APIFY_BILLING_EXHAUSTED = 4   # Apify itself refused (platform-feature-disabled)
+EXIT_APIFY_BUDGET_NEAR_CAP = 5     # self-imposed brake: monthly threshold or daily cap
 
 
 def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
@@ -63,15 +68,21 @@ def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
     results = {}
     errors = {}
     apify_billing_exhausted = False
+    apify_budget_near_cap = False
 
     for name, (module_path, func_name) in pipelines.items():
         print(f"\n{'-'*40}")
         print(f"  Running: {name}")
         print(f"{'-'*40}")
 
-        if apify_billing_exhausted and name in APIFY_BACKED_PIPELINES:
-            msg = "Apify monthly usage hard limit exceeded -- skipping (raise cap in Apify console or wait for cycle reset)"
-            results[name] = {"status": "skipped", "error": msg}
+        if (apify_billing_exhausted or apify_budget_near_cap) and name in APIFY_BACKED_PIPELINES:
+            if apify_budget_near_cap:
+                msg = "Apify budget guardrail tripped (monthly threshold or daily cap) -- skipping"
+                status_label = "budget_near_cap"
+            else:
+                msg = "Apify monthly usage hard limit exceeded -- skipping (raise cap in Apify console or wait for cycle reset)"
+                status_label = "skipped"
+            results[name] = {"status": status_label, "error": msg}
             errors[name] = msg
             print(f"  [SKIP] {name}: {msg}")
             continue
@@ -100,6 +111,15 @@ def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
                     print(f"  [WARN] Obsidian note failed: {obs_err}")
 
             print(f"  [OK] {name}")
+
+        except (ApifyBudgetNearCapError, ApifyDailyBudgetExceededError) as e:
+            # Self-imposed brake — distinct from Apify-side refusal so WTS /
+            # paperclip_run_monitor can tell them apart via exit code 5 vs 4.
+            apify_budget_near_cap = True
+            results[name] = {"status": "budget_near_cap", "error": str(e)}
+            errors[name] = f"apify_budget_near_cap: {e}"
+            print(f"  [BUDGET] {name}: {e}")
+            print(f"  [BUDGET] Short-circuiting remaining Apify-backed pipelines: {sorted(APIFY_BACKED_PIPELINES)}")
 
         except ApifyBillingExhaustedError as e:
             apify_billing_exhausted = True
@@ -135,6 +155,7 @@ def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
 
     brief["top_content"] = top_content
     brief["apify_billing_exhausted"] = apify_billing_exhausted
+    brief["apify_budget_near_cap"] = apify_budget_near_cap
     brief_path = output_dir / "discovery_brief.json"
     save_json(brief_path, brief)
 
@@ -148,7 +169,13 @@ def run(project_name="vawn", only=None, skip=None, use_notebooklm=True):
     print(f"\n{'='*60}")
     print(f"  Discovery Pipeline -- Summary")
     print(f"{'='*60}")
-    MARKERS = {"ok": "[OK]", "error": "[FAIL]", "billing_exhausted": "[BILLING]", "skipped": "[SKIP]"}
+    MARKERS = {
+        "ok": "[OK]",
+        "error": "[FAIL]",
+        "billing_exhausted": "[BILLING]",
+        "budget_near_cap": "[BUDGET]",
+        "skipped": "[SKIP]",
+    }
     for name, result in results.items():
         status = result["status"]
         marker = MARKERS.get(status, "[FAIL]")
@@ -170,5 +197,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     brief = run(args.project, args.only, args.skip, not args.no_notebooklm)
+    # Budget brake takes precedence: it's the more specific signal (we tripped
+    # our own threshold, not Apify's). Monitor relies on this distinction.
+    if brief.get("apify_budget_near_cap"):
+        sys.exit(EXIT_APIFY_BUDGET_NEAR_CAP)
     if brief.get("apify_billing_exhausted"):
         sys.exit(EXIT_APIFY_BILLING_EXHAUSTED)

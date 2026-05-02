@@ -33,49 +33,56 @@
       "enabled": true,
       "actor": "trudax/reddit-scraper-lite",
       "schedule": "twice-weekly",
-      "max_results": 30,
+      "max_results": 50,
       "subreddits": [
+        "HiggsfieldAI",
+        "higgsfield",
         "aivideo",
-        "StableDiffusion",
-        "midjourney",
-        "comfyui",
         "AIFilmmaking",
-        "higgsfield"
+        "StableDiffusion",
+        "comfyui"
       ],
-      "sort": "hot",
+      "sort": "new",
       "keywords_filter": [
+        "cinema studio 3.5", "cinema 3.5", "higgsfield 3.5",
         "prompt", "character consistency", "higgsfield",
         "camera movement", "style transfer", "reference image",
-        "seed", "workflow", "technique"
+        "seed", "workflow", "technique", "seedance"
       ]
     },
     "tiktok": {
       "enabled": true,
       "actor": "clockworks/tiktok-scraper",
       "schedule": "weekly",
-      "max_results": 30,
+      "max_results": 40,
       "accounts": [],
       "keywords": [
+        "higgsfield cinema studio 3.5",
+        "higgsfield 3.5 tutorial",
         "higgsfield tutorial",
         "ai video prompt",
         "character consistency ai",
-        "ai filmmaking tips",
-        "ai generated music video"
+        "ai filmmaking tips"
       ]
     },
     "x": {
       "enabled": true,
       "actor": "apidojo/tweet-scraper",
       "schedule": "twice-weekly",
-      "max_results": 50,
+      "max_results": 75,
       "accounts": [
-        "@higaborhadegsfield_ai", "@HiggsFieldAI",
-        "@CivitaiArt", "@prompthero"
+        "@HiggsFieldAI",
+        "@CivitaiArt",
+        "@prompthero"
       ],
       "keywords": [
-        "higgsfield prompt", "higgsfield cinema",
-        "character consistency ai video",
-        "ai video workflow", "ai filmmaking prompt"
+        "higgsfield cinema studio 3.5",
+        "cinema studio 3.5",
+        "higgsfield 3.5",
+        "higgsfield cinema",
+        "higgsfield prompt",
+        "higgsfield seedance",
+        "character consistency ai video"
       ]
     }
   }

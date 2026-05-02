@@ -98,49 +98,54 @@ def normalize_tweet(tweet):
     }
 
 
-def search_keywords(runner, keywords, max_results=100):
-    """Search X for tweets matching keywords."""
-    # Single OR query -- keeps it to one search
-    query = " OR ".join(f'"{kw}"' for kw in keywords[:8])
+def discover_tweets(runner, keywords, accounts, max_results=100, max_per_account=10,
+                    include_keywords=True, include_accounts=True):
+    """Single consolidated apidojo/tweet-scraper call covering keywords + accounts.
 
-    print(f"\n[X Pipeline] Searching: {query[:100]}...")
-    input_data = {
-        "searchTerms": [query],
-        "maxTweets": max_results,
-        "sort": "Top",
-        "tweetLanguage": "en",
-    }
+    The actor accepts both `searchTerms` and `twitterHandles` in one input;
+    merging halves the daily Apify cost for X discovery (was 2 calls/day).
 
-    try:
-        items = runner.run_actor("apidojo/tweet-scraper", input_data, timeout=120)
-        return items
-    except ApifyBillingExhaustedError:
-        raise
-    except Exception as e:
-        print(f"  [ERROR] Keyword search failed: {e}")
+    Sort policy: "Latest" — matches the previous accounts mode; we rerank
+    locally by velocity/engagement so the change is invisible downstream.
+    """
+    handles = [a.lstrip("@") for a in accounts] if include_accounts else []
+    query_terms = []
+    if include_keywords and keywords:
+        # OR query keeps the search slot to one term so we don't multiply cost.
+        query_terms = [" OR ".join(f'"{kw}"' for kw in keywords[:8])]
+
+    if not handles and not query_terms:
+        print("[X Pipeline] Nothing to discover (no keywords, no accounts).")
         return []
 
+    # Total cap: previous behaviour was max_results + max_per_account*N_handles.
+    max_tweets = 0
+    if query_terms:
+        max_tweets += max_results
+    if handles:
+        max_tweets += max_per_account * len(handles)
 
-def scrape_accounts(runner, accounts, max_per_account=20):
-    """Scrape recent tweets from tracked accounts."""
-    all_tweets = []
-    # Clean handles
-    handles = [a.lstrip("@") for a in accounts]
+    input_data = {"maxTweets": max_tweets, "sort": "Latest"}
+    if query_terms:
+        input_data["searchTerms"] = query_terms
+        input_data["tweetLanguage"] = "en"
+    if handles:
+        input_data["twitterHandles"] = handles
 
-    print(f"\n[X Pipeline] Scraping {len(handles)} accounts...")
-    input_data = {
-        "twitterHandles": handles,
-        "maxTweets": max_per_account * len(handles),
-        "sort": "Latest",
-    }
+    desc = []
+    if query_terms:
+        desc.append(f"keywords({len(keywords[:8])})")
+    if handles:
+        desc.append(f"{len(handles)} handles")
+    print(f"\n[X Pipeline] Consolidated tweet-scraper call: {', '.join(desc)} "
+          f"(maxTweets={max_tweets})")
 
     try:
-        items = runner.run_actor("apidojo/tweet-scraper", input_data, timeout=180)
-        return items
+        return runner.run_actor("apidojo/tweet-scraper", input_data, timeout=240)
     except ApifyBillingExhaustedError:
         raise
     except Exception as e:
-        print(f"  [ERROR] Account scrape failed: {e}")
+        print(f"  [ERROR] Consolidated tweet-scraper call failed: {e}")
         return []
 
 
@@ -169,25 +174,18 @@ def run(project_name="vawn", keywords_only=False, accounts_only=False):
     runner = ApifyRunner(token)
     output_dir = get_output_dir(config, "discovery")
 
-    all_raw = []
-
-    # Keyword search
-    if not accounts_only:
-        keyword_tweets = search_keywords(
-            runner,
-            x_config["keywords"],
-            max_results=x_config.get("max_results", 100),
-        )
-        all_raw.extend(keyword_tweets)
-
-    # Account scraping
-    if not keywords_only:
-        account_tweets = scrape_accounts(
-            runner,
-            x_config["accounts"],
-            max_per_account=20,
-        )
-        all_raw.extend(account_tweets)
+    # One consolidated actor invocation covers both modes -- when only one
+    # mode is requested via --keywords-only / --accounts-only we omit the
+    # other field so we don't pay for data we'll throw away.
+    all_raw = discover_tweets(
+        runner,
+        x_config["keywords"],
+        x_config["accounts"],
+        max_results=x_config.get("max_results", 100),
+        max_per_account=x_config.get("max_per_account", 10),
+        include_keywords=not accounts_only,
+        include_accounts=not keywords_only,
+    )
 
     # Deduplicate
     all_raw = deduplicate(all_raw)

@@ -1,45 +1,45 @@
 {
-  "generated": "2026-04-14T06:25:02.663191",
+  "generated": "2026-05-01T06:25:01.797546",
   "today": {
-    "date": "2026-04-14",
-    "day": "Tuesday",
-    "pillar": "Lyric"
+    "date": "2026-05-01",
+    "day": "Friday",
+    "pillar": "Conversion"
   },
   "week_ahead": [
     {
-      "date": "2026-04-14",
-      "day": "Tuesday",
-      "pillar": "Lyric"
-    },
-    {
-      "date": "2026-04-15",
-      "day": "Wednesday",
-      "pillar": "BTS"
-    },
-    {
-      "date": "2026-04-16",
-      "day": "Thursday",
-      "pillar": "Engagement"
-    },
-    {
-      "date": "2026-04-17",
+      "date": "2026-05-01",
       "day": "Friday",
       "pillar": "Conversion"
     },
     {
-      "date": "2026-04-18",
+      "date": "2026-05-02",
       "day": "Saturday",
       "pillar": "Audience"
     },
     {
-      "date": "2026-04-19",
+      "date": "2026-05-03",
       "day": "Sunday",
       "pillar": "Video"
     },
     {
-      "date": "2026-04-20",
+      "date": "2026-05-04",
       "day": "Monday",
       "pillar": "Awareness"
+    },
+    {
+      "date": "2026-05-05",
+      "day": "Tuesday",
+      "pillar": "Lyric"
+    },
+    {
+      "date": "2026-05-06",
+      "day": "Wednesday",
+      "pillar": "BTS"
+    },
+    {
+      "date": "2026-05-07",
+      "day": "Thursday",
+      "pillar": "Engagement"
     }
   ],
   "pillar_guide": {

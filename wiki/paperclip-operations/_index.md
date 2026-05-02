@@ -20,6 +20,21 @@ Apulu Records as an AI-powered record label running on Paperclip: org chart, age
 
 For live state (which agents are failing, which dispatches retried) read `C:\Users\rdyal\Vawn\STATUS.md`. For architecture of the *monitoring* stack, go to [[../infrastructure/_index]].
 
+## Notes in this hub
+
+- [[incidents-and-recovery]] — The recurring `dev:watch` startup hang, the working postgres-wipe recovery procedure, the cost of that wipe, and the watchdog observability gap that keeps these outages silent. Last incident: 2026-04-25.
+
+## Currently disabled routines (as of 2026-04-28)
+
+These Paperclip routines have `routine_triggers.enabled = false` and will not fire until manually re-enabled. Re-enabling requires resolving the underlying dependency (real catalog reseed, etc.) — see [[../../journals/vawn/incidents/2026-04-27-storage-quota-and-lyrics-cutover]] for the why.
+
+| Routine | Schedule | Reason disabled |
+|---|---|---|
+| `lyric-card` | `30 6 * * *` America/New_York | Catalog data was fabricated; lyrics are off. |
+| `video-cinematic` | `0 7 * * 0` America/New_York | Cinematic video anchored on lyric prompt; lyrics are off. |
+
+The `Vawn\LyricAnnotation` Windows Task Scheduler task (Wed 10:00 ET weekly) is also disabled for the same reason. Re-enable with `schtasks /Change /TN "Vawn\LyricAnnotation" /ENABLE`.
+
 ## Planned notes (not yet written)
 
 - **org-chart** — 16 agents under 3 division presidents + Nelly. Current names, roles, adapter type (`process` vs `claude_local`), reporting line. — *See CLAUDE.md § "Org Structure"*

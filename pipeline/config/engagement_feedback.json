@@ -1,30 +1,21 @@
 {
-  "generated": "2026-04-14T06:25:02.668117",
+  "generated": "2026-05-01T06:25:01.803435",
   "pillar_scores": {
-    "BTS": 1,
-    "Engagement": 3,
-    "Conversion": 1,
-    "Audience": 0,
-    "Video": 0
+    "BTS": 0,
+    "Video": 0,
+    "Lyric": 0,
+    "Conversion": 0,
+    "Audience": 0
   },
-  "best_pillar": "Engagement",
-  "best_pillar_score": 3,
+  "best_pillar": "BTS",
+  "best_pillar_score": 0,
   "platform_performance": {
     "bluesky": {
-      "avg_score": 0.4
-    },
-    "tiktok": {
-      "avg_score": 0.0
-    },
-    "instagram": {
       "avg_score": 0.0
     },
     "threads": {
       "avg_score": 0.0
-    },
-    "x": {
-      "avg_score": 0.0
     }
   },
-  "recommendation": "Engagement pillar posts performed best this week (score: 3) -- lean into that energy"
+  "recommendation": ""
 }

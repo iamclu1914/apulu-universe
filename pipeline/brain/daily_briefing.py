@@ -39,6 +39,70 @@ def load_health():
     return load_json(BRIEFINGS_DIR / "health_results.json")
 
 
+def load_infra_status() -> dict:
+    """Read infrastructure probes + rolled-up signals for the morning briefing.
+
+    Pulls from the bulletproofing stack we wired up in April 2026:
+      - backend_health.json   (Apulu Studio probe, 10-min cadence)
+      - claude_auth_state.json (shared Claude login, manual cadence)
+      - dead_letter.jsonl      (permanently-failed dispatches)
+      - alert_fallback.jsonl   (alerts SMTP could not deliver)
+
+    Returns a dict with clear fields the briefing can render without
+    knowing the internals of each data source.
+    """
+    backend = load_json(VAWN_DIR / "backend_health.json")
+    auth = load_json(VAWN_DIR / "claude_auth_state.json")
+
+    def _jsonl_count(path: Path, filter_undelivered: bool = False) -> int:
+        if not path.exists():
+            return 0
+        n = 0
+        try:
+            for line in path.read_text(encoding="utf-8").splitlines():
+                if not line.strip():
+                    continue
+                if filter_undelivered:
+                    try:
+                        if json.loads(line).get("delivered", False):
+                            continue
+                    except Exception:
+                        pass
+                n += 1
+        except Exception:
+            return 0
+        return n
+
+    dlq_count = _jsonl_count(VAWN_DIR / "dead_letter.jsonl")
+    undelivered_alerts = _jsonl_count(VAWN_DIR / "alert_fallback.jsonl",
+                                       filter_undelivered=True)
+
+    issues: list[str] = []
+    overall = (backend or {}).get("overall", "unknown")
+    if overall == "degraded":
+        issues.append("Apulu Studio backend DEGRADED — X/Bluesky posts gated by breaker")
+    elif overall == "partial":
+        issues.append("Apulu Studio backend partial (non-critical endpoint down)")
+
+    if (auth or {}).get("last_status") == "expired":
+        issues.append("Claude Code auth EXPIRED — 11 claude_local agents blocked")
+
+    if dlq_count:
+        issues.append(f"{dlq_count} entries in dead-letter queue")
+    if undelivered_alerts:
+        issues.append(f"{undelivered_alerts} undelivered alerts (SMTP)")
+
+    return {
+        "backend_overall": overall,
+        "backend_last_check": (backend or {}).get("last_check"),
+        "auth_status": (auth or {}).get("last_status", "unknown"),
+        "auth_last_check": (auth or {}).get("last_check"),
+        "dlq_count": dlq_count,
+        "undelivered_alerts": undelivered_alerts,
+        "issues": issues,
+    }
+
+
 def load_pillar():
     """Load today's pillar context."""
     return load_json(PIPELINE_CONFIG / "pillar_context.json")
@@ -156,6 +220,7 @@ def run():
 
     # Gather everything
     health = load_health()
+    infra = load_infra_status()
     pillar = load_pillar()
     engagement = load_engagement()
     ideation = load_ideation()
@@ -177,7 +242,7 @@ def run():
         "",
     ]
 
-    # Health status
+    # Health status (content pipeline health)
     critical = health.get("critical", [])
     warnings = health.get("warnings", [])
     if critical:
@@ -190,6 +255,28 @@ def run():
         lines.append("")
     else:
         lines.append("> [!success] All systems healthy")
+        lines.append("")
+
+    # Infrastructure status (bulletproofing stack: backend probe, auth, DLQ, alerts)
+    infra_issues = infra.get("issues", [])
+    if infra_issues:
+        lines.append("> [!danger] Infrastructure Issues")
+        for issue in infra_issues:
+            lines.append(f"> - {issue}")
+        lines.append(f">")
+        lines.append(f"> Full detail: `C:\\Users\\rdyal\\Vawn\\STATUS.md`")
+        lines.append("")
+    else:
+        lines.append("## Infrastructure")
+        lines.append("")
+        lines.append("| Layer | Status |")
+        lines.append("|---|---|")
+        lines.append(f"| Apulu Studio backend | {infra.get('backend_overall','unknown').upper()} |")
+        lines.append(f"| Claude auth | {infra.get('auth_status','unknown').upper()} |")
+        lines.append(f"| Dead-letter queue | {infra.get('dlq_count',0)} entries |")
+        lines.append(f"| Undelivered alerts | {infra.get('undelivered_alerts',0)} pending |")
+        lines.append("")
+        lines.append("> [!success] Infrastructure green — full detail in `STATUS.md`")
         lines.append("")
 
     # Today's plan

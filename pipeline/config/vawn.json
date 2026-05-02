@@ -20,6 +20,7 @@
       "actor": "apidojo/tweet-scraper",
       "schedule": "daily",
       "max_results": 100,
+      "max_per_account": 10,
       "accounts": [
         "@HipHopDX", "@Okayplayer", "@DJBooth", "@2DopeBoyz",
         "@RapRadar", "@RatedRnB", "@PassionWeiss", "@MusicAlly",
@@ -39,7 +40,7 @@
       "actor": "apify/instagram-scraper",
       "profile_actor": "apify/instagram-profile-scraper",
       "schedule": "daily",
-      "max_results": 50,
+      "max_results": 30,
       "accounts": [
         "undergroundhiphopblog", "thewordisbond", "lyricalemonade",
         "ratedrnb", "earmilk", "hotnewhiphop", "indihiphop",

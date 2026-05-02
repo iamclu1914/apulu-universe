@@ -31,5 +31,9 @@
       "Bash(tasklist)",
       "Bash(python -c \"import reapy; print\\(reapy.connect\\(\\)\\); print\\('connected'\\)\")"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "claude-flow"
+  ],
+  "enableAllProjectMcpServers": true
 }

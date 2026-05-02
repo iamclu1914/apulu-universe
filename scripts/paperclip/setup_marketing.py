@@ -108,6 +108,15 @@ VISUAL_CONTENT_ROUTINES = [
         "cronExpression": "0 7 * * 0",
         "priority": "low",
     },
+    # -- Remotion-rendered graphics (1080x1920) ----------------------------
+    # Backed by remotion_agent.py -> lyric_video_engine compositions.
+    # Outputs drop into Social_Media_Exports/Instagram_Reel_1080x1920_9-16/.
+    {
+        "title": "track-teaser",
+        "description": "Remotion TrackTeaser - waveform + track title (Tue, lyric pillar)",
+        "cronExpression": "0 19 * * 2",
+        "priority": "medium",
+    },
 ]
 
 ENGAGEMENT_ROUTINES = [

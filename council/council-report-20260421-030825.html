@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Council Verdict — Vault Naming-Convention Fix</title>
+<style>
+  :root {
+    --fg: #1f2328;
+    --fg-soft: #4a5059;
+    --muted: #6b7280;
+    --bg: #fbfbf9;
+    --card: #ffffff;
+    --border: #e5e2db;
+    --accent: #2f3e46;
+    --contrarian: #9c2a2a;
+    --first-principles: #1f3a5f;
+    --expansionist: #b77a12;
+    --outsider: #5b3a8a;
+    --executor: #2e6b3a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 28px 72px;
+  }
+  header.top {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 12px;
+    color: var(--accent);
+  }
+  .framed {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 18px 22px;
+    margin: 18px 0 0;
+    font-size: 15px;
+    color: var(--fg-soft);
+  }
+  .meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+  section { margin: 40px 0; }
+  h2 {
+    font-size: 20px;
+    margin: 0 0 16px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-size: 16px;
+    margin: 22px 0 8px;
+    color: var(--accent);
+  }
+  p { margin: 0 0 14px; }
+  .verdict {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 26px 28px;
+    border-radius: 4px;
+  }
+  .verdict h3:first-child { margin-top: 0; }
+  .callout {
+    background: #fff7e6;
+    border-left: 3px solid var(--expansionist);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-weight: 600;
+    color: #6d4a0a;
+  }
+  .one-thing {
+    background: #eaf4ee;
+    border-left: 3px solid var(--executor);
+    padding: 14px 18px;
+    margin: 16px 0;
+    color: #1e4a28;
+    font-weight: 600;
+  }
+  .confidence {
+    background: #f3f0fa;
+    border-left: 3px solid var(--outsider);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: #3e2a5c;
+  }
+  .alignment {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .advisor-cell {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 12px;
+    text-align: center;
+    border-radius: 4px;
+  }
+  .advisor-cell .dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .advisor-cell .name {
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .advisor-cell .pos {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .dot.contrarian { background: var(--contrarian); }
+  .dot.first-principles { background: var(--first-principles); }
+  .dot.expansionist { background: var(--expansionist); }
+  .dot.outsider { background: var(--outsider); }
+  .dot.executor { background: var(--executor); }
+  details {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0;
+    margin: 10px 0;
+  }
+  details summary {
+    padding: 14px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: rotate(-45deg);
+    transition: transform 0.15s;
+    margin-right: 4px;
+  }
+  details[open] summary::before { transform: rotate(45deg); }
+  details .body {
+    padding: 4px 22px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--fg-soft);
+  }
+  .stance {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    font-style: italic;
+    margin-left: auto;
+  }
+  .advisor-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+  .advisor-tag.contrarian { background: var(--contrarian); }
+  .advisor-tag.first-principles { background: var(--first-principles); }
+  .advisor-tag.expansionist { background: var(--expansionist); }
+  .advisor-tag.outsider { background: var(--outsider); }
+  .advisor-tag.executor { background: var(--executor); }
+  .peer-review-block {
+    margin-top: 16px;
+  }
+  .peer-review-block h4 {
+    font-size: 14px;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    margin-top: 48px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .mapping {
+    background: #f4f1ea;
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: var(--fg-soft);
+    margin: 12px 0;
+  }
+  @media (max-width: 640px) {
+    .alignment { grid-template-columns: repeat(2, 1fr); }
+    .wrap { padding: 28px 18px 48px; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Council Verdict · Run 2026-04-21</p>
+  <h1>Should I keep executing the vault naming-convention cleanup, or stop?</h1>
+  <div class="framed">
+    Should Ricardo continue executing the vault naming-convention cleanup (57 file renames in <code>research/vawn/discovery/</code> + 150 backlink rewrites + modifying 4–5 pipeline writer scripts to emit the new convention), or stop here? If he continues, in what sequence?
+  </div>
+  <p class="meta">
+    Generated 2026-04-21 03:08 UTC · Workspace <code>C:\Users\rdyal\Apulu Universe</code> · Transcript: <code>council-transcript-20260421-030825.md</code>
+  </p>
+</header>
+
+<section>
+  <h2>The Verdict</h2>
+  <div class="verdict">
+    <div class="callout">Commit the MOCs. Do NOT execute the naming fix. Do NOT start the CLAUDE.md migration today either.</div>
+
+    <h3>Where the council agrees</h3>
+    <p>Four of the five advisors converged on: commit the MOCs now, don't execute the naming fix today. The Contrarian argued it from failure-mode risk, First Principles from scope confusion, the Executor from opportunity cost, the Outsider from "I can't tell why we're doing this." Even the Expansionist didn't advocate the naming fix — they dismissed it as below-grade work.</p>
+    <p>All five, in either opening or peer review, identified the 1394 uncommitted files as a signal the vault has lost its own model. That's consensus across otherwise-divergent angles.</p>
+
+    <h3>Where the council clashes</h3>
+    <p>The real disagreement is about what to do <em>instead</em> of the naming fix. The Executor wants to ship the CLAUDE.md → wiki migration, starting with <code>dispatcher-and-dlq.md</code>. First Principles says ship nothing until the meta-question is answered: "what is this vault's model of itself?" The Expansionist rejects the premise — stop being a vault librarian, build maintenance infrastructure or productize the structure. The Outsider tests whether the vault matters at all.</p>
+    <p>Reasonable people disagree because they're attacking different layers: task, system, infrastructure, existential. All four views are internally correct; the question is which layer drives today's action.</p>
+
+    <h3>Blind spots the council caught (only in peer review)</h3>
+    <p><strong>1. Nobody proposed measuring</strong> whether the naming fix would actually change agent behavior. If no downstream process cares about filename consistency, the cleanup is theater. Before committing to <em>any</em> vault-structure work, name a concrete failure it would prevent.</p>
+    <p><strong>2. The pattern of pivots.</strong> Three candidate "next moves" in this session (MOCs → skills map → naming fix). Running the council itself may be a fourth form of priority-avoidance.</p>
+    <p><strong>3. The vault's basic model.</strong> Is "folder of markdown files" the right knowledge layer for a 16-agent AI-run company in 2026? The council didn't have a good answer.</p>
+
+    <h3>The recommendation</h3>
+    <p>The chairman breaks with the Executor. The Executor said move directly to <code>dispatcher-and-dlq.md</code> migration. That's premature — First Principles is right that the meta-question comes first. Until you know what this vault's model is supposed to be, any content migration is the same category of work as the naming fix: local cleanup without a governing principle.</p>
+    <p>Next session answers: what is tracked in git, what is generated, what is gitignored? Why are 1394 files uncommitted — negligence or by design? If agent outputs are cron-generated and reproducible, are they supposed to be in git? Write the answer as a single page — <code>vault-model.md</code> at vault root. Make it binding. Then every future cleanup task has a governing rule.</p>
+
+    <div class="one-thing">The one thing to do first: commit the 14 MOC files from today's work, with a commit scoped to exactly those paths. That's your clean rollback point, regardless of what the next session decides.</div>
+
+    <div class="confidence">Confidence: Moderate. The council converged cleanly on "don't rush the naming fix" and "commit the safe work" — trust those. The "define the vault's model" next step is directionally right but speculative; feel free to override if you have context the council doesn't.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Advisor alignment</h2>
+  <p>Each advisor's position on the core question: <em>should I execute the naming fix now?</em></p>
+  <div class="alignment">
+    <div class="advisor-cell">
+      <span class="dot contrarian"></span>
+      <span class="name">Contrarian</span>
+      <span class="pos">Lean No</span>
+    </div>
+    <div class="advisor-cell">
+      <span class="dot first-principles"></span>
+      <span class="name">First Principles</span>
+      <span class="pos">Reframe</span>
+    </div>
+    <div class="advisor-cell">
+      <span class="dot expansionist"></span>
+      <span class="name">Expansionist</span>
+      <span class="pos">Reframe</span>
+    </div>
+    <div class="advisor-cell">
+      <span class="dot outsider"></span>
+      <span class="name">Outsider</span>
+      <span class="pos">Unclear</span>
+    </div>
+    <div class="advisor-cell">
+      <span class="dot executor"></span>
+      <span class="name">Executor</span>
+      <span class="pos">Lean No</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Advisor responses</h2>
+
+  <details>
+    <summary><span class="advisor-tag contrarian">Contrarian</span> <span>The fifth writer you didn't find will re-break this tomorrow at 5:30am.</span></summary>
+    <div class="body">
+      <p>The single most likely failure: you fix four writer scripts, rename 57 files, rewrite 150 backlinks, and tomorrow at 5:30am a fifth script you didn't find — a cron-only script, a utility inside <code>marketing_dispatch.py</code>, a formatter tucked into the Paperclip adapter layer — writes <code>Instagram Pipeline -- 2026-04-21.md</code> right back into the cleaned folder. You won't notice for 48 hours because the cron "worked" (it produced a file). You'll notice when ideation can't find yesterday's discovery brief, or when a backlink renders broken in Obsidian, or when the recycle script grabs the wrong file. By then you've committed the rename, written the "vault cleanup complete" wiki note, and moved on.</p>
+      <p>The investigation found 4 writers and 1 reader via grep. That's a best-effort hit rate, not a verified set. The 26 uncommitted pipeline files make this worse: you don't know what's in-flight. Someone (you, last week, having forgotten) might already be in mid-rewrite of one of these writers, and your script-update clobbers their branch.</p>
+      <p>Secondary failure mode: the rewriter corrupts CLAUDE.md. CLAUDE.md is loaded into every agent session. A bad regex replacement there isn't a dead wikilink; it's poisoned agent context for every workflow for days.</p>
+      <p>The fix is not "be careful." The fix is: don't rename a single file until the writer-update itself produces correct filenames in a staging run, verified by a test that enumerates every pipeline file emission path. If that test doesn't exist, building it is the prerequisite. Otherwise you're betting production correctness on a grep.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="advisor-tag first-principles">First Principles</span> <span>Naming isn't the lever. The vault has lost its own model.</span></summary>
+    <div class="body">
+      <p>The question as posed is wrong. "Should I do the naming fix, and in what sequence?" assumes naming is the lever. It isn't.</p>
+      <p>Strip the problem: what does this vault exist for? Two readers — Ricardo and 16 AI agents. What do those readers actually need? Ricardo needs to find things when he's making decisions. Agents need to find things when they're generating output. Neither need is served primarily by filename consistency. Both are served primarily by the graph — the link structure, the MOC coverage, the presence or absence of content at the right level of abstraction.</p>
+      <p>Now look at the vault: 1394 uncommitted files. This is not a naming problem. This is a commit-hygiene problem, possibly a gitignore problem, almost certainly a "the vault has lost a rule about what gets tracked" problem. Until that's resolved, any cleanup work is sand — the next <code>git status</code> will still show 1394 things, and the signal-to-noise ratio for "what's actually broken here" is zero.</p>
+      <p>Deeper reframe: why are daily pipeline outputs in git at all? If they're generated by cron, they're either (a) reproducible from inputs (shouldn't be tracked) or (b) not reproducible (should be committed daily via automation). The fact that we don't know which means the vault's fundamental model is undefined.</p>
+      <p>Do not do the naming fix. Do not do the CLAUDE.md migration. Answer first: what is this vault's model of itself? What's the rule for what lives here, what's tracked, what's generated? Everything downstream of that question is premature.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="advisor-tag expansionist">Expansionist</span> <span>Stop hand-maintaining a folder of markdown files. Productize the structure.</span></summary>
+    <div class="body">
+      <p>Stop hand-maintaining a folder of markdown files.</p>
+      <p>You have 16 AI agents running cron schedules against this vault. Every session I've seen in this thread has been you or Claude manually moving notes, fixing pointers, writing hub indexes. That's labor a 2026 system shouldn't be doing. The 10x version is: one of your Paperclip agents owns vault-maintenance as a job. Every write to <code>research/</code> or <code>journals/</code> triggers a check — frontmatter present, naming conforms, parent MOC has a link added, orphan detection runs. Broken links become self-healing because the maintenance agent catches them within an hour.</p>
+      <p>And bigger: the vault itself is a template. Apulu Records is an AI-powered record label on Paperclip. You built this architecture. Other people will want this architecture. The vault structure — domain hubs, per-artist config, research tickets, bulletproofing runbooks — is a product. Package it. The naming fix isn't worth your time; productizing what you've built is.</p>
+      <p>Biggest adjacent move: the CLAUDE.md → wiki migration you already identified is half of a Paperclip skill. Write a skill that, given any project's CLAUDE.md, auto-generates a <code>wiki/</code> folder with correctly-structured hubs. Now every new artist, every new project, every new Paperclip-run company starts with a usable knowledge layer. You stop being a vault librarian and start shipping infrastructure.</p>
+      <p>Naming consistency fix on 57 files? That's 45 minutes of drudgework someone else's agent should do. Not your move.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="advisor-tag outsider">Outsider</span> <span>Why do 16 AI programs read a folder of markdown files? Who does this?</span></summary>
+    <div class="body">
+      <p>I don't get this. Let me ask basic things.</p>
+      <p>A markdown folder on your computer has 16 AI programs reading from it on a schedule. Is that normal? I'm not asking if it works for you — I'm asking if other people in your field do this, or if you invented a thing and now have to maintain it.</p>
+      <p>You said the vault is for agents and yourself. OK. But you also said 1394 files are "uncommitted/untracked." Does that mean the vault has been changing a lot? If it changes a lot, and the agents read from it, are the agents reading the right version of things? What happens if an agent reads a note that was written 5 minutes ago by another agent and was wrong?</p>
+      <p>The filenames issue: some files say <code>--</code> and some say <code>—</code>. You told me this is a search problem. But you have a lot of AI. Can't you just ask an AI to find the file? Why do you need the filenames to be perfect?</p>
+      <p>You spent — I counted — maybe two hours of conversation on this folder today. Is this the important thing you're working on this week? You mentioned Paperclip, mix engines, Vawn's music, a prompt generator. Which of those would be worse off if the folder stayed exactly as it is?</p>
+      <p>I'd like to know what happens if you just don't do this. If nothing catches fire, maybe the answer is: nothing. If something does, that tells you what actually matters. Right now I can't tell the difference.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="advisor-tag executor">Executor</span> <span>Commit the MOCs. Migrate one CLAUDE.md section. Ship. Everything else is analysis.</span></summary>
+    <div class="body">
+      <p>Commit the 14 MOC files. One command, scoped by path. Done.</p>
+      <p>Stop the naming fix. Don't start the writer updates. Don't touch <code>pipeline/</code> today — 26 uncommitted changes there is state you don't own, and stacking your work on it is how bugs get born.</p>
+      <p>Your actual next Monday-morning move: open <code>wiki/paperclip-operations/_index.md</code>. Create <code>dispatcher-and-dlq.md</code> in that folder. Migrate the "Bulletproofing Infrastructure" section of CLAUDE.md into it — the dispatcher retry wrapper, circuit breaker, signature detection, DLQ CLI. That's 45 minutes of straight writing. Save. Commit.</p>
+      <p>Test: spawn a subagent. Ask it "what do I do when PaperclipRunMonitor flags <code>claude_auth_expired</code>?" If it finds your new <code>dispatcher-and-dlq.md</code> before it reaches for CLAUDE.md, the migration worked. If it still goes to CLAUDE.md, iterate on the hub's description or structure until it doesn't.</p>
+      <p>That's it. That's the move. It's bounded, reversible, testable, and it ships value to every future agent session. The naming cleanup can wait until there's nothing else in motion — probably Sunday 7pm when the cron has run its last Saturday post and the pipeline/ changes are either committed or reverted. Do it then. Not now.</p>
+      <p>Also: the 1394 uncommitted files question isn't yours to solve right now. Add a line to your next morning-standup: "audit what's in git status and why." Make it tomorrow's problem, not today's.</p>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2>Peer review</h2>
+  <p>Each advisor reviewed the five responses anonymized as A–E. Mapping was hidden during review and is revealed here:</p>
+  <div class="mapping">
+    A = Expansionist &nbsp; · &nbsp; B = Contrarian &nbsp; · &nbsp; C = First Principles &nbsp; · &nbsp; D = Executor &nbsp; · &nbsp; E = Outsider
+  </div>
+
+  <details>
+    <summary><span class="advisor-tag contrarian">Contrarian</span> reviewing A–E</summary>
+    <div class="body">
+      <div class="peer-review-block">
+        <h4>Strongest</h4>
+        <p>C (First Principles). "What is this vault's model of itself?" is the one question that makes all other answers cheap. Until you can say "tracked = X, generated = Y, gitignored = Z," any cleanup is sand. Cleanest cut in any of the responses.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>Biggest blind spot</h4>
+        <p>A (Expansionist). "Build an auto-maintenance agent" is an exciting sentence and a terrible plan. It's the exact failure mode I'm warning about — you can't reliably rename a file today, and the fix is to supervise the renaming with a second agent that itself needs maintenance. A adds a layer, not a solution. The "productize the vault" pivot is a distraction.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>What all five missed</h4>
+        <p>Nobody proposed measuring whether the fix would matter. If we rename 57 files and agents behave identically, we did cosmetic work and called it infrastructure. Before committing to <em>any</em> vault cleanup, show me one failure that the cleanup would prevent. Then I'll believe the work is real.</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="advisor-tag first-principles">First Principles</span> reviewing A–E</summary>
+    <div class="body">
+      <div class="peer-review-block">
+        <h4>Strongest</h4>
+        <p>E (Outsider). "What happens if you just don't do this?" — the exact right question at this layer. Every other advisor took the vault's importance as given. E refused to.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>Biggest blind spot</h4>
+        <p>D (Executor). Specific steps read as competence, but D assumes the CLAUDE.md migration is correct priority without interrogating it. D's plan is "pick option 2, ship it, measure." But we never answered whether option 2 matters — just that we picked it when option 1 fell over. Same error, one layer down.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>What all five missed</h4>
+        <p>The pattern. Ricardo has pivoted three times in this session (MOCs → skills map → naming fix), and is now councilling the third pivot. The pattern is premature execution on underexamined priorities. Any concrete next step is premature if the priority axis hasn't been established — and the council didn't establish it, it just voted on candidate moves. Running the council may itself be a fourth form of the same deferral.</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="advisor-tag expansionist">Expansionist</span> reviewing A–E</summary>
+    <div class="body">
+      <div class="peer-review-block">
+        <h4>Strongest</h4>
+        <p>B (Contrarian). The specific failure mode — "a fifth writer you didn't find writes the old pattern tomorrow at 5:30am and you don't notice for 48 hours" — is concrete, testable, and actionable. You can build the detector for that failure. Real critique.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>Biggest blind spot</h4>
+        <p>D (Executor). "Skip naming fix, do CLAUDE.md migration instead" without measuring cost of the drift. If agents DO use raw grep in hot paths (nobody checked), the drift compounds silently. "Don't fix what isn't on fire" is the same reasoning that lets tech debt rot. A leak is not a fire, but it's still a leak.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>What all five missed</h4>
+        <p>The emotional axis. Naming cleanup is a form of control. If Ricardo's actual need right now is the satisfaction of a completed tidy, executing a small safe cleanup might be more valuable than its operational ROI. The council has optimized this like a business problem. Sometimes humans want to organize their room.</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="advisor-tag outsider">Outsider</span> reviewing A–E</summary>
+    <div class="body">
+      <div class="peer-review-block">
+        <h4>Strongest</h4>
+        <p>D (Executor). I understood what this person wanted me to do. "Commit the files. Stop. Write one other thing. Test it. See if it worked." That's the only one of these I could follow.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>Biggest blind spot</h4>
+        <p>A (Expansionist). "Build an agent that maintains the vault." What? How? When? By whom? This isn't a task, it's a wish. If I gave this to a person Monday morning they would stare at it for an hour and not know where to begin.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>What all five missed</h4>
+        <p>I still don't know if 16 AI agents reading a folder of markdown files in 2026 is a normal way to run a record label, or a bespoke architecture Ricardo invented. The entire council treated the vault as a given. None asked whether this structure — folders and .md files for a knowledge layer — is how this should work in an age of embedding stores and agent memory. Maybe the vault is legacy thinking. Nobody tested that.</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="advisor-tag executor">Executor</span> reviewing A–E</summary>
+    <div class="body">
+      <div class="peer-review-block">
+        <h4>Strongest</h4>
+        <p>D (Executor). It's the only response that tells you what to type Monday at 9am. All the others are analysis. Analysis doesn't ship.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>Biggest blind spot</h4>
+        <p>B (Contrarian). Right about the failure mode but proposes no detection layer. "You'll miss a writer." OK — so write a test that enumerates every pipeline file-emission path. 30 minutes of grep work; B didn't do it. Contrarians who flag failure without designing the catch are half a solution.</p>
+      </div>
+      <div class="peer-review-block">
+        <h4>What all five missed</h4>
+        <p>The transaction cost of this conversation. Ricardo has now spent 30 minutes councilling a decision about 45 minutes of work. Any option that takes under an hour to just TRY is better than continued deliberation. Pick any direction, ship it, see what breaks. The thinking here has exceeded the value of getting the decision optimally right.</p>
+      </div>
+    </div>
+  </details>
+</section>
+
+<footer>
+  <p>Council run on 2026-04-21 at 03:08 UTC · Question: vault naming-convention cleanup continuation · Five advisors (Contrarian, First Principles, Expansionist, Outsider, Executor), anonymized peer review, chairman synthesis.</p>
+  <p>Full trace: <code>council-transcript-20260421-030825.md</code></p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -53,6 +53,9 @@ projects/apulu-prompt-generator/.git/
 # (junction in this case; track the orchestration scripts in scripts/paperclip/ instead)
 projects/vawn/
 
+# Remotion video subproject — heavy node_modules, kept out of vault git
+remotion-video/
+
 # Atomic-write leftovers (e.g., credentials.json.tmp.35052)
 **/credentials.json.tmp.*
 **/*.tmp.[0-9]*

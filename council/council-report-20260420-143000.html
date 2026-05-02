@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Council Verdict — Suno Stem Cleanup + Mix Tool — 2026-04-20</title>
+<style>
+  :root {
+    --bg: #fafaf7;
+    --fg: #1c1c1c;
+    --muted: #6b6b6b;
+    --border: #e5e3dd;
+    --accent: #2b2b2b;
+    --contrarian: #8a3a3a;
+    --firstprinciples: #2a4f7c;
+    --expansionist: #a67a1f;
+    --outsider: #6b4a8a;
+    --executor: #3a6b4a;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    margin: 0;
+    padding: 40px 20px;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  header { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 32px; }
+  h1 { font-size: 28px; margin: 0 0 8px; letter-spacing: -0.02em; }
+  .meta { color: var(--muted); font-size: 14px; }
+  .framed {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 15px;
+    border-radius: 4px;
+  }
+  h2 { font-size: 20px; margin-top: 32px; margin-bottom: 12px; letter-spacing: -0.01em; }
+  h3 { font-size: 16px; margin-top: 20px; margin-bottom: 8px; }
+  .verdict {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    border-radius: 4px;
+    margin: 24px 0 40px;
+  }
+  .verdict h2:first-child { margin-top: 0; }
+  .recommendation {
+    border-left: 3px solid var(--accent);
+    padding: 12px 20px;
+    margin: 16px 0;
+    background: #f3f2ed;
+  }
+  .one-thing {
+    background: #1c1c1c;
+    color: #fafaf7;
+    padding: 20px 24px;
+    border-radius: 4px;
+    margin: 24px 0;
+    font-size: 16px;
+  }
+  .one-thing strong { color: #fff; }
+  .confidence {
+    font-size: 14px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-top: 24px;
+  }
+  .alignment {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 12px 16px;
+    margin: 16px 0 24px;
+  }
+  .advisor-label {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+  }
+  .advisor-label.contrarian { background: var(--contrarian); }
+  .advisor-label.firstprinciples { background: var(--firstprinciples); }
+  .advisor-label.expansionist { background: var(--expansionist); }
+  .advisor-label.outsider { background: var(--outsider); }
+  .advisor-label.executor { background: var(--executor); }
+  .position {
+    font-size: 14px;
+    padding: 6px 0;
+  }
+  .position-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 8px;
+    background: var(--border);
+    color: var(--fg);
+  }
+  .position-tag.no { background: #e8d5d5; color: #6b2020; }
+  .position-tag.reframe { background: #d5dee8; color: #1e3a5f; }
+  .position-tag.yes { background: #d9e5db; color: #264a33; }
+  .position-tag.bigger { background: #efe0bb; color: #6b4f15; }
+  details {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 12px 0;
+    padding: 12px 20px;
+  }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 8px 0;
+    outline: none;
+    font-size: 15px;
+  }
+  details[open] summary { border-bottom: 1px solid var(--border); margin-bottom: 12px; padding-bottom: 12px; }
+  details p { margin: 8px 0; }
+  .advisor-stance { color: var(--muted); font-size: 13px; font-weight: 400; font-style: italic; }
+  .review { margin-bottom: 20px; padding-left: 12px; border-left: 2px solid var(--border); }
+  .review-label { font-weight: 600; margin-bottom: 6px; }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; text-align: center; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Council Verdict</h1>
+  <div class="meta">Suno Stem Cleanup + Mix Tool &middot; 2026-04-20 14:30 ET</div>
+</header>
+
+<div class="framed">
+<strong>Framed question:</strong> Should Ricardo build a new program/app to clean and mix Suno stems in REAPER using his iZotope chain, extend the existing tooling he already has, or neither? Note: he already owns <em>vawn-mix-engine</em> (5-stage REAPER reapy pipeline with Relay → RX 11 → Nectar 4 / Neutron 5 → Ozone 12 + TBC3) AND <em>Ai Mix Engineer/backend</em> (a separate FastAPI agent-orchestrator project).
+</div>
+
+<h2>Council Alignment</h2>
+<div class="alignment">
+  <div class="advisor-label contrarian">Contrarian</div>
+  <div class="position"><span class="position-tag no">Don't build</span>Source-quality problem no program fixes.</div>
+
+  <div class="advisor-label firstprinciples">First Principles</div>
+  <div class="position"><span class="position-tag reframe">Reframe</span>Add a Stage 0 restoration layer to existing engine.</div>
+
+  <div class="advisor-label expansionist">Expansionist</div>
+  <div class="position"><span class="position-tag bigger">Go bigger</span>Ship it as SaaS — "SunoFix" for every indie.</div>
+
+  <div class="advisor-label outsider">Outsider</div>
+  <div class="position"><span class="position-tag reframe">Reframe</span>Define "professional" and audit the mastering service first.</div>
+
+  <div class="advisor-label executor">Executor</div>
+  <div class="position"><span class="position-tag yes">Extend, don't build</span>Run the four-version bounce test this week.</div>
+</div>
+
+<div class="verdict">
+<h2>Where the Council Agrees</h2>
+<ul>
+<li><strong>Don't build a new program.</strong> Vawn-mix-engine already does this. Adding a third mix system after vawn-mix-engine and Ai Mix Engineer/backend fractures effort.</li>
+<li><strong>AI stems need restoration BEFORE mix processing.</strong> RX 11 belongs upstream of Nectar/Neutron, not inside them.</li>
+<li><strong>Source material is a real bottleneck.</strong> Suno's native stem separation leaves bleed. UVR5 re-separation deserves a pilot.</li>
+<li><strong>Test before building.</strong> A four-version bounce comparison resolves which extension to make before writing code.</li>
+</ul>
+
+<h2>Where the Council Clashes</h2>
+<p><strong>Scale of ambition.</strong> Expansionist wants productization ("SunoFix" SaaS). Everyone else says fix personal workflow first. The productization argument has merit as a <em>second-order</em> move — but your own tracks don't yet hit the bar, so productizing a broken process is premature. Parked, not rejected.</p>
+<p><strong>Diagnostic depth vs. speed.</strong> First Principles wants three-layer decomposition; Executor wants one experiment this week. Not opposed — the four-version test IS the decomposition run as a falsifiable experiment.</p>
+
+<h2>Blind Spots the Council Caught</h2>
+<ul>
+<li><strong>The mastering service is an unexamined variable.</strong> If it's MCA or LANDR, the mix must carry 100%. If a human engineer, they're silently compensating. The recommendation shifts based on the answer.</li>
+<li><strong>iZotope AI Assistants may be working against Suno stems.</strong> Your own mix-rules doc records Mix Assistant setting 4-7:1 compression and Sculptor crushing bass fundamentals — because these tools are trained on studio recordings, not AI audio. A "no AI Assistant" mode with fixed Suno-calibrated presets may outperform the current chain.</li>
+<li><strong>"Near professional" was never defined.</strong> Which specific reference track are you trying to match? The tools differ depending on the target.</li>
+<li><strong>Time budget wasn't discussed.</strong> The right recommendation depends on whether you have 2 hrs/week or 20 hrs/week.</li>
+<li><strong>The 10-track backlog audit was skipped.</strong> Before new architecture, run the last 10 mixes through the existing engine, rank failure modes, fix the top 2. Iteration over construction.</li>
+</ul>
+
+<h2>The Recommendation</h2>
+<div class="recommendation">
+<p><strong>Extend vawn-mix-engine. Do not build a new program. Do not productize yet.</strong></p>
+<ol>
+<li><strong>Diagnostic week first.</strong> Run the four-version bounce test on one recent Vawn track: (1) baseline engine output, (2) +RX 11 restoration, (3) +UVR5 re-separation, (4) +drum replacement via Splice. Same mastering. Rank on three playback systems.</li>
+<li><strong>Answer the mastering question in parallel.</strong> What does your mastering service actually do? MCA / LANDR pass-through / human engineer? This reshapes everything downstream.</li>
+<li><strong>Build ONE engine extension based on the winner:</strong>
+  <ul>
+  <li>If #2 (RX restoration) wins → add a <code>stage_0_restoration</code> to vawn-mix-engine with <code>de_click</code>, <code>de_hum</code>, <code>low_pass_hz</code> YAML fields.</li>
+  <li>If #3 (UVR5) wins → pre-pipeline re-separation wrapper.</li>
+  <li>If #4 (drum replacement) wins → drum-bus replacement template with Splice integration.</li>
+  <li>If baseline wins → the problem is Suno source, not processing. Workflow becomes "regenerate until acceptable stems."</li>
+  </ul>
+</li>
+<li><strong>Audit whether iZotope AI Assistants help or hurt.</strong> Mix one track with Vocal/Mix Assistant ON, one with fixed Suno-calibrated presets. Compare. This has been flagged in your mix-rules for weeks and never tested.</li>
+<li><strong>Productization is parked.</strong> Revisit "SunoFix" SaaS only after your own tracks reliably hit near-professional quality.</li>
+</ol>
+</div>
+
+<div class="one-thing">
+<strong>The One Thing to Do First:</strong><br>
+Bounce the four-version comparison test on <code>config/on_my_way.yaml</code> this week. Baseline, +RX restoration, +UVR5 re-separation, +drum replacement. Send all four to your mastering service. Rank them. That experiment eliminates two of the three possible engine extensions and tells you exactly what to build.
+</div>
+
+<div class="confidence">
+<strong>Confidence.</strong> Medium-high on "don't build a new program, extend vawn-mix-engine" — grounded in your own docs and the two mix systems you already own. Medium on the specific Stage 0 restoration extension — likely winner, but prove it with the bounce test. Low on specific iZotope-vs-UVR5 tradeoffs on YOUR stems — trust the decision framework, not the plugin predictions. Unknown on your mastering service's actual role until you audit it.
+</div>
+</div>
+
+<h2>Advisor Responses</h2>
+
+<details>
+<summary style="color: var(--contrarian);">The Contrarian <span class="advisor-stance">— this will fail; here's the likeliest failure mode</span></summary>
+<p>This fails the same way your last two mix systems are failing — you keep building scaffolding around a source-quality problem that no signal chain can fix.</p>
+<p>You already have vawn-mix-engine with documented bugs actively being patched (param map drift, Mix Assistant crushing bass on Suno bass stems, LUFS gain staging, Sculptor scooping fundamentals). You ALSO have Ai Mix Engineer/backend — a FastAPI service with its own agent orchestrator. Neither has hit "near professional." Building a third tool is how you end up with three half-broken systems and no finished mixes.</p>
+<p>The bottleneck is not software architecture. It's decisions that require ears in the loop: which Suno generation is worth mixing vs. regenerating, when to re-separate with UVR5 vs. use Suno's native stems, when to replace AI drums with Splice samples vs. treat them, whether the 16kHz fizz on THIS particular track warrants a low-pass or a dynamic EQ. No program automates taste.</p>
+<p>Second failure: iZotope's AI Assistants were trained on studio recordings, not AI-generated audio. You're stacking Suno's AI → iZotope's AI → your custom logic. That chain is unpredictable by design. More automation layers on top makes it worse.</p>
+<p>Third: your "no mastering" stance means the mix carries 100% of the perceptual work. That's backwards from how professional workflows run — mixing gets you 90%, mastering closes the last 10%. If your mastering service is LANDR-style pass-through, it's doing nothing and you're asking the mix to carry a burden it was never designed to carry.</p>
+</details>
+
+<details>
+<summary style="color: var(--firstprinciples);">The First Principles Thinker <span class="advisor-stance">— the question as posed is probably wrong</span></summary>
+<p>The question as posed is wrong. "Build a program to mix Suno stems" presumes the answer is code. Strip that assumption out.</p>
+<p>What's actually being solved? You want Suno tracks to sound near-professional. That problem decomposes into three independent layers:</p>
+<ul>
+<li><strong>Layer 1 — Source quality at ingest.</strong> Suno's native stem separation leaves bleed. No mix chain fixes bad source. Do Suno's native stems pass, or do they need UVR5 re-separation first?</li>
+<li><strong>Layer 2 — AI-specific artifact profile.</strong> 16kHz shimmer, metallic resonances, over-compressed dynamics. This is a <em>restoration</em> problem, not a mixing problem. It happens BEFORE Nectar or Neutron touch the audio.</li>
+<li><strong>Layer 3 — Musical mixing.</strong> Balance, EQ, compression, spatial placement. Vawn-mix-engine already does this.</li>
+</ul>
+<p>Your current engine collapses Layers 2 and 3 into one pass. Nectar and Neutron don't know the stem has AI shimmer — they mix it as if it's a studio recording. That's why the output feels "off" despite correct mixing.</p>
+<p>You don't need a new program. You need a Stage 0 — restoration — inserted before Stage 1 in vawn-mix-engine. The right question: <em>"How do I add an AI-restoration pre-stage that uses RX 11 and optionally UVR5 re-separation, and writes decision metadata per stem?"</em> That's a one-week extension, not a new architecture.</p>
+</details>
+
+<details>
+<summary style="color: var(--expansionist);">The Expansionist <span class="advisor-stance">— the upside is bigger than you're imagining</span></summary>
+<p>You're thinking about this at 10% of its real size.</p>
+<p>A tool that mixes your own Suno tracks? Fine. A tool that mixes every indie artist's Suno tracks? That's a product. Every bedroom producer using Suno has the same problem — AI shimmer, muddy low-end, crushed dynamics, separation bleed. Most don't own iZotope. Most don't use REAPER. Most will never figure out a five-stage processing chain. You already have one.</p>
+<p>Package it. "SunoFix for REAPER" — a REAPER extension that installs your templates, runs your restoration chain, outputs mix-ready stems. $49 one-time, $9/month for updates. Suno has millions of users.</p>
+<p>Bigger vision: Apulu Records isn't just a label, it's the reference implementation for how AI music gets professionally produced. Paperclip, vawn-mix-engine, the Ai Mix Engineer backend, research pipelines, marketing dispatcher — nobody else has this stack. The category "AI music production infrastructure" doesn't exist yet. You're 18 months ahead of where major labels will be forced to go.</p>
+<p>10x version: skip REAPER entirely. Standalone web app. Suno stems in → UVR5 re-sep in cloud → iZotope-inspired processing → mix-ready stems out. Every Suno track on Earth passes through your pipe. That's not a mix tool. That's infrastructure.</p>
+</details>
+
+<details>
+<summary style="color: var(--outsider);">The Outsider <span class="advisor-stance">— zero context, everything's confusing</span></summary>
+<p>I don't know what Suno is. I don't know what REAPER is. I've never heard of iZotope. So when you say you want a program for "near-professional mixing" — professional compared to what?</p>
+<p>A radio pop song? A Kendrick Lamar record? A SoundCloud indie release? An Ariana Grande single? These sound nothing like each other. "Professional" isn't a single target. Which specific song, played back to back against your Suno track, makes you say "this is the gap I want to close"?</p>
+<p>Second thing I'm confused about: you said mastering is handled by another service. In every audio production workflow I've heard of, mixing and mastering interact. So if your mix doesn't sound professional — how do you know that's a mix problem and not a mastering problem? Have you taken the exact same stems, had a human engineer mix them, run them through your mastering service, and compared? If a human mix through the same mastering service also fails, the mastering is the weak link.</p>
+<p>Simple question nobody's asked: what specifically sounds wrong to YOU right now? "Near professional" is vague. "My 808s sound like cardboard compared to Metro Boomin" is specific. "My vocals sound thin compared to J. Cole" is specific. The answer depends on which.</p>
+</details>
+
+<details>
+<summary style="color: var(--executor);">The Executor <span class="advisor-stance">— what do you do Monday morning?</span></summary>
+<p>No program this month. This week:</p>
+<p><strong>Monday.</strong> Pick one recent Vawn track already mixed with vawn-mix-engine. Bounce four versions:</p>
+<ol>
+<li>Current engine output (baseline)</li>
+<li>Same, but manual RX 11 De-click + De-hum + 16kHz low-pass on every stem BEFORE the engine runs</li>
+<li>Same stems run through UVR5 (Demucs v4) FIRST, then current engine</li>
+<li>Same stems with drum replacement (Splice kick/snare on drum bus), then current engine</li>
+</ol>
+<p><strong>Tuesday.</strong> Send all four through your mastering service. Listen on three systems (monitors, AirPods, phone). Rank.</p>
+<p><strong>Wednesday.</strong> Make ONE decision based on the winner:</p>
+<ul>
+<li>#2 wins → add <code>stage_0_restoration</code>. One Python function wrapping RX 11 Standalone. Update YAML schema. One day of work.</li>
+<li>#3 wins → UVR5 re-separation becomes pre-pipeline step.</li>
+<li>#4 wins → drum-bus replacement template.</li>
+<li>#1 wins → the problem is Suno source material. Regenerate or accept.</li>
+</ul>
+<p><strong>Thursday/Friday.</strong> Ship whichever won. Run the next five tracks through it.</p>
+<p>No SaaS. No new app. No scope expansion. One test, one week, one decision, one PR into vawn-mix-engine.</p>
+</details>
+
+<h2>Peer Review Highlights</h2>
+
+<details>
+<summary>Peer reviews (anonymized A–E)</summary>
+<p><em>Mapping revealed: A = Outsider, B = Executor, C = Contrarian, D = First Principles, E = Expansionist.</em></p>
+
+<div class="review">
+<div class="review-label">Reviewer: Contrarian</div>
+<p><strong>Strongest:</strong> B (Executor). Concrete experimental design, actionable in a week, produces a falsifiable decision at the end.</p>
+<p><strong>Biggest blind spot:</strong> E (Expansionist). Assumes Suno users will pay for a Reaper extension. Most Suno users are hobbyists who won't install REAPER, let alone pay for a plugin. The "SaaS" pivot contradicts the REAPER-extension premise in the same response.</p>
+<p><strong>All five missed:</strong> whether iZotope's AI Assistants are actively working AGAINST Suno stems. Your mix-rules doc already says Mix Assistant crushes bass fundamentals — they're trained on studio audio, making wrong decisions about AI audio. The engine may need a "no AI Assistant" mode with fixed Suno-calibrated presets.</p>
+</div>
+
+<div class="review">
+<div class="review-label">Reviewer: First Principles</div>
+<p><strong>Strongest:</strong> D (First Principles). Only response that decomposes into independent layers. Without isolation, every recommendation is guessing which layer is the bottleneck.</p>
+<p><strong>Biggest blind spot:</strong> E (Expansionist). Productization is in a different zip code from the actual question. User said "I want to create a program" not "I want to build a SaaS."</p>
+<p><strong>All five missed:</strong> The "no mastering" constraint is load-bearing and untested. If the mastering service is MCA or LANDR pass-through, it's doing minimal work and the mix carries 100%. If it's a human engineer, they're silently compensating. Ricardo should answer "what does my mastering service actually DO" before optimizing for its input.</p>
+</div>
+
+<div class="review">
+<div class="review-label">Reviewer: Expansionist</div>
+<p><strong>Strongest:</strong> E (Expansionist). Only response pointing at real leverage. Everyone else optimizes personal workflow for a one-artist label. Small thinking.</p>
+<p><strong>Biggest blind spot:</strong> A (Outsider). "What does professional mean" is a fair question but it's a stall. Paralysis through scope-clarification is how projects die.</p>
+<p><strong>All five missed:</strong> the timing. AI music is in the transition beat production went through 2010-2015 — from "toy" to "labels forced to adopt." Ricardo is 6-12 months before the inflection, not 2 years. Treating this as personal workflow misses that he's sitting on a defensible position in an unclaimed category.</p>
+</div>
+
+<div class="review">
+<div class="review-label">Reviewer: Outsider</div>
+<p><strong>Strongest:</strong> A (Outsider). Asks the only question that determines whether any of this work matters — what's the actual target, and how do you know the mix is the problem and not the mastering? Everything else is downstream of unverified assumptions.</p>
+<p><strong>Biggest blind spot:</strong> C (Contrarian). Correctly identifies failure modes but offers no path forward. Three problems, zero solutions. Doomsaying isn't analysis.</p>
+<p><strong>All five missed:</strong> Ricardo's time budget. 2 hrs/week vs. 20 hrs/week changes the right answer completely.</p>
+</div>
+
+<div class="review">
+<div class="review-label">Reviewer: Executor</div>
+<p><strong>Strongest:</strong> B (Executor). Only response producing a decision by end of week. Everything else is months-out.</p>
+<p><strong>Biggest blind spot:</strong> D (First Principles). Diagnostically correct but delivers no timeline. "Isolate three root causes" can take a month.</p>
+<p><strong>All five missed:</strong> nobody said "first, run the last 10 tracks through vawn-mix-engine, rank failure modes, fix the top 2." Fastest path is iteration on what exists, not new architecture. The engine's known bugs (Sculptor on bass, LUFS staging, param map drift) should be killed first.</p>
+</div>
+</details>
+
+<footer>
+Council run 2026-04-20 &middot; 5 advisors, 5 peer reviews, 1 synthesis &middot; Transcript: <code>council-transcript-20260420-143000.md</code>
+</footer>
+
+</div>
+</body>
+</html>

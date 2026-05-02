@@ -1,0 +1,177 @@
+{
+  "project": "prompt-generator",
+  "generated": "2026-04-16T23:22:39.891775",
+  "pipelines": {
+    "x": {
+      "status": "error",
+      "error": "'charmap' codec can't encode character '\\U0001f3b1' in position 17: character maps to <undefined>"
+    },
+    "tiktok": {
+      "status": "ok",
+      "total": 0
+    },
+    "reddit": {
+      "status": "ok",
+      "total": 0
+    }
+  },
+  "errors": {
+    "x": "'charmap' codec can't encode character '\\U0001f3b1' in position 17: character maps to <undefined>"
+  },
+  "top_content": [
+    {
+      "id": "1627923746328612864",
+      "text": "RT @sama: writing a really great prompt for a chatbot persona is an amazingly high-leverage skill and an early example of programming in a…",
+      "author": {
+        "handle": "prompthero",
+        "name": "PromptHero - Create with AI",
+        "followers": 20587,
+        "verified": false
+      },
+      "created_at": "Tue Feb 21 06:50:41 +0000 2023",
+      "likes": 7432,
+      "retweets": 762,
+      "replies": 356,
+      "quotes": 200,
+      "views": 1974940,
+      "url": "https://x.com/prompthero/status/1627923746328612864",
+      "media": [],
+      "hashtags": [],
+      "scoring": {
+        "score": 490.62,
+        "velocity": 467.92,
+        "authority": 21.57,
+        "engagement": 11230,
+        "engagement_rate": 0.57,
+        "views": 1974940,
+        "hours_old": 24
+      },
+      "_pipeline": "x"
+    },
+    {
+      "id": "2039342184143708575",
+      "text": "Meet Higgsfield CINEMA STUDIO 3.0 with UP TO 65% OFF.\n\nThis is Cinema Studio at its peak. Happy birthday to us.\n\nCinematic reasoning & Ultimate realism. Next-level AI filmmaking with native audio. A faster workflow made for high-quality production.\n\nAvailable exclusively on Business Plan.",
+      "author": {
+        "handle": "higgsfield",
+        "name": "Higgsfield AI 🧩",
+        "followers": 50611,
+        "verified": true
+      },
+      "created_at": "Wed Apr 01 14:00:40 +0000 2026",
+      "likes": 1402,
+      "retweets": 309,
+      "replies": 351,
+      "quotes": 399,
+      "views": 1722437,
+      "url": "https://x.com/higgsfield/status/2039342184143708575",
+      "media": [
+        "https://pbs.twimg.com/amplify_video_thumb/2039342100727386112/img/hW6A0JEx-n1dceKV.jpg"
+      ],
+      "hashtags": [],
+      "scoring": {
+        "score": 216.85,
+        "velocity": 192.79,
+        "authority": 23.52,
+        "engagement": 4627,
+        "engagement_rate": 0.27,
+        "views": 1722437,
+        "hours_old": 24
+      },
+      "_pipeline": "x"
+    },
+    {
+      "id": "2029632175482507599",
+      "text": "Sydney Sweeney 🎱\n\nNano Banana Pro via @higgsfield \n\nPrompt:\n\n{\n  \"subject\": {\n    \"identity\": {\n      \"biometric_reference\": \"Sydney Sweeney\",\n      \"facial_forensics\": {\n        \"structure\": \"Soft-edged heart-shaped facial morphology, high malar bones with specific 120-degree zygomatic arch projection, refined orthognathic profile.\",\n        \"eyes\": \"Large, almond-shaped hooded eyes, deep set; iris pattern features complex radial fibers in cerulean blue (#96B9D0) with a distinct dark grey limbal ring; natural eyelashes with varied lengths.\",\n        \"dentition\": \"Natural dental alignment, slight prominence of the maxillary central incisors, translucent incisal edges, anatomical gum contouring without artificial whitening.\",\n        \"skin_physics\": \"Fitzpatrick Scale Type II (#F7E2D3); visible dermal pores, subtle telangiectasia, natural freckle distribution across the nasal bridge and malar regions; subsurface scattering enabled for realistic light penetration.\"\n      },\n      \"body_morphology\": {\n        \"somatotype\": \"Mesomorphic-ectomorphic hybrid with pronounced hourglass proportions; specific waist-to-hip ratio of 0.70.\",\n        \"anatomical_details\": \"Well-defined clavicles, subtle suprasternal notch, natural breast volume with anatomical gravitational sag in prone position; soft muscle definition in the rectus abdominis and external obliques; detailed phalanges and metacarpal structures on hands.\"\n      }\n    },\n    \"hair\": {\n      \"texture\": \"Fine, wavy hair fibers with multi-tonal layering; base color honey blonde (#AF8F55) with platinum highlights (#E8D1A7).\",\n      \"physics\": \"Individual strand rendering, natural flyaways, specular highlights on hair curves.\"\n    }\n  },\n  \"wardrobe\": {\n    \"primary_piece\": {\n      \"description\": \"Sleeveless mauve-colored bodysuit (#8E5A63) with a functional silver metallic front zipper.\",\n      \"material_science\": \"Polyester-elastane blend with micro-ribbed texture; high-tension seams; subsurface scattering on fabric edges; zero logos or branding.\",\n      \"fit\": \"Compression fit following the anatomical curvature of the torso and hips; high-cut leg openings.\"\n    }\n  },\n  \"pose_action\": {\n    \"description\": \"The subject is in a prone position on a billiard table, propped up on her forearms and elbows. Her back is slightly arched, legs are bent at the knees with feet raised toward the ceiling in a relaxed, natural position. The head is turned 45 degrees to her right, looking away from the camera with a neutral, non-smiling facial expression.\",\n    \"hand_placement\": \"Left hand resting over the right hand on the billiard table surface near a yellow billiard ball.\"\n  },\n  \"scene\": {\n    \"environment\": \"A dimly lit, classic wood-paneled billiard room.\",\n    \"elements\": [\n      {\n        \"object\": \"Billiard table\",\n        \"details\": \"Professional-grade green felt surface (#2E5A31); dark mahogany wood rails with matte finish.\"\n      },\n      {\n        \"object\": \"Billiard accessories\",\n        \"details\": \"Scattered billiard balls including the black 8-ball, red 15-ball, and yellow 9-ball; a polished wooden cue stick lying horizontally across the foreground; a triangular rack mounted on the dark wood wall in the background.\"\n      }\n    ],\n    \"reflection_integrity_rules\": \"All reflective surfaces (billiard balls, wooden rails, polished cue) must accurately reflect the surrounding environment and the subject's silhouette without distortion. Surface physics must account for the absorption coefficient of the green felt.\"\n  },\n  \"lighting\": {\n    \"setup\": \"Single-point high-intensity key light mimicking a camera flash from the front-left; hard shadows with minimal fill; high specular highlights on skin oils and billiard balls.\",\n    \"color_temperature\": \"5500K (Daylight Balanced).\"\n  },\n  \"camera\": {\n    \"technical_specs\": \"9:16 aspect ratio, 50mm prime lens, f/2.8 aperture for shallow depth of field, ISO 100, 8K resolution, photorealistic rendering engine.\",\n    \"perspective\": \"Low-angle medium shot focusing on the subject's entire form.\"\n  },\n  \"negative_constraints\": [\n    \"no logos\",\n    \"no text\",\n    \"no symbols\",\n    \"no beautify smoothing\",\n    \"no airbrushed skin\",\n    \"no extra limbs\",\n    \"no distorted fingers\",\n    \"no overlapping textures\",\n    \"no smile\",\n    \"no artificial teeth whitening\",\n    \"no makeup artifacts\"\n  ]\n}",
+      "author": {
+        "handle": "PinodiArt",
+        "name": "Pinodi",
+        "followers": 12051,
+        "verified": true
+      },
+      "created_at": "Thu Mar 05 18:56:34 +0000 2026",
+      "likes": 2451,
+      "retweets": 62,
+      "replies": 16,
+      "quotes": 7,
+      "views": 238607,
+      "url": "https://x.com/PinodiArt/status/2029632175482507599",
+      "media": [
+        "https://pbs.twimg.com/media/HCqzkiOXEAE3uDT.jpg",
+        "https://pbs.twimg.com/media/HCqzmjGWEAALzV-.jpg"
+      ],
+      "hashtags": [],
+      "scoring": {
+        "score": 135.04,
+        "velocity": 112.38,
+        "authority": 20.41,
+        "engagement": 2697,
+        "engagement_rate": 1.13,
+        "views": 238607,
+        "hours_old": 24
+      },
+      "_pipeline": "x"
+    },
+    {
+      "id": "2044533035895558648",
+      "text": "Introducing Cinema Studio 3.5, powered by Seedance 2.0: your personal AI director.\n\nBuilt on learnings from Arena Zero, Zephyr, and a growing number of original productions, Cinema Studio 3.5 brings the creative process directly to you.\n\nThe integrated assistant analyzes your prompts, learns from top-performing examples, and writes with full context of your project. Keeps track of what works, refines what doesn't, and delivers consistently better results.\n\nThis is how Higgsfield's creative teams prompt. Now it's how you prompt too.\n\nStart here: https://t.co/LpkeNEgzBR",
+      "author": {
+        "handle": "higgsfield",
+        "name": "Higgsfield AI 🧩",
+        "followers": 50611,
+        "verified": true
+      },
+      "created_at": "Wed Apr 15 21:47:16 +0000 2026",
+      "likes": 710,
+      "retweets": 182,
+      "replies": 217,
+      "quotes": 24,
+      "views": 37909,
+      "url": "https://x.com/higgsfield/status/2044533035895558648",
+      "media": [
+        "https://pbs.twimg.com/amplify_video_thumb/2044532869314580480/img/SeeK9NPHIHFuEpfy.jpg"
+      ],
+      "hashtags": [],
+      "scoring": {
+        "score": 107.36,
+        "velocity": 74.42,
+        "authority": 23.52,
+        "engagement": 1786,
+        "engagement_rate": 4.71,
+        "views": 37909,
+        "hours_old": 24
+      },
+      "_pipeline": "x"
+    },
+    {
+      "id": "2039173686654353589",
+      "text": "Higgsfield CINEMA STUDIO 3.0 is LIVE — the most powerful video model ever. Perfect physics, flawless fight scenes, native audio, and next-level cinematic realism. This actually changes everything. https://t.co/F6bw6rSln0",
+      "author": {
+        "handle": "ZunairaAi",
+        "name": "Zunaira Ai",
+        "followers": 1492,
+        "verified": true
+      },
+      "created_at": "Wed Apr 01 02:51:07 +0000 2026",
+      "likes": 63,
+      "retweets": 35,
+      "replies": 36,
+      "quotes": 0,
+      "views": 696,
+      "url": "https://x.com/ZunairaAi/status/2039173686654353589",
+      "media": [
+        "https://pbs.twimg.com/amplify_video_thumb/2039173563119452160/img/C63xCnEC0q7gIG_Y.jpg"
+      ],
+      "hashtags": [],
+      "scoring": {
+        "score": 94.83,
+        "velocity": 10.0,
+        "authority": 15.87,
+        "engagement": 240,
+        "engagement_rate": 34.48,
+        "views": 696,
+        "hours_old": 24
+      },
+      "_pipeline": "x"
+    }
+  ]
+}

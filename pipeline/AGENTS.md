@@ -21,7 +21,7 @@ Respect the pipeline stages:
 - Preserve output formats consumed by downstream scripts.
 - Before editing, identify which downstream file or scheduled process consumes the output.
 - Protect state files and generated outputs from accidental deletion.
-- When changing platform copy rules, check `content_rules.json` and related config first.
+- When changing platform copy rules, check `config/content_rules.json` and related config first.
 
 ## Pre-change Checklist
 

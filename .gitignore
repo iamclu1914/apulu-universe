@@ -49,6 +49,46 @@ pipeline/output/
 # Projects with their own git repos
 projects/apulu-prompt-generator/.git/
 
+# Live agent-managed working dirs that have their own .gitignore + repo
+# (junction in this case; track the orchestration scripts in scripts/paperclip/ instead)
+projects/vawn/
+
+# Atomic-write leftovers (e.g., credentials.json.tmp.35052)
+**/credentials.json.tmp.*
+**/*.tmp.[0-9]*
+
+# Auto-generated agent output (daily-cadence files).
+# Live on disk for context but produce too much git churn to track.
+# _index.md hubs stay visible by not matching these patterns.
+research/vawn/briefings/Daily Briefing -- *.md
+research/vawn/briefings/Health -- *.md
+research/vawn/briefings/System Health -- *.md
+research/vawn/discovery/Discovery Brief -- *.md
+research/vawn/discovery/*-playlist-monitor.md
+research/vawn/discovery/*-artist-discovery.md
+research/vawn/discovery/YouTube Pipeline -- *.md
+research/vawn/discovery/Research Pipeline — *.md
+research/vawn/discovery/Research Pipeline -- *.md
+research/vawn/discovery/Instagram Pipeline -- *.md
+research/vawn/discovery/TikTok Pipeline -- *.md
+research/vawn/discovery/X Pipeline -- *.md
+research/vawn/discovery/Rhythm Shortlist -- *.md
+research/vawn/discovery/*_results.json
+research/vawn/discovery/discovery_brief.json
+research/vawn/competitive/*-competitive-report.md
+research/vawn/finance/*-revenue-check.md
+research/vawn/ops-digest/*-weekly-ops.md
+research/vawn/briefings/*_results.json
+research/vawn/ideation/*_results.json
+research/vawn/ideation/Content Ideation — *.md
+research/vawn/ideation/Content Ideation -- *.md
+research/vawn/ar-intel/Cultural Radar -- *.md
+research/vawn/press-opportunities/*-press-scan.md
+research/vawn/sync-opportunities/*-sync-scan.md
+journals/vawn/health/*-health.md
+journals/vawn/briefings/*-daily-briefing.md
+journals/vawn/discovery/*-discovery-brief.md
+
 # Obsidian runtime state (churn on every app use)
 .obsidian/graph.json
 .obsidian/workspace.json

@@ -210,3 +210,36 @@ Get-Process postgres
 ```
 
 Paperclip uses embedded Postgres on port 54329. If postgres isn't running, Paperclip can't start.
+
+---
+
+## Watchdog loop: "Paperclip unresponsive — launching via hidden starter"
+
+**Signature:** Watchdog log repeats every 5 minutes with `Paperclip unresponsive — launching via hidden starter`, but service never comes back.
+
+**What it means:** The auto-restart path is firing, but Paperclip is failing during startup (most commonly embedded Postgres never binds `54329`, or port `3100` is occupied by a stale process).
+
+**Recovery (Windows):**
+```powershell
+# 1) Stop stale node/postgres processes
+taskkill /F /IM node.exe
+taskkill /F /IM postgres.exe
+
+# 2) Verify port 3100 is free (kill reported PID if needed)
+netstat -ano | findstr :3100
+
+# 3) Remove stale Paperclip instance state
+rmdir /S /Q "%USERPROFILE%\.paperclip-data\instances"
+
+# 4) Start Paperclip from repo root helper
+cd "C:\Users\rdyal\Apulu Universe"
+start-paperclip.bat
+```
+
+**Fast health checks after restart:**
+```powershell
+curl -s http://localhost:3100/api/companies -H "Accept: application/json"
+netstat -ano | findstr :54329
+```
+
+If the API is still down after one clean restart, inspect Paperclip startup logs first (before more watchdog cycles) to avoid repeated hidden-start retries masking the root error.

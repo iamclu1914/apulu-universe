@@ -4,6 +4,7 @@ Quick reference for common failure patterns. When an alert arrives, find the sig
 
 ## Table of contents
 - [Claude auth expired](#claude-auth-expired) — 11 agents blocked
+- [Anthropic API key invalid](#anthropic-api-key-invalid) — dispatcher slots fail with 401
 - [Apulu Studio backend degraded](#apulu-studio-backend-degraded)
 - [Bluesky posts failing with auth error](#bluesky-posts-failing-with-auth-error)
 - [Gmail SMTP rejected (alerts not delivering)](#gmail-smtp-rejected)
@@ -33,6 +34,28 @@ python C:\Users\rdyal\Vawn\claude_auth_probe.py
 ```
 
 **Prevent recurrence:** OAuth tokens expire periodically (weeks). There's no elegant preventive — rely on signature detection.
+
+---
+
+
+## Anthropic API key invalid
+
+**Signature:** `anthropic_invalid_api_key` — stderr includes `anthropic.AuthenticationError` with `Error code: 401` and `invalid x-api-key`.
+
+**What's blocked:** Any slot that reaches caption/content generation through Anthropic (for example `post_vawn.py` → `captions.py`). Retries will not recover until credentials are corrected.
+
+**Likely cause:** The Anthropic key in `C:\Users\rdyal\Vawn\credentials.json` is wrong, expired, or was copied with whitespace/quotes.
+
+**Fix:**
+1. Generate or copy the active key from Anthropic Console (Account → API Keys).
+2. Update the `anthropic_api_key` value in `C:\Users\rdyal\Vawn\credentials.json` (exact key only; no leading/trailing spaces).
+3. Re-run a local probe before waiting for the next schedule:
+   ```bash
+   python C:\Users\rdyal\Vawn\marketing_dispatch.py --slot midday-main --dry-run
+   ```
+4. If dry-run cannot hit Anthropic in your setup, run the normal slot command once and confirm 401 is gone in output.
+
+**Operational note:** This is a credentials fault, not a transient network issue. Keep DLQ entries for failed slots until one successful replay confirms recovery.
 
 ---
 

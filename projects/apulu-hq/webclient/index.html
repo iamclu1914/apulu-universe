@@ -765,6 +765,7 @@ a { color: inherit; text-decoration: none; }
   </div>
 
   <div class="topbar-spacer"></div>
+  <button id="go-live-btn" style="display:none; height:28px; padding:0 14px; background:var(--gold); color:#08090a; border-radius:999px; font-size:11.5px; font-weight:700; letter-spacing:0.02em; flex-shrink:0; transition:opacity 0.1s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'" onclick="executeCommand('/shadow off')">🚀 GO LIVE</button>
   <div class="status-pills">
     <div class="pill" id="pill-health"><div class="pill-dot" id="dot-health"></div><span id="text-health">connecting…</span></div>
     <div class="pill" id="pill-backend"><div class="pill-dot" id="dot-backend"></div><span id="text-backend">backend</span></div>
@@ -1036,6 +1037,7 @@ async function loadScheduler() {
     const j=await fetch(API+'/api/scheduler').then(r=>r.json());
     window.__shadowMode=j.shadow;
     document.getElementById('pill-shadow').style.display=j.shadow?'':'none';
+    document.getElementById('go-live-btn').style.display=j.shadow?'':'none';
     document.getElementById('scheduler-status').innerHTML=`
       <div class="pill" style="justify-content:space-between"><span>Status</span><span style="color:${j.started?'var(--green)':'var(--red)'}">${j.started?'running':'stopped'}</span></div>
       <div class="pill" style="justify-content:space-between"><span>Shadow</span><span style="color:${j.shadow?'var(--gold)':'var(--green)'}">${j.shadow?'on':'off'}</span></div>
@@ -1182,12 +1184,39 @@ function executeCommand(line) {
     }
     case '/agents': setView('agents-grid'); showCmdOutput('✓','Showing all agents','ok'); break;
     case '/fire': {
-      showCmdOutput('⚡',`Fire routine: "${rest}" — not yet implemented`,'info');
+      const rName = rest.toLowerCase();
+      const r = state.routines.find(x => x.display_name.toLowerCase().includes(rName) || x.id.toLowerCase().includes(rName));
+      if(!r){showCmdOutput('⚠',`Routine "${rest}" not found`,'error');break;}
+      (async()=>{
+        showCmdOutput('🔥',`Firing ${r.display_name}…`,'info');
+        try{
+          const res=await fetch(`${API}/api/routines/${encodeURIComponent(r.id)}/fire`,{method:'POST'});
+          const j=await res.json();
+          if(!res.ok)throw new Error(j.detail||`HTTP ${res.status}`);
+          showCmdOutput('✓',`Fired <b>${r.display_name}</b><br>Dispatch: ${j.dispatch_id}<br>Mode: ${j.shadow?'shadow':'live'}`,'ok');
+          setTimeout(loadDispatches,500);
+        }catch(err){showCmdOutput('✗',err.message,'error');}
+      })();
       break;
     }
-    case '/shadow':
-      showCmdOutput('👻',`Shadow mode toggle — use scheduler API directly`,'info');
+    case '/shadow': {
+      const mode=rest.toLowerCase().trim();
+      const on=mode==='on'||mode==='true'||mode==='yes';
+      const off=mode==='off'||mode==='false'||mode==='no';
+      if(!on&&!off){showCmdOutput('👻','Usage: /shadow on | /shadow off','info');break;}
+      (async()=>{
+        try{
+          const res=await fetch(`${API}/api/scheduler/shadow`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({shadow:on})});
+          const j=await res.json();
+          if(!res.ok)throw new Error(j.detail||`HTTP ${res.status}`);
+          window.__shadowMode=j.shadow;
+          document.getElementById('pill-shadow').style.display=j.shadow?'':'none';
+          document.getElementById('go-live-btn').style.display=j.shadow?'':'none';
+          showCmdOutput(j.shadow?'👻':'🚀',`Shadow mode ${j.changed?'changed':'unchanged'}<br>Now: <b>${j.shadow?'ON (shadow)':'OFF (live)'}</b>`,j.changed?'ok':'info');
+        }catch(err){showCmdOutput('✗',err.message,'error');}
+      })();
       break;
+    }
     case '/help':
       showCmdOutput('❓',`<div style="display:flex;flex-direction:column;gap:6px">${COMMANDS.map(c=>`<div><code style="color:var(--gold);background:var(--surface-3);padding:2px 6px;border-radius:3px">${c.usage}</code> — ${c.desc}</div>`).join('')}</div>`,'info');
       break;

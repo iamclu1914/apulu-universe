@@ -29,6 +29,7 @@ from fastapi import (
     Request,
     WebSocket,
     WebSocketDisconnect,
+    Body,
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -355,6 +356,19 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=503, detail="scheduler not running")
         await sched.reload_jobs()
         return {"ok": True, "jobs": sched.list_jobs()}
+
+    @app.post("/api/scheduler/shadow")
+    async def scheduler_shadow(body: dict = Body(default_factory=dict)) -> dict[str, Any]:
+        """Toggle scheduler shadow mode at runtime. body: {"shadow": true/false}"""
+        sched = getattr(app.state, "scheduler", None)
+        if sched is None:
+            raise HTTPException(status_code=503, detail="scheduler not running")
+        current = sched.shadow
+        desired = body.get("shadow")
+        if desired is None:
+            return {"ok": True, "shadow": current, "changed": False}
+        sched.shadow = bool(desired)
+        return {"ok": True, "shadow": sched.shadow, "previous": current, "changed": current != sched.shadow}
 
     @app.post("/api/routines/{routine_id}/fire")
     async def fire_routine(routine_id: str):

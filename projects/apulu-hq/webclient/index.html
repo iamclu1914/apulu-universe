@@ -9,27 +9,23 @@
 <style>
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  /* Base surfaces — Linear luminance stepping, never pure black */
   --bg:         #08090a;
+  --surface-0:  #0a0b0c;
   --surface-1:  #0f1011;
   --surface-2:  #141618;
   --surface-3:  #1c1f22;
   --surface-4:  #242830;
+  --surface-5:  #2d323c;
   --border:     #1f2328;
   --border-2:   #2a2f38;
-
-  /* Text hierarchy */
+  --border-3:   #353b47;
   --text-1:     #f4f4f5;
   --text-2:     #a1a1aa;
   --text-3:     #71717a;
   --text-4:     #52525b;
-
-  /* Apulu gold accent — kept from brand */
   --gold:       #c8a35b;
   --gold-dim:   rgba(200, 163, 91, 0.12);
-  --gold-glow:  rgba(200, 163, 91, 0.06);
-
-  /* Semantic status */
+  --gold-glow:  rgba(200, 163, 91, 0.08);
   --green:      #4ade80;
   --green-dim:  rgba(74, 222, 128, 0.10);
   --red:        #f87171;
@@ -40,16 +36,11 @@
   --blue-dim:   rgba(96, 165, 250, 0.10);
   --purple:     #a78bfa;
   --purple-dim: rgba(167, 139, 250, 0.10);
-
-  /* Shadows — luminance-based like Linear */
   --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
   --shadow-2: 0 2px 8px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03);
   --shadow-3: 0 4px 20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
-
-  /* Layout */
-  --sidebar-w: 220px;
-  --rail-w:    320px;
-  --topbar-h:  52px;
+  --topbar-h:  56px;
+  --cmd-h:     44px;
   --radius:    6px;
   --radius-lg: 10px;
 }
@@ -64,8 +55,8 @@ body {
   background: var(--bg);
   color: var(--text-1);
   display: grid;
-  grid-template-columns: var(--sidebar-w) 1fr var(--rail-w);
   grid-template-rows: var(--topbar-h) 1fr;
+  grid-template-columns: 1fr 300px;
   height: 100vh;
 }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
@@ -78,46 +69,113 @@ a { color: inherit; text-decoration: none; }
 /* ── Topbar ────────────────────────────────────────────────── */
 #topbar {
   grid-column: 1 / -1;
-  background: var(--surface-1);
+  background: var(--surface-0);
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0 16px;
+  gap: 14px;
+  padding: 0 18px;
   position: relative;
-  z-index: 20;
+  z-index: 40;
 }
 .topbar-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: -0.02em;
-  color: var(--text-1);
-  min-width: calc(var(--sidebar-w) - 16px);
-}
-.logo-mark {
-  width: 24px; height: 24px;
-  background: var(--gold);
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; color: #08090a;
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 14px;
+  letter-spacing: -0.02em; color: var(--text-1);
   flex-shrink: 0;
 }
-.topbar-divider { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; }
-.topbar-tabs { display: flex; gap: 2px; align-items: center; }
-.topbar-tab {
-  padding: 5px 11px;
+.logo-mark {
+  width: 26px; height: 26px;
+  background: var(--gold);
   border-radius: 5px;
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--text-3);
-  transition: color 0.12s, background 0.12s;
-  letter-spacing: -0.01em;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #08090a;
+  flex-shrink: 0;
 }
-.topbar-tab:hover { color: var(--text-2); background: var(--surface-3); }
-.topbar-tab.active { color: var(--text-1); background: var(--surface-3); }
+.topbar-divider { width: 1px; height: 22px; background: var(--border); flex-shrink: 0; }
+
+/* Command Bar */
+#cmd-wrap {
+  flex: 1;
+  position: relative;
+  max-width: 720px;
+}
+#cmd-bar {
+  width: 100%;
+  height: var(--cmd-h);
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+  z-index: 41;
+}
+#cmd-bar:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow), 0 2px 12px rgba(0,0,0,0.5);
+}
+.cmd-prefix {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 500;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+#cmd-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-1);
+  font-size: 13.5px;
+  font-family: 'Inter', system-ui, sans-serif;
+  height: 100%;
+}
+#cmd-input::placeholder { color: var(--text-3); }
+.cmd-hint {
+  font-size: 11px; color: var(--text-4);
+  flex-shrink: 0;
+}
+
+/* Command Palette Dropdown */
+#cmd-palette {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+  background: var(--surface-1);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-3);
+  z-index: 50;
+  max-height: 420px;
+  overflow-y: auto;
+  display: none;
+}
+#cmd-palette.show { display: block; }
+.cp-section { padding: 6px 0; border-bottom: 1px solid var(--border); }
+.cp-section:last-child { border-bottom: none; }
+.cp-label {
+  padding: 4px 14px 6px;
+  font-size: 10px; font-weight: 600;
+  color: var(--text-4);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.cp-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.06s;
+  border-left: 2px solid transparent;
+}
+.cp-item:hover, .cp-item.active {
+  background: var(--surface-3);
+  border-left-color: var(--gold);
+}
+.cp-icon { width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; background: var(--surface-3); flex-shrink: 0; }
+.cp-name { font-size: 12.5px; font-weight: 500; color: var(--text-1); }
+.cp-desc { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+.cp-meta { margin-left: auto; font-size: 10px; color: var(--text-4); font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+
 .topbar-spacer { flex: 1; }
 .status-pills { display: flex; gap: 6px; align-items: center; }
 .pill {
@@ -133,8 +191,6 @@ a { color: inherit; text-decoration: none; }
 .pill-dot.ok { background: var(--green); box-shadow: 0 0 5px var(--green); }
 .pill-dot.warn { background: var(--yellow); }
 .pill-dot.err { background: var(--red); box-shadow: 0 0 5px var(--red); }
-.pill.ok { color: var(--text-2); }
-.pill.err { color: var(--red); border-color: rgba(248,113,113,0.2); }
 
 /* ── Alert Banner ──────────────────────────────────────────── */
 #banner {
@@ -149,86 +205,45 @@ a { color: inherit; text-decoration: none; }
   display: flex; align-items: center;
   z-index: 30;
 }
-#banner.show { height: 34px; }
+#banner.show { height: 36px; }
 
-/* ── Left Sidebar ──────────────────────────────────────────── */
-#sidebar {
-  background: var(--surface-1);
-  border-right: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  overflow: hidden;
-}
-.sidebar-section { padding: 16px 12px 4px; }
-.sidebar-label {
-  font-size: 10.5px; font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-4);
-  padding: 0 4px 6px;
-}
-.agent-list { overflow-y: auto; flex: 1; }
-.agent-group-head {
-  padding: 10px 16px 4px;
-  font-size: 10px; font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-4);
-}
-.agent-row {
-  display: flex; align-items: center; gap: 9px;
-  padding: 7px 12px;
-  border-radius: 5px;
-  margin: 1px 6px;
-  cursor: pointer;
-  transition: background 0.1s;
-  position: relative;
-}
-.agent-row:hover { background: var(--surface-3); }
-.agent-row.active {
-  background: var(--gold-dim);
-  border: 1px solid rgba(200,163,91,0.2);
-}
-.agent-row.active .agent-name { color: var(--gold); }
-.agent-avatar {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--surface-4);
-  border: 1px solid var(--border-2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 600;
-  color: var(--text-2);
-  flex-shrink: 0;
-  position: relative;
-}
-.agent-status-dot {
-  position: absolute; bottom: -1px; right: -1px;
-  width: 8px; height: 8px; border-radius: 50%;
-  border: 1.5px solid var(--surface-1);
-  background: var(--text-4);
-}
-.agent-status-dot.working { background: var(--gold); box-shadow: 0 0 4px var(--gold); }
-.agent-status-dot.error   { background: var(--red); }
-.agent-status-dot.online  { background: var(--green); }
-.agent-info { flex: 1; min-width: 0; }
-.agent-name { font-size: 12.5px; font-weight: 500; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.agent-role { font-size: 10.5px; color: var(--text-4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.agent-row.flash-ok  { background: var(--green-dim) !important; }
-.agent-row.flash-err { background: var(--red-dim)   !important; }
-
-/* ── Main Content ──────────────────────────────────────────── */
+/* ── Main Content ─────────────────────────────────────────── */
 #main {
+  grid-column: 1;
   overflow: hidden;
   display: flex; flex-direction: column;
   min-height: 0;
   background: var(--bg);
 }
 
-/* ── Dashboard View ────────────────────────────────────────── */
-#view-dashboard {
-  flex: 1; overflow-y: auto;
-  padding: 20px;
-  display: flex; flex-direction: column; gap: 20px;
+/* Quick pills below topbar */
+.quick-bar {
+  display: flex; gap: 6px; padding: 10px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-1);
+  flex-shrink: 0;
+  overflow-x: auto;
 }
-#view-dashboard.hidden { display: none; }
+.quick-pill {
+  padding: 5px 12px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 500;
+  color: var(--text-3);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  transition: all 0.12s;
+  cursor: pointer;
+}
+.quick-pill:hover { color: var(--text-2); background: var(--surface-3); border-color: var(--border-2); }
+.quick-pill.active { color: var(--text-1); background: var(--surface-3); border-color: var(--gold); }
+.quick-pill .qp-count { color: var(--gold); font-weight: 600; margin-left: 4px; }
+
+/* ── Views ─────────────────────────────────────────────────── */
+.view { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 18px; }
+.view.hidden { display: none; }
+
+/* ── Dashboard View ────────────────────────────────────────── */
+#view-dashboard {}
 
 /* Stat cards row */
 .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -270,8 +285,8 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border);
 }
 
-/* ── Uptime Kuma-style routine status grid ─────────────────── */
-.routine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+/* Routine grid */
+.routine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 8px; }
 .routine-card {
   background: var(--surface-2);
   border: 1px solid var(--border);
@@ -314,7 +329,7 @@ a { color: inherit; text-decoration: none; }
 .uptime-bar.shadow { background: var(--gold);  opacity: 0.5; }
 .uptime-bar.empty  { background: var(--surface-4); }
 
-/* ── Dispatch feed ─────────────────────────────────────────── */
+/* Dispatch feed */
 .dispatch-feed { display: flex; flex-direction: column; gap: 3px; }
 .dispatch-row {
   display: grid;
@@ -364,7 +379,6 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Chat View ─────────────────────────────────────────────── */
 #view-chat { flex: 1; display: flex; flex-direction: column; min-height: 0; }
-#view-chat.hidden { display: none; }
 .chat-topbar {
   padding: 0 20px;
   height: 52px;
@@ -450,8 +464,195 @@ a { color: inherit; text-decoration: none; }
 .empty-state-icon { font-size: 32px; opacity: 0.5; }
 .empty-state-text { font-size: 13px; }
 
+/* ── Agent Profile View ────────────────────────────────────── */
+#view-agent {}
+.profile-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  font-size: 12px; font-weight: 500; color: var(--text-3);
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  cursor: pointer; transition: all 0.12s;
+  flex-shrink: 0; align-self: flex-start;
+}
+.profile-back:hover { color: var(--text-2); border-color: var(--border-2); }
+.profile-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+}
+.profile-avatar-lg {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--surface-4); border: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; color: var(--gold);
+  flex-shrink: 0;
+}
+.profile-header-info { flex: 1; min-width: 0; }
+.profile-name { font-size: 18px; font-weight: 700; color: var(--text-1); letter-spacing: -0.02em; }
+.profile-role { font-size: 13px; color: var(--gold); margin-top: 3px; }
+.profile-chips { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.profile-chip {
+  font-size: 10.5px; font-weight: 500;
+  padding: 3px 9px; border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--text-3);
+  border: 1px solid var(--border);
+}
+.profile-chip.dept { color: var(--blue); background: var(--blue-dim); border-color: rgba(96,165,250,0.15); }
+.profile-chip.adapter { color: var(--purple); background: var(--purple-dim); border-color: rgba(167,139,250,0.15); }
+.profile-chip.model { color: var(--green); background: var(--green-dim); border-color: rgba(74,222,128,0.15); }
+.profile-chat-btn {
+  height: 36px; padding: 0 18px;
+  background: var(--gold); color: #08090a;
+  border-radius: 7px; font-size: 13px; font-weight: 600;
+  flex-shrink: 0; transition: opacity 0.1s;
+}
+.profile-chat-btn:hover { opacity: 0.88; }
+
+.profile-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.profile-section {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.profile-section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.profile-section-body { flex: 1; overflow-y: auto; padding: 12px 16px; }
+.prompt-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; line-height: 1.65;
+  color: var(--text-2);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Owned routines list in profile */
+.owned-routine {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+}
+.or-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.or-info { flex: 1; min-width: 0; }
+.or-name { font-size: 12px; font-weight: 500; color: var(--text-1); }
+.or-cron { font-size: 10.5px; color: var(--text-4); font-family: 'JetBrains Mono', monospace; }
+
+/* Agent dispatch rows */
+.agent-dispatch-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 11.5px;
+}
+.agent-dispatch-row:last-child { border-bottom: none; }
+.adr-outcome {
+  font-size: 9px; font-weight: 600;
+  padding: 1px 6px; border-radius: 999px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.adr-outcome.success   { background: var(--green-dim);  color: var(--green); }
+.adr-outcome.failure   { background: var(--red-dim);    color: var(--red); }
+.adr-outcome.fail      { background: var(--red-dim);    color: var(--red); }
+.adr-outcome.shadow_ok { background: var(--gold-dim);   color: var(--gold); }
+.adr-outcome.retry     { background: var(--yellow-dim); color: var(--yellow); }
+.adr-name { flex: 1; color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.adr-time { color: var(--text-4); font-family: 'JetBrains Mono', monospace; font-size: 10px; flex-shrink: 0; }
+
+/* ── Command Center — Agents Grid ──────────────────────────── */
+#view-agents-grid .section-head { margin-bottom: 14px; }
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+.agt-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  cursor: pointer;
+  transition: border-color 0.12s, transform 0.08s;
+  position: relative;
+}
+.agt-card:hover {
+  border-color: var(--border-2);
+  transform: translateY(-1px);
+}
+.agt-card-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.agt-card-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--surface-4); border: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: var(--gold);
+  flex-shrink: 0;
+}
+.agt-card-info { flex: 1; min-width: 0; }
+.agt-card-name { font-size: 13px; font-weight: 600; color: var(--text-1); }
+.agt-card-role { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+.agt-card-chips {
+  display: flex; gap: 4px; flex-wrap: wrap;
+}
+.agt-card-chip {
+  font-size: 10px; font-weight: 500;
+  padding: 2px 7px; border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--text-4);
+  border: 1px solid var(--border);
+}
+.agt-card-stats {
+  display: flex; gap: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.agt-stat { text-align: center; }
+.agt-stat-val { font-size: 15px; font-weight: 600; color: var(--text-1); }
+.agt-stat-label { font-size: 9.5px; color: var(--text-4); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+/* ── Command output view ───────────────────────────────────── */
+#view-cmd-output {}
+.cmd-output-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+.cmd-output-icon { font-size: 16px; }
+.cmd-output-title { font-size: 13px; font-weight: 600; color: var(--text-1); }
+.cmd-output-meta { font-size: 11px; color: var(--text-3); margin-left: auto; }
+
 /* ── Right Rail ────────────────────────────────────────────── */
 #rail {
+  grid-column: 2;
+  grid-row: 2;
   background: var(--surface-1);
   border-left: 1px solid var(--border);
   display: flex; flex-direction: column;
@@ -497,41 +698,44 @@ a { color: inherit; text-decoration: none; }
 /* Agent persona editor */
 .ae-wrap { display: flex; flex-direction: column; gap: 14px; padding: 4px 0; }
 .ae-header { padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-.ae-name-text { font-size: 15px; font-weight: 600; color: var(--text-1); margin-bottom: 3px; }
-.ae-meta-row { font-size: 11px; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
-.ae-field-label {
-  font-size: 10.5px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  color: var(--text-4); margin-bottom: 5px;
+.ae-name { font-size: 13px; font-weight: 600; color: var(--text-1); }
+.ae-meta { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+.ae-prompt {
+  width: 100%; min-height: 220px; resize: vertical;
+  background: var(--surface-2); color: var(--text-1);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 10px; font-size: 12px; line-height: 1.55;
+  font-family: 'JetBrains Mono', monospace;
+  outline: none;
 }
-.ae-textarea {
-  width: 100%; resize: vertical;
-  min-height: 200px;
+.ae-prompt:focus { border-color: var(--gold); }
+.ae-actions { display: flex; gap: 6px; }
+.ae-btn {
+  padding: 5px 12px; border-radius: var(--radius);
+  font-size: 11.5px; font-weight: 500;
+  background: var(--surface-3); color: var(--text-2);
+  border: 1px solid var(--border);
+  transition: all 0.1s;
+}
+.ae-btn:hover { background: var(--surface-4); color: var(--text-1); }
+.ae-btn.primary { background: var(--gold); color: #08090a; border-color: var(--gold); }
+.ae-btn.primary:hover { opacity: 0.88; }
+.ae-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.ae-status-text { font-size: 11px; color: var(--text-3); }
+.ae-status-text.ok { color: var(--green); }
+.ae-status-text.err { color: var(--red); }
+
+/* Scheduler tab */
+.scheduler-panel { display: flex; flex-direction: column; gap: 10px; }
+.scheduler-panel .pill { width: 100%; justify-content: space-between; }
+.sj-card {
   background: var(--surface-2);
-  color: var(--text-1);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 10px 11px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; line-height: 1.55;
-  outline: none;
-  transition: border-color 0.12s;
+  padding: 9px 11px;
 }
-.ae-textarea:focus { border-color: var(--gold); }
-.ae-actions { display: flex; align-items: center; gap: 8px; }
-.ae-btn {
-  padding: 6px 14px;
-  border-radius: var(--radius);
-  font-size: 11.5px; font-weight: 500;
-  transition: opacity 0.1s;
-}
-.ae-btn-save { background: var(--gold); color: #08090a; }
-.ae-btn-save:disabled { opacity: 0.35; cursor: not-allowed; }
-.ae-btn-revert { background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border); }
-.ae-btn-revert:disabled { opacity: 0.35; cursor: not-allowed; }
-.ae-status-text { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-4); }
-.ae-status-text.ok  { color: var(--green); }
-.ae-status-text.err { color: var(--red); }
+.sj-name { font-size: 12.5px; font-weight: 500; color: var(--text-1); }
+.sj-next { font-size: 10.5px; color: var(--text-4); margin-top: 3px; font-family: 'JetBrains Mono', monospace; }
 
 /* Misc */
 .mono { font-family: 'JetBrains Mono', monospace; }
@@ -549,35 +753,41 @@ a { color: inherit; text-decoration: none; }
     Apulu HQ
   </div>
   <div class="topbar-divider"></div>
-  <div class="topbar-tabs">
-    <button class="topbar-tab active" data-view="dashboard">Dashboard</button>
-    <button class="topbar-tab" data-view="chat">Chat</button>
+
+  <!-- Command Bar -->
+  <div id="cmd-wrap">
+    <div id="cmd-bar">
+      <span class="cmd-prefix" id="cmd-prefix" style="display:none">/</span>
+      <input type="text" id="cmd-input" placeholder="Type a command or ask anything…" autocomplete="off" />
+      <span class="cmd-hint" id="cmd-hint">cmd+K</span>
+    </div>
+    <div id="cmd-palette"></div>
   </div>
+
   <div class="topbar-spacer"></div>
   <div class="status-pills">
     <div class="pill" id="pill-health"><div class="pill-dot" id="dot-health"></div><span id="text-health">connecting…</span></div>
     <div class="pill" id="pill-backend"><div class="pill-dot" id="dot-backend"></div><span id="text-backend">backend</span></div>
     <div class="pill" id="pill-ws"><div class="pill-dot" id="dot-ws"></div><span id="text-ws">ws</span></div>
-    <div class="pill" id="pill-shadow" style="display:none"><div class="pill-dot" style="background:var(--gold)"></div><span>shadow mode</span></div>
+    <div class="pill" id="pill-shadow" style="display:none"><div class="pill-dot" style="background:var(--gold)"></div><span>shadow</span></div>
   </div>
 </div>
 
 <!-- ── Alert Banner ───────────────────────────────────────── -->
 <div id="banner"></div>
 
-<!-- ── Left Sidebar ───────────────────────────────────────── -->
-<div id="sidebar">
-  <div class="sidebar-section"><div class="sidebar-label">Agents</div></div>
-  <div class="agent-list" id="agent-list"></div>
-</div>
-
 <!-- ── Main ───────────────────────────────────────────────── -->
 <div id="main">
 
-  <!-- Dashboard -->
-  <div id="view-dashboard">
+  <!-- Quick filter bar -->
+  <div class="quick-bar" id="quick-bar">
+    <button class="quick-pill active" data-view="dashboard">📊 Dashboard</button>
+    <button class="quick-pill" data-view="agents-grid">🤖 Agents</button>
+    <button class="quick-pill" data-view="chat" id="qp-chat">💬 Chat</button>
+  </div>
 
-    <!-- Stat cards -->
+  <!-- Dashboard -->
+  <div class="view" id="view-dashboard">
     <div class="stat-row" id="stat-row">
       <div class="stat-card">
         <div class="stat-label">Total Dispatches</div>
@@ -601,7 +811,6 @@ a { color: inherit; text-decoration: none; }
       </div>
     </div>
 
-    <!-- Routines grid (Uptime Kuma style) -->
     <div>
       <div class="section-head">
         <div class="section-title-text">Routine Status</div>
@@ -610,7 +819,6 @@ a { color: inherit; text-decoration: none; }
       <div class="routine-grid" id="routine-grid"></div>
     </div>
 
-    <!-- Dispatch feed -->
     <div>
       <div class="section-head">
         <div class="section-title-text">Recent Dispatches</div>
@@ -619,7 +827,6 @@ a { color: inherit; text-decoration: none; }
       <div class="dispatch-feed" id="dispatch-feed"></div>
     </div>
 
-    <!-- DLQ section (only shown if non-empty) -->
     <div id="dlq-section" style="display:none">
       <div class="section-head">
         <div class="section-title-text" style="color:var(--red)">⚠ Dead Letter Queue</div>
@@ -627,11 +834,65 @@ a { color: inherit; text-decoration: none; }
       </div>
       <div id="dlq-list" style="display:flex;flex-direction:column;gap:4px;"></div>
     </div>
+  </div>
 
-  </div><!-- /view-dashboard -->
+  <!-- Agents Grid -->
+  <div class="view hidden" id="view-agents-grid">
+    <div class="section-head">
+      <div class="section-title-text">All Agents</div>
+      <div class="section-badge" id="agents-count-badge">0</div>
+    </div>
+    <div class="agents-grid" id="agents-grid"></div>
+  </div>
 
-  <!-- Chat view -->
-  <div id="view-chat" class="hidden">
+  <!-- Agent Profile -->
+  <div class="view hidden" id="view-agent">
+    <button class="profile-back" id="profile-back">← Back</button>
+    <div class="profile-header">
+      <div class="profile-avatar-lg" id="profile-avatar"></div>
+      <div class="profile-header-info">
+        <div class="profile-name" id="profile-name"></div>
+        <div class="profile-role" id="profile-role"></div>
+        <div class="profile-chips" id="profile-chips"></div>
+      </div>
+      <button class="profile-chat-btn" id="profile-chat-btn">💬 Chat</button>
+    </div>
+    <div class="profile-body">
+      <div class="profile-section">
+        <div class="profile-section-head">System Prompt</div>
+        <div class="profile-section-body">
+          <div class="prompt-text" id="profile-prompt">—</div>
+        </div>
+      </div>
+      <div class="profile-section">
+        <div class="profile-section-head">
+          <span>Owned Routines</span>
+          <span class="section-badge" id="profile-routine-count">0</span>
+        </div>
+        <div class="profile-section-body" id="profile-routines"></div>
+      </div>
+      <div class="profile-section" style="grid-column: 1 / -1;">
+        <div class="profile-section-head">
+          <span>Recent Dispatch History</span>
+          <span class="section-badge" id="profile-dispatch-count">0 fires</span>
+        </div>
+        <div class="profile-section-body" id="profile-dispatches"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Command Output -->
+  <div class="view hidden" id="view-cmd-output">
+    <div class="cmd-output-header">
+      <span class="cmd-output-icon" id="cmd-out-icon">⚡</span>
+      <span class="cmd-output-title" id="cmd-out-title">Command Output</span>
+      <span class="cmd-output-meta" id="cmd-out-meta"></span>
+    </div>
+    <div id="cmd-out-body" style="flex:1;overflow-y:auto;"></div>
+  </div>
+
+  <!-- Chat -->
+  <div class="view hidden" id="view-chat">
     <div class="chat-topbar" id="chat-topbar">
       <div class="empty-state" style="padding:0; flex-direction:row; color:var(--text-3); font-size:13px;">
         ← Select an agent to start chatting
@@ -640,11 +901,11 @@ a { color: inherit; text-decoration: none; }
     <div class="chat-messages" id="chat-messages">
       <div class="empty-state">
         <div class="empty-state-icon">💬</div>
-        <div class="empty-state-text">Click any agent in the sidebar to open a conversation</div>
+        <div class="empty-state-text">Select an agent from the grid or type <code>/chat &lt;agent&gt;</code></div>
       </div>
     </div>
     <div class="chat-composer">
-      <textarea id="chat-input" placeholder="Message…" disabled rows="1"></textarea>
+      <textarea id="chat-input" placeholder="Message…" rows="1" disabled></textarea>
       <button class="send-btn" id="chat-send" disabled>Send</button>
     </div>
   </div>
@@ -654,140 +915,54 @@ a { color: inherit; text-decoration: none; }
 <!-- ── Right Rail ─────────────────────────────────────────── -->
 <div id="rail">
   <div class="rail-tabs">
-    <button class="rail-tab active" data-tab="events">Events</button>
-    <button class="rail-tab" data-tab="agent">Agent</button>
-    <button class="rail-tab" data-tab="scheduler">Scheduler</button>
+    <div class="rail-tab active" data-tab="events">Events</div>
+    <div class="rail-tab" data-tab="scheduler">Scheduler</div>
   </div>
   <div class="rail-body" id="rail-events"></div>
-  <div class="rail-body hidden" id="rail-agent">
-    <div class="empty" id="ae-empty">Select an agent to edit their persona.</div>
-    <div id="ae-editor" style="display:none">
-      <div class="ae-wrap">
-        <div class="ae-header">
-          <div class="ae-name-text" id="ae-name"></div>
-          <div class="ae-meta-row" id="ae-meta"></div>
-        </div>
-        <div>
-          <div class="ae-field-label">System Prompt</div>
-          <textarea class="ae-textarea" id="ae-prompt" rows="14" spellcheck="false"></textarea>
-        </div>
-        <div class="ae-actions">
-          <button class="ae-btn ae-btn-save" id="ae-save" disabled>Save</button>
-          <button class="ae-btn ae-btn-revert" id="ae-revert" disabled>Revert</button>
-          <span class="ae-status-text" id="ae-status"></span>
-        </div>
-        <div class="text-tiny">Saved instantly — no restart needed.</div>
-      </div>
-    </div>
-  </div>
   <div class="rail-body hidden" id="rail-scheduler">
-    <div style="display:flex;flex-direction:column;gap:8px;" id="scheduler-status"></div>
+    <div class="scheduler-panel" id="scheduler-status">
+      <div class="empty" style="padding:20px">Loading…</div>
+    </div>
   </div>
 </div>
 
-<script type="module">
-const API    = location.origin;
-const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws';
+<script>
+const API = window.location.port==='5000'?'http://127.0.0.1:8741':'';
+const WS_URL = (()=>{ const u=new URL(API||window.location.href); return `ws://${u.host}/ws`; })();
 
-const state = {
-  agents: [], agentById: {},
-  routines: [], routineById: {},
-  activeAgent: null,
-  threadId: null,
-  ws: null,
-  dispatchHistory: {},  // routineId → last 15 outcomes
-  view: 'dashboard',
-};
+// State
+const state = { agents:[], routines:[], agentById:{}, activeAgent:null, threadId:null, view:'dashboard', ws:null, dispatchHistory:{} };
 
-// ── Utilities ────────────────────────────────────────────────
-
-function initials(name) {
-  return name.split(/[\s&]+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
-}
-
+function initials(name) { return (name||'A').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(); }
 function relTime(iso) {
-  if (!iso) return '';
-  const d = Date.now() - new Date(iso);
-  if (d < 60000) return `${Math.round(d/1000)}s ago`;
-  if (d < 3600000) return `${Math.round(d/60000)}m ago`;
-  if (d < 86400000) return `${Math.round(d/3600000)}h ago`;
-  return new Date(iso).toLocaleDateString();
+  if(!iso)return''; const s=(Date.now()-new Date(iso).getTime())/1000;
+  if(s<60)return'now'; if(s<3600)return Math.round(s/60)+'m'; if(s<86400)return Math.round(s/3600)+'h';
+  return Math.round(s/86400)+'d';
 }
 
-function timeStr(iso) {
-  if (!iso) return '';
-  const t = iso.replace('T',' ').slice(0,16);
-  return t;
-}
-
-// ── Health ───────────────────────────────────────────────────
+// ── Data loading ─────────────────────────────────────────────
 
 async function loadHealth() {
   try {
-    const j = await fetch(API + '/api/health').then(r=>r.json());
-    document.getElementById('text-health').textContent = `${j.agents} agents · ${j.routines} routines`;
-    document.getElementById('dot-health').className = 'pill-dot ok';
-    document.getElementById('text-backend').textContent = 'backend ok';
-    document.getElementById('dot-backend').className = 'pill-dot ok';
+    const ok = (await fetch(API+'/api/health').then(r=>r.ok)).ok !== false;
+    document.getElementById('dot-health').className='pill-dot '+(ok?'ok':'err');
+    document.getElementById('text-health').textContent='healthy';
   } catch {
-    document.getElementById('text-health').textContent = 'backend down';
-    document.getElementById('dot-health').className = 'pill-dot err';
-    document.getElementById('dot-backend').className = 'pill-dot err';
+    document.getElementById('dot-health').className='pill-dot err';
+    document.getElementById('text-health').textContent='unreachable';
   }
 }
 
-// ── Agents ───────────────────────────────────────────────────
-
 async function loadAgents() {
-  const data = await fetch(API + '/api/agents').then(r=>r.json());
-  state.agents = data;
-  state.agentById = Object.fromEntries(data.map(a=>[a.id,a]));
-  renderSidebar();
+  const list = await fetch(API+'/api/agents').then(r=>r.json()).catch(()=>[]);
+  state.agents = list; state.agentById = {};
+  list.forEach(a=>state.agentById[a.id]=a);
+  renderAgentsGrid();
 }
-
-const DEPT_ORDER = ['board','cos','marketing','operations','research','production','post-prod'];
-
-function renderSidebar() {
-  const root = document.getElementById('agent-list');
-  root.innerHTML = '';
-  const byDept = {};
-  state.agents.forEach(a => {(byDept[a.department] = byDept[a.department]||[]).push(a);});
-  DEPT_ORDER.forEach(dept => {
-    if (!byDept[dept]) return;
-    const head = document.createElement('div');
-    head.className = 'agent-group-head';
-    head.textContent = dept;
-    root.appendChild(head);
-    byDept[dept].forEach(a => {
-      const el = document.createElement('div');
-      el.className = 'agent-row';
-      el.dataset.id = a.id;
-      el.innerHTML = `
-        <div class="agent-avatar" id="av-${a.id}">
-          ${initials(a.display_name)}
-          <div class="agent-status-dot" id="dot-agent-${a.id}"></div>
-        </div>
-        <div class="agent-info">
-          <div class="agent-name">${a.display_name}</div>
-          <div class="agent-role">${a.role||''}</div>
-        </div>`;
-      el.onclick = () => selectAgent(a.id);
-      root.appendChild(el);
-    });
-  });
-}
-
-function setAgentDot(agentId, state_) {
-  const dot = document.getElementById(`dot-agent-${agentId}`);
-  if (dot) dot.className = 'agent-status-dot ' + (state_||'');
-}
-
-// ── Routines ─────────────────────────────────────────────────
 
 async function loadRoutines() {
-  const data = await fetch(API + '/api/routines').then(r=>r.json()).catch(()=>[]);
-  state.routines = data;
-  state.routineById = Object.fromEntries(data.map(r=>[r.id,r]));
+  const list = await fetch(API+'/api/routines').then(r=>r.json()).catch(()=>[]);
+  state.routines = list;
   renderRoutineGrid();
 }
 
@@ -797,31 +972,20 @@ function renderRoutineGrid() {
   const enabled = state.routines.filter(r=>r.enabled).length;
   badge.textContent = `${enabled} / ${state.routines.length} enabled`;
   grid.innerHTML = '';
-
-  // Sort: enabled first, then by fire count descending
-  const sorted = [...state.routines].sort((a,b) => {
-    if (a.enabled !== b.enabled) return b.enabled - a.enabled;
-    return 0;
-  });
-
+  const sorted = [...state.routines].sort((a,b)=>b.enabled-a.enabled);
   sorted.forEach(r => {
-    const hist = state.dispatchHistory[r.id] || [];
+    const hist = state.dispatchHistory[r.id]||[];
     const card = document.createElement('div');
     const shadow = r.enabled && window.__shadowMode;
-    const cls = !r.enabled ? 'disabled' : shadow ? 'shadow' : 'enabled';
-    card.className = 'routine-card ' + cls;
-
-    const badgeLabel = !r.enabled ? 'off' : shadow ? 'shadow' : 'live';
-    const badgeCls   = !r.enabled ? 'off' : shadow ? 'shadow' : 'ok';
-
-    // Build uptime bars (last 12 dispatches)
-    const bars = Array.from({length:12}, (_,i) => {
-      const h = hist[i];
-      if (!h) return '<div class="uptime-bar empty"></div>';
-      const bc = h==='success'?'ok' : h==='shadow_ok'?'shadow' : h==='failure'||h==='fail'?'fail':'empty';
-      return `<div class="uptime-bar ${bc}" title="${h}"></div>`;
+    const cls = !r.enabled?'disabled':shadow?'shadow':'enabled';
+    card.className = 'routine-card '+cls;
+    const badgeLabel = !r.enabled?'off':shadow?'shadow':'live';
+    const badgeCls   = !r.enabled?'off':shadow?'shadow':'ok';
+    const bars = Array.from({length:12},(_,i)=>{
+      const h=hist[i]; if(!h)return'<div class="uptime-bar empty"></div>';
+      const bc=h==='success'?'ok':h==='shadow_ok'?'shadow':h==='failure'||h==='fail'?'fail':'empty';
+      return`<div class="uptime-bar ${bc}" title="${h}"></div>`;
     }).join('');
-
     card.innerHTML = `
       <div class="routine-info">
         <div class="routine-name">${r.display_name}</div>
@@ -833,372 +997,328 @@ function renderRoutineGrid() {
   });
 }
 
-// ── Dispatches ───────────────────────────────────────────────
-
 async function loadDispatches() {
-  const rows = await fetch(API + '/api/dispatches?limit=60').then(r=>r.json()).catch(()=>[]);
-
-  // Feed history into routine history map
+  const rows = await fetch(API+'/api/dispatches?limit=60').then(r=>r.json()).catch(()=>[]);
   const hist = {};
-  rows.forEach(d => {
-    if (!hist[d.routine_id]) hist[d.routine_id] = [];
-    if (hist[d.routine_id].length < 12) hist[d.routine_id].push(d.outcome);
-  });
+  rows.forEach(d=>{ if(!hist[d.routine_id])hist[d.routine_id]=[]; if(hist[d.routine_id].length<12)hist[d.routine_id].push(d.outcome); });
   state.dispatchHistory = hist;
   renderRoutineGrid();
-
-  // Stats
-  const total = rows.length;
-  const ok = rows.filter(d=>d.outcome==='success').length;
-  const shadow = rows.filter(d=>d.outcome==='shadow_ok').length;
-  document.getElementById('stat-total').textContent = total.toLocaleString();
-  document.getElementById('stat-success-rate').textContent = total ? Math.round(ok/Math.max(total-shadow,1)*100)+'%' : '—';
-  document.getElementById('stat-shadow').textContent = shadow;
-
-  // Feed
-  const feed = document.getElementById('dispatch-feed');
-  feed.innerHTML = '';
-  rows.slice(0,30).forEach(d => {
-    const row = document.createElement('div');
-    row.className = 'dispatch-row';
-    const out = d.outcome||'';
-    const dur = d.duration_ms ? (d.duration_ms/1000).toFixed(1)+'s' : '—';
-    row.innerHTML = `
-      <div class="dispatch-dot ${out}"></div>
-      <div class="d-name">${d.routine_name||d.routine_id}</div>
-      <div class="d-agent">${d.agent_name||''}</div>
-      <div class="d-time">${relTime(d.started_at)}</div>
-      <div class="d-dur">${dur}</div>
-      <div class="d-outcome ${out}">${out||'—'}</div>`;
+  const total=rows.length, ok=rows.filter(d=>d.outcome==='success').length, shadow=rows.filter(d=>d.outcome==='shadow_ok').length;
+  document.getElementById('stat-total').textContent=total.toLocaleString();
+  document.getElementById('stat-success-rate').textContent=total?Math.round(ok/Math.max(total-shadow,1)*100)+'%':'—';
+  document.getElementById('stat-shadow').textContent=shadow;
+  const feed=document.getElementById('dispatch-feed'); feed.innerHTML='';
+  rows.slice(0,30).forEach(d=>{
+    const row=document.createElement('div'); row.className='dispatch-row';
+    const out=d.outcome||''; const dur=d.duration_ms?(d.duration_ms/1000).toFixed(1)+'s':'—';
+    row.innerHTML=`<div class="dispatch-dot ${out}"></div><div class="d-name">${d.routine_name||d.routine_id}</div><div class="d-agent">${d.agent_name||''}</div><div class="d-time">${relTime(d.started_at)}</div><div class="d-dur">${dur}</div><div class="d-outcome ${out}">${out||'—'}</div>`;
     feed.appendChild(row);
   });
-  if (!rows.length) feed.innerHTML = '<div class="empty">No dispatches yet.</div>';
+  if(!rows.length)feed.innerHTML='<div class="empty">No dispatches yet.</div>';
 }
 
-// ── DLQ ─────────────────────────────────────────────────────
-
 async function loadDlq() {
-  const rows = await fetch(API + '/api/dlq').then(r=>r.json()).catch(()=>[]);
-  const active = rows.filter(r=>!r.discarded_at&&!r.replayed_at);
-  document.getElementById('stat-dlq').textContent = active.length;
-  const sec = document.getElementById('dlq-section');
-  const badge = document.getElementById('dlq-badge');
-  const list = document.getElementById('dlq-list');
-  if (!active.length) { sec.style.display='none'; return; }
-  sec.style.display='block';
-  badge.textContent = active.length;
-  list.innerHTML = '';
-  active.slice(0,10).forEach(d => {
-    const row = document.createElement('div');
-    row.className = 'dlq-row';
-    row.innerHTML = `
-      <div class="dlq-icon">⚠</div>
-      <div class="dlq-info">
-        <div class="dlq-name">${d.payload?.slot||d.routine_id||'unknown'}</div>
-        <div class="dlq-meta">${d.signature||'no signature'} · ${relTime(d.appended_at)}</div>
-      </div>`;
+  const rows=await fetch(API+'/api/dlq').then(r=>r.json()).catch(()=>[]);
+  const active=rows.filter(r=>!r.discarded_at&&!r.replayed_at);
+  document.getElementById('stat-dlq').textContent=active.length;
+  const sec=document.getElementById('dlq-section'), badge=document.getElementById('dlq-badge'), list=document.getElementById('dlq-list');
+  if(!active.length){sec.style.display='none';return;}
+  sec.style.display='block'; badge.textContent=active.length; list.innerHTML='';
+  active.slice(0,10).forEach(d=>{
+    const row=document.createElement('div'); row.className='dlq-row';
+    row.innerHTML=`<div class="dlq-icon">⚠</div><div class="dlq-info"><div class="dlq-name">${d.payload?.slot||d.routine_id||'unknown'}</div><div class="dlq-meta">${d.signature||'no signature'} · ${relTime(d.appended_at)}</div></div>`;
     list.appendChild(row);
   });
 }
 
-// ── Scheduler rail ───────────────────────────────────────────
-
 async function loadScheduler() {
   try {
-    const j = await fetch(API + '/api/scheduler').then(r=>r.json());
-    window.__shadowMode = j.shadow;
-    const pill = document.getElementById('pill-shadow');
-    pill.style.display = j.shadow ? '' : 'none';
-    const cont = document.getElementById('scheduler-status');
-    cont.innerHTML = `
-      <div class="pill" style="justify-content:space-between">
-        <span>Status</span>
-        <span style="color:${j.started?'var(--green)':'var(--red)'}">${j.started?'running':'stopped'}</span>
-      </div>
-      <div class="pill" style="justify-content:space-between">
-        <span>Shadow mode</span>
-        <span style="color:${j.shadow?'var(--gold)':'var(--green)'}">${j.shadow?'on':'off'}</span>
-      </div>
+    const j=await fetch(API+'/api/scheduler').then(r=>r.json());
+    window.__shadowMode=j.shadow;
+    document.getElementById('pill-shadow').style.display=j.shadow?'':'none';
+    document.getElementById('scheduler-status').innerHTML=`
+      <div class="pill" style="justify-content:space-between"><span>Status</span><span style="color:${j.started?'var(--green)':'var(--red)'}">${j.started?'running':'stopped'}</span></div>
+      <div class="pill" style="justify-content:space-between"><span>Shadow</span><span style="color:${j.shadow?'var(--gold)':'var(--green)'}">${j.shadow?'on':'off'}</span></div>
       <div class="sidebar-label" style="margin-top:8px">Scheduled Jobs</div>
-      ${(j.jobs||[]).map(job=>`
-        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:9px 11px">
-          <div style="font-size:12.5px;font-weight:500;color:var(--text-1)">${job.name}</div>
-          <div class="mono text-tiny" style="margin-top:3px">next: ${job.next_run_time?.replace('T',' ').slice(0,16)||'—'}</div>
-        </div>`).join('')}`;
+      ${(j.jobs||[]).map(job=>`<div class="sj-card"><div class="sj-name">${job.name}</div><div class="sj-next">next: ${job.next_run_time?.replace('T',' ').slice(0,16)||'—'}</div></div>`).join('')}`;
   } catch {
-    document.getElementById('scheduler-status').innerHTML = '<div class="empty">Scheduler unreachable</div>';
+    document.getElementById('scheduler-status').innerHTML='<div class="empty">Scheduler unreachable</div>';
   }
+}
+
+// ── Agents Grid ──────────────────────────────────────────────
+
+function renderAgentsGrid() {
+  const grid=document.getElementById('agents-grid');
+  const badge=document.getElementById('agents-count-badge');
+  badge.textContent=state.agents.length;
+  grid.innerHTML='';
+  state.agents.forEach(a=>{
+    const card=document.createElement('div'); card.className='agt-card';
+    const owned=state.routines.filter(r=>r.agent_id===a.id);
+    const activeR=owned.filter(r=>r.enabled).length;
+    card.onclick=()=>selectAgent(a.id);
+    card.innerHTML=`<div class="agt-card-header"><div class="agt-card-avatar">${initials(a.display_name)}</div><div class="agt-card-info"><div class="agt-card-name">${a.display_name}</div><div class="agt-card-role">${a.role||'—'}</div></div></div><div class="agt-card-chips"><span class="agt-card-chip">⬡ ${a.department}</span><span class="agt-card-chip">⚙ ${a.adapter_type}</span>${a.model?`<span class="agt-card-chip">◎ ${a.model}</span>`:''}<span class="agt-card-chip">${a.enabled?'● on':'○ off'}</span></div><div class="agt-card-stats"><div class="agt-stat"><div class="agt-stat-val">${owned.length}</div><div class="agt-stat-label">Routines</div></div><div class="agt-stat"><div class="agt-stat-val">${activeR}</div><div class="agt-stat-label">Active</div></div><div class="agt-stat"><div class="agt-stat-val">${a.adapter_type}</div><div class="agt-stat-label">Adapter</div></div></div>`;
+    grid.appendChild(card);
+  });
 }
 
 // ── View switching ───────────────────────────────────────────
 
 function setView(v) {
-  state.view = v;
-  document.getElementById('view-dashboard').classList.toggle('hidden', v!=='dashboard');
-  document.getElementById('view-chat').classList.toggle('hidden', v!=='chat');
-  document.querySelectorAll('.topbar-tab').forEach(t => t.classList.toggle('active', t.dataset.view===v));
+  state.view=v;
+    var viewId = 'view-' + v;
+    document.querySelectorAll('.view').forEach(function(el) {
+      el.classList.toggle('hidden', el.id !== viewId);
+    });
+  document.querySelectorAll('.quick-pill').forEach(p=>p.classList.toggle('active',p.dataset.view===v||(v==='agent'&&p.dataset.view==='agents-grid')));
 }
 
-// ── Agent selection ──────────────────────────────────────────
-
 function selectAgent(id) {
-  const a = state.agentById[id];
-  if (!a) return;
-  state.activeAgent = a;
-  state.threadId = null;
+  const a=state.agentById[id]; if(!a)return;
+  state.activeAgent=a;
+  showAgentProfile(a);
+}
 
-  document.querySelectorAll('.agent-row').forEach(el =>
-    el.classList.toggle('active', el.dataset.id===id));
-
-  // Update chat header
-  const hdr = document.getElementById('chat-topbar');
-  hdr.innerHTML = `
-    <div class="chat-agent-avatar">${initials(a.display_name)}</div>
-    <div>
-      <div class="chat-agent-name">${a.display_name}</div>
-      <div class="chat-agent-role">${a.role} · ${a.adapter_type}</div>
-    </div>`;
-
-  const msgs = document.getElementById('chat-messages');
-  msgs.innerHTML = `<div class="empty-state"><div class="empty-state-icon">👋</div><div class="empty-state-text">Start a conversation with ${a.display_name}</div></div>`;
-
-  document.getElementById('chat-input').disabled = false;
-  document.getElementById('chat-send').disabled = false;
-
-  // Switch to chat view
-  setView('chat');
-  setTimeout(()=>document.getElementById('chat-input').focus(), 80);
-
-  // Update agent tab in rail
-  renderAgentEditor();
+async function showAgentProfile(a) {
+  setView('agent');
+  document.getElementById('profile-avatar').textContent=initials(a.display_name);
+  document.getElementById('profile-name').textContent=a.display_name;
+  document.getElementById('profile-role').textContent=a.role||'—';
+  document.getElementById('profile-chips').innerHTML=`<span class="profile-chip dept">⬡ ${a.department}</span><span class="profile-chip adapter">⚙ ${a.adapter_type}</span>${a.model?`<span class="profile-chip model">◎ ${a.model}</span>`:''}${a.provider?`<span class="profile-chip">${a.provider}</span>`:''}<span class="profile-chip enabled">● ${a.enabled?'enabled':'disabled'}</span>`;
+  document.getElementById('profile-prompt').textContent=a.system_prompt||'(no system prompt set)';
+  const ownedRoutines=state.routines.filter(r=>r.agent_id===a.id);
+  document.getElementById('profile-routine-count').textContent=ownedRoutines.length;
+  const rBody=document.getElementById('profile-routines');
+  if(!ownedRoutines.length){rBody.innerHTML='<div class="empty" style="padding:16px">No scheduled routines</div>';}
+  else{rBody.innerHTML=ownedRoutines.map(r=>{const hist=state.dispatchHistory[r.id]||[],lastOut=hist[0]||null;const dotColor=!r.enabled?'var(--text-4)':lastOut==='success'?'var(--green)':lastOut==='shadow_ok'?'var(--gold)':lastOut==='failure'||lastOut==='fail'?'var(--red)':'var(--text-3)';return`<div class="owned-routine"><div class="or-dot" style="background:${dotColor}"></div><div class="or-info"><div class="or-name">${r.display_name}</div><div class="or-cron">${r.cron_expr} · ${r.timezone?.replace('America/','')||''} · ${r.enabled?(window.__shadowMode?'shadow':'live'):'off'}</div></div>${lastOut?`<div class="adr-outcome ${lastOut}">${lastOut}</div>`:''}</div>`;}).join('');}
+  const allDispatches=await fetch(`${API}/api/dispatches?limit=200`).then(r=>r.json()).catch(()=>[]);
+  const agentDispatches=allDispatches.filter(d=>d.agent_id===a.id);
+  document.getElementById('profile-dispatch-count').textContent=`${agentDispatches.length} fires`;
+  const dBody=document.getElementById('profile-dispatches');
+  if(!agentDispatches.length){dBody.innerHTML='<div class="empty" style="padding:16px">No dispatch history</div>';}
+  else{dBody.innerHTML=agentDispatches.slice(0,25).map(d=>{const out=d.outcome||'',dur=d.duration_ms?(d.duration_ms/1000).toFixed(1)+'s':'';return`<div class="agent-dispatch-row"><div class="adr-outcome ${out}">${out||'—'}</div><div class="adr-name">${d.routine_name||d.routine_id}</div>${dur?`<span class="adr-time">${dur}</span>`:''}<span class="adr-time">${relTime(d.started_at)}</span></div>`;}).join('');}
 }
 
 // ── Chat ─────────────────────────────────────────────────────
 
-function appendMsg(role, text, replaceLast=false) {
-  const root = document.getElementById('chat-messages');
-  if (root.querySelector('.empty-state')) root.innerHTML = '';
+function appendMsg(role,text,replaceLast=false) {
+  const root=document.getElementById('chat-messages');
+  if(root.querySelector('.empty-state'))root.innerHTML='';
   let el;
-  if (replaceLast && root.lastChild?.dataset.streaming==='1') {
-    el = root.lastChild.querySelector('.msg-bubble');
-    el.textContent += text;
-  } else {
-    const row = document.createElement('div');
-    row.className = 'msg-row ' + role;
-    row.dataset.streaming = role==='assistant'?'1':'0';
-    const av = document.createElement('div');
-    av.className = 'msg-avatar';
-    av.textContent = role==='user' ? 'You' : initials(state.activeAgent?.display_name||'A');
-    const bub = document.createElement('div');
-    bub.className = 'msg-bubble';
-    bub.textContent = text;
-    row.appendChild(av); row.appendChild(bub);
-    root.appendChild(row);
-    el = bub;
-  }
-  root.scrollTop = root.scrollHeight;
+  if(replaceLast&&root.lastChild?.dataset.streaming==='1'){el=root.lastChild.querySelector('.msg-bubble');el.textContent+=text;}
+  else{const row=document.createElement('div');row.className='msg-row '+role;row.dataset.streaming=role==='assistant'?'1':'0';const av=document.createElement('div');av.className='msg-avatar';av.textContent=role==='user'?'You':initials(state.activeAgent?.display_name||'A');const bub=document.createElement('div');bub.className='msg-bubble';bub.textContent=text;row.appendChild(av);row.appendChild(bub);root.appendChild(row);el=bub;}
+  root.scrollTop=root.scrollHeight;
+}
+async function sendChat() {
+  const input=document.getElementById('chat-input');const msg=input.value.trim();if(!msg||!state.activeAgent)return;
+  input.value='';input.style.height='';appendMsg('user',msg);
+  await fetch(`${API}/api/agents/${state.activeAgent.id}/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg,thread_id:state.threadId})});
 }
 
-async function sendChat() {
-  const input = document.getElementById('chat-input');
-  const msg = input.value.trim();
-  if (!msg || !state.activeAgent) return;
-  input.value = '';
-  input.style.height = '';
-  appendMsg('user', msg);
-  await fetch(`${API}/api/agents/${state.activeAgent.id}/chat`, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({message:msg, thread_id:state.threadId}),
+// ── Command System ───────────────────────────────────────────
+
+const COMMANDS = [
+  {cmd:'/chat',     desc:'Chat with an agent',                usage:'/chat <agent>',     icon:'💬'},
+  {cmd:'/status',   desc:'Show routine status grid',          usage:'/status',           icon:'📊'},
+  {cmd:'/dispatches',desc:'Show recent dispatches',           usage:'/dispatches',       icon:'📋'},
+  {cmd:'/dlq',      desc:'Show dead letter queue',            usage:'/dlq',              icon:'⚠'},
+  {cmd:'/agent',    desc:'View agent profile',                usage:'/agent <name>',     icon:'🤖'},
+  {cmd:'/agents',   desc:'Show all agents',                   usage:'/agents',           icon:'🤖'},
+  {cmd:'/fire',     desc:'Manually fire a routine',           usage:'/fire <routine>',   icon:'🔥'},
+  {cmd:'/shadow',   desc:'Toggle shadow mode',                usage:'/shadow on|off',    icon:'👻'},
+  {cmd:'/help',     desc:'Show available commands',           usage:'/help',             icon:'❓'},
+];
+
+const cmdInput = document.getElementById('cmd-input');
+const cmdPalette = document.getElementById('cmd-palette');
+const cmdPrefix = document.getElementById('cmd-prefix');
+let cmdActive = -1;
+let cmdMatches = [];
+
+function showPalette(matches) {
+  cmdMatches = matches; cmdActive = -1;
+  if (!matches.length) { cmdPalette.classList.remove('show'); return; }
+  const keywords = cmdInput.value.toLowerCase();
+  cmdPalette.innerHTML = `
+    <div class="cp-section">
+      <div class="cp-label">Commands</div>
+      ${matches.map((c,i)=>`
+        <div class="cp-item" data-idx="${i}" data-cmd="${c.cmd}">
+          <div class="cp-icon">${c.icon}</div>
+          <div style="flex:1;min-width:0"><div class="cp-name">${c.cmd}</div><div class="cp-desc">${c.desc}</div></div>
+          <div class="cp-meta">${c.usage}</div>
+        </div>`).join('')}
+    </div>`;
+  cmdPalette.classList.add('show');
+  cmdPalette.querySelectorAll('.cp-item').forEach(el=>{
+    el.onclick=()=>{executeCommand(el.dataset.cmd);cmdPalette.classList.remove('show');cmdInput.value='';};
   });
 }
 
-// ── WebSocket ────────────────────────────────────────────────
+function executeCommand(line) {
+  line = line.trim();
+  const parts = line.split(/\s+/);
+  const cmd = parts[0].toLowerCase();
+  const rest = parts.slice(1).join(' ');
 
-function connectWs() {
-  state.ws = new WebSocket(WS_URL);
-  state.ws.onopen = () => {
-    document.getElementById('dot-ws').className = 'pill-dot ok';
-    document.getElementById('text-ws').textContent = 'ws live';
-  };
-  state.ws.onclose = () => {
-    document.getElementById('dot-ws').className = 'pill-dot err';
-    document.getElementById('text-ws').textContent = 'ws off';
-    setTimeout(connectWs, 2000);
-  };
-  state.ws.onmessage = ev => handleEvent(JSON.parse(ev.data));
-}
-
-function handleEvent(e) {
-  pushEventRow(e);
-  const p = e.payload||{};
-
-  if (e.type==='chat.token' && p.agent_id===state.activeAgent?.id) {
-    if (!state.threadId) state.threadId = p.thread_id;
-    appendMsg('assistant', p.token, true);
-  } else if (e.type==='chat.done' && p.agent_id===state.activeAgent?.id) {
-    const last = document.querySelector('#chat-messages .msg-row[data-streaming="1"]');
-    if (last) last.dataset.streaming = '0';
-  } else if (e.type==='routine.started') {
-    setAgentDot(p.agent_id, 'working');
-    flashRoutineCard(p.routine_id, 'firing');
-  } else if (e.type==='routine.succeeded') {
-    setAgentDot(p.agent_id, 'online');
-    flashAgentRow(p.agent_id, 'ok');
-    flashRoutineCard(p.routine_id, null);
-    setTimeout(loadDispatches, 400);
-  } else if (e.type==='routine.failed') {
-    setAgentDot(p.agent_id, 'error');
-    flashAgentRow(p.agent_id, 'err');
-    flashRoutineCard(p.routine_id, 'fail');
-    setTimeout(loadDispatches, 400);
-  } else if (e.type==='dlq.appended') {
-    loadDlq();
-  } else if (e.type==='breaker.tripped') {
-    const b = document.getElementById('banner');
-    b.textContent = `⚠ Circuit breaker tripped: ${p.component||''} — ${p.reason||''}`;
-    b.classList.add('show');
-  } else if (e.type==='breaker.cleared') {
-    document.getElementById('banner').classList.remove('show');
-  } else if (e.type==='health.snapshot') {
-    const ok = p.overall==='healthy';
-    document.getElementById('dot-backend').className = 'pill-dot ' + (ok?'ok':'err');
-    document.getElementById('text-backend').textContent = 'backend ' + (p.overall||'');
+  switch(cmd) {
+    case '/chat': {
+      const name = rest.toLowerCase();
+      const a = state.agents.find(x=>x.display_name.toLowerCase().includes(name)||x.id.toLowerCase().includes(name));
+      if(!a){showCmdOutput('⚠',`Agent "${rest}" not found`,'error');return;}
+      openChat(a);
+      return;
+    }
+    case '/status': setView('dashboard'); document.getElementById('view-dashboard').scrollTop=0; showCmdOutput('✓','Showing routine status','ok'); break;
+    case '/dispatches': setView('dashboard'); loadDispatches(); showCmdOutput('✓','Dispatches refreshed','ok'); break;
+    case '/dlq': setView('dashboard'); loadDlq(); showCmdOutput('✓','DLQ refreshed','ok'); break;
+    case '/agent': {
+      const name = rest.toLowerCase();
+      const a = state.agents.find(x=>x.display_name.toLowerCase().includes(name)||x.id.toLowerCase().includes(name));
+      if(!a){showCmdOutput('⚠',`Agent "${rest}" not found`,'error');return;}
+      selectAgent(a.id);
+      return;
+    }
+    case '/agents': setView('agents-grid'); showCmdOutput('✓','Showing all agents','ok'); break;
+    case '/fire': {
+      showCmdOutput('⚡',`Fire routine: "${rest}" — not yet implemented`,'info');
+      break;
+    }
+    case '/shadow':
+      showCmdOutput('👻',`Shadow mode toggle — use scheduler API directly`,'info');
+      break;
+    case '/help':
+      showCmdOutput('❓',`<div style="display:flex;flex-direction:column;gap:6px">${COMMANDS.map(c=>`<div><code style="color:var(--gold);background:var(--surface-3);padding:2px 6px;border-radius:3px">${c.usage}</code> — ${c.desc}</div>`).join('')}</div>`,'info');
+      break;
+    default:
+      if(line.startsWith('/')){
+        showCmdOutput('❓',`Unknown command: ${cmd}. Type <code>/help</code> for available commands.`,'error');
+      } else if(line) {
+        // Natural language — route to CoS (agent 1) or default
+        const cos = state.agents.find(a=>a.role?.toLowerCase().includes('chief of staff'))||state.agents[0];
+        if(cos){openChat(cos); setTimeout(()=>{const inp=document.getElementById('chat-input');inp.value=line;sendChat();},100);}
+        else {showCmdOutput('⚠','No agents available for natural language query','error');}
+      }
   }
+  cmdInput.value='';
+  cmdPrefix.style.display='none';
 }
 
-function pushEventRow(e) {
-  const root = document.getElementById('rail-events');
-  if (root.querySelector('.empty')) root.innerHTML='';
-  const el = document.createElement('div');
-  el.className = 'event-row';
-  const cls = e.type.includes('succeeded')||e.type==='breaker.cleared' ? 'ok'
-             : e.type.includes('failed')||e.type==='breaker.tripped'||e.type==='dlq.appended' ? 'fail'
-             : e.type.includes('chat') ? 'gold' : '';
-  const ts = (e.ts||'').split('T')[1]?.slice(0,8)||'';
-  el.innerHTML = `<div><span class="event-type ${cls}">${e.type}</span> <span class="event-ts">${ts}</span></div>
-    <div class="event-payload">${JSON.stringify(e.payload||{}).slice(0,140)}</div>`;
-  root.prepend(el);
-  while (root.children.length>120) root.lastChild.remove();
+function showCmdOutput(icon,body,type) {
+  setView('cmd-output');
+  document.getElementById('cmd-out-icon').textContent=icon;
+  document.getElementById('cmd-out-title').textContent=type==='error'?'Error':type==='ok'?'Done':'Result';
+  document.getElementById('cmd-out-meta').textContent=new Date().toLocaleTimeString();
+  document.getElementById('cmd-out-body').innerHTML=`<div style="padding:14px">${body}</div>`;
 }
 
-// ── Flashes ──────────────────────────────────────────────────
-
-function flashAgentRow(id, kind) {
-  const el = document.querySelector(`.agent-row[data-id="${id}"]`);
-  if (!el) return;
-  el.classList.add(kind==='ok'?'flash-ok':'flash-err');
-  setTimeout(()=>el.classList.remove('flash-ok','flash-err'), 3500);
+function openChat(agent) {
+  state.activeAgent=agent; state.threadId=null;
+  const hdr=document.getElementById('chat-topbar');
+  hdr.innerHTML=`<div class="chat-agent-avatar">${initials(agent.display_name)}</div><div><div class="chat-agent-name">${agent.display_name}</div><div class="chat-agent-role">${agent.role} · ${agent.adapter_type}</div></div>`;
+  document.getElementById('chat-messages').innerHTML=`<div class="empty-state"><div class="empty-state-icon">👋</div><div class="empty-state-text">Start a conversation with ${agent.display_name}</div></div>`;
+  document.getElementById('chat-input').disabled=false; document.getElementById('chat-send').disabled=false;
+  setView('chat'); setTimeout(()=>document.getElementById('chat-input').focus(),80);
 }
 
-function flashRoutineCard(routineId, state_) {
-  const card = document.querySelector(`.routine-card`);
-  // Re-render is cheap — just reload dispatches which re-renders
-}
-
-// ── Agent editor (rail) ───────────────────────────────────────
-
-function renderAgentEditor() {
-  const a = state.activeAgent;
-  document.getElementById('ae-empty').style.display = a?'none':'';
-  document.getElementById('ae-editor').style.display = a?'':'none';
-  if (!a) return;
-  document.getElementById('ae-name').textContent = a.display_name;
-  document.getElementById('ae-meta').textContent = `${a.adapter_type} · ${a.model||'—'} · ${a.department}`;
-  const ta = document.getElementById('ae-prompt');
-  ta.value = a.system_prompt||'';
-  ta.dataset.orig = a.system_prompt||'';
-  document.getElementById('ae-save').disabled = true;
-  document.getElementById('ae-revert').disabled = true;
-  document.getElementById('ae-status').textContent = '';
-  document.getElementById('ae-status').className = 'ae-status-text';
-}
-
-document.getElementById('ae-prompt').addEventListener('input', e=>{
-  const dirty = e.target.value !== (e.target.dataset.orig||'');
-  document.getElementById('ae-save').disabled = !dirty;
-  document.getElementById('ae-revert').disabled = !dirty;
-  if (dirty) { document.getElementById('ae-status').textContent='Unsaved'; document.getElementById('ae-status').className='ae-status-text'; }
+cmdInput.addEventListener('input',e=>{
+  const v=e.target.value;
+  if(v.startsWith('/')){cmdPrefix.style.display='';const prefix=v.toLowerCase();const matches=COMMANDS.filter(c=>c.cmd.toLowerCase().includes(prefix));showPalette(matches);}
+  else{cmdPrefix.style.display='none';cmdPalette.classList.remove('show');}
 });
 
-document.getElementById('ae-revert').onclick = ()=>{
-  const ta = document.getElementById('ae-prompt');
-  ta.value = ta.dataset.orig||'';
-  document.getElementById('ae-save').disabled=true;
-  document.getElementById('ae-revert').disabled=true;
-  document.getElementById('ae-status').textContent='Reverted';
-};
+cmdInput.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'){e.preventDefault();if(cmdMatches.length){cmdActive=(cmdActive+1)%cmdMatches.length;updateCmdActive();}}
+  else if(e.key==='ArrowUp'){e.preventDefault();if(cmdMatches.length){cmdActive=(cmdActive-1+cmdMatches.length)%cmdMatches.length;updateCmdActive();}}
+  else if(e.key==='Enter'){e.preventDefault();if(cmdActive>=0&&cmdMatches[cmdActive]){executeCommand(cmdMatches[cmdActive].usage);cmdPalette.classList.remove('show');}else{executeCommand(cmdInput.value);cmdPalette.classList.remove('show');}}
+  else if(e.key==='Escape'){cmdPalette.classList.remove('show');cmdInput.blur();}
+});
 
-document.getElementById('ae-save').onclick = async ()=>{
-  const a = state.activeAgent; if (!a) return;
-  const ta = document.getElementById('ae-prompt');
-  const st = document.getElementById('ae-status');
-  document.getElementById('ae-save').disabled=true;
-  st.textContent='Saving…'; st.className='ae-status-text';
-  try {
-    const r = await fetch(`/api/agents/${encodeURIComponent(a.id)}`,{
-      method:'PATCH', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system_prompt:ta.value}),
-    });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const updated = await r.json();
-    a.system_prompt = updated.system_prompt ?? ta.value;
-    state.agentById[a.id]=a;
-    ta.dataset.orig = a.system_prompt;
-    document.getElementById('ae-revert').disabled=true;
-    st.textContent=`Saved ${new Date().toLocaleTimeString()}`; st.className='ae-status-text ok';
-  } catch(err) {
-    st.textContent=err.message||'Failed'; st.className='ae-status-text err';
-    document.getElementById('ae-save').disabled=false;
-  }
-};
+function updateCmdActive() {
+  cmdPalette.querySelectorAll('.cp-item').forEach((el,i)=>el.classList.toggle('active',i===cmdActive));
+  const active=cmdPalette.querySelector('.cp-item.active');if(active)active.scrollIntoView({block:'nearest'});
+}
+
+document.addEventListener('keydown',e=>{
+  if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();cmdInput.focus();}
+});
+
+// ── Quick pills ──────────────────────────────────────────────
+
+document.querySelectorAll('.quick-pill').forEach(p=>{
+  p.onclick=()=>{const v=p.dataset.view;if(v==='chat'){if(state.activeAgent)openChat(state.activeAgent);else setView('agents-grid');}else setView(v);};
+});
+
+// ── Profile back / chat ──────────────────────────────────────
+
+document.getElementById('profile-back').onclick=()=>setView('agents-grid');
+document.getElementById('profile-chat-btn').onclick=()=>{if(state.activeAgent)openChat(state.activeAgent);};
+
+// ── Chat wiring ───────────────────────────────────────────────
+
+document.getElementById('chat-send').onclick=sendChat;
+document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}});
+document.getElementById('chat-input').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,160)+'px';});
 
 // ── Rail tabs ────────────────────────────────────────────────
 
 document.querySelectorAll('.rail-tab').forEach(tab=>{
-  tab.onclick = ()=>{
+  tab.onclick=()=>{
     document.querySelectorAll('.rail-tab').forEach(t=>t.classList.toggle('active',t===tab));
-    document.getElementById('rail-events').classList.toggle('hidden', tab.dataset.tab!=='events');
-    document.getElementById('rail-agent').classList.toggle('hidden', tab.dataset.tab!=='agent');
-    document.getElementById('rail-scheduler').classList.toggle('hidden', tab.dataset.tab!=='scheduler');
-    if (tab.dataset.tab==='agent') renderAgentEditor();
-    if (tab.dataset.tab==='scheduler') loadScheduler();
+    document.getElementById('rail-events').classList.toggle('hidden',tab.dataset.tab!=='events');
+    document.getElementById('rail-scheduler').classList.toggle('hidden',tab.dataset.tab!=='scheduler');
+    if(tab.dataset.tab==='scheduler')loadScheduler();
   };
 });
 
-// ── Topbar tabs ──────────────────────────────────────────────
+// ── Refresh ──────────────────────────────────────────────────
+document.getElementById('refresh-dispatches').onclick=()=>{loadDispatches();loadDlq();};
 
-document.querySelectorAll('.topbar-tab').forEach(tab=>{
-  tab.onclick = ()=> setView(tab.dataset.view);
-});
+// ── WebSocket ────────────────────────────────────────────────
 
-// ── Chat wiring ───────────────────────────────────────────────
+function connectWs() {
+  state.ws=new WebSocket(WS_URL);
+  state.ws.onopen=()=>{document.getElementById('dot-ws').className='pill-dot ok';document.getElementById('text-ws').textContent='ws live';};
+  state.ws.onclose=()=>{document.getElementById('dot-ws').className='pill-dot err';document.getElementById('text-ws').textContent='ws off';setTimeout(connectWs,2000);};
+  state.ws.onmessage=ev=>handleEvent(JSON.parse(ev.data));
+}
 
-document.getElementById('chat-send').onclick = sendChat;
-document.getElementById('chat-input').addEventListener('keydown', e=>{
-  if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
-});
+function handleEvent(e) {
+  pushEventRow(e); const p=e.payload||{};
+  if(e.type==='chat.token'&&p.agent_id===state.activeAgent?.id){if(!state.threadId)state.threadId=p.thread_id;appendMsg('assistant',p.token,true);}
+  else if(e.type==='chat.done'&&p.agent_id===state.activeAgent?.id){const last=document.querySelector('#chat-messages .msg-row[data-streaming="1"]');if(last)last.dataset.streaming='0';}
+  else if(e.type==='routine.started'){flashRoutineCard(p.routine_id,'firing');}
+  else if(e.type==='routine.succeeded'){flashRoutineCard(p.routine_id,null);setTimeout(loadDispatches,400);}
+  else if(e.type==='routine.failed'){flashRoutineCard(p.routine_id,'fail');setTimeout(loadDispatches,400);}
+  else if(e.type==='dlq.appended'){loadDlq();}
+  else if(e.type==='breaker.tripped'){const b=document.getElementById('banner');b.textContent=`⚠ Circuit breaker tripped: ${p.component||''} — ${p.reason||''}`;b.classList.add('show');}
+  else if(e.type==='breaker.cleared'){document.getElementById('banner').classList.remove('show');}
+  else if(e.type==='health.snapshot'){const ok=p.overall==='healthy';document.getElementById('dot-backend').className='pill-dot '+(ok?'ok':'err');document.getElementById('text-backend').textContent='backend '+(p.overall||'');}
+}
 
-// Auto-resize textarea
-document.getElementById('chat-input').addEventListener('input', e=>{
-  e.target.style.height='auto';
-  e.target.style.height = Math.min(e.target.scrollHeight, 160)+'px';
-});
+function pushEventRow(e) {
+  const root=document.getElementById('rail-events');
+  if(root.querySelector('.empty'))root.innerHTML='';
+  const el=document.createElement('div');el.className='event-row';
+  const cls=e.type.includes('succeeded')||e.type==='breaker.cleared'?'ok':e.type.includes('failed')||e.type==='breaker.tripped'||e.type==='dlq.appended'?'fail':e.type.includes('chat')?'gold':'';
+  const ts=(e.ts||'').split('T')[1]?.slice(0,8)||'';
+  el.innerHTML=`<div><span class="event-type ${cls}">${e.type}</span> <span class="event-ts">${ts}</span></div><div class="event-payload">${JSON.stringify(e.payload||{}).slice(0,140)}</div>`;
+  root.prepend(el);while(root.children.length>120)root.lastChild.remove();
+}
 
-// ── Refresh button ───────────────────────────────────────────
-document.getElementById('refresh-dispatches').onclick = ()=>{ loadDispatches(); loadDlq(); };
+function flashRoutineCard(routineId,cls){if(cls){renderRoutineGrid();}else{renderRoutineGrid();}}
 
 // ── Bootstrap ────────────────────────────────────────────────
 
 async function main() {
-  await Promise.all([loadHealth(), loadAgents(), loadRoutines()]);
-  await Promise.all([loadDispatches(), loadDlq(), loadScheduler()]);
+  await Promise.all([loadHealth(),loadAgents(),loadRoutines()]);
+  await Promise.all([loadDispatches(),loadDlq(),loadScheduler()]);
   connectWs();
-  setInterval(loadHealth, 30000);
-  setInterval(()=>{ loadDispatches(); loadDlq(); }, 60000);
-  setInterval(loadScheduler, 120000);
+  setInterval(loadHealth,30000);
+  setInterval(()=>{loadDispatches();loadDlq();},60000);
+  setInterval(loadScheduler,120000);
 }
-
 main();
 </script>
 </body>

@@ -137,6 +137,18 @@ async def lifespan(app: FastAPI):
             tailers = await start_tailers()
         except Exception:
             log.exception("failed to start tailers")
+
+    # Scheduler — defaults to shadow mode (HQ_DISPATCHER_SHADOW != "0").
+    # Disabled in tests by APULU_HQ_DISABLE_SCHEDULER=1.
+    app.state.scheduler = None
+    if os.environ.get("APULU_HQ_DISABLE_SCHEDULER") != "1":
+        try:
+            from ..dispatch import HQScheduler
+            app.state.scheduler = HQScheduler(bus=get_bus(), cwd=str(settings.data_dir))
+            await app.state.scheduler.start()
+        except Exception:
+            log.exception("failed to start scheduler")
+
     try:
         yield
     finally:
@@ -147,6 +159,11 @@ async def lifespan(app: FastAPI):
             pass
         if tailers:
             await stop_tailers(tailers)
+        if app.state.scheduler is not None:
+            try:
+                await app.state.scheduler.stop()
+            except Exception:
+                log.exception("scheduler shutdown error")
 
 
 # ---------------------------------------------------------------------------
@@ -286,12 +303,13 @@ def create_app() -> FastAPI:
         return [RoutineOut(**{**dict(r), "enabled": bool(r["enabled"])}) for r in rows]
 
     @app.patch("/api/routines/{routine_id}")
-    def patch_routine(routine_id: str, body: RoutinePatch) -> RoutineOut:
+    async def patch_routine(routine_id: str, body: RoutinePatch) -> RoutineOut:
         conn = get_conn()
         row = conn.execute("SELECT id FROM routines WHERE id=?", (routine_id,)).fetchone()
         if not row:
             raise HTTPException(404, f"Routine not found: {routine_id}")
         fields = body.model_dump(exclude_unset=True)
+        reload_needed = "enabled" in fields or "cron_expr" in fields or "command" in fields or "args" in fields
         if "enabled" in fields:
             fields["enabled"] = 1 if fields["enabled"] else 0
         if not fields:
@@ -304,12 +322,52 @@ def create_app() -> FastAPI:
                 f"UPDATE routines SET {sets}, updated_at=datetime('now') WHERE id=:id", params
             )
             conn.commit()
+        # Reload scheduler jobs when enabled/schedule/command changed
+        sched = getattr(app.state, "scheduler", None)
+        if reload_needed and sched is not None:
+            try:
+                await sched.reload_jobs()
+            except Exception:
+                log.exception("scheduler reload failed after routine patch")
         out = conn.execute(
             "SELECT id, display_name, agent_id, cron_expr, timezone, description, priority, "
             "enabled, disabled_reason FROM routines WHERE id=?",
             (routine_id,),
         ).fetchone()
         return RoutineOut(**{**dict(out), "enabled": bool(out["enabled"])})
+
+    # ---- scheduler ----
+    @app.get("/api/scheduler")
+    def scheduler_status():
+        sched = getattr(app.state, "scheduler", None)
+        if sched is None:
+            return {"started": False, "shadow": None, "jobs": []}
+        return {
+            "started": sched.started,
+            "shadow": sched.shadow,
+            "jobs": sched.list_jobs(),
+        }
+
+    @app.post("/api/scheduler/reload")
+    async def scheduler_reload():
+        sched = getattr(app.state, "scheduler", None)
+        if sched is None:
+            raise HTTPException(status_code=503, detail="scheduler not running")
+        await sched.reload_jobs()
+        return {"ok": True, "jobs": sched.list_jobs()}
+
+    @app.post("/api/routines/{routine_id}/fire")
+    async def fire_routine(routine_id: str):
+        sched = getattr(app.state, "scheduler", None)
+        if sched is None:
+            raise HTTPException(status_code=503, detail="scheduler not running")
+        row = get_conn().execute(
+            "SELECT id FROM routines WHERE id=?", (routine_id,)
+        ).fetchone()
+        if row is None:
+            raise HTTPException(status_code=404, detail="routine not found")
+        dispatch_id = await sched.fire_now(routine_id)
+        return {"ok": True, "dispatch_id": dispatch_id, "shadow": sched.shadow}
 
     # ---- dispatches ----
     @app.get("/api/dispatches")

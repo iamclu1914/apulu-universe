@@ -16,6 +16,7 @@ def isolated_data_dir(tmp_path, monkeypatch):
     monkeypatch.setenv("APULU_HQ_DATA_DIR", str(tmp_path))
     monkeypatch.setenv("APULU_HQ_REPO_ROOT", str(repo_root))
     monkeypatch.setenv("APULU_HQ_DISABLE_TAILERS", "1")
+    monkeypatch.setenv("APULU_HQ_DISABLE_SCHEDULER", "1")
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
 
     # Force re-import so module-level singletons (settings, _conn) pick up env.
@@ -30,6 +31,10 @@ def isolated_data_dir(tmp_path, monkeypatch):
         "apulu_hq.chat.claude_local",
         "apulu_hq.chat",
         "apulu_hq.tailer",
+        "apulu_hq.dispatch.runner",
+        "apulu_hq.dispatch.persist",
+        "apulu_hq.dispatch.scheduler",
+        "apulu_hq.dispatch",
         "apulu_hq.api.app",
         "apulu_hq.api",
     ]:

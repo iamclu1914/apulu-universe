@@ -253,13 +253,27 @@ def create_app() -> FastAPI:
 
         from ..chat import publish_chat  # local import to avoid circular at startup
 
+        async def _run_chat():
+            try:
+                await publish_chat(
+                    agent_id=agent_id,
+                    user_message=body.message,
+                    thread_id=body.thread_id,
+                )
+            except Exception:
+                log.exception(
+                    "chat task crashed agent=%s thread=%s",
+                    agent_id, body.thread_id,
+                )
+
         # Fire and forget — caller subscribes to WS for tokens
-        task = asyncio.create_task(
-            publish_chat(agent_id=agent_id, user_message=body.message, thread_id=body.thread_id)
-        )
-        # Return immediately with thread context the client can join. We don't
-        # know the thread_id until the first event lands, but the client can
-        # filter chat.* events by agent_id in the meantime.
+        task = asyncio.create_task(_run_chat())
+        # Hold a strong ref so the task isn't GC'd mid-flight (a Python 3.11+ pitfall).
+        if not hasattr(app.state, "chat_tasks"):
+            app.state.chat_tasks = set()
+        app.state.chat_tasks.add(task)
+        task.add_done_callback(app.state.chat_tasks.discard)
+
         return {"accepted": True, "agent_id": agent_id, "thread_id_hint": body.thread_id}
 
     # ---- routines ----

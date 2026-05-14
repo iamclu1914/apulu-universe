@@ -604,7 +604,7 @@ No auth in v1. Backend binds to `127.0.0.1` only. Multi-operator is explicitly o
 
 ### Open Questions
 
-1. **Should we migrate `claude_local` agents to direct Anthropic SDK calls?** This removes the single-point-of-failure that is Claude CLI's OAuth. Trade-off: lose the local Claude Code agent abstractions (slash commands, project context). Recommendation for v1: keep `claude_local` for parity, add `api` adapter alongside, migrate per-agent only when justified.
+1. ~~**Should we migrate `claude_local` agents to direct Anthropic SDK calls?**~~ **Decided 2026-05-13: defer.** `claude_local` adapter stays for v1 to preserve parity with the Paperclip-era behavior (slash commands, project context, existing agent prompts). The new `api` adapter type is available alongside and any *new* agent can opt into it; existing 11 `claude_local` agents migrate per-agent only when justified by a concrete win. The OAuth-expiry-blasts-11-agents failure mode is accepted for v1 — mitigation continues to be signature detection + 15-min alert via `hq_run_monitor.py`.
 2. **Where does the Apulu Prompt Generator live?** It's currently a shared service. Two options: (a) call it via HTTP from the relevant agent's process adapter (no change), (b) embed a button in the Tauri UI that drives it directly. Recommendation: (a) for v1, revisit in v2.
 3. **Multi-artist UI?** Spec assumes single-artist (Vawn) for v1. The map is the artist's HQ. Multi-artist could be tabs ("Vawn HQ" / "Artist 2 HQ") or a literal multi-floor building. Defer.
 4. **Voice channel for the CEO chat?** A "talk to Nelly" button using TTS/STT is a natural follow-on. Out of scope for v1.

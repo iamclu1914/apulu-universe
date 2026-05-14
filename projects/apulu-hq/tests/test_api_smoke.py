@@ -110,3 +110,33 @@ def test_websocket_emits_heartbeat(client):
         first = ws.receive_json()
         assert first["type"] == "heartbeat"
         assert first["v"] == 1
+
+
+def test_dispatches_endpoint_returns_recent_rows(client):
+    """After the tailer ingests a synthetic log line via direct insert,
+    /api/dispatches should join routine + agent names."""
+    from apulu_hq.db import get_conn
+
+    # Insert a synthetic dispatch row directly
+    agents = client.get("/api/agents").json()
+    routines = client.get("/api/routines").json()
+    nelly = next(a for a in agents if a["display_name"] == "Nelly")
+    hashtag = next(r for r in routines if r["display_name"] == "hashtag-scan")
+
+    conn = get_conn()
+    conn.execute(
+        """INSERT INTO dispatches
+           (id, routine_id, agent_id, started_at, ended_at, attempt, outcome,
+            exit_code, signature, stderr_tail, duration_ms)
+           VALUES ('d1', ?, ?, '2026-05-14T03:00:00+00:00',
+                   '2026-05-14T03:00:12+00:00', 1, 'success', 0, NULL, NULL, 12000)""",
+        (hashtag["id"], nelly["id"]),
+    )
+    conn.commit()
+
+    rows = client.get("/api/dispatches").json()
+    assert len(rows) == 1
+    assert rows[0]["routine_name"] == "hashtag-scan"
+    assert rows[0]["agent_name"] == "Nelly"
+    assert rows[0]["outcome"] == "success"
+    assert rows[0]["duration_ms"] == 12000

@@ -13,6 +13,7 @@
     --muted: #9a8a78;
     --error: #d96565;
     --ok: #8bc28b;
+    --warn: #e2b463;
   }
   * { box-sizing: border-box; }
   body {
@@ -23,24 +24,39 @@
     height: 100vh;
     display: grid;
     grid-template-columns: 280px 1fr 380px;
+    grid-template-rows: 56px auto 1fr;
   }
   h1, h2 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; margin: 0; }
   header { grid-column: 1 / -1; padding: 12px 20px; border-bottom: 1px solid var(--surface-2); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
   header .pill { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
   header .pill.ok { color: var(--ok); }
-  body { grid-template-rows: 56px 1fr; }
+  header .pill.warn { color: var(--warn); }
+  header .pill.error { color: var(--error); }
+
+  #banner { grid-column: 1 / -1; padding: 0; height: 0; overflow: hidden; transition: height 0.2s; background: var(--error); color: #1a1410; font-weight: 600; display: flex; align-items: center; padding-left: 20px; }
+  #banner.show { height: 36px; padding-top: 0; padding-bottom: 0; }
+
   aside.agents { background: var(--surface); border-right: 1px solid var(--surface-2); overflow-y: auto; }
   main.chat { display: flex; flex-direction: column; min-height: 0; }
   aside.events { background: var(--surface); border-left: 1px solid var(--surface-2); display: flex; flex-direction: column; min-height: 0; }
   .section-title { color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; padding: 14px 16px 6px; }
   .agent {
     padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--surface-2);
+    display: flex; align-items: center; gap: 10px;
+    transition: background 0.15s, border-left 0.15s;
   }
   .agent:hover { background: var(--surface-2); }
   .agent.active { background: var(--surface-2); border-left: 3px solid var(--gold); padding-left: 13px; }
+  .agent.flash-success { background: rgba(139, 194, 139, 0.15); }
+  .agent.flash-fail { background: rgba(217, 101, 101, 0.18); }
   .agent .name { font-weight: 600; }
   .agent .role { font-size: 11px; color: var(--muted); }
   .agent .dept { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
+  .agent .info { flex: 1; }
+  .agent .status {
+    font-size: 18px; line-height: 1;
+  }
+
   .chat-header { padding: 14px 20px; border-bottom: 1px solid var(--surface-2); }
   .chat-header h2 { font-size: 22px; color: var(--gold); }
   .chat-header .sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
@@ -59,10 +75,22 @@
     padding: 0 18px; font-weight: 600; cursor: pointer;
   }
   .composer button:disabled { opacity: 0.5; cursor: not-allowed; }
-  .events-list { flex: 1; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 11px; padding: 10px 14px; }
-  .event { padding: 4px 0; color: var(--muted); border-bottom: 1px dashed var(--surface-2); }
-  .event .type { color: var(--gold); }
-  .event.error .type { color: var(--error); }
+
+  .panel-tabs { display: flex; border-bottom: 1px solid var(--surface-2); }
+  .panel-tabs button {
+    flex: 1; background: transparent; border: 0; padding: 10px; color: var(--muted);
+    cursor: pointer; font-family: inherit; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+  }
+  .panel-tabs button.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .panel-body { flex: 1; overflow-y: auto; padding: 10px 14px; font-family: "JetBrains Mono", monospace; font-size: 11px; }
+  .event, .dispatch { padding: 6px 0; color: var(--muted); border-bottom: 1px dashed var(--surface-2); }
+  .event .type, .dispatch .name { color: var(--gold); }
+  .event.ok .type { color: var(--ok); }
+  .event.fail .type { color: var(--error); }
+  .dispatch.fail .name { color: var(--error); }
+  .dispatch.success .name { color: var(--ok); }
+  .dispatch .meta { color: var(--muted); font-size: 10px; }
   .empty { padding: 30px; text-align: center; color: var(--muted); }
 </style>
 </head>
@@ -71,9 +99,12 @@
   <h1 style="color: var(--gold); font-size: 24px;">Apulu HQ <span style="color: var(--muted); font-size: 12px;">v0 — observe-only</span></h1>
   <div style="display: flex; gap: 8px; align-items: center;">
     <span class="pill" id="health">connecting…</span>
+    <span class="pill" id="backend">backend ⚫</span>
     <span class="pill" id="ws">ws ⚫</span>
   </div>
 </header>
+
+<div id="banner"></div>
 
 <aside class="agents">
   <div class="section-title">Agents</div>
@@ -95,16 +126,23 @@
 </main>
 
 <aside class="events">
-  <div class="section-title">Live event ticker</div>
-  <div class="events-list" id="events"></div>
+  <div class="panel-tabs">
+    <button data-tab="events" class="active">Events</button>
+    <button data-tab="dispatches">Dispatches</button>
+    <button data-tab="dlq">DLQ</button>
+  </div>
+  <div class="panel-body" id="events-panel"></div>
+  <div class="panel-body" id="dispatches-panel" hidden></div>
+  <div class="panel-body" id="dlq-panel" hidden></div>
 </aside>
 
 <script>
 const API = location.origin;
 const WS_URL = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/ws";
 
-let state = {
+const state = {
   agents: [],
+  agentById: {},
   activeAgent: null,
   threadId: null,
   ws: null,
@@ -125,9 +163,9 @@ async function loadHealth() {
 async function loadAgents() {
   const r = await fetch(API + "/api/agents");
   state.agents = await r.json();
+  state.agentById = Object.fromEntries(state.agents.map(a => [a.id, a]));
   const root = document.getElementById("agents");
   root.innerHTML = "";
-  // Group by department
   const byDept = {};
   state.agents.forEach(a => { (byDept[a.department] = byDept[a.department] || []).push(a); });
   const order = ["board", "cos", "marketing", "operations", "research", "production", "post-prod"];
@@ -141,10 +179,49 @@ async function loadAgents() {
       const el = document.createElement("div");
       el.className = "agent";
       el.dataset.id = a.id;
-      el.innerHTML = `<div class="dept">${a.adapter_type}</div><div class="name">${a.display_name}</div><div class="role">${a.role}</div>`;
+      el.innerHTML = `<div class="info"><div class="dept">${a.adapter_type}</div><div class="name">${a.display_name}</div><div class="role">${a.role}</div></div><div class="status" data-id="${a.id}">💼</div>`;
       el.onclick = () => selectAgent(a);
       root.appendChild(el);
     });
+  });
+}
+
+async function loadDispatches() {
+  const r = await fetch(API + "/api/dispatches?limit=50");
+  const rows = await r.json();
+  const panel = document.getElementById("dispatches-panel");
+  if (!rows.length) {
+    panel.innerHTML = `<div class="empty">No dispatches yet. Run a routine in Paperclip — events will land here.</div>`;
+    return;
+  }
+  panel.innerHTML = "";
+  rows.forEach(d => {
+    const cls = d.outcome === "success" ? "success" : d.outcome === "failure" ? "fail" : "";
+    const ts = d.started_at?.replace("T", " ").slice(0, 19) || "";
+    const dur = d.duration_ms ? ` · ${(d.duration_ms/1000).toFixed(1)}s` : "";
+    const sig = d.signature ? ` · sig=${d.signature}` : "";
+    const el = document.createElement("div");
+    el.className = "dispatch " + cls;
+    el.innerHTML = `<div class="name">${d.routine_name || d.routine_id}</div><div class="meta">${ts} · ${d.agent_name || ""} · attempt ${d.attempt}${dur}${sig}</div>`;
+    panel.appendChild(el);
+  });
+}
+
+async function loadDlq() {
+  const r = await fetch(API + "/api/dlq");
+  const rows = await r.json();
+  const panel = document.getElementById("dlq-panel");
+  if (!rows.length) {
+    panel.innerHTML = `<div class="empty">DLQ empty 🎉</div>`;
+    return;
+  }
+  panel.innerHTML = "";
+  rows.forEach(d => {
+    const ts = d.appended_at?.replace("T", " ").slice(0, 19) || "";
+    const el = document.createElement("div");
+    el.className = "dispatch fail";
+    el.innerHTML = `<div class="name">${d.payload?.slot || d.routine_id}</div><div class="meta">${ts} · ${d.signature || "no sig"} · ${d.payload?.final_exit_code ?? ""}</div>`;
+    panel.appendChild(el);
   });
 }
 
@@ -190,6 +267,19 @@ async function send() {
   });
 }
 
+function flashAgent(agentId, kind) {
+  if (!agentId) return;
+  const el = document.querySelector(`.agent[data-id="${agentId}"]`);
+  if (!el) return;
+  el.classList.add(kind === "success" ? "flash-success" : "flash-fail");
+  const statusEl = document.querySelector(`.status[data-id="${agentId}"]`);
+  if (statusEl) statusEl.textContent = kind === "success" ? "✅" : "⚠️";
+  setTimeout(() => {
+    el.classList.remove("flash-success", "flash-fail");
+    if (statusEl) statusEl.textContent = "💼";
+  }, 4000);
+}
+
 function connectWs() {
   state.ws = new WebSocket(WS_URL);
   state.ws.onopen = () => {
@@ -203,28 +293,73 @@ function connectWs() {
   };
   state.ws.onmessage = (ev) => {
     const e = JSON.parse(ev.data);
-    logEvent(e);
-    if (e.type === "chat.token" && e.payload.agent_id === state.activeAgent?.id) {
-      if (!state.threadId) state.threadId = e.payload.thread_id;
-      appendMessage("assistant", e.payload.token, true);
-    } else if (e.type === "chat.done" && e.payload.agent_id === state.activeAgent?.id) {
-      const root = document.getElementById("messages");
-      if (root.lastChild) root.lastChild.dataset.streaming = "0";
-    }
+    handleEvent(e);
   };
 }
 
+function handleEvent(e) {
+  logEvent(e);
+  if (e.type === "chat.token" && e.payload.agent_id === state.activeAgent?.id) {
+    if (!state.threadId) state.threadId = e.payload.thread_id;
+    appendMessage("assistant", e.payload.token, true);
+  } else if (e.type === "chat.done" && e.payload.agent_id === state.activeAgent?.id) {
+    const root = document.getElementById("messages");
+    if (root.lastChild) root.lastChild.dataset.streaming = "0";
+  } else if (e.type === "routine.succeeded") {
+    flashAgent(e.payload.agent_id, "success");
+    loadDispatches();
+  } else if (e.type === "routine.failed") {
+    flashAgent(e.payload.agent_id, "fail");
+    loadDispatches();
+  } else if (e.type === "dlq.appended") {
+    flashAgent(e.payload.agent_id, "fail");
+    loadDlq();
+  } else if (e.type === "breaker.tripped") {
+    const b = document.getElementById("banner");
+    b.textContent = `⚠️ Backend breaker tripped: ${e.payload.component} (${e.payload.reason})`;
+    b.classList.add("show");
+    document.getElementById("backend").textContent = "backend 🔴";
+    document.getElementById("backend").classList.add("error");
+  } else if (e.type === "breaker.cleared") {
+    document.getElementById("banner").classList.remove("show");
+    document.getElementById("backend").textContent = "backend 🟢";
+    document.getElementById("backend").classList.remove("error");
+  } else if (e.type === "health.snapshot") {
+    const overall = e.payload.overall;
+    const pill = document.getElementById("backend");
+    pill.textContent = `backend ${overall}`;
+    pill.classList.toggle("ok", overall === "healthy");
+    pill.classList.toggle("error", overall !== "healthy" && overall !== "unknown");
+  }
+}
+
 function logEvent(e) {
-  const root = document.getElementById("events");
+  const root = document.getElementById("events-panel");
+  if (root.querySelector(".empty")) root.innerHTML = "";
   const el = document.createElement("div");
-  el.className = "event";
+  const cls = e.type.includes("succeeded") || e.type === "breaker.cleared" ? "ok"
+            : e.type.includes("failed") || e.type === "breaker.tripped" || e.type === "dlq.appended" ? "fail"
+            : "";
+  el.className = "event " + cls;
   const ts = e.ts.split("T")[1]?.slice(0, 12) || "";
   el.innerHTML = `<span class="type">${e.type}</span> <span style="opacity:.6">${ts}</span><br/>${
-    JSON.stringify(e.payload).slice(0, 140)
+    JSON.stringify(e.payload).slice(0, 180)
   }`;
   root.prepend(el);
-  while (root.children.length > 100) root.lastChild.remove();
+  while (root.children.length > 200) root.lastChild.remove();
 }
+
+// tab switching
+document.querySelectorAll(".panel-tabs button").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".panel-tabs button").forEach(b => b.classList.toggle("active", b === btn));
+    document.getElementById("events-panel").hidden = btn.dataset.tab !== "events";
+    document.getElementById("dispatches-panel").hidden = btn.dataset.tab !== "dispatches";
+    document.getElementById("dlq-panel").hidden = btn.dataset.tab !== "dlq";
+    if (btn.dataset.tab === "dispatches") loadDispatches();
+    if (btn.dataset.tab === "dlq") loadDlq();
+  };
+});
 
 document.getElementById("send").onclick = send;
 document.getElementById("input").addEventListener("keydown", (e) => {
@@ -232,9 +367,10 @@ document.getElementById("input").addEventListener("keydown", (e) => {
 });
 
 loadHealth();
-loadAgents();
+loadAgents().then(() => loadDispatches());
 connectWs();
 setInterval(loadHealth, 30000);
+setInterval(loadDispatches, 60000);
 </script>
 </body>
 </html>

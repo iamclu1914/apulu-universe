@@ -15,6 +15,7 @@ def isolated_data_dir(tmp_path, monkeypatch):
     repo_root = Path(__file__).resolve().parents[3]
     monkeypatch.setenv("APULU_HQ_DATA_DIR", str(tmp_path))
     monkeypatch.setenv("APULU_HQ_REPO_ROOT", str(repo_root))
+    monkeypatch.setenv("APULU_HQ_DISABLE_TAILERS", "1")
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
 
     # Force re-import so module-level singletons (settings, _conn) pick up env.
@@ -27,6 +28,7 @@ def isolated_data_dir(tmp_path, monkeypatch):
         "apulu_hq.events.schema",
         "apulu_hq.events",
         "apulu_hq.chat",
+        "apulu_hq.tailer",
         "apulu_hq.api.app",
         "apulu_hq.api",
     ]:

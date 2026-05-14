@@ -19,6 +19,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -38,6 +39,7 @@ from ..__init__ import __version__
 from ..config import settings
 from ..db import get_conn, json_loads_safe
 from ..events import Event, get_bus
+from ..tailer import TailerConfig, start_tailers, stop_tailers
 
 log = logging.getLogger(__name__)
 
@@ -128,15 +130,23 @@ async def lifespan(app: FastAPI):
     settings.ensure_dirs()
     # Touch DB to ensure schema bootstrap
     get_conn()
-    task = asyncio.create_task(_heartbeat_loop())
+    heartbeat = asyncio.create_task(_heartbeat_loop())
+    tailers: list[asyncio.Task] = []
+    if os.environ.get("APULU_HQ_DISABLE_TAILERS") != "1":
+        try:
+            tailers = await start_tailers()
+        except Exception:
+            log.exception("failed to start tailers")
     try:
         yield
     finally:
-        task.cancel()
+        heartbeat.cancel()
         try:
-            await task
+            await heartbeat
         except asyncio.CancelledError:
             pass
+        if tailers:
+            await stop_tailers(tailers)
 
 
 # ---------------------------------------------------------------------------
@@ -286,6 +296,32 @@ def create_app() -> FastAPI:
             (routine_id,),
         ).fetchone()
         return RoutineOut(**{**dict(out), "enabled": bool(out["enabled"])})
+
+    # ---- dispatches ----
+    @app.get("/api/dispatches")
+    def list_dispatches(limit: int = 50, agent_id: str | None = None, routine_id: str | None = None):
+        sql = (
+            "SELECT d.id, d.routine_id, d.agent_id, d.started_at, d.ended_at, "
+            "d.attempt, d.outcome, d.exit_code, d.signature, d.duration_ms, "
+            "r.display_name AS routine_name, a.display_name AS agent_name "
+            "FROM dispatches d "
+            "LEFT JOIN routines r ON r.id = d.routine_id "
+            "LEFT JOIN agents a ON a.id = d.agent_id "
+        )
+        clauses = []
+        params: list = []
+        if agent_id:
+            clauses.append("d.agent_id = ?")
+            params.append(agent_id)
+        if routine_id:
+            clauses.append("d.routine_id = ?")
+            params.append(routine_id)
+        if clauses:
+            sql += "WHERE " + " AND ".join(clauses) + " "
+        sql += "ORDER BY d.started_at DESC LIMIT ?"
+        params.append(max(1, min(int(limit), 500)))
+        rows = get_conn().execute(sql, params).fetchall()
+        return [dict(r) for r in rows]
 
     # ---- dlq ----
     @app.get("/api/dlq")

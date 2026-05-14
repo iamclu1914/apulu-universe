@@ -73,6 +73,34 @@ python scripts/run_dev.py
 
 Set `ANTHROPIC_API_KEY` in `%LOCALAPPDATA%\apulu-hq\secrets.env` or as a shell env var to enable chat.
 
+## Desktop shell (no terminal, auto-start at boot)
+
+Replaces the dev-loop above with a real Windows desktop window (pywebview +
+Windows 11's built-in WebView2) and a system tray icon. Backend runs as a
+hidden child process — no console window ever appears.
+
+```powershell
+# One-time setup
+cd projects/apulu-hq
+.\.venv\Scripts\Activate.ps1
+pip install -e ".[desktop]"
+
+# Install auto-start at user login
+.\install_startup.ps1 install
+
+# Or just launch it once without rebooting
+.\install_startup.ps1 launch
+```
+
+The shell:
+- Opens a 1440×900 native window pointing at the UI
+- System tray icon: Show / Open in browser / Restart backend / Quit
+- Closing the window minimizes to tray (does not quit)
+- Survives reboots; starts on next user login
+- Logs to `%LOCALAPPDATA%\apulu-hq\logs\shell.log`
+
+Uninstall: `.\install_startup.ps1 uninstall`. Status: `.\install_startup.ps1 status`.
+
 ## What v0 does
 
 - Seeds SQLite with all 16 agents and 26 routines (IDs preserved from Paperclip)

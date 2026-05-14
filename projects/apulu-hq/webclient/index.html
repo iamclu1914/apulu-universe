@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Apulu HQ — v0 test client</title>
+<style>
+  :root {
+    --bg: #1a1410;
+    --surface: #2a1f18;
+    --surface-2: #382a20;
+    --gold: #c8a35b;
+    --text: #f4ecdf;
+    --muted: #9a8a78;
+    --error: #d96565;
+    --ok: #8bc28b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Raleway", system-ui, sans-serif;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 280px 1fr 380px;
+  }
+  h1, h2 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; margin: 0; }
+  header { grid-column: 1 / -1; padding: 12px 20px; border-bottom: 1px solid var(--surface-2); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
+  header .pill { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+  header .pill.ok { color: var(--ok); }
+  body { grid-template-rows: 56px 1fr; }
+  aside.agents { background: var(--surface); border-right: 1px solid var(--surface-2); overflow-y: auto; }
+  main.chat { display: flex; flex-direction: column; min-height: 0; }
+  aside.events { background: var(--surface); border-left: 1px solid var(--surface-2); display: flex; flex-direction: column; min-height: 0; }
+  .section-title { color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; padding: 14px 16px 6px; }
+  .agent {
+    padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--surface-2);
+  }
+  .agent:hover { background: var(--surface-2); }
+  .agent.active { background: var(--surface-2); border-left: 3px solid var(--gold); padding-left: 13px; }
+  .agent .name { font-weight: 600; }
+  .agent .role { font-size: 11px; color: var(--muted); }
+  .agent .dept { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
+  .chat-header { padding: 14px 20px; border-bottom: 1px solid var(--surface-2); }
+  .chat-header h2 { font-size: 22px; color: var(--gold); }
+  .chat-header .sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; line-height: 1.5; white-space: pre-wrap; font-size: 14px; }
+  .msg.user { align-self: flex-end; background: var(--gold); color: #1a1410; }
+  .msg.assistant { align-self: flex-start; background: var(--surface); border: 1px solid var(--surface-2); }
+  .composer { padding: 14px 20px; border-top: 1px solid var(--surface-2); display: flex; gap: 8px; }
+  .composer textarea {
+    flex: 1; resize: none; min-height: 44px; max-height: 200px;
+    background: var(--surface); color: var(--text); border: 1px solid var(--surface-2);
+    border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 14px;
+  }
+  .composer button {
+    background: var(--gold); color: #1a1410; border: 0; border-radius: 8px;
+    padding: 0 18px; font-weight: 600; cursor: pointer;
+  }
+  .composer button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .events-list { flex: 1; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 11px; padding: 10px 14px; }
+  .event { padding: 4px 0; color: var(--muted); border-bottom: 1px dashed var(--surface-2); }
+  .event .type { color: var(--gold); }
+  .event.error .type { color: var(--error); }
+  .empty { padding: 30px; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1 style="color: var(--gold); font-size: 24px;">Apulu HQ <span style="color: var(--muted); font-size: 12px;">v0 — observe-only</span></h1>
+  <div style="display: flex; gap: 8px; align-items: center;">
+    <span class="pill" id="health">connecting…</span>
+    <span class="pill" id="ws">ws ⚫</span>
+  </div>
+</header>
+
+<aside class="agents">
+  <div class="section-title">Agents</div>
+  <div id="agents"></div>
+</aside>
+
+<main class="chat">
+  <div class="chat-header" id="chat-header">
+    <h2>Select an agent</h2>
+    <div class="sub">Click any agent on the left to start a conversation.</div>
+  </div>
+  <div class="messages" id="messages">
+    <div class="empty">No conversation yet.</div>
+  </div>
+  <div class="composer">
+    <textarea id="input" placeholder="Message will be sent to the selected agent…" disabled></textarea>
+    <button id="send" disabled>Send</button>
+  </div>
+</main>
+
+<aside class="events">
+  <div class="section-title">Live event ticker</div>
+  <div class="events-list" id="events"></div>
+</aside>
+
+<script>
+const API = location.origin;
+const WS_URL = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/ws";
+
+let state = {
+  agents: [],
+  activeAgent: null,
+  threadId: null,
+  ws: null,
+};
+
+async function loadHealth() {
+  try {
+    const r = await fetch(API + "/api/health");
+    const j = await r.json();
+    document.getElementById("health").textContent =
+      `${j.agents} agents · ${j.routines} routines · ${j.anthropic_key_set ? "key ✓" : "mock mode"}`;
+    document.getElementById("health").classList.add("ok");
+  } catch (e) {
+    document.getElementById("health").textContent = "backend down";
+  }
+}
+
+async function loadAgents() {
+  const r = await fetch(API + "/api/agents");
+  state.agents = await r.json();
+  const root = document.getElementById("agents");
+  root.innerHTML = "";
+  // Group by department
+  const byDept = {};
+  state.agents.forEach(a => { (byDept[a.department] = byDept[a.department] || []).push(a); });
+  const order = ["board", "cos", "marketing", "operations", "research", "production", "post-prod"];
+  order.forEach(dept => {
+    if (!byDept[dept]) return;
+    const head = document.createElement("div");
+    head.className = "section-title";
+    head.textContent = dept;
+    root.appendChild(head);
+    byDept[dept].forEach(a => {
+      const el = document.createElement("div");
+      el.className = "agent";
+      el.dataset.id = a.id;
+      el.innerHTML = `<div class="dept">${a.adapter_type}</div><div class="name">${a.display_name}</div><div class="role">${a.role}</div>`;
+      el.onclick = () => selectAgent(a);
+      root.appendChild(el);
+    });
+  });
+}
+
+async function selectAgent(agent) {
+  state.activeAgent = agent;
+  state.threadId = null;
+  document.querySelectorAll(".agent").forEach(el => el.classList.toggle("active", el.dataset.id === agent.id));
+  document.getElementById("chat-header").innerHTML =
+    `<h2>${agent.display_name}</h2><div class="sub">${agent.role} · ${agent.adapter_type}</div>`;
+  document.getElementById("messages").innerHTML = `<div class="empty">Start a new conversation with ${agent.display_name}.</div>`;
+  document.getElementById("input").disabled = false;
+  document.getElementById("send").disabled = false;
+  document.getElementById("input").focus();
+}
+
+function appendMessage(role, text, replaceLast = false) {
+  const root = document.getElementById("messages");
+  if (root.querySelector(".empty")) root.innerHTML = "";
+  let el;
+  if (replaceLast && root.lastChild?.classList.contains(role) && root.lastChild.dataset.streaming === "1") {
+    el = root.lastChild;
+  } else {
+    el = document.createElement("div");
+    el.className = "msg " + role;
+    el.dataset.streaming = role === "assistant" ? "1" : "0";
+    root.appendChild(el);
+  }
+  el.textContent += text;
+  root.scrollTop = root.scrollHeight;
+  return el;
+}
+
+async function send() {
+  const input = document.getElementById("input");
+  const msg = input.value.trim();
+  if (!msg || !state.activeAgent) return;
+  appendMessage("user", msg);
+  input.value = "";
+  await fetch(`${API}/api/agents/${state.activeAgent.id}/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: msg, thread_id: state.threadId }),
+  });
+}
+
+function connectWs() {
+  state.ws = new WebSocket(WS_URL);
+  state.ws.onopen = () => {
+    document.getElementById("ws").textContent = "ws 🟢";
+    document.getElementById("ws").classList.add("ok");
+  };
+  state.ws.onclose = () => {
+    document.getElementById("ws").textContent = "ws 🔴";
+    document.getElementById("ws").classList.remove("ok");
+    setTimeout(connectWs, 1500);
+  };
+  state.ws.onmessage = (ev) => {
+    const e = JSON.parse(ev.data);
+    logEvent(e);
+    if (e.type === "chat.token" && e.payload.agent_id === state.activeAgent?.id) {
+      if (!state.threadId) state.threadId = e.payload.thread_id;
+      appendMessage("assistant", e.payload.token, true);
+    } else if (e.type === "chat.done" && e.payload.agent_id === state.activeAgent?.id) {
+      const root = document.getElementById("messages");
+      if (root.lastChild) root.lastChild.dataset.streaming = "0";
+    }
+  };
+}
+
+function logEvent(e) {
+  const root = document.getElementById("events");
+  const el = document.createElement("div");
+  el.className = "event";
+  const ts = e.ts.split("T")[1]?.slice(0, 12) || "";
+  el.innerHTML = `<span class="type">${e.type}</span> <span style="opacity:.6">${ts}</span><br/>${
+    JSON.stringify(e.payload).slice(0, 140)
+  }`;
+  root.prepend(el);
+  while (root.children.length > 100) root.lastChild.remove();
+}
+
+document.getElementById("send").onclick = send;
+document.getElementById("input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+});
+
+loadHealth();
+loadAgents();
+connectWs();
+setInterval(loadHealth, 30000);
+</script>
+</body>
+</html>

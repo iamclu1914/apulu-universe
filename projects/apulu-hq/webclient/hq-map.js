@@ -1,24 +1,23 @@
 /**
- * Apulu HQ — Phaser 3 isometric scene.
+ * Apulu HQ — Phaser 3 top-down scene.
  *
- * 2.5D top-down-angled map of the label HQ. Renders rooms as diamond floor
- * tiles with raised platform edges (left + back walls), places every agent
- * as a procedural sprite at their desk, drives a per-agent state machine
- * (idle / walking / working / chatting / error / success) from the existing
- * WebSocket event stream.
+ * Compact top-down map of the label HQ. Rooms tile edge-to-edge with
+ * interior partition walls. Every agent is a procedural sprite at their
+ * desk, driven by a per-agent state machine (idle / walking / working /
+ * chatting / error / success) from the WebSocket event stream.
  *
  * No build step. No external assets. Phaser 3 from CDN.
  */
 
 import {
-  TILE_W, TILE_H, GRID_W, GRID_H, WORLD_W, WORLD_H,
+  TILE_SIZE, GRID_W, GRID_H, WORLD_W, WORLD_H,
   ROOMS, PALETTE, DEPT_TO_ROOM, DEPT_COLORS, AGENT_GLYPHS,
-  tileToIso, tileToIsoCenter, deskToWorld, randomTileInRoom, diamondPoints,
+  tileCenter, deskToWorld, randomTileInRoom,
 } from "./mapdata.js";
 
 const SPRITE_KEY_PREFIX = "sprite_dept_";
 
-const WALK_SPEED_PX_PER_S = 90;
+const WALK_SPEED_PX_PER_S = 80;
 const IDLE_DWELL_MS_MIN = 6000;
 const IDLE_DWELL_MS_MAX = 14000;
 const SUCCESS_HOLD_MS = 3000;
@@ -40,55 +39,47 @@ export class HQScene extends Phaser.Scene {
   }
 
   preload() {
-    // One sprite texture per department tint so we can swap by dept cheaply.
     for (const [dept, color] of Object.entries(DEPT_COLORS)) {
       this._genSprite(`${SPRITE_KEY_PREFIX}${dept}`, color);
     }
-    // Fallback / state tints
     this._genSprite(`${SPRITE_KEY_PREFIX}__walking`, 0xf4ecdf);
     this._genSprite(`${SPRITE_KEY_PREFIX}__working`, 0x8bc28b);
     this._genSprite(`${SPRITE_KEY_PREFIX}__error`,   0xd96565);
   }
 
   _genSprite(key, fill) {
-    // 26×38 figure with iso-style shadow.
+    // 24×28 top-down-ish figure with soft shadow.
     const g = this.make.graphics({ x: 0, y: 0, add: false });
-    // iso shadow ellipse beneath the feet
-    g.fillStyle(0x000000, 0.45);
-    g.fillEllipse(13, 36, 18, 5);
-    // legs
+    g.fillStyle(0x000000, 0.4);
+    g.fillEllipse(12, 26, 16, 4);
     g.fillStyle(0x140d09, 1);
-    g.fillRect(9, 26, 3, 8);
-    g.fillRect(14, 26, 3, 8);
-    // body (dept tint)
+    g.fillRect(8, 18, 3, 6);
+    g.fillRect(13, 18, 3, 6);
     g.fillStyle(fill, 1);
-    g.fillRoundedRect(6, 13, 14, 14, 3);
-    // body highlight
-    g.fillStyle(0xffffff, 0.12);
-    g.fillRoundedRect(6, 13, 14, 5, { tl: 3, tr: 3, bl: 0, br: 0 });
-    // head
+    g.fillRoundedRect(6, 9, 12, 11, 3);
+    g.fillStyle(0xffffff, 0.14);
+    g.fillRoundedRect(6, 9, 12, 4, { tl: 3, tr: 3, bl: 0, br: 0 });
     g.fillStyle(0xeed7b5, 1);
-    g.fillCircle(13, 7, 5);
-    // hair / cap rim
+    g.fillCircle(12, 5, 4);
     g.fillStyle(0xc8a35b, 1);
-    g.fillRect(8, 2, 10, 2);
-    g.generateTexture(key, 26, 38);
+    g.fillRect(8, 1, 8, 2);
+    g.generateTexture(key, 24, 28);
     g.destroy();
   }
 
   create() {
-    this.cameras.main.setBackgroundColor(0x140d09);
+    this.cameras.main.setBackgroundColor(PALETTE.hall);
     this.cameras.main.setBounds(0, 0, WORLD_W, WORLD_H);
     this.cameras.main.setSize(this.scale.width, this.scale.height);
 
-    // Render order: floor → room platforms → desks → agents.
     this._drawFloor();
-    this._drawRoomPlatforms();
+    this._drawRooms();
+    this._drawPartitions();
+    this._drawOuterWall();
     this._drawDesks();
 
     this.agents.forEach(a => this._spawnAgent(a));
 
-    // Idle wander loop
     this.time.addEvent({
       delay: 2500,
       loop: true,
@@ -97,7 +88,7 @@ export class HQScene extends Phaser.Scene {
 
     this._setupPan();
 
-    // Center camera roughly on the building.
+    // Center camera on the building.
     this.cameras.main.centerOn(WORLD_W / 2, WORLD_H / 2);
 
     this.scale.on("resize", (size) => {
@@ -106,146 +97,112 @@ export class HQScene extends Phaser.Scene {
   }
 
   _drawFloor() {
-    // Solid hall background
-    const bg = this.add.graphics();
-    bg.fillStyle(PALETTE.hall, 1);
-    bg.fillRect(0, 0, WORLD_W, WORLD_H);
-    bg.setDepth(-1000);
-
-    // Faint base diamond grid (every tile, very low alpha)
     const g = this.add.graphics();
-    g.setDepth(-900);
-    for (let y = 0; y < GRID_H; y++) {
-      for (let x = 0; x < GRID_W; x++) {
-        const pts = diamondPoints(x, y);
-        g.lineStyle(1, 0x000000, 0.25);
-        g.beginPath();
-        g.moveTo(pts[0], pts[1]);
-        g.lineTo(pts[2], pts[3]);
-        g.lineTo(pts[4], pts[5]);
-        g.lineTo(pts[6], pts[7]);
-        g.closePath();
-        g.strokePath();
-      }
-    }
+    g.setDepth(-1000);
+    g.fillStyle(PALETTE.hall, 1);
+    g.fillRect(0, 0, WORLD_W, WORLD_H);
   }
 
-  _drawRoomPlatforms() {
+  _drawRooms() {
     ROOMS.forEach(room => {
-      // Each room is rendered as filled diamonds + back-left walls so it
-      // looks like a raised platform with a back-left corner.
-      this._drawRoomFloor(room);
-      this._drawRoomWalls(room);
-      this._drawRoomLabel(room);
-    });
-  }
+      const x = room.x1 * TILE_SIZE;
+      const y = room.y1 * TILE_SIZE;
+      const w = (room.x2 - room.x1 + 1) * TILE_SIZE;
+      const h = (room.y2 - room.y1 + 1) * TILE_SIZE;
 
-  _drawRoomFloor(room) {
-    const g = this.add.graphics();
-    g.setDepth(-800);
-    for (let y = room.y1; y <= room.y2; y++) {
-      for (let x = room.x1; x <= room.x2; x++) {
-        const pts = diamondPoints(x, y);
-        // Alternate tint per tile for a parquet feel
-        const alt = ((x + y) % 2 === 0) ? room.tone : this._shade(room.tone, 0.92);
-        g.fillStyle(alt, 1);
-        g.beginPath();
-        g.moveTo(pts[0], pts[1]);
-        g.lineTo(pts[2], pts[3]);
-        g.lineTo(pts[4], pts[5]);
-        g.lineTo(pts[6], pts[7]);
-        g.closePath();
-        g.fillPath();
+      // Parquet floor — alternate tile shades for texture
+      const g = this.add.graphics();
+      g.setDepth(-900);
+      for (let ty = room.y1; ty <= room.y2; ty++) {
+        for (let tx = room.x1; tx <= room.x2; tx++) {
+          const alt = ((tx + ty) % 2 === 0) ? room.tone : this._shade(room.tone, 0.92);
+          g.fillStyle(alt, 1);
+          g.fillRect(tx * TILE_SIZE, ty * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        }
       }
-    }
-    // Gold accent outline around the room perimeter (corner-to-corner)
-    const top    = tileToIso(room.x1, room.y1);
-    const right  = tileToIso(room.x2 + 1, room.y1);
-    const bottom = tileToIso(room.x2 + 1, room.y2 + 1);
-    const left   = tileToIso(room.x1, room.y2 + 1);
-    g.lineStyle(1.5, PALETTE.accent, 0.55);
-    g.beginPath();
-    g.moveTo(top.x + TILE_W / 2, top.y);
-    g.lineTo(right.x + TILE_W / 2, right.y);
-    g.lineTo(bottom.x + TILE_W / 2, bottom.y);
-    g.lineTo(left.x + TILE_W / 2, left.y);
-    g.closePath();
-    g.strokePath();
-  }
 
-  _drawRoomWalls(room) {
-    // Back wall: along y = room.y1, from x=room.x1 to x=room.x2+1
-    // Left wall: along x = room.x1, from y=room.y1 to y=room.y2+1
-    const wallHeight = 28;  // pixels lifted in -y direction
-
-    const back = this.add.graphics();
-    back.setDepth(-700);
-    back.fillStyle(PALETTE.wallBack, 1);
-    const a = tileToIso(room.x1, room.y1);
-    const b = tileToIso(room.x2 + 1, room.y1);
-    back.beginPath();
-    back.moveTo(a.x + TILE_W / 2, a.y);
-    back.lineTo(b.x + TILE_W / 2, b.y);
-    back.lineTo(b.x + TILE_W / 2, b.y - wallHeight);
-    back.lineTo(a.x + TILE_W / 2, a.y - wallHeight);
-    back.closePath();
-    back.fillPath();
-    back.lineStyle(1, PALETTE.accent, 0.25);
-    back.strokePath();
-
-    const left = this.add.graphics();
-    left.setDepth(-700);
-    left.fillStyle(PALETTE.wallLeft, 1);
-    const c = tileToIso(room.x1, room.y1);
-    const d = tileToIso(room.x1, room.y2 + 1);
-    left.beginPath();
-    left.moveTo(c.x + TILE_W / 2, c.y);
-    left.lineTo(d.x + TILE_W / 2, d.y);
-    left.lineTo(d.x + TILE_W / 2, d.y - wallHeight);
-    left.lineTo(c.x + TILE_W / 2, c.y - wallHeight);
-    left.closePath();
-    left.fillPath();
-    left.lineStyle(1, PALETTE.accent, 0.25);
-    left.strokePath();
-  }
-
-  _drawRoomLabel(room) {
-    // Place label above the back wall, near the back-left corner.
-    const anchor = tileToIso(room.x1, room.y1);
-    const label = this.add.text(
-      anchor.x + TILE_W / 2 + 6,
-      anchor.y - 24,
-      room.label.toUpperCase(),
-      {
+      // Room label — top-left corner, gold
+      const label = this.add.text(x + 8, y + 6, room.label.toUpperCase(), {
         fontFamily: "Raleway, system-ui, sans-serif",
         fontSize: "10px",
         color: "#c8a35b",
         fontStyle: "bold",
-      },
+      });
+      label.setLetterSpacing(2);
+      label.setAlpha(0.85);
+      label.setDepth(-500);
+    });
+  }
+
+  _drawPartitions() {
+    // Draw interior partition walls between adjacent rooms.
+    // Build a set of "occupied" tiles for fast lookup, then walk pairs.
+    const tileRoom = new Map();
+    for (const room of ROOMS) {
+      for (let ty = room.y1; ty <= room.y2; ty++) {
+        for (let tx = room.x1; tx <= room.x2; tx++) {
+          tileRoom.set(`${tx},${ty}`, room.id);
+        }
+      }
+    }
+    const g = this.add.graphics();
+    g.setDepth(-400);
+    g.lineStyle(2, PALETTE.accentDim, 0.7);
+
+    // Vertical edges (between tx,ty and tx+1,ty)
+    for (let ty = 0; ty < GRID_H; ty++) {
+      for (let tx = 0; tx < GRID_W - 1; tx++) {
+        const a = tileRoom.get(`${tx},${ty}`);
+        const b = tileRoom.get(`${tx + 1},${ty}`);
+        if (a && b && a !== b) {
+          const x = (tx + 1) * TILE_SIZE;
+          g.lineBetween(x, ty * TILE_SIZE, x, (ty + 1) * TILE_SIZE);
+        }
+      }
+    }
+    // Horizontal edges
+    for (let tx = 0; tx < GRID_W; tx++) {
+      for (let ty = 0; ty < GRID_H - 1; ty++) {
+        const a = tileRoom.get(`${tx},${ty}`);
+        const b = tileRoom.get(`${tx},${ty + 1}`);
+        if (a && b && a !== b) {
+          const y = (ty + 1) * TILE_SIZE;
+          g.lineBetween(tx * TILE_SIZE, y, (tx + 1) * TILE_SIZE, y);
+        }
+      }
+    }
+  }
+
+  _drawOuterWall() {
+    const g = this.add.graphics();
+    g.setDepth(-300);
+    g.lineStyle(3, PALETTE.accent, 0.9);
+    // Outline the union of all rooms (which is the rect from min(x1,y1) to max(x2+1,y2+1))
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const r of ROOMS) {
+      minX = Math.min(minX, r.x1);
+      minY = Math.min(minY, r.y1);
+      maxX = Math.max(maxX, r.x2 + 1);
+      maxY = Math.max(maxY, r.y2 + 1);
+    }
+    g.strokeRect(
+      minX * TILE_SIZE,
+      minY * TILE_SIZE,
+      (maxX - minX) * TILE_SIZE,
+      (maxY - minY) * TILE_SIZE,
     );
-    label.setLetterSpacing(2);
-    label.setAlpha(0.85);
-    label.setDepth(-600);
   }
 
   _drawDesks() {
     this.agents.forEach(a => {
       const p = deskToWorld(a.deskX, a.deskY);
       a._desk = p;
-      // Iso desk: small dark diamond patch at the back of the tile
-      const { x, y } = tileToIso(p.tileX, p.tileY);
       const g = this.add.graphics();
-      g.setDepth(p.py - 1);  // just behind the agent
+      g.setDepth(-200);
       g.fillStyle(0x100b08, 0.92);
-      g.beginPath();
-      g.moveTo(x + TILE_W / 2,          y + 6);
-      g.lineTo(x + TILE_W - 8,          y + TILE_H / 2);
-      g.lineTo(x + TILE_W / 2,          y + TILE_H - 6);
-      g.lineTo(x + 8,                   y + TILE_H / 2);
-      g.closePath();
-      g.fillPath();
+      g.fillRoundedRect(p.px - 14, p.py + 8, 28, 7, 2);
       g.lineStyle(1, PALETTE.accent, 0.45);
-      g.strokePath();
+      g.strokeRoundedRect(p.px - 14, p.py + 8, 28, 7, 2);
     });
   }
 
@@ -255,20 +212,17 @@ export class HQScene extends Phaser.Scene {
     const baseKey = `${SPRITE_KEY_PREFIX}${dept}`;
     a._baseTextureKey = baseKey;
 
-    const sprite = this.add.sprite(p.px, p.py - 14, baseKey);
-    sprite.setOrigin(0.5, 1);
+    const sprite = this.add.sprite(p.px, p.py, baseKey);
     sprite.setInteractive({ useHandCursor: true });
     sprite.on("pointerdown", () => this.onSelectAgent(a.id));
 
-    // Role glyph above head — always visible
     const glyph = AGENT_GLYPHS[a.displayName] || "•";
-    const glyphText = this.add.text(p.px, p.py - 48, glyph, {
-      fontSize: "14px",
+    const glyphText = this.add.text(p.px, p.py - 22, glyph, {
+      fontSize: "13px",
       color: "#f4ecdf",
     }).setOrigin(0.5, 0.5);
 
-    // Name tag — hover-only
-    const nameTag = this.add.text(p.px, p.py - 60, a.displayName, {
+    const nameTag = this.add.text(p.px, p.py - 36, a.displayName, {
       fontFamily: "Raleway, system-ui, sans-serif",
       fontSize: "10px",
       color: "#f4ecdf",
@@ -280,9 +234,8 @@ export class HQScene extends Phaser.Scene {
     sprite.on("pointerover", () => nameTag.setAlpha(0.95));
     sprite.on("pointerout",  () => nameTag.setAlpha(0));
 
-    // Status floater (state changes)
-    const statusText = this.add.text(p.px, p.py - 70, "", {
-      fontSize: "16px",
+    const statusText = this.add.text(p.px, p.py - 24, "", {
+      fontSize: "15px",
     }).setOrigin(0.5, 0.5);
 
     a.sprite = sprite;
@@ -347,12 +300,11 @@ export class HQScene extends Phaser.Scene {
       }
 
       if (a.target && a.state === "walking") {
-        const targetY = a.target.py - 14;  // sprite origin is bottom-center, offset to stand on tile
         const dx = a.target.px - a.sprite.x;
-        const dy = targetY - a.sprite.y;
+        const dy = a.target.py - a.sprite.y;
         const dist = Math.hypot(dx, dy);
         if (dist < 1.5) {
-          a.sprite.setPosition(a.target.px, targetY);
+          a.sprite.setPosition(a.target.px, a.target.py);
           a.target = null;
           a.dwellUntil = now + this._randomDwell();
           this._setState(a, "idle");
@@ -360,19 +312,17 @@ export class HQScene extends Phaser.Scene {
           const step = Math.min(dist, WALK_SPEED_PX_PER_S * dt);
           a.sprite.x += (dx / dist) * step;
           a.sprite.y += (dy / dist) * step;
-          // Walk-cycle bob
           a.sprite.y += Math.sin(now / 90) * 0.18;
         }
-        a.glyphText.setPosition(a.sprite.x, a.sprite.y - 34);
-        a.nameTag.setPosition(a.sprite.x, a.sprite.y - 46);
-        a.statusText.setPosition(a.sprite.x, a.sprite.y - 56);
+        a.glyphText.setPosition(a.sprite.x, a.sprite.y - 22);
+        a.nameTag.setPosition(a.sprite.x, a.sprite.y - 36);
+        a.statusText.setPosition(a.sprite.x, a.sprite.y - 24);
         this._updateDepth(a);
       }
     });
   }
 
   _restyleSprite(a) {
-    // Choose texture per state, but fall back to the dept-colored idle texture.
     let key = a._baseTextureKey;
     if (a.state === "walking") key = `${SPRITE_KEY_PREFIX}__walking`;
     else if (a.state === "working") key = `${SPRITE_KEY_PREFIX}__working`;
@@ -392,7 +342,7 @@ export class HQScene extends Phaser.Scene {
     }
   }
 
-  // --- Public event handlers (called from index.html WS dispatcher) ---
+  // --- Public event handlers ---
 
   handleRoutineStarted(agentId, _payload) {
     const a = this.agentById.get(agentId); if (!a) return;
@@ -400,7 +350,7 @@ export class HQScene extends Phaser.Scene {
     this._setState(a, "walking");
     this.time.delayedCall(800, () => {
       if (!a) return;
-      a.sprite.setPosition(a._desk.px, a._desk.py - 14);
+      a.sprite.setPosition(a._desk.px, a._desk.py);
       a.target = null;
       this._setState(a, "working", { floater: "⚙", holdMs: 4000, force: true });
     });
@@ -444,7 +394,7 @@ export class HQScene extends Phaser.Scene {
     if (!agentId) return;
     const a = this.agentById.get(agentId); if (!a) return;
     a.target = null;
-    a.sprite.setPosition(a._desk.px, a._desk.py - 14);
+    a.sprite.setPosition(a._desk.px, a._desk.py);
     this._setState(a, "chatting", { floater: "💬", holdMs: 999999, force: true });
     this.cameras.main.pan(a._desk.px, a._desk.py, 500, "Sine.easeInOut");
   }

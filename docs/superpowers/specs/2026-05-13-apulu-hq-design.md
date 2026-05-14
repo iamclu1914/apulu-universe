@@ -605,10 +605,10 @@ No auth in v1. Backend binds to `127.0.0.1` only. Multi-operator is explicitly o
 ### Open Questions
 
 1. ~~**Should we migrate `claude_local` agents to direct Anthropic SDK calls?**~~ **Decided 2026-05-13: defer.** `claude_local` adapter stays for v1 to preserve parity with the Paperclip-era behavior (slash commands, project context, existing agent prompts). The new `api` adapter type is available alongside and any *new* agent can opt into it; existing 11 `claude_local` agents migrate per-agent only when justified by a concrete win. The OAuth-expiry-blasts-11-agents failure mode is accepted for v1 — mitigation continues to be signature detection + 15-min alert via `hq_run_monitor.py`.
-2. **Where does the Apulu Prompt Generator live?** It's currently a shared service. Two options: (a) call it via HTTP from the relevant agent's process adapter (no change), (b) embed a button in the Tauri UI that drives it directly. Recommendation: (a) for v1, revisit in v2.
-3. **Multi-artist UI?** Spec assumes single-artist (Vawn) for v1. The map is the artist's HQ. Multi-artist could be tabs ("Vawn HQ" / "Artist 2 HQ") or a literal multi-floor building. Defer.
-4. **Voice channel for the CEO chat?** A "talk to Nelly" button using TTS/STT is a natural follow-on. Out of scope for v1.
-5. **Mobile companion?** Operator uses Discord from mobile today. A read-only mobile view of HQ (status, briefing, DLQ count) could be served by the same FastAPI backend over Tailscale or similar. Defer.
+2. ~~**Where does the Apulu Prompt Generator live?**~~ **Decided 2026-05-13: v2.** v1 calls it via HTTP from the relevant agent's process adapter — zero new integration surface. Embedded Tauri UI button revisited in v2 once HQ has shipped and real usage patterns are visible.
+3. ~~**Multi-artist UI?**~~ **Decided 2026-05-13: v2.** v1 is single-artist (Vawn). Schema already accommodates an `artist_id` column on `agents` / `routines` / `dispatches` (Section 10 success criteria); UI surfacing of multi-artist (tabs vs. multi-floor building) is a v2 decision once a second artist is signed.
+4. ~~**Voice channel for the CEO chat?**~~ **Decided 2026-05-13: v2.** Text-only chat in v1. TTS/STT "talk to Nelly" mode is a natural follow-on once the chat surface and per-agent personas are stable.
+5. ~~**Mobile companion?**~~ **Decided 2026-05-13: v2.** v1 is Windows-desktop-only. A read-only mobile view (status, briefing, DLQ count) served by the same FastAPI backend over Tailscale is the obvious v2 path — no architectural changes required, only a new frontend bundle.
 
 ---
 

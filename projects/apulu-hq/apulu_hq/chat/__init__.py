@@ -79,10 +79,16 @@ async def stream_chat(
     """Stream an agent reply. Yields chat.token events and a final chat.done event.
 
     Side effects: persists both the user message and the assistant reply.
+
+    Adapter routing:
+      - claude_local → subprocess to `claude` CLI (uses Pro/Max OAuth, free)
+      - api          → Anthropic SDK (needs ANTHROPIC_API_KEY, paid per-token)
+      - process      → no chat; returns a hint that this agent runs as a script
     """
     conn = get_conn()
     agent = conn.execute(
-        "SELECT id, display_name, system_prompt, model, provider FROM agents WHERE id=?",
+        "SELECT id, display_name, system_prompt, model, provider, adapter_type "
+        "FROM agents WHERE id=?",
         (agent_id,),
     ).fetchone()
     if not agent:
@@ -93,11 +99,72 @@ async def stream_chat(
         _persist_message(conn_tx, thread_id, "user", user_message)
 
     history = _load_history(conn, thread_id, HISTORY_TURNS)
+    # Drop the latest user message from history so we don't double-feed it
+    # (it's appended explicitly below by every adapter).
+    if history and history[-1].get("role") == "user" and history[-1].get("content") == user_message:
+        history = history[:-1]
     system_prompt = agent["system_prompt"] or (
         f"You are {agent['display_name']}, an agent at Apulu Records."
     )
-    model = agent["model"] or settings.default_chat_model
+    model = agent["model"]
+    adapter_type = agent["adapter_type"]
 
+    # ---- claude_local adapter (subscription, OAuth) ------------------------
+    if adapter_type == "claude_local":
+        from .claude_local import stream_claude_local
+        collected: list[str] = []
+        meta: dict = {}
+        try:
+            async for ev in stream_claude_local(
+                agent_id=agent_id,
+                thread_id=thread_id,
+                user_message=user_message,
+                history=history,
+                system_prompt=system_prompt,
+                model=model,
+            ):
+                if ev.type == "chat.token":
+                    collected.append(ev.payload.get("token", ""))
+                elif ev.type == "chat.done":
+                    meta = ev.payload
+                yield ev
+        except FileNotFoundError as exc:
+            err = f"[claude_local adapter error: {exc}]"
+            collected.append(err)
+            yield Event(type="chat.token", payload={"thread_id": thread_id, "agent_id": agent_id, "token": err})
+            yield Event(type="chat.done", payload={"thread_id": thread_id, "agent_id": agent_id, "errored": True})
+        full_text = "".join(collected)
+        with tx() as conn_tx:
+            _persist_message(
+                conn_tx,
+                thread_id,
+                "assistant",
+                full_text,
+                tokens_in=meta.get("input_tokens"),
+                tokens_out=meta.get("output_tokens"),
+            )
+        return
+
+    # ---- process adapter — no chat path -----------------------------------
+    if adapter_type == "process":
+        msg = (
+            f"{agent['display_name']} runs as a scheduled process adapter "
+            f"(e.g. post_vawn.py / marketing_dispatch.py). Direct chat isn't "
+            f"wired for this agent yet — talk to their manager instead."
+        )
+        with tx() as conn_tx:
+            _persist_message(conn_tx, thread_id, "assistant", msg)
+        yield Event(
+            type="chat.token",
+            payload={"thread_id": thread_id, "agent_id": agent_id, "token": msg},
+        )
+        yield Event(
+            type="chat.done",
+            payload={"thread_id": thread_id, "agent_id": agent_id, "no_chat_adapter": True},
+        )
+        return
+
+    # ---- api adapter — Anthropic SDK --------------------------------------
     if not settings.anthropic_api_key:
         # Graceful no-key fallback so v0 demos work without burning tokens.
         fake = (
@@ -111,14 +178,16 @@ async def stream_chat(
         return
 
     client = AsyncAnthropic(api_key=settings.anthropic_api_key)
-    collected: list[str] = []
+    api_model = model or settings.default_chat_model
+    api_history = history + [{"role": "user", "content": user_message}]
+    collected = []
 
     try:
         async with client.messages.stream(
-            model=model,
+            model=api_model,
             max_tokens=DEFAULT_MAX_TOKENS,
             system=system_prompt,
-            messages=history,
+            messages=api_history,
         ) as stream:
             async for text in stream.text_stream:
                 if not text:
@@ -156,7 +225,7 @@ async def stream_chat(
         )
     yield Event(
         type="chat.done",
-        payload={"thread_id": thread_id, "agent_id": agent_id, "model": model},
+        payload={"thread_id": thread_id, "agent_id": agent_id, "model": api_model},
     )
 
 

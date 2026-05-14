@@ -27,6 +27,7 @@ def isolated_data_dir(tmp_path, monkeypatch):
         "apulu_hq.events.bus",
         "apulu_hq.events.schema",
         "apulu_hq.events",
+        "apulu_hq.chat.claude_local",
         "apulu_hq.chat",
         "apulu_hq.tailer",
         "apulu_hq.api.app",

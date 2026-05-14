@@ -2,662 +2,1201 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Apulu HQ — v0 test client</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Apulu HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;510;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --bg: #1a1410;
-    --surface: #2a1f18;
-    --surface-2: #382a20;
-    --gold: #c8a35b;
-    --text: #f4ecdf;
-    --muted: #9a8a78;
-    --error: #d96565;
-    --ok: #8bc28b;
-    --warn: #e2b463;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Raleway", system-ui, sans-serif;
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 260px 1fr 360px;
-    grid-template-rows: 56px auto 1fr;
-  }
-  h1, h2 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; margin: 0; }
-  header { grid-column: 1 / -1; padding: 12px 20px; border-bottom: 1px solid var(--surface-2); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
-  header .pill { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); margin-left: 6px; }
-  header .pill.ok { color: var(--ok); }
-  header .pill.warn { color: var(--warn); }
-  header .pill.error { color: var(--error); }
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  /* Base surfaces — Linear luminance stepping, never pure black */
+  --bg:         #08090a;
+  --surface-1:  #0f1011;
+  --surface-2:  #141618;
+  --surface-3:  #1c1f22;
+  --surface-4:  #242830;
+  --border:     #1f2328;
+  --border-2:   #2a2f38;
 
-  .mode-toggle {
-    display: inline-flex; background: var(--surface-2); border-radius: 999px; overflow: hidden;
-    margin-left: 12px;
-  }
-  .mode-toggle button {
-    background: transparent; border: 0; color: var(--muted); padding: 5px 12px;
-    cursor: pointer; font-family: inherit; font-size: 11px; letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .mode-toggle button.active { background: var(--gold); color: var(--bg); font-weight: 600; }
+  /* Text hierarchy */
+  --text-1:     #f4f4f5;
+  --text-2:     #a1a1aa;
+  --text-3:     #71717a;
+  --text-4:     #52525b;
 
-  #banner { grid-column: 1 / -1; padding: 0; height: 0; overflow: hidden; transition: height 0.2s; background: var(--error); color: #1a1410; font-weight: 600; display: flex; align-items: center; padding-left: 20px; }
-  #banner.show { height: 36px; padding-top: 0; padding-bottom: 0; }
+  /* Apulu gold accent — kept from brand */
+  --gold:       #c8a35b;
+  --gold-dim:   rgba(200, 163, 91, 0.12);
+  --gold-glow:  rgba(200, 163, 91, 0.06);
 
-  aside.agents { background: var(--surface); border-right: 1px solid var(--surface-2); overflow-y: auto; }
-  main.center { display: flex; flex-direction: column; min-height: 0; position: relative; overflow: hidden; }
-  aside.events { background: var(--surface); border-left: 1px solid var(--surface-2); display: flex; flex-direction: column; min-height: 0; }
-  .section-title { color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; padding: 14px 16px 6px; }
+  /* Semantic status */
+  --green:      #4ade80;
+  --green-dim:  rgba(74, 222, 128, 0.10);
+  --red:        #f87171;
+  --red-dim:    rgba(248, 113, 113, 0.10);
+  --yellow:     #fbbf24;
+  --yellow-dim: rgba(251, 191, 36, 0.10);
+  --blue:       #60a5fa;
+  --blue-dim:   rgba(96, 165, 250, 0.10);
+  --purple:     #a78bfa;
+  --purple-dim: rgba(167, 139, 250, 0.10);
 
-  .agent { padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--surface-2); display: flex; align-items: center; gap: 10px; transition: background 0.15s, border-left 0.15s; }
-  .agent:hover { background: var(--surface-2); }
-  .agent.active { background: var(--surface-2); border-left: 3px solid var(--gold); padding-left: 13px; }
-  .agent.flash-success { background: rgba(139, 194, 139, 0.15); }
-  .agent.flash-fail { background: rgba(217, 101, 101, 0.18); }
-  .agent .name { font-weight: 600; }
-  .agent .role { font-size: 11px; color: var(--muted); }
-  .agent .dept { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
-  .agent .info { flex: 1; }
-  .agent .status { font-size: 18px; line-height: 1; }
+  /* Shadows — luminance-based like Linear */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-2: 0 2px 8px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03);
+  --shadow-3: 0 4px 20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
 
-  /* Map view */
-  #map-view { flex: 1; min-height: 0; position: relative; }
-  #map-view canvas { display: block; }
-  #map-view.hidden { display: none; }
+  /* Layout */
+  --sidebar-w: 220px;
+  --rail-w:    320px;
+  --topbar-h:  52px;
+  --radius:    6px;
+  --radius-lg: 10px;
+}
 
-  /* Chat view */
-  #chat-view { flex: 1; min-height: 0; display: flex; flex-direction: column; }
-  #chat-view.hidden { display: none; }
-  .chat-header { padding: 14px 20px; border-bottom: 1px solid var(--surface-2); }
-  .chat-header h2 { font-size: 22px; color: var(--gold); }
-  .chat-header .sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
-  .messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-  .msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; line-height: 1.5; white-space: pre-wrap; font-size: 14px; }
-  .msg.user { align-self: flex-end; background: var(--gold); color: #1a1410; }
-  .msg.assistant { align-self: flex-start; background: var(--surface); border: 1px solid var(--surface-2); }
-  .composer { padding: 14px 20px; border-top: 1px solid var(--surface-2); display: flex; gap: 8px; }
-  .composer textarea { flex: 1; resize: none; min-height: 44px; max-height: 200px; background: var(--surface); color: var(--text); border: 1px solid var(--surface-2); border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 14px; }
-  .composer button { background: var(--gold); color: #1a1410; border: 0; border-radius: 8px; padding: 0 18px; font-weight: 600; cursor: pointer; }
-  .composer button:disabled { opacity: 0.5; cursor: not-allowed; }
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  font-feature-settings: "cv01","ss03";
+  background: var(--bg);
+  color: var(--text-1);
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr var(--rail-w);
+  grid-template-rows: var(--topbar-h) 1fr;
+  height: 100vh;
+}
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+textarea { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
 
-  /* Floating chat panel overlay (when map is the main view) */
-  #chat-overlay {
-    position: absolute; right: 12px; top: 12px; bottom: 12px; width: 380px;
-    background: var(--surface); border: 1px solid var(--surface-2); border-radius: 12px;
-    display: none; flex-direction: column; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    overflow: hidden; z-index: 10;
-  }
-  #chat-overlay.show { display: flex; }
-  #chat-overlay .chat-header { padding: 12px 16px; }
-  #chat-overlay .close-x {
-    position: absolute; top: 10px; right: 12px; cursor: pointer; color: var(--muted);
-    background: none; border: 0; font-size: 18px;
-  }
+/* ── Topbar ────────────────────────────────────────────────── */
+#topbar {
+  grid-column: 1 / -1;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  position: relative;
+  z-index: 20;
+}
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+  min-width: calc(var(--sidebar-w) - 16px);
+}
+.logo-mark {
+  width: 24px; height: 24px;
+  background: var(--gold);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: #08090a;
+  flex-shrink: 0;
+}
+.topbar-divider { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; }
+.topbar-tabs { display: flex; gap: 2px; align-items: center; }
+.topbar-tab {
+  padding: 5px 11px;
+  border-radius: 5px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-3);
+  transition: color 0.12s, background 0.12s;
+  letter-spacing: -0.01em;
+}
+.topbar-tab:hover { color: var(--text-2); background: var(--surface-3); }
+.topbar-tab.active { color: var(--text-1); background: var(--surface-3); }
+.topbar-spacer { flex: 1; }
+.status-pills { display: flex; gap: 6px; align-items: center; }
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 500;
+  background: var(--surface-3);
+  color: var(--text-3);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-4); }
+.pill-dot.ok { background: var(--green); box-shadow: 0 0 5px var(--green); }
+.pill-dot.warn { background: var(--yellow); }
+.pill-dot.err { background: var(--red); box-shadow: 0 0 5px var(--red); }
+.pill.ok { color: var(--text-2); }
+.pill.err { color: var(--red); border-color: rgba(248,113,113,0.2); }
 
-  .panel-tabs { display: flex; border-bottom: 1px solid var(--surface-2); }
-  .panel-tabs button { flex: 1; background: transparent; border: 0; padding: 10px; color: var(--muted); cursor: pointer; font-family: inherit; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 2px solid transparent; }
-  .panel-tabs button.active { color: var(--gold); border-bottom-color: var(--gold); }
-  .panel-body { flex: 1; overflow-y: auto; padding: 10px 14px; font-family: "JetBrains Mono", monospace; font-size: 11px; }
+/* ── Alert Banner ──────────────────────────────────────────── */
+#banner {
+  position: fixed; top: var(--topbar-h); left: 0; right: 0;
+  background: rgba(248,113,113,0.12);
+  border-bottom: 1px solid rgba(248,113,113,0.25);
+  color: var(--red);
+  font-size: 12px; font-weight: 500;
+  padding: 0 20px;
+  height: 0; overflow: hidden;
+  transition: height 0.15s;
+  display: flex; align-items: center;
+  z-index: 30;
+}
+#banner.show { height: 34px; }
 
-  /* Agent persona editor */
-  #agent-panel { display: flex; flex-direction: column; padding: 14px; }
-  .ae-meta { margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--surface-2); }
-  .ae-name { font-family: "Instrument Serif", serif; font-size: 18px; color: var(--gold); margin-bottom: 2px; }
-  .ae-sub { font-family: "Raleway", sans-serif; font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
-  .ae-sub.ae-mono { font-family: "JetBrains Mono", monospace; font-size: 10px; margin-top: 4px; }
-  .ae-sub.ae-mono span:not(:empty) ~ span:not(:empty)::before { content: " · "; opacity: 0.5; }
-  .ae-label { display: block; font-family: "Raleway", sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin: 4px 0 6px; }
-  #ae-system-prompt {
-    width: 100%; box-sizing: border-box;
-    background: var(--surface); color: var(--text);
-    border: 1px solid var(--surface-2); border-radius: 4px;
-    padding: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; line-height: 1.5;
-    resize: vertical; min-height: 220px;
-  }
-  #ae-system-prompt:focus { outline: none; border-color: var(--gold); }
-  .ae-actions { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
-  #ae-save, #ae-revert {
-    background: var(--surface-2); color: var(--text); border: 1px solid var(--surface-2);
-    border-radius: 3px; padding: 6px 14px; font-family: "Raleway", sans-serif;
-    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
-  }
-  #ae-save:not([disabled]) { background: var(--gold); color: #1a1410; border-color: var(--gold); font-weight: 600; }
-  #ae-save[disabled], #ae-revert[disabled] { opacity: 0.4; cursor: not-allowed; }
-  #ae-revert:not([disabled]):hover { border-color: var(--gold); color: var(--gold); }
-  .ae-status { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--muted); }
-  .ae-status.ok { color: var(--ok, #8bc28b); }
-  .ae-status.err { color: var(--error, #d96565); }
-  .ae-hint { font-family: "Raleway", sans-serif; font-size: 10px; color: var(--muted); margin-top: 10px; opacity: 0.75; line-height: 1.4; }
-  .event, .dispatch { padding: 6px 0; color: var(--muted); border-bottom: 1px dashed var(--surface-2); }
-  .event .type, .dispatch .name { color: var(--gold); }
-  .event.ok .type { color: var(--ok); }
-  .event.fail .type { color: var(--error); }
-  .dispatch.fail .name { color: var(--error); }
-  .dispatch.success .name { color: var(--ok); }
-  .dispatch .meta { color: var(--muted); font-size: 10px; }
-  .empty { padding: 30px; text-align: center; color: var(--muted); }
+/* ── Left Sidebar ──────────────────────────────────────────── */
+#sidebar {
+  background: var(--surface-1);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.sidebar-section { padding: 16px 12px 4px; }
+.sidebar-label {
+  font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-4);
+  padding: 0 4px 6px;
+}
+.agent-list { overflow-y: auto; flex: 1; }
+.agent-group-head {
+  padding: 10px 16px 4px;
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-4);
+}
+.agent-row {
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 12px;
+  border-radius: 5px;
+  margin: 1px 6px;
+  cursor: pointer;
+  transition: background 0.1s;
+  position: relative;
+}
+.agent-row:hover { background: var(--surface-3); }
+.agent-row.active {
+  background: var(--gold-dim);
+  border: 1px solid rgba(200,163,91,0.2);
+}
+.agent-row.active .agent-name { color: var(--gold); }
+.agent-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--surface-4);
+  border: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-2);
+  flex-shrink: 0;
+  position: relative;
+}
+.agent-status-dot {
+  position: absolute; bottom: -1px; right: -1px;
+  width: 8px; height: 8px; border-radius: 50%;
+  border: 1.5px solid var(--surface-1);
+  background: var(--text-4);
+}
+.agent-status-dot.working { background: var(--gold); box-shadow: 0 0 4px var(--gold); }
+.agent-status-dot.error   { background: var(--red); }
+.agent-status-dot.online  { background: var(--green); }
+.agent-info { flex: 1; min-width: 0; }
+.agent-name { font-size: 12.5px; font-weight: 500; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.agent-role { font-size: 10.5px; color: var(--text-4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.agent-row.flash-ok  { background: var(--green-dim) !important; }
+.agent-row.flash-err { background: var(--red-dim)   !important; }
+
+/* ── Main Content ──────────────────────────────────────────── */
+#main {
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  min-height: 0;
+  background: var(--bg);
+}
+
+/* ── Dashboard View ────────────────────────────────────────── */
+#view-dashboard {
+  flex: 1; overflow-y: auto;
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+#view-dashboard.hidden { display: none; }
+
+/* Stat cards row */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.stat-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-1);
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+}
+.stat-label { font-size: 11px; font-weight: 500; color: var(--text-3); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px; }
+.stat-value { font-size: 28px; font-weight: 600; letter-spacing: -0.03em; color: var(--text-1); line-height: 1; }
+.stat-sub { font-size: 11px; color: var(--text-4); margin-top: 4px; }
+.stat-card.gold .stat-value  { color: var(--gold); }
+.stat-card.green .stat-value { color: var(--green); }
+.stat-card.red .stat-value   { color: var(--red); }
+
+/* Section headings */
+.section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.section-title-text {
+  font-size: 12px; font-weight: 600;
+  color: var(--text-2);
+  letter-spacing: -0.01em;
+}
+.section-badge {
+  font-size: 10px; font-weight: 500;
+  padding: 2px 7px; border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--text-4);
+  border: 1px solid var(--border);
+}
+
+/* ── Uptime Kuma-style routine status grid ─────────────────── */
+.routine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+.routine-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+  transition: border-color 0.15s;
+  cursor: default;
+}
+.routine-card:hover { border-color: var(--border-2); }
+.routine-card.enabled  { border-left: 3px solid var(--green); }
+.routine-card.shadow   { border-left: 3px solid var(--gold); }
+.routine-card.disabled { border-left: 3px solid var(--border-2); opacity: 0.55; }
+.routine-card.firing   { border-left: 3px solid var(--blue); background: var(--blue-dim); }
+.routine-card.failed   { border-left: 3px solid var(--red); }
+.routine-info { flex: 1; min-width: 0; }
+.routine-name { font-size: 12.5px; font-weight: 500; color: var(--text-1); }
+.routine-meta { font-size: 10.5px; color: var(--text-4); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+.routine-badge {
+  font-size: 10px; font-weight: 600;
+  padding: 2px 8px; border-radius: 999px;
+  letter-spacing: 0.04em; white-space: nowrap;
+  flex-shrink: 0;
+}
+.routine-badge.ok       { background: var(--green-dim); color: var(--green); }
+.routine-badge.shadow   { background: var(--gold-dim);  color: var(--gold); }
+.routine-badge.off      { background: var(--surface-3); color: var(--text-4); }
+.routine-badge.err      { background: var(--red-dim);   color: var(--red); }
+.routine-badge.firing   { background: var(--blue-dim);  color: var(--blue); }
+
+/* Uptime bars */
+.uptime-bars { display: flex; gap: 2px; align-items: flex-end; height: 24px; }
+.uptime-bar {
+  width: 6px; height: 100%; border-radius: 2px;
+  background: var(--surface-4);
+  flex-shrink: 0;
+}
+.uptime-bar.ok     { background: var(--green); opacity: 0.7; }
+.uptime-bar.fail   { background: var(--red);   opacity: 0.8; }
+.uptime-bar.shadow { background: var(--gold);  opacity: 0.5; }
+.uptime-bar.empty  { background: var(--surface-4); }
+
+/* ── Dispatch feed ─────────────────────────────────────────── */
+.dispatch-feed { display: flex; flex-direction: column; gap: 3px; }
+.dispatch-row {
+  display: grid;
+  grid-template-columns: 20px 1fr 90px 70px 60px;
+  align-items: center; gap: 10px;
+  padding: 7px 12px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  transition: background 0.1s;
+}
+.dispatch-row:hover { background: var(--surface-3); }
+.dispatch-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dispatch-dot.success { background: var(--green); }
+.dispatch-dot.failure, .dispatch-dot.fail { background: var(--red); }
+.dispatch-dot.shadow_ok { background: var(--gold); }
+.dispatch-dot.retry { background: var(--yellow); }
+.d-name { font-weight: 500; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-agent { color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.d-time { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-4); text-align: right; }
+.d-dur  { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-4); text-align: right; }
+.d-outcome {
+  font-size: 10px; font-weight: 600;
+  padding: 2px 7px; border-radius: 999px;
+  text-align: center; letter-spacing: 0.04em;
+}
+.d-outcome.success  { background: var(--green-dim);  color: var(--green); }
+.d-outcome.failure  { background: var(--red-dim);    color: var(--red);   }
+.d-outcome.fail     { background: var(--red-dim);    color: var(--red);   }
+.d-outcome.shadow_ok{ background: var(--gold-dim);   color: var(--gold);  }
+.d-outcome.retry    { background: var(--yellow-dim); color: var(--yellow);}
+
+/* DLQ */
+.dlq-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px;
+  background: var(--red-dim);
+  border: 1px solid rgba(248,113,113,0.2);
+  border-radius: var(--radius);
+  font-size: 12px;
+}
+.dlq-icon { color: var(--red); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.dlq-info { flex: 1; }
+.dlq-name { font-weight: 600; color: var(--red); margin-bottom: 2px; }
+.dlq-meta { color: var(--text-3); font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+
+/* ── Chat View ─────────────────────────────────────────────── */
+#view-chat { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+#view-chat.hidden { display: none; }
+.chat-topbar {
+  padding: 0 20px;
+  height: 52px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+  flex-shrink: 0;
+}
+.chat-agent-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--surface-4); border: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; color: var(--text-2);
+}
+.chat-agent-name { font-size: 14px; font-weight: 600; color: var(--text-1); }
+.chat-agent-role { font-size: 12px; color: var(--text-3); }
+.chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.msg-row { display: flex; gap: 10px; max-width: 76%; }
+.msg-row.user { align-self: flex-end; flex-direction: row-reverse; }
+.msg-row.assistant { align-self: flex-start; }
+.msg-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--surface-4); border: 1px solid var(--border-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600; color: var(--text-3);
+  flex-shrink: 0; margin-top: 2px;
+}
+.msg-bubble {
+  padding: 9px 13px;
+  border-radius: 10px;
+  line-height: 1.55;
+  font-size: 13px;
+  white-space: pre-wrap;
+}
+.msg-row.user .msg-bubble {
+  background: var(--gold);
+  color: #08090a;
+  border-radius: 10px 10px 2px 10px;
+}
+.msg-row.assistant .msg-bubble {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-1);
+  border-radius: 2px 10px 10px 10px;
+}
+.chat-composer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 8px; align-items: flex-end;
+  flex-shrink: 0;
+}
+.chat-composer textarea {
+  flex: 1; resize: none;
+  min-height: 40px; max-height: 160px;
+  background: var(--surface-2);
+  color: var(--text-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  outline: none;
+  transition: border-color 0.12s;
+}
+.chat-composer textarea:focus { border-color: var(--gold); }
+.chat-composer textarea::placeholder { color: var(--text-4); }
+.chat-composer textarea:disabled { opacity: 0.45; }
+.send-btn {
+  height: 38px; padding: 0 16px;
+  background: var(--gold);
+  color: #08090a;
+  border-radius: 7px;
+  font-size: 13px; font-weight: 600;
+  transition: opacity 0.1s;
+  flex-shrink: 0;
+}
+.send-btn:hover:not(:disabled) { opacity: 0.88; }
+.send-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.empty-state {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  color: var(--text-4); text-align: center; padding: 40px;
+}
+.empty-state-icon { font-size: 32px; opacity: 0.5; }
+.empty-state-text { font-size: 13px; }
+
+/* ── Right Rail ────────────────────────────────────────────── */
+#rail {
+  background: var(--surface-1);
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  min-height: 0;
+}
+.rail-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+.rail-tab {
+  padding: 13px 10px 11px;
+  font-size: 11.5px; font-weight: 500;
+  color: var(--text-3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.1s;
+  letter-spacing: 0.01em;
+}
+.rail-tab:hover { color: var(--text-2); }
+.rail-tab.active { color: var(--text-1); border-bottom-color: var(--gold); }
+.rail-body { flex: 1; overflow-y: auto; padding: 12px 14px; }
+.rail-body.hidden { display: none; }
+
+/* Events stream */
+.event-row {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+}
+.event-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 500;
+  color: var(--text-3);
+}
+.event-type.ok   { color: var(--green); }
+.event-type.fail { color: var(--red); }
+.event-type.gold { color: var(--gold); }
+.event-ts { color: var(--text-4); font-family: 'JetBrains Mono', monospace; font-size: 10px; }
+.event-payload { color: var(--text-4); font-size: 10px; margin-top: 2px; font-family: 'JetBrains Mono', monospace; word-break: break-all; }
+
+/* Agent persona editor */
+.ae-wrap { display: flex; flex-direction: column; gap: 14px; padding: 4px 0; }
+.ae-header { padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.ae-name-text { font-size: 15px; font-weight: 600; color: var(--text-1); margin-bottom: 3px; }
+.ae-meta-row { font-size: 11px; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
+.ae-field-label {
+  font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-4); margin-bottom: 5px;
+}
+.ae-textarea {
+  width: 100%; resize: vertical;
+  min-height: 200px;
+  background: var(--surface-2);
+  color: var(--text-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 11px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; line-height: 1.55;
+  outline: none;
+  transition: border-color 0.12s;
+}
+.ae-textarea:focus { border-color: var(--gold); }
+.ae-actions { display: flex; align-items: center; gap: 8px; }
+.ae-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  font-size: 11.5px; font-weight: 500;
+  transition: opacity 0.1s;
+}
+.ae-btn-save { background: var(--gold); color: #08090a; }
+.ae-btn-save:disabled { opacity: 0.35; cursor: not-allowed; }
+.ae-btn-revert { background: var(--surface-3); color: var(--text-2); border: 1px solid var(--border); }
+.ae-btn-revert:disabled { opacity: 0.35; cursor: not-allowed; }
+.ae-status-text { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-4); }
+.ae-status-text.ok  { color: var(--green); }
+.ae-status-text.err { color: var(--red); }
+
+/* Misc */
+.mono { font-family: 'JetBrains Mono', monospace; }
+.text-muted { color: var(--text-3); }
+.text-tiny  { font-size: 10.5px; color: var(--text-4); }
+.empty { padding: 28px; text-align: center; color: var(--text-4); font-size: 12px; }
 </style>
 </head>
 <body>
-<header>
-  <h1 style="color: var(--gold); font-size: 24px;">Apulu HQ <span style="color: var(--muted); font-size: 12px;">v0</span></h1>
-  <div style="display: flex; gap: 4px; align-items: center;">
-    <div class="mode-toggle">
-      <button data-mode="map" class="active">Map</button>
-      <button data-mode="chat">Chat</button>
-    </div>
-    <span class="pill" id="health">connecting…</span>
-    <span class="pill" id="backend">backend ⚫</span>
-    <span class="pill" id="ws">ws ⚫</span>
-  </div>
-</header>
 
+<!-- ── Topbar ─────────────────────────────────────────────── -->
+<div id="topbar">
+  <div class="topbar-logo">
+    <div class="logo-mark">A</div>
+    Apulu HQ
+  </div>
+  <div class="topbar-divider"></div>
+  <div class="topbar-tabs">
+    <button class="topbar-tab active" data-view="dashboard">Dashboard</button>
+    <button class="topbar-tab" data-view="chat">Chat</button>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="status-pills">
+    <div class="pill" id="pill-health"><div class="pill-dot" id="dot-health"></div><span id="text-health">connecting…</span></div>
+    <div class="pill" id="pill-backend"><div class="pill-dot" id="dot-backend"></div><span id="text-backend">backend</span></div>
+    <div class="pill" id="pill-ws"><div class="pill-dot" id="dot-ws"></div><span id="text-ws">ws</span></div>
+    <div class="pill" id="pill-shadow" style="display:none"><div class="pill-dot" style="background:var(--gold)"></div><span>shadow mode</span></div>
+  </div>
+</div>
+
+<!-- ── Alert Banner ───────────────────────────────────────── -->
 <div id="banner"></div>
 
-<aside class="agents">
-  <div class="section-title">Agents</div>
-  <div id="agents"></div>
-</aside>
+<!-- ── Left Sidebar ───────────────────────────────────────── -->
+<div id="sidebar">
+  <div class="sidebar-section"><div class="sidebar-label">Agents</div></div>
+  <div class="agent-list" id="agent-list"></div>
+</div>
 
-<main class="center">
+<!-- ── Main ───────────────────────────────────────────────── -->
+<div id="main">
 
-  <!-- Map view (default) -->
-  <div id="map-view"></div>
+  <!-- Dashboard -->
+  <div id="view-dashboard">
 
-  <!-- Floating chat panel when in map mode -->
-  <div id="chat-overlay">
-    <button class="close-x" id="chat-overlay-close">✕</button>
-    <div class="chat-header" id="overlay-chat-header"><h2>Select an agent</h2></div>
-    <div class="messages" id="overlay-messages"><div class="empty">Click a sprite or an agent in the list to chat.</div></div>
-    <div class="composer">
-      <textarea id="overlay-input" placeholder="Message…" disabled></textarea>
-      <button id="overlay-send" disabled>Send</button>
+    <!-- Stat cards -->
+    <div class="stat-row" id="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Dispatches</div>
+        <div class="stat-value" id="stat-total">—</div>
+        <div class="stat-sub">all time</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Success Rate</div>
+        <div class="stat-value" id="stat-success-rate">—</div>
+        <div class="stat-sub" id="stat-success-sub">last 7 days</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-label">Shadow Fires</div>
+        <div class="stat-value" id="stat-shadow">—</div>
+        <div class="stat-sub">soak in progress</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-label">DLQ Entries</div>
+        <div class="stat-value" id="stat-dlq">—</div>
+        <div class="stat-sub">needs attention</div>
+      </div>
+    </div>
+
+    <!-- Routines grid (Uptime Kuma style) -->
+    <div>
+      <div class="section-head">
+        <div class="section-title-text">Routine Status</div>
+        <div class="section-badge" id="routines-badge">loading…</div>
+      </div>
+      <div class="routine-grid" id="routine-grid"></div>
+    </div>
+
+    <!-- Dispatch feed -->
+    <div>
+      <div class="section-head">
+        <div class="section-title-text">Recent Dispatches</div>
+        <button class="section-badge" id="refresh-dispatches" style="cursor:pointer">↻ Refresh</button>
+      </div>
+      <div class="dispatch-feed" id="dispatch-feed"></div>
+    </div>
+
+    <!-- DLQ section (only shown if non-empty) -->
+    <div id="dlq-section" style="display:none">
+      <div class="section-head">
+        <div class="section-title-text" style="color:var(--red)">⚠ Dead Letter Queue</div>
+        <div class="section-badge" id="dlq-badge">0</div>
+      </div>
+      <div id="dlq-list" style="display:flex;flex-direction:column;gap:4px;"></div>
+    </div>
+
+  </div><!-- /view-dashboard -->
+
+  <!-- Chat view -->
+  <div id="view-chat" class="hidden">
+    <div class="chat-topbar" id="chat-topbar">
+      <div class="empty-state" style="padding:0; flex-direction:row; color:var(--text-3); font-size:13px;">
+        ← Select an agent to start chatting
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="empty-state">
+        <div class="empty-state-icon">💬</div>
+        <div class="empty-state-text">Click any agent in the sidebar to open a conversation</div>
+      </div>
+    </div>
+    <div class="chat-composer">
+      <textarea id="chat-input" placeholder="Message…" disabled rows="1"></textarea>
+      <button class="send-btn" id="chat-send" disabled>Send</button>
     </div>
   </div>
 
-  <!-- Chat view (alternative mode — full center column) -->
-  <div id="chat-view" class="hidden">
-    <div class="chat-header" id="chat-header">
-      <h2>Select an agent</h2>
-      <div class="sub">Click any agent on the left to start a conversation.</div>
-    </div>
-    <div class="messages" id="messages"><div class="empty">No conversation yet.</div></div>
-    <div class="composer">
-      <textarea id="input" placeholder="Message will be sent to the selected agent…" disabled></textarea>
-      <button id="send" disabled>Send</button>
-    </div>
-  </div>
+</div><!-- /main -->
 
-</main>
-
-<aside class="events">
-  <div class="panel-tabs">
-    <button data-tab="events" class="active">Events</button>
-    <button data-tab="dispatches">Dispatches</button>
-    <button data-tab="dlq">DLQ</button>
-    <button data-tab="agent">Agent</button>
+<!-- ── Right Rail ─────────────────────────────────────────── -->
+<div id="rail">
+  <div class="rail-tabs">
+    <button class="rail-tab active" data-tab="events">Events</button>
+    <button class="rail-tab" data-tab="agent">Agent</button>
+    <button class="rail-tab" data-tab="scheduler">Scheduler</button>
   </div>
-  <div class="panel-body" id="events-panel"></div>
-  <div class="panel-body" id="dispatches-panel" hidden></div>
-  <div class="panel-body" id="dlq-panel" hidden></div>
-  <div class="panel-body" id="agent-panel" hidden>
-    <div id="agent-editor-empty" class="empty">Select an agent to edit their persona.</div>
-    <div id="agent-editor" hidden>
-      <div class="ae-meta">
-        <div class="ae-name" id="ae-name"></div>
-        <div class="ae-sub"><span id="ae-role"></span> · <span id="ae-dept"></span></div>
-        <div class="ae-sub ae-mono">
-          <span id="ae-adapter"></span><span id="ae-model"></span>
+  <div class="rail-body" id="rail-events"></div>
+  <div class="rail-body hidden" id="rail-agent">
+    <div class="empty" id="ae-empty">Select an agent to edit their persona.</div>
+    <div id="ae-editor" style="display:none">
+      <div class="ae-wrap">
+        <div class="ae-header">
+          <div class="ae-name-text" id="ae-name"></div>
+          <div class="ae-meta-row" id="ae-meta"></div>
         </div>
-      </div>
-      <label class="ae-label" for="ae-system-prompt">System Prompt</label>
-      <textarea id="ae-system-prompt" rows="14" spellcheck="false"></textarea>
-      <div class="ae-actions">
-        <button id="ae-save" disabled>Save</button>
-        <button id="ae-revert" disabled>Revert</button>
-        <span id="ae-status" class="ae-status"></span>
-      </div>
-      <div class="ae-hint">
-        Saved instantly. Next chat with this agent uses the new prompt — no restart needed.
+        <div>
+          <div class="ae-field-label">System Prompt</div>
+          <textarea class="ae-textarea" id="ae-prompt" rows="14" spellcheck="false"></textarea>
+        </div>
+        <div class="ae-actions">
+          <button class="ae-btn ae-btn-save" id="ae-save" disabled>Save</button>
+          <button class="ae-btn ae-btn-revert" id="ae-revert" disabled>Revert</button>
+          <span class="ae-status-text" id="ae-status"></span>
+        </div>
+        <div class="text-tiny">Saved instantly — no restart needed.</div>
       </div>
     </div>
   </div>
-</aside>
+  <div class="rail-body hidden" id="rail-scheduler">
+    <div style="display:flex;flex-direction:column;gap:8px;" id="scheduler-status"></div>
+  </div>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/phaser@3.85.2/dist/phaser.min.js"></script>
 <script type="module">
-import { bootHQMap } from "./hq-map.js";
-
-const API = location.origin;
-const WS_URL = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/ws";
+const API    = location.origin;
+const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws';
 
 const state = {
-  mode: "map",            // "map" | "chat"
-  agents: [],
-  agentById: {},
+  agents: [], agentById: {},
+  routines: [], routineById: {},
   activeAgent: null,
   threadId: null,
   ws: null,
-  mapGame: null,
-  mapScene: null,
+  dispatchHistory: {},  // routineId → last 15 outcomes
+  view: 'dashboard',
 };
 
-// ---------- Backend ----------
+// ── Utilities ────────────────────────────────────────────────
+
+function initials(name) {
+  return name.split(/[\s&]+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+}
+
+function relTime(iso) {
+  if (!iso) return '';
+  const d = Date.now() - new Date(iso);
+  if (d < 60000) return `${Math.round(d/1000)}s ago`;
+  if (d < 3600000) return `${Math.round(d/60000)}m ago`;
+  if (d < 86400000) return `${Math.round(d/3600000)}h ago`;
+  return new Date(iso).toLocaleDateString();
+}
+
+function timeStr(iso) {
+  if (!iso) return '';
+  const t = iso.replace('T',' ').slice(0,16);
+  return t;
+}
+
+// ── Health ───────────────────────────────────────────────────
 
 async function loadHealth() {
   try {
-    const r = await fetch(API + "/api/health");
-    const j = await r.json();
-    document.getElementById("health").textContent =
-      `${j.agents} agents · ${j.routines} routines · ${j.anthropic_key_set ? "key ✓" : "subscription"}`;
-    document.getElementById("health").classList.add("ok");
-  } catch (e) {
-    document.getElementById("health").textContent = "backend down";
+    const j = await fetch(API + '/api/health').then(r=>r.json());
+    document.getElementById('text-health').textContent = `${j.agents} agents · ${j.routines} routines`;
+    document.getElementById('dot-health').className = 'pill-dot ok';
+    document.getElementById('text-backend').textContent = 'backend ok';
+    document.getElementById('dot-backend').className = 'pill-dot ok';
+  } catch {
+    document.getElementById('text-health').textContent = 'backend down';
+    document.getElementById('dot-health').className = 'pill-dot err';
+    document.getElementById('dot-backend').className = 'pill-dot err';
   }
 }
 
+// ── Agents ───────────────────────────────────────────────────
+
 async function loadAgents() {
-  const r = await fetch(API + "/api/agents");
-  state.agents = await r.json();
-  state.agentById = Object.fromEntries(state.agents.map(a => [a.id, a]));
-  renderAgentList();
-  return state.agents;
+  const data = await fetch(API + '/api/agents').then(r=>r.json());
+  state.agents = data;
+  state.agentById = Object.fromEntries(data.map(a=>[a.id,a]));
+  renderSidebar();
 }
 
-function renderAgentList() {
-  const root = document.getElementById("agents");
-  root.innerHTML = "";
+const DEPT_ORDER = ['board','cos','marketing','operations','research','production','post-prod'];
+
+function renderSidebar() {
+  const root = document.getElementById('agent-list');
+  root.innerHTML = '';
   const byDept = {};
-  state.agents.forEach(a => { (byDept[a.department] = byDept[a.department] || []).push(a); });
-  const order = ["board", "cos", "marketing", "operations", "research", "production", "post-prod"];
-  order.forEach(dept => {
+  state.agents.forEach(a => {(byDept[a.department] = byDept[a.department]||[]).push(a);});
+  DEPT_ORDER.forEach(dept => {
     if (!byDept[dept]) return;
-    const head = document.createElement("div");
-    head.className = "section-title";
+    const head = document.createElement('div');
+    head.className = 'agent-group-head';
     head.textContent = dept;
     root.appendChild(head);
     byDept[dept].forEach(a => {
-      const el = document.createElement("div");
-      el.className = "agent";
+      const el = document.createElement('div');
+      el.className = 'agent-row';
       el.dataset.id = a.id;
-      el.innerHTML = `<div class="info"><div class="dept">${a.adapter_type}</div><div class="name">${a.display_name}</div><div class="role">${a.role}</div></div><div class="status" data-id="${a.id}">💼</div>`;
+      el.innerHTML = `
+        <div class="agent-avatar" id="av-${a.id}">
+          ${initials(a.display_name)}
+          <div class="agent-status-dot" id="dot-agent-${a.id}"></div>
+        </div>
+        <div class="agent-info">
+          <div class="agent-name">${a.display_name}</div>
+          <div class="agent-role">${a.role||''}</div>
+        </div>`;
       el.onclick = () => selectAgent(a.id);
       root.appendChild(el);
     });
   });
 }
 
-async function loadDispatches() {
-  const r = await fetch(API + "/api/dispatches?limit=50");
-  const rows = await r.json();
-  const panel = document.getElementById("dispatches-panel");
-  if (!rows.length) { panel.innerHTML = `<div class="empty">No dispatches yet.</div>`; return; }
-  panel.innerHTML = "";
-  rows.forEach(d => {
-    const cls = d.outcome === "success" ? "success" : d.outcome === "failure" ? "fail" : "";
-    const ts = d.started_at?.replace("T", " ").slice(0, 19) || "";
-    const dur = d.duration_ms ? ` · ${(d.duration_ms/1000).toFixed(1)}s` : "";
-    const sig = d.signature ? ` · sig=${d.signature}` : "";
-    const el = document.createElement("div");
-    el.className = "dispatch " + cls;
-    el.innerHTML = `<div class="name">${d.routine_name || d.routine_id}</div><div class="meta">${ts} · ${d.agent_name || ""} · attempt ${d.attempt}${dur}${sig}</div>`;
-    panel.appendChild(el);
+function setAgentDot(agentId, state_) {
+  const dot = document.getElementById(`dot-agent-${agentId}`);
+  if (dot) dot.className = 'agent-status-dot ' + (state_||'');
+}
+
+// ── Routines ─────────────────────────────────────────────────
+
+async function loadRoutines() {
+  const data = await fetch(API + '/api/routines').then(r=>r.json()).catch(()=>[]);
+  state.routines = data;
+  state.routineById = Object.fromEntries(data.map(r=>[r.id,r]));
+  renderRoutineGrid();
+}
+
+function renderRoutineGrid() {
+  const grid = document.getElementById('routine-grid');
+  const badge = document.getElementById('routines-badge');
+  const enabled = state.routines.filter(r=>r.enabled).length;
+  badge.textContent = `${enabled} / ${state.routines.length} enabled`;
+  grid.innerHTML = '';
+
+  // Sort: enabled first, then by fire count descending
+  const sorted = [...state.routines].sort((a,b) => {
+    if (a.enabled !== b.enabled) return b.enabled - a.enabled;
+    return 0;
+  });
+
+  sorted.forEach(r => {
+    const hist = state.dispatchHistory[r.id] || [];
+    const card = document.createElement('div');
+    const shadow = r.enabled && window.__shadowMode;
+    const cls = !r.enabled ? 'disabled' : shadow ? 'shadow' : 'enabled';
+    card.className = 'routine-card ' + cls;
+
+    const badgeLabel = !r.enabled ? 'off' : shadow ? 'shadow' : 'live';
+    const badgeCls   = !r.enabled ? 'off' : shadow ? 'shadow' : 'ok';
+
+    // Build uptime bars (last 12 dispatches)
+    const bars = Array.from({length:12}, (_,i) => {
+      const h = hist[i];
+      if (!h) return '<div class="uptime-bar empty"></div>';
+      const bc = h==='success'?'ok' : h==='shadow_ok'?'shadow' : h==='failure'||h==='fail'?'fail':'empty';
+      return `<div class="uptime-bar ${bc}" title="${h}"></div>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="routine-info">
+        <div class="routine-name">${r.display_name}</div>
+        <div class="routine-meta">${r.cron_expr||''} · ${r.timezone?.replace('America/','')}</div>
+      </div>
+      <div class="uptime-bars">${bars}</div>
+      <div class="routine-badge ${badgeCls}">${badgeLabel}</div>`;
+    grid.appendChild(card);
   });
 }
+
+// ── Dispatches ───────────────────────────────────────────────
+
+async function loadDispatches() {
+  const rows = await fetch(API + '/api/dispatches?limit=60').then(r=>r.json()).catch(()=>[]);
+
+  // Feed history into routine history map
+  const hist = {};
+  rows.forEach(d => {
+    if (!hist[d.routine_id]) hist[d.routine_id] = [];
+    if (hist[d.routine_id].length < 12) hist[d.routine_id].push(d.outcome);
+  });
+  state.dispatchHistory = hist;
+  renderRoutineGrid();
+
+  // Stats
+  const total = rows.length;
+  const ok = rows.filter(d=>d.outcome==='success').length;
+  const shadow = rows.filter(d=>d.outcome==='shadow_ok').length;
+  document.getElementById('stat-total').textContent = total.toLocaleString();
+  document.getElementById('stat-success-rate').textContent = total ? Math.round(ok/Math.max(total-shadow,1)*100)+'%' : '—';
+  document.getElementById('stat-shadow').textContent = shadow;
+
+  // Feed
+  const feed = document.getElementById('dispatch-feed');
+  feed.innerHTML = '';
+  rows.slice(0,30).forEach(d => {
+    const row = document.createElement('div');
+    row.className = 'dispatch-row';
+    const out = d.outcome||'';
+    const dur = d.duration_ms ? (d.duration_ms/1000).toFixed(1)+'s' : '—';
+    row.innerHTML = `
+      <div class="dispatch-dot ${out}"></div>
+      <div class="d-name">${d.routine_name||d.routine_id}</div>
+      <div class="d-agent">${d.agent_name||''}</div>
+      <div class="d-time">${relTime(d.started_at)}</div>
+      <div class="d-dur">${dur}</div>
+      <div class="d-outcome ${out}">${out||'—'}</div>`;
+    feed.appendChild(row);
+  });
+  if (!rows.length) feed.innerHTML = '<div class="empty">No dispatches yet.</div>';
+}
+
+// ── DLQ ─────────────────────────────────────────────────────
 
 async function loadDlq() {
-  const r = await fetch(API + "/api/dlq");
-  const rows = await r.json();
-  const panel = document.getElementById("dlq-panel");
-  if (!rows.length) { panel.innerHTML = `<div class="empty">DLQ empty 🎉</div>`; return; }
-  panel.innerHTML = "";
-  rows.forEach(d => {
-    const ts = d.appended_at?.replace("T", " ").slice(0, 19) || "";
-    const el = document.createElement("div");
-    el.className = "dispatch fail";
-    el.innerHTML = `<div class="name">${d.payload?.slot || d.routine_id}</div><div class="meta">${ts} · ${d.signature || "no sig"}</div>`;
-    panel.appendChild(el);
+  const rows = await fetch(API + '/api/dlq').then(r=>r.json()).catch(()=>[]);
+  const active = rows.filter(r=>!r.discarded_at&&!r.replayed_at);
+  document.getElementById('stat-dlq').textContent = active.length;
+  const sec = document.getElementById('dlq-section');
+  const badge = document.getElementById('dlq-badge');
+  const list = document.getElementById('dlq-list');
+  if (!active.length) { sec.style.display='none'; return; }
+  sec.style.display='block';
+  badge.textContent = active.length;
+  list.innerHTML = '';
+  active.slice(0,10).forEach(d => {
+    const row = document.createElement('div');
+    row.className = 'dlq-row';
+    row.innerHTML = `
+      <div class="dlq-icon">⚠</div>
+      <div class="dlq-info">
+        <div class="dlq-name">${d.payload?.slot||d.routine_id||'unknown'}</div>
+        <div class="dlq-meta">${d.signature||'no signature'} · ${relTime(d.appended_at)}</div>
+      </div>`;
+    list.appendChild(row);
   });
 }
 
-// ---------- Chat ----------
+// ── Scheduler rail ───────────────────────────────────────────
 
-function selectAgent(agentId) {
-  const a = state.agentById[agentId];
+async function loadScheduler() {
+  try {
+    const j = await fetch(API + '/api/scheduler').then(r=>r.json());
+    window.__shadowMode = j.shadow;
+    const pill = document.getElementById('pill-shadow');
+    pill.style.display = j.shadow ? '' : 'none';
+    const cont = document.getElementById('scheduler-status');
+    cont.innerHTML = `
+      <div class="pill" style="justify-content:space-between">
+        <span>Status</span>
+        <span style="color:${j.started?'var(--green)':'var(--red)'}">${j.started?'running':'stopped'}</span>
+      </div>
+      <div class="pill" style="justify-content:space-between">
+        <span>Shadow mode</span>
+        <span style="color:${j.shadow?'var(--gold)':'var(--green)'}">${j.shadow?'on':'off'}</span>
+      </div>
+      <div class="sidebar-label" style="margin-top:8px">Scheduled Jobs</div>
+      ${(j.jobs||[]).map(job=>`
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:9px 11px">
+          <div style="font-size:12.5px;font-weight:500;color:var(--text-1)">${job.name}</div>
+          <div class="mono text-tiny" style="margin-top:3px">next: ${job.next_run_time?.replace('T',' ').slice(0,16)||'—'}</div>
+        </div>`).join('')}`;
+  } catch {
+    document.getElementById('scheduler-status').innerHTML = '<div class="empty">Scheduler unreachable</div>';
+  }
+}
+
+// ── View switching ───────────────────────────────────────────
+
+function setView(v) {
+  state.view = v;
+  document.getElementById('view-dashboard').classList.toggle('hidden', v!=='dashboard');
+  document.getElementById('view-chat').classList.toggle('hidden', v!=='chat');
+  document.querySelectorAll('.topbar-tab').forEach(t => t.classList.toggle('active', t.dataset.view===v));
+}
+
+// ── Agent selection ──────────────────────────────────────────
+
+function selectAgent(id) {
+  const a = state.agentById[id];
   if (!a) return;
   state.activeAgent = a;
   state.threadId = null;
-  document.querySelectorAll(".agent").forEach(el => el.classList.toggle("active", el.dataset.id === agentId));
 
-  // Update both chat surfaces (overlay + standalone)
-  ["chat-header", "overlay-chat-header"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = `<h2>${a.display_name}</h2><div class="sub">${a.role} · ${a.adapter_type}</div>`;
-  });
-  ["messages", "overlay-messages"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = `<div class="empty">Start a new conversation with ${a.display_name}.</div>`;
-  });
-  ["input", "overlay-input"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.disabled = false;
-  });
-  ["send", "overlay-send"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.disabled = false;
-  });
+  document.querySelectorAll('.agent-row').forEach(el =>
+    el.classList.toggle('active', el.dataset.id===id));
 
-  // Open the floating chat overlay in map mode
-  if (state.mode === "map") {
-    document.getElementById("chat-overlay").classList.add("show");
-    document.getElementById("overlay-input").focus();
-  } else {
-    document.getElementById("input").focus();
-  }
+  // Update chat header
+  const hdr = document.getElementById('chat-topbar');
+  hdr.innerHTML = `
+    <div class="chat-agent-avatar">${initials(a.display_name)}</div>
+    <div>
+      <div class="chat-agent-name">${a.display_name}</div>
+      <div class="chat-agent-role">${a.role} · ${a.adapter_type}</div>
+    </div>`;
 
-  // Tell the map scene to highlight the agent
-  if (state.mapScene) state.mapScene.setChatting(agentId);
+  const msgs = document.getElementById('chat-messages');
+  msgs.innerHTML = `<div class="empty-state"><div class="empty-state-icon">👋</div><div class="empty-state-text">Start a conversation with ${a.display_name}</div></div>`;
 
-  // Refresh the persona editor (no-op visually if Agent tab isn't active)
-  if (typeof renderAgentEditor === "function") renderAgentEditor();
+  document.getElementById('chat-input').disabled = false;
+  document.getElementById('chat-send').disabled = false;
+
+  // Switch to chat view
+  setView('chat');
+  setTimeout(()=>document.getElementById('chat-input').focus(), 80);
+
+  // Update agent tab in rail
+  renderAgentEditor();
 }
 
-function appendMessage(role, text, replaceLast = false) {
-  // Append to whichever messages list is currently visible
-  const id = state.mode === "map" ? "overlay-messages" : "messages";
-  const root = document.getElementById(id);
-  if (root.querySelector(".empty")) root.innerHTML = "";
+// ── Chat ─────────────────────────────────────────────────────
+
+function appendMsg(role, text, replaceLast=false) {
+  const root = document.getElementById('chat-messages');
+  if (root.querySelector('.empty-state')) root.innerHTML = '';
   let el;
-  if (replaceLast && root.lastChild?.classList.contains(role) && root.lastChild.dataset.streaming === "1") {
-    el = root.lastChild;
+  if (replaceLast && root.lastChild?.dataset.streaming==='1') {
+    el = root.lastChild.querySelector('.msg-bubble');
+    el.textContent += text;
   } else {
-    el = document.createElement("div");
-    el.className = "msg " + role;
-    el.dataset.streaming = role === "assistant" ? "1" : "0";
-    root.appendChild(el);
+    const row = document.createElement('div');
+    row.className = 'msg-row ' + role;
+    row.dataset.streaming = role==='assistant'?'1':'0';
+    const av = document.createElement('div');
+    av.className = 'msg-avatar';
+    av.textContent = role==='user' ? 'You' : initials(state.activeAgent?.display_name||'A');
+    const bub = document.createElement('div');
+    bub.className = 'msg-bubble';
+    bub.textContent = text;
+    row.appendChild(av); row.appendChild(bub);
+    root.appendChild(row);
+    el = bub;
   }
-  el.textContent += text;
   root.scrollTop = root.scrollHeight;
-  return el;
 }
 
-async function send() {
-  const inputId = state.mode === "map" ? "overlay-input" : "input";
-  const input = document.getElementById(inputId);
+async function sendChat() {
+  const input = document.getElementById('chat-input');
   const msg = input.value.trim();
   if (!msg || !state.activeAgent) return;
-  appendMessage("user", msg);
-  input.value = "";
+  input.value = '';
+  input.style.height = '';
+  appendMsg('user', msg);
   await fetch(`${API}/api/agents/${state.activeAgent.id}/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: msg, thread_id: state.threadId }),
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({message:msg, thread_id:state.threadId}),
   });
 }
 
-// ---------- Mode toggle ----------
-
-function setMode(newMode) {
-  state.mode = newMode;
-  document.querySelectorAll(".mode-toggle button").forEach(b => b.classList.toggle("active", b.dataset.mode === newMode));
-  document.getElementById("map-view").classList.toggle("hidden", newMode !== "map");
-  document.getElementById("chat-view").classList.toggle("hidden", newMode !== "chat");
-  if (newMode !== "map") {
-    document.getElementById("chat-overlay").classList.remove("show");
-  } else if (state.activeAgent) {
-    document.getElementById("chat-overlay").classList.add("show");
-  }
-  // Trigger resize so Phaser re-fits canvas to its container
-  if (state.mapGame && newMode === "map") {
-    setTimeout(() => state.mapGame.scale.refresh(), 0);
-  }
-}
-
-// ---------- Visual flash on agent rows ----------
-
-function flashAgent(agentId, kind) {
-  if (!agentId) return;
-  const el = document.querySelector(`.agent[data-id="${agentId}"]`);
-  if (el) {
-    el.classList.add(kind === "success" ? "flash-success" : "flash-fail");
-    const statusEl = document.querySelector(`.status[data-id="${agentId}"]`);
-    if (statusEl) statusEl.textContent = kind === "success" ? "✅" : "⚠️";
-    setTimeout(() => {
-      el.classList.remove("flash-success", "flash-fail");
-      if (statusEl) statusEl.textContent = "💼";
-    }, 4000);
-  }
-}
-
-// ---------- WS dispatch ----------
+// ── WebSocket ────────────────────────────────────────────────
 
 function connectWs() {
   state.ws = new WebSocket(WS_URL);
   state.ws.onopen = () => {
-    document.getElementById("ws").textContent = "ws 🟢";
-    document.getElementById("ws").classList.add("ok");
+    document.getElementById('dot-ws').className = 'pill-dot ok';
+    document.getElementById('text-ws').textContent = 'ws live';
   };
   state.ws.onclose = () => {
-    document.getElementById("ws").textContent = "ws 🔴";
-    document.getElementById("ws").classList.remove("ok");
-    setTimeout(connectWs, 1500);
+    document.getElementById('dot-ws').className = 'pill-dot err';
+    document.getElementById('text-ws').textContent = 'ws off';
+    setTimeout(connectWs, 2000);
   };
-  state.ws.onmessage = (ev) => {
-    const e = JSON.parse(ev.data);
-    handleEvent(e);
-  };
+  state.ws.onmessage = ev => handleEvent(JSON.parse(ev.data));
 }
 
 function handleEvent(e) {
-  logEvent(e);
+  pushEventRow(e);
+  const p = e.payload||{};
 
-  if (e.type === "chat.token" && e.payload.agent_id === state.activeAgent?.id) {
-    if (!state.threadId) state.threadId = e.payload.thread_id;
-    appendMessage("assistant", e.payload.token, true);
-  } else if (e.type === "chat.done" && e.payload.agent_id === state.activeAgent?.id) {
-    const id = state.mode === "map" ? "overlay-messages" : "messages";
-    const root = document.getElementById(id);
-    if (root.lastChild) root.lastChild.dataset.streaming = "0";
-  } else if (e.type === "routine.started") {
-    if (state.mapScene) state.mapScene.handleRoutineStarted(e.payload.agent_id, e.payload);
-  } else if (e.type === "routine.succeeded") {
-    flashAgent(e.payload.agent_id, "success");
-    if (state.mapScene) state.mapScene.handleRoutineSucceeded(e.payload.agent_id, e.payload);
-    loadDispatches();
-  } else if (e.type === "routine.failed") {
-    flashAgent(e.payload.agent_id, "fail");
-    if (state.mapScene) state.mapScene.handleRoutineFailed(e.payload.agent_id, e.payload);
-    loadDispatches();
-  } else if (e.type === "dispatch.retry_scheduled") {
-    if (state.mapScene) state.mapScene.handleRetry(e.payload.agent_id, e.payload);
-  } else if (e.type === "dlq.appended") {
-    flashAgent(e.payload.agent_id, "fail");
-    if (state.mapScene) state.mapScene.handleDlqAppended(e.payload.agent_id, e.payload);
+  if (e.type==='chat.token' && p.agent_id===state.activeAgent?.id) {
+    if (!state.threadId) state.threadId = p.thread_id;
+    appendMsg('assistant', p.token, true);
+  } else if (e.type==='chat.done' && p.agent_id===state.activeAgent?.id) {
+    const last = document.querySelector('#chat-messages .msg-row[data-streaming="1"]');
+    if (last) last.dataset.streaming = '0';
+  } else if (e.type==='routine.started') {
+    setAgentDot(p.agent_id, 'working');
+    flashRoutineCard(p.routine_id, 'firing');
+  } else if (e.type==='routine.succeeded') {
+    setAgentDot(p.agent_id, 'online');
+    flashAgentRow(p.agent_id, 'ok');
+    flashRoutineCard(p.routine_id, null);
+    setTimeout(loadDispatches, 400);
+  } else if (e.type==='routine.failed') {
+    setAgentDot(p.agent_id, 'error');
+    flashAgentRow(p.agent_id, 'err');
+    flashRoutineCard(p.routine_id, 'fail');
+    setTimeout(loadDispatches, 400);
+  } else if (e.type==='dlq.appended') {
     loadDlq();
-  } else if (e.type === "breaker.tripped") {
-    const b = document.getElementById("banner");
-    b.textContent = `⚠️ Backend breaker tripped: ${e.payload.component} (${e.payload.reason})`;
-    b.classList.add("show");
-    document.getElementById("backend").textContent = "backend 🔴";
-    document.getElementById("backend").classList.add("error");
-  } else if (e.type === "breaker.cleared") {
-    document.getElementById("banner").classList.remove("show");
-    document.getElementById("backend").textContent = "backend 🟢";
-    document.getElementById("backend").classList.remove("error");
-  } else if (e.type === "health.snapshot") {
-    const overall = e.payload.overall;
-    const pill = document.getElementById("backend");
-    pill.textContent = `backend ${overall}`;
-    pill.classList.toggle("ok", overall === "healthy");
-    pill.classList.toggle("error", overall !== "healthy" && overall !== "unknown");
+  } else if (e.type==='breaker.tripped') {
+    const b = document.getElementById('banner');
+    b.textContent = `⚠ Circuit breaker tripped: ${p.component||''} — ${p.reason||''}`;
+    b.classList.add('show');
+  } else if (e.type==='breaker.cleared') {
+    document.getElementById('banner').classList.remove('show');
+  } else if (e.type==='health.snapshot') {
+    const ok = p.overall==='healthy';
+    document.getElementById('dot-backend').className = 'pill-dot ' + (ok?'ok':'err');
+    document.getElementById('text-backend').textContent = 'backend ' + (p.overall||'');
   }
 }
 
-function logEvent(e) {
-  const root = document.getElementById("events-panel");
-  if (root.querySelector(".empty")) root.innerHTML = "";
-  const el = document.createElement("div");
-  const cls = e.type.includes("succeeded") || e.type === "breaker.cleared" ? "ok"
-            : e.type.includes("failed") || e.type === "breaker.tripped" || e.type === "dlq.appended" ? "fail"
-            : "";
-  el.className = "event " + cls;
-  const ts = e.ts.split("T")[1]?.slice(0, 12) || "";
-  el.innerHTML = `<span class="type">${e.type}</span> <span style="opacity:.6">${ts}</span><br/>${JSON.stringify(e.payload).slice(0, 180)}`;
+function pushEventRow(e) {
+  const root = document.getElementById('rail-events');
+  if (root.querySelector('.empty')) root.innerHTML='';
+  const el = document.createElement('div');
+  el.className = 'event-row';
+  const cls = e.type.includes('succeeded')||e.type==='breaker.cleared' ? 'ok'
+             : e.type.includes('failed')||e.type==='breaker.tripped'||e.type==='dlq.appended' ? 'fail'
+             : e.type.includes('chat') ? 'gold' : '';
+  const ts = (e.ts||'').split('T')[1]?.slice(0,8)||'';
+  el.innerHTML = `<div><span class="event-type ${cls}">${e.type}</span> <span class="event-ts">${ts}</span></div>
+    <div class="event-payload">${JSON.stringify(e.payload||{}).slice(0,140)}</div>`;
   root.prepend(el);
-  while (root.children.length > 200) root.lastChild.remove();
+  while (root.children.length>120) root.lastChild.remove();
 }
 
-// ---------- Event wiring ----------
+// ── Flashes ──────────────────────────────────────────────────
 
-document.querySelectorAll(".panel-tabs button").forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll(".panel-tabs button").forEach(b => b.classList.toggle("active", b === btn));
-    document.getElementById("events-panel").hidden = btn.dataset.tab !== "events";
-    document.getElementById("dispatches-panel").hidden = btn.dataset.tab !== "dispatches";
-    document.getElementById("dlq-panel").hidden = btn.dataset.tab !== "dlq";
-    document.getElementById("agent-panel").hidden = btn.dataset.tab !== "agent";
-    if (btn.dataset.tab === "dispatches") loadDispatches();
-    if (btn.dataset.tab === "dlq") loadDlq();
-    if (btn.dataset.tab === "agent") renderAgentEditor();
-  };
-});
-
-// ---------- Agent persona editor ----------
-
-function activateAgentTab() {
-  const btn = document.querySelector('.panel-tabs button[data-tab="agent"]');
-  if (btn) btn.click();
+function flashAgentRow(id, kind) {
+  const el = document.querySelector(`.agent-row[data-id="${id}"]`);
+  if (!el) return;
+  el.classList.add(kind==='ok'?'flash-ok':'flash-err');
+  setTimeout(()=>el.classList.remove('flash-ok','flash-err'), 3500);
 }
 
-function setAEStatus(msg, kind = "") {
-  const el = document.getElementById("ae-status");
-  el.textContent = msg;
-  el.className = "ae-status " + kind;
+function flashRoutineCard(routineId, state_) {
+  const card = document.querySelector(`.routine-card`);
+  // Re-render is cheap — just reload dispatches which re-renders
 }
+
+// ── Agent editor (rail) ───────────────────────────────────────
 
 function renderAgentEditor() {
   const a = state.activeAgent;
-  const empty = document.getElementById("agent-editor-empty");
-  const editor = document.getElementById("agent-editor");
-  if (!a) {
-    empty.hidden = false;
-    editor.hidden = true;
-    return;
-  }
-  empty.hidden = true;
-  editor.hidden = false;
-  document.getElementById("ae-name").textContent = a.display_name;
-  document.getElementById("ae-role").textContent = a.role || "";
-  document.getElementById("ae-dept").textContent = a.department || "";
-  document.getElementById("ae-adapter").textContent = a.adapter_type || "";
-  document.getElementById("ae-model").textContent = a.model || "";
-  const ta = document.getElementById("ae-system-prompt");
-  ta.value = a.system_prompt || "";
-  ta.dataset.original = a.system_prompt || "";
-  document.getElementById("ae-save").disabled = true;
-  document.getElementById("ae-revert").disabled = true;
-  setAEStatus("");
+  document.getElementById('ae-empty').style.display = a?'none':'';
+  document.getElementById('ae-editor').style.display = a?'':'none';
+  if (!a) return;
+  document.getElementById('ae-name').textContent = a.display_name;
+  document.getElementById('ae-meta').textContent = `${a.adapter_type} · ${a.model||'—'} · ${a.department}`;
+  const ta = document.getElementById('ae-prompt');
+  ta.value = a.system_prompt||'';
+  ta.dataset.orig = a.system_prompt||'';
+  document.getElementById('ae-save').disabled = true;
+  document.getElementById('ae-revert').disabled = true;
+  document.getElementById('ae-status').textContent = '';
+  document.getElementById('ae-status').className = 'ae-status-text';
 }
 
-document.getElementById("ae-system-prompt").addEventListener("input", (e) => {
-  const dirty = e.target.value !== (e.target.dataset.original ?? "");
-  document.getElementById("ae-save").disabled = !dirty;
-  document.getElementById("ae-revert").disabled = !dirty;
-  if (dirty) setAEStatus("Unsaved changes", "");
+document.getElementById('ae-prompt').addEventListener('input', e=>{
+  const dirty = e.target.value !== (e.target.dataset.orig||'');
+  document.getElementById('ae-save').disabled = !dirty;
+  document.getElementById('ae-revert').disabled = !dirty;
+  if (dirty) { document.getElementById('ae-status').textContent='Unsaved'; document.getElementById('ae-status').className='ae-status-text'; }
 });
 
-document.getElementById("ae-revert").onclick = () => {
-  const ta = document.getElementById("ae-system-prompt");
-  ta.value = ta.dataset.original ?? "";
-  document.getElementById("ae-save").disabled = true;
-  document.getElementById("ae-revert").disabled = true;
-  setAEStatus("Reverted", "");
+document.getElementById('ae-revert').onclick = ()=>{
+  const ta = document.getElementById('ae-prompt');
+  ta.value = ta.dataset.orig||'';
+  document.getElementById('ae-save').disabled=true;
+  document.getElementById('ae-revert').disabled=true;
+  document.getElementById('ae-status').textContent='Reverted';
 };
 
-document.getElementById("ae-save").onclick = async () => {
-  const a = state.activeAgent;
-  if (!a) return;
-  const ta = document.getElementById("ae-system-prompt");
-  const newPrompt = ta.value;
-  const saveBtn = document.getElementById("ae-save");
-  saveBtn.disabled = true;
-  setAEStatus("Saving…", "");
+document.getElementById('ae-save').onclick = async ()=>{
+  const a = state.activeAgent; if (!a) return;
+  const ta = document.getElementById('ae-prompt');
+  const st = document.getElementById('ae-status');
+  document.getElementById('ae-save').disabled=true;
+  st.textContent='Saving…'; st.className='ae-status-text';
   try {
-    const r = await fetch(`/api/agents/${encodeURIComponent(a.id)}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ system_prompt: newPrompt }),
+    const r = await fetch(`/api/agents/${encodeURIComponent(a.id)}`,{
+      method:'PATCH', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system_prompt:ta.value}),
     });
-    if (!r.ok) {
-      const text = await r.text().catch(() => "");
-      throw new Error(`HTTP ${r.status}: ${text || "save failed"}`);
-    }
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const updated = await r.json();
-    // Refresh local cache so next chat uses the new prompt
-    a.system_prompt = updated.system_prompt ?? newPrompt;
-    state.agentById[a.id] = a;
-    ta.dataset.original = a.system_prompt || "";
-    document.getElementById("ae-revert").disabled = true;
-    setAEStatus(`Saved · ${new Date().toLocaleTimeString()}`, "ok");
-  } catch (err) {
-    setAEStatus(err.message || "Save failed", "err");
-    saveBtn.disabled = false;
+    a.system_prompt = updated.system_prompt ?? ta.value;
+    state.agentById[a.id]=a;
+    ta.dataset.orig = a.system_prompt;
+    document.getElementById('ae-revert').disabled=true;
+    st.textContent=`Saved ${new Date().toLocaleTimeString()}`; st.className='ae-status-text ok';
+  } catch(err) {
+    st.textContent=err.message||'Failed'; st.className='ae-status-text err';
+    document.getElementById('ae-save').disabled=false;
   }
 };
 
-document.querySelectorAll(".mode-toggle button").forEach(b => {
-  b.onclick = () => setMode(b.dataset.mode);
+// ── Rail tabs ────────────────────────────────────────────────
+
+document.querySelectorAll('.rail-tab').forEach(tab=>{
+  tab.onclick = ()=>{
+    document.querySelectorAll('.rail-tab').forEach(t=>t.classList.toggle('active',t===tab));
+    document.getElementById('rail-events').classList.toggle('hidden', tab.dataset.tab!=='events');
+    document.getElementById('rail-agent').classList.toggle('hidden', tab.dataset.tab!=='agent');
+    document.getElementById('rail-scheduler').classList.toggle('hidden', tab.dataset.tab!=='scheduler');
+    if (tab.dataset.tab==='agent') renderAgentEditor();
+    if (tab.dataset.tab==='scheduler') loadScheduler();
+  };
 });
 
-["send", "overlay-send"].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.onclick = send;
-});
-["input", "overlay-input"].forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
-  });
+// ── Topbar tabs ──────────────────────────────────────────────
+
+document.querySelectorAll('.topbar-tab').forEach(tab=>{
+  tab.onclick = ()=> setView(tab.dataset.view);
 });
 
-document.getElementById("chat-overlay-close").onclick = () => {
-  document.getElementById("chat-overlay").classList.remove("show");
-};
+// ── Chat wiring ───────────────────────────────────────────────
 
-// ---------- Bootstrap ----------
+document.getElementById('chat-send').onclick = sendChat;
+document.getElementById('chat-input').addEventListener('keydown', e=>{
+  if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+});
+
+// Auto-resize textarea
+document.getElementById('chat-input').addEventListener('input', e=>{
+  e.target.style.height='auto';
+  e.target.style.height = Math.min(e.target.scrollHeight, 160)+'px';
+});
+
+// ── Refresh button ───────────────────────────────────────────
+document.getElementById('refresh-dispatches').onclick = ()=>{ loadDispatches(); loadDlq(); };
+
+// ── Bootstrap ────────────────────────────────────────────────
 
 async function main() {
-  await loadHealth();
-  const agents = await loadAgents();
-
-  // Transform to the shape the scene expects
-  const sceneAgents = agents.map(a => ({
-    id: a.id,
-    displayName: a.display_name,
-    department: a.department,
-    role: a.role,
-    deskX: a.desk_x,
-    deskY: a.desk_y,
-    adapterType: a.adapter_type,
-  }));
-
-  const parent = document.getElementById("map-view");
-  const { game, scene } = await bootHQMap({
-    parent,
-    agents: sceneAgents,
-    onSelectAgent: (id) => selectAgent(id),
-  });
-  state.mapGame = game;
-  state.mapScene = scene;
-
-  loadDispatches();
+  await Promise.all([loadHealth(), loadAgents(), loadRoutines()]);
+  await Promise.all([loadDispatches(), loadDlq(), loadScheduler()]);
   connectWs();
   setInterval(loadHealth, 30000);
-  setInterval(loadDispatches, 60000);
+  setInterval(()=>{ loadDispatches(); loadDlq(); }, 60000);
+  setInterval(loadScheduler, 120000);
 }
 
 main();

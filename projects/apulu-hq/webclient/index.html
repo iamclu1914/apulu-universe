@@ -23,28 +23,36 @@
     font-family: "Raleway", system-ui, sans-serif;
     height: 100vh;
     display: grid;
-    grid-template-columns: 280px 1fr 380px;
+    grid-template-columns: 260px 1fr 360px;
     grid-template-rows: 56px auto 1fr;
   }
   h1, h2 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; margin: 0; }
   header { grid-column: 1 / -1; padding: 12px 20px; border-bottom: 1px solid var(--surface-2); display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
-  header .pill { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+  header .pill { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); margin-left: 6px; }
   header .pill.ok { color: var(--ok); }
   header .pill.warn { color: var(--warn); }
   header .pill.error { color: var(--error); }
+
+  .mode-toggle {
+    display: inline-flex; background: var(--surface-2); border-radius: 999px; overflow: hidden;
+    margin-left: 12px;
+  }
+  .mode-toggle button {
+    background: transparent; border: 0; color: var(--muted); padding: 5px 12px;
+    cursor: pointer; font-family: inherit; font-size: 11px; letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .mode-toggle button.active { background: var(--gold); color: var(--bg); font-weight: 600; }
 
   #banner { grid-column: 1 / -1; padding: 0; height: 0; overflow: hidden; transition: height 0.2s; background: var(--error); color: #1a1410; font-weight: 600; display: flex; align-items: center; padding-left: 20px; }
   #banner.show { height: 36px; padding-top: 0; padding-bottom: 0; }
 
   aside.agents { background: var(--surface); border-right: 1px solid var(--surface-2); overflow-y: auto; }
-  main.chat { display: flex; flex-direction: column; min-height: 0; }
+  main.center { display: flex; flex-direction: column; min-height: 0; position: relative; overflow: hidden; }
   aside.events { background: var(--surface); border-left: 1px solid var(--surface-2); display: flex; flex-direction: column; min-height: 0; }
   .section-title { color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; padding: 14px 16px 6px; }
-  .agent {
-    padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--surface-2);
-    display: flex; align-items: center; gap: 10px;
-    transition: background 0.15s, border-left 0.15s;
-  }
+
+  .agent { padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--surface-2); display: flex; align-items: center; gap: 10px; transition: background 0.15s, border-left 0.15s; }
   .agent:hover { background: var(--surface-2); }
   .agent.active { background: var(--surface-2); border-left: 3px solid var(--gold); padding-left: 13px; }
   .agent.flash-success { background: rgba(139, 194, 139, 0.15); }
@@ -53,10 +61,16 @@
   .agent .role { font-size: 11px; color: var(--muted); }
   .agent .dept { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
   .agent .info { flex: 1; }
-  .agent .status {
-    font-size: 18px; line-height: 1;
-  }
+  .agent .status { font-size: 18px; line-height: 1; }
 
+  /* Map view */
+  #map-view { flex: 1; min-height: 0; position: relative; }
+  #map-view canvas { display: block; }
+  #map-view.hidden { display: none; }
+
+  /* Chat view */
+  #chat-view { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  #chat-view.hidden { display: none; }
   .chat-header { padding: 14px 20px; border-bottom: 1px solid var(--surface-2); }
   .chat-header h2 { font-size: 22px; color: var(--gold); }
   .chat-header .sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
@@ -65,25 +79,58 @@
   .msg.user { align-self: flex-end; background: var(--gold); color: #1a1410; }
   .msg.assistant { align-self: flex-start; background: var(--surface); border: 1px solid var(--surface-2); }
   .composer { padding: 14px 20px; border-top: 1px solid var(--surface-2); display: flex; gap: 8px; }
-  .composer textarea {
-    flex: 1; resize: none; min-height: 44px; max-height: 200px;
-    background: var(--surface); color: var(--text); border: 1px solid var(--surface-2);
-    border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 14px;
-  }
-  .composer button {
-    background: var(--gold); color: #1a1410; border: 0; border-radius: 8px;
-    padding: 0 18px; font-weight: 600; cursor: pointer;
-  }
+  .composer textarea { flex: 1; resize: none; min-height: 44px; max-height: 200px; background: var(--surface); color: var(--text); border: 1px solid var(--surface-2); border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 14px; }
+  .composer button { background: var(--gold); color: #1a1410; border: 0; border-radius: 8px; padding: 0 18px; font-weight: 600; cursor: pointer; }
   .composer button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  .panel-tabs { display: flex; border-bottom: 1px solid var(--surface-2); }
-  .panel-tabs button {
-    flex: 1; background: transparent; border: 0; padding: 10px; color: var(--muted);
-    cursor: pointer; font-family: inherit; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-    border-bottom: 2px solid transparent;
+  /* Floating chat panel overlay (when map is the main view) */
+  #chat-overlay {
+    position: absolute; right: 12px; top: 12px; bottom: 12px; width: 380px;
+    background: var(--surface); border: 1px solid var(--surface-2); border-radius: 12px;
+    display: none; flex-direction: column; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    overflow: hidden; z-index: 10;
   }
+  #chat-overlay.show { display: flex; }
+  #chat-overlay .chat-header { padding: 12px 16px; }
+  #chat-overlay .close-x {
+    position: absolute; top: 10px; right: 12px; cursor: pointer; color: var(--muted);
+    background: none; border: 0; font-size: 18px;
+  }
+
+  .panel-tabs { display: flex; border-bottom: 1px solid var(--surface-2); }
+  .panel-tabs button { flex: 1; background: transparent; border: 0; padding: 10px; color: var(--muted); cursor: pointer; font-family: inherit; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 2px solid transparent; }
   .panel-tabs button.active { color: var(--gold); border-bottom-color: var(--gold); }
   .panel-body { flex: 1; overflow-y: auto; padding: 10px 14px; font-family: "JetBrains Mono", monospace; font-size: 11px; }
+
+  /* Agent persona editor */
+  #agent-panel { display: flex; flex-direction: column; padding: 14px; }
+  .ae-meta { margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--surface-2); }
+  .ae-name { font-family: "Instrument Serif", serif; font-size: 18px; color: var(--gold); margin-bottom: 2px; }
+  .ae-sub { font-family: "Raleway", sans-serif; font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+  .ae-sub.ae-mono { font-family: "JetBrains Mono", monospace; font-size: 10px; margin-top: 4px; }
+  .ae-sub.ae-mono span:not(:empty) ~ span:not(:empty)::before { content: " · "; opacity: 0.5; }
+  .ae-label { display: block; font-family: "Raleway", sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin: 4px 0 6px; }
+  #ae-system-prompt {
+    width: 100%; box-sizing: border-box;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--surface-2); border-radius: 4px;
+    padding: 10px; font-family: "JetBrains Mono", monospace; font-size: 11px; line-height: 1.5;
+    resize: vertical; min-height: 220px;
+  }
+  #ae-system-prompt:focus { outline: none; border-color: var(--gold); }
+  .ae-actions { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  #ae-save, #ae-revert {
+    background: var(--surface-2); color: var(--text); border: 1px solid var(--surface-2);
+    border-radius: 3px; padding: 6px 14px; font-family: "Raleway", sans-serif;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+  }
+  #ae-save:not([disabled]) { background: var(--gold); color: #1a1410; border-color: var(--gold); font-weight: 600; }
+  #ae-save[disabled], #ae-revert[disabled] { opacity: 0.4; cursor: not-allowed; }
+  #ae-revert:not([disabled]):hover { border-color: var(--gold); color: var(--gold); }
+  .ae-status { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--muted); }
+  .ae-status.ok { color: var(--ok, #8bc28b); }
+  .ae-status.err { color: var(--error, #d96565); }
+  .ae-hint { font-family: "Raleway", sans-serif; font-size: 10px; color: var(--muted); margin-top: 10px; opacity: 0.75; line-height: 1.4; }
   .event, .dispatch { padding: 6px 0; color: var(--muted); border-bottom: 1px dashed var(--surface-2); }
   .event .type, .dispatch .name { color: var(--gold); }
   .event.ok .type { color: var(--ok); }
@@ -96,8 +143,12 @@
 </head>
 <body>
 <header>
-  <h1 style="color: var(--gold); font-size: 24px;">Apulu HQ <span style="color: var(--muted); font-size: 12px;">v0 — observe-only</span></h1>
-  <div style="display: flex; gap: 8px; align-items: center;">
+  <h1 style="color: var(--gold); font-size: 24px;">Apulu HQ <span style="color: var(--muted); font-size: 12px;">v0</span></h1>
+  <div style="display: flex; gap: 4px; align-items: center;">
+    <div class="mode-toggle">
+      <button data-mode="map" class="active">Map</button>
+      <button data-mode="chat">Chat</button>
+    </div>
     <span class="pill" id="health">connecting…</span>
     <span class="pill" id="backend">backend ⚫</span>
     <span class="pill" id="ws">ws ⚫</span>
@@ -111,18 +162,35 @@
   <div id="agents"></div>
 </aside>
 
-<main class="chat">
-  <div class="chat-header" id="chat-header">
-    <h2>Select an agent</h2>
-    <div class="sub">Click any agent on the left to start a conversation.</div>
+<main class="center">
+
+  <!-- Map view (default) -->
+  <div id="map-view"></div>
+
+  <!-- Floating chat panel when in map mode -->
+  <div id="chat-overlay">
+    <button class="close-x" id="chat-overlay-close">✕</button>
+    <div class="chat-header" id="overlay-chat-header"><h2>Select an agent</h2></div>
+    <div class="messages" id="overlay-messages"><div class="empty">Click a sprite or an agent in the list to chat.</div></div>
+    <div class="composer">
+      <textarea id="overlay-input" placeholder="Message…" disabled></textarea>
+      <button id="overlay-send" disabled>Send</button>
+    </div>
   </div>
-  <div class="messages" id="messages">
-    <div class="empty">No conversation yet.</div>
+
+  <!-- Chat view (alternative mode — full center column) -->
+  <div id="chat-view" class="hidden">
+    <div class="chat-header" id="chat-header">
+      <h2>Select an agent</h2>
+      <div class="sub">Click any agent on the left to start a conversation.</div>
+    </div>
+    <div class="messages" id="messages"><div class="empty">No conversation yet.</div></div>
+    <div class="composer">
+      <textarea id="input" placeholder="Message will be sent to the selected agent…" disabled></textarea>
+      <button id="send" disabled>Send</button>
+    </div>
   </div>
-  <div class="composer">
-    <textarea id="input" placeholder="Message will be sent to the selected agent…" disabled></textarea>
-    <button id="send" disabled>Send</button>
-  </div>
+
 </main>
 
 <aside class="events">
@@ -130,30 +198,61 @@
     <button data-tab="events" class="active">Events</button>
     <button data-tab="dispatches">Dispatches</button>
     <button data-tab="dlq">DLQ</button>
+    <button data-tab="agent">Agent</button>
   </div>
   <div class="panel-body" id="events-panel"></div>
   <div class="panel-body" id="dispatches-panel" hidden></div>
   <div class="panel-body" id="dlq-panel" hidden></div>
+  <div class="panel-body" id="agent-panel" hidden>
+    <div id="agent-editor-empty" class="empty">Select an agent to edit their persona.</div>
+    <div id="agent-editor" hidden>
+      <div class="ae-meta">
+        <div class="ae-name" id="ae-name"></div>
+        <div class="ae-sub"><span id="ae-role"></span> · <span id="ae-dept"></span></div>
+        <div class="ae-sub ae-mono">
+          <span id="ae-adapter"></span><span id="ae-model"></span>
+        </div>
+      </div>
+      <label class="ae-label" for="ae-system-prompt">System Prompt</label>
+      <textarea id="ae-system-prompt" rows="14" spellcheck="false"></textarea>
+      <div class="ae-actions">
+        <button id="ae-save" disabled>Save</button>
+        <button id="ae-revert" disabled>Revert</button>
+        <span id="ae-status" class="ae-status"></span>
+      </div>
+      <div class="ae-hint">
+        Saved instantly. Next chat with this agent uses the new prompt — no restart needed.
+      </div>
+    </div>
+  </div>
 </aside>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.85.2/dist/phaser.min.js"></script>
+<script type="module">
+import { bootHQMap } from "./hq-map.js";
+
 const API = location.origin;
 const WS_URL = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/ws";
 
 const state = {
+  mode: "map",            // "map" | "chat"
   agents: [],
   agentById: {},
   activeAgent: null,
   threadId: null,
   ws: null,
+  mapGame: null,
+  mapScene: null,
 };
+
+// ---------- Backend ----------
 
 async function loadHealth() {
   try {
     const r = await fetch(API + "/api/health");
     const j = await r.json();
     document.getElementById("health").textContent =
-      `${j.agents} agents · ${j.routines} routines · ${j.anthropic_key_set ? "key ✓" : "mock mode"}`;
+      `${j.agents} agents · ${j.routines} routines · ${j.anthropic_key_set ? "key ✓" : "subscription"}`;
     document.getElementById("health").classList.add("ok");
   } catch (e) {
     document.getElementById("health").textContent = "backend down";
@@ -164,6 +263,11 @@ async function loadAgents() {
   const r = await fetch(API + "/api/agents");
   state.agents = await r.json();
   state.agentById = Object.fromEntries(state.agents.map(a => [a.id, a]));
+  renderAgentList();
+  return state.agents;
+}
+
+function renderAgentList() {
   const root = document.getElementById("agents");
   root.innerHTML = "";
   const byDept = {};
@@ -180,7 +284,7 @@ async function loadAgents() {
       el.className = "agent";
       el.dataset.id = a.id;
       el.innerHTML = `<div class="info"><div class="dept">${a.adapter_type}</div><div class="name">${a.display_name}</div><div class="role">${a.role}</div></div><div class="status" data-id="${a.id}">💼</div>`;
-      el.onclick = () => selectAgent(a);
+      el.onclick = () => selectAgent(a.id);
       root.appendChild(el);
     });
   });
@@ -190,10 +294,7 @@ async function loadDispatches() {
   const r = await fetch(API + "/api/dispatches?limit=50");
   const rows = await r.json();
   const panel = document.getElementById("dispatches-panel");
-  if (!rows.length) {
-    panel.innerHTML = `<div class="empty">No dispatches yet. Run a routine in Paperclip — events will land here.</div>`;
-    return;
-  }
+  if (!rows.length) { panel.innerHTML = `<div class="empty">No dispatches yet.</div>`; return; }
   panel.innerHTML = "";
   rows.forEach(d => {
     const cls = d.outcome === "success" ? "success" : d.outcome === "failure" ? "fail" : "";
@@ -211,34 +312,63 @@ async function loadDlq() {
   const r = await fetch(API + "/api/dlq");
   const rows = await r.json();
   const panel = document.getElementById("dlq-panel");
-  if (!rows.length) {
-    panel.innerHTML = `<div class="empty">DLQ empty 🎉</div>`;
-    return;
-  }
+  if (!rows.length) { panel.innerHTML = `<div class="empty">DLQ empty 🎉</div>`; return; }
   panel.innerHTML = "";
   rows.forEach(d => {
     const ts = d.appended_at?.replace("T", " ").slice(0, 19) || "";
     const el = document.createElement("div");
     el.className = "dispatch fail";
-    el.innerHTML = `<div class="name">${d.payload?.slot || d.routine_id}</div><div class="meta">${ts} · ${d.signature || "no sig"} · ${d.payload?.final_exit_code ?? ""}</div>`;
+    el.innerHTML = `<div class="name">${d.payload?.slot || d.routine_id}</div><div class="meta">${ts} · ${d.signature || "no sig"}</div>`;
     panel.appendChild(el);
   });
 }
 
-async function selectAgent(agent) {
-  state.activeAgent = agent;
+// ---------- Chat ----------
+
+function selectAgent(agentId) {
+  const a = state.agentById[agentId];
+  if (!a) return;
+  state.activeAgent = a;
   state.threadId = null;
-  document.querySelectorAll(".agent").forEach(el => el.classList.toggle("active", el.dataset.id === agent.id));
-  document.getElementById("chat-header").innerHTML =
-    `<h2>${agent.display_name}</h2><div class="sub">${agent.role} · ${agent.adapter_type}</div>`;
-  document.getElementById("messages").innerHTML = `<div class="empty">Start a new conversation with ${agent.display_name}.</div>`;
-  document.getElementById("input").disabled = false;
-  document.getElementById("send").disabled = false;
-  document.getElementById("input").focus();
+  document.querySelectorAll(".agent").forEach(el => el.classList.toggle("active", el.dataset.id === agentId));
+
+  // Update both chat surfaces (overlay + standalone)
+  ["chat-header", "overlay-chat-header"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `<h2>${a.display_name}</h2><div class="sub">${a.role} · ${a.adapter_type}</div>`;
+  });
+  ["messages", "overlay-messages"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `<div class="empty">Start a new conversation with ${a.display_name}.</div>`;
+  });
+  ["input", "overlay-input"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.disabled = false;
+  });
+  ["send", "overlay-send"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.disabled = false;
+  });
+
+  // Open the floating chat overlay in map mode
+  if (state.mode === "map") {
+    document.getElementById("chat-overlay").classList.add("show");
+    document.getElementById("overlay-input").focus();
+  } else {
+    document.getElementById("input").focus();
+  }
+
+  // Tell the map scene to highlight the agent
+  if (state.mapScene) state.mapScene.setChatting(agentId);
+
+  // Refresh the persona editor (no-op visually if Agent tab isn't active)
+  if (typeof renderAgentEditor === "function") renderAgentEditor();
 }
 
 function appendMessage(role, text, replaceLast = false) {
-  const root = document.getElementById("messages");
+  // Append to whichever messages list is currently visible
+  const id = state.mode === "map" ? "overlay-messages" : "messages";
+  const root = document.getElementById(id);
   if (root.querySelector(".empty")) root.innerHTML = "";
   let el;
   if (replaceLast && root.lastChild?.classList.contains(role) && root.lastChild.dataset.streaming === "1") {
@@ -255,7 +385,8 @@ function appendMessage(role, text, replaceLast = false) {
 }
 
 async function send() {
-  const input = document.getElementById("input");
+  const inputId = state.mode === "map" ? "overlay-input" : "input";
+  const input = document.getElementById(inputId);
   const msg = input.value.trim();
   if (!msg || !state.activeAgent) return;
   appendMessage("user", msg);
@@ -267,18 +398,41 @@ async function send() {
   });
 }
 
+// ---------- Mode toggle ----------
+
+function setMode(newMode) {
+  state.mode = newMode;
+  document.querySelectorAll(".mode-toggle button").forEach(b => b.classList.toggle("active", b.dataset.mode === newMode));
+  document.getElementById("map-view").classList.toggle("hidden", newMode !== "map");
+  document.getElementById("chat-view").classList.toggle("hidden", newMode !== "chat");
+  if (newMode !== "map") {
+    document.getElementById("chat-overlay").classList.remove("show");
+  } else if (state.activeAgent) {
+    document.getElementById("chat-overlay").classList.add("show");
+  }
+  // Trigger resize so Phaser re-fits canvas to its container
+  if (state.mapGame && newMode === "map") {
+    setTimeout(() => state.mapGame.scale.refresh(), 0);
+  }
+}
+
+// ---------- Visual flash on agent rows ----------
+
 function flashAgent(agentId, kind) {
   if (!agentId) return;
   const el = document.querySelector(`.agent[data-id="${agentId}"]`);
-  if (!el) return;
-  el.classList.add(kind === "success" ? "flash-success" : "flash-fail");
-  const statusEl = document.querySelector(`.status[data-id="${agentId}"]`);
-  if (statusEl) statusEl.textContent = kind === "success" ? "✅" : "⚠️";
-  setTimeout(() => {
-    el.classList.remove("flash-success", "flash-fail");
-    if (statusEl) statusEl.textContent = "💼";
-  }, 4000);
+  if (el) {
+    el.classList.add(kind === "success" ? "flash-success" : "flash-fail");
+    const statusEl = document.querySelector(`.status[data-id="${agentId}"]`);
+    if (statusEl) statusEl.textContent = kind === "success" ? "✅" : "⚠️";
+    setTimeout(() => {
+      el.classList.remove("flash-success", "flash-fail");
+      if (statusEl) statusEl.textContent = "💼";
+    }, 4000);
+  }
 }
+
+// ---------- WS dispatch ----------
 
 function connectWs() {
   state.ws = new WebSocket(WS_URL);
@@ -299,20 +453,29 @@ function connectWs() {
 
 function handleEvent(e) {
   logEvent(e);
+
   if (e.type === "chat.token" && e.payload.agent_id === state.activeAgent?.id) {
     if (!state.threadId) state.threadId = e.payload.thread_id;
     appendMessage("assistant", e.payload.token, true);
   } else if (e.type === "chat.done" && e.payload.agent_id === state.activeAgent?.id) {
-    const root = document.getElementById("messages");
+    const id = state.mode === "map" ? "overlay-messages" : "messages";
+    const root = document.getElementById(id);
     if (root.lastChild) root.lastChild.dataset.streaming = "0";
+  } else if (e.type === "routine.started") {
+    if (state.mapScene) state.mapScene.handleRoutineStarted(e.payload.agent_id, e.payload);
   } else if (e.type === "routine.succeeded") {
     flashAgent(e.payload.agent_id, "success");
+    if (state.mapScene) state.mapScene.handleRoutineSucceeded(e.payload.agent_id, e.payload);
     loadDispatches();
   } else if (e.type === "routine.failed") {
     flashAgent(e.payload.agent_id, "fail");
+    if (state.mapScene) state.mapScene.handleRoutineFailed(e.payload.agent_id, e.payload);
     loadDispatches();
+  } else if (e.type === "dispatch.retry_scheduled") {
+    if (state.mapScene) state.mapScene.handleRetry(e.payload.agent_id, e.payload);
   } else if (e.type === "dlq.appended") {
     flashAgent(e.payload.agent_id, "fail");
+    if (state.mapScene) state.mapScene.handleDlqAppended(e.payload.agent_id, e.payload);
     loadDlq();
   } else if (e.type === "breaker.tripped") {
     const b = document.getElementById("banner");
@@ -342,35 +505,162 @@ function logEvent(e) {
             : "";
   el.className = "event " + cls;
   const ts = e.ts.split("T")[1]?.slice(0, 12) || "";
-  el.innerHTML = `<span class="type">${e.type}</span> <span style="opacity:.6">${ts}</span><br/>${
-    JSON.stringify(e.payload).slice(0, 180)
-  }`;
+  el.innerHTML = `<span class="type">${e.type}</span> <span style="opacity:.6">${ts}</span><br/>${JSON.stringify(e.payload).slice(0, 180)}`;
   root.prepend(el);
   while (root.children.length > 200) root.lastChild.remove();
 }
 
-// tab switching
+// ---------- Event wiring ----------
+
 document.querySelectorAll(".panel-tabs button").forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll(".panel-tabs button").forEach(b => b.classList.toggle("active", b === btn));
     document.getElementById("events-panel").hidden = btn.dataset.tab !== "events";
     document.getElementById("dispatches-panel").hidden = btn.dataset.tab !== "dispatches";
     document.getElementById("dlq-panel").hidden = btn.dataset.tab !== "dlq";
+    document.getElementById("agent-panel").hidden = btn.dataset.tab !== "agent";
     if (btn.dataset.tab === "dispatches") loadDispatches();
     if (btn.dataset.tab === "dlq") loadDlq();
+    if (btn.dataset.tab === "agent") renderAgentEditor();
   };
 });
 
-document.getElementById("send").onclick = send;
-document.getElementById("input").addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+// ---------- Agent persona editor ----------
+
+function activateAgentTab() {
+  const btn = document.querySelector('.panel-tabs button[data-tab="agent"]');
+  if (btn) btn.click();
+}
+
+function setAEStatus(msg, kind = "") {
+  const el = document.getElementById("ae-status");
+  el.textContent = msg;
+  el.className = "ae-status " + kind;
+}
+
+function renderAgentEditor() {
+  const a = state.activeAgent;
+  const empty = document.getElementById("agent-editor-empty");
+  const editor = document.getElementById("agent-editor");
+  if (!a) {
+    empty.hidden = false;
+    editor.hidden = true;
+    return;
+  }
+  empty.hidden = true;
+  editor.hidden = false;
+  document.getElementById("ae-name").textContent = a.display_name;
+  document.getElementById("ae-role").textContent = a.role || "";
+  document.getElementById("ae-dept").textContent = a.department || "";
+  document.getElementById("ae-adapter").textContent = a.adapter_type || "";
+  document.getElementById("ae-model").textContent = a.model || "";
+  const ta = document.getElementById("ae-system-prompt");
+  ta.value = a.system_prompt || "";
+  ta.dataset.original = a.system_prompt || "";
+  document.getElementById("ae-save").disabled = true;
+  document.getElementById("ae-revert").disabled = true;
+  setAEStatus("");
+}
+
+document.getElementById("ae-system-prompt").addEventListener("input", (e) => {
+  const dirty = e.target.value !== (e.target.dataset.original ?? "");
+  document.getElementById("ae-save").disabled = !dirty;
+  document.getElementById("ae-revert").disabled = !dirty;
+  if (dirty) setAEStatus("Unsaved changes", "");
 });
 
-loadHealth();
-loadAgents().then(() => loadDispatches());
-connectWs();
-setInterval(loadHealth, 30000);
-setInterval(loadDispatches, 60000);
+document.getElementById("ae-revert").onclick = () => {
+  const ta = document.getElementById("ae-system-prompt");
+  ta.value = ta.dataset.original ?? "";
+  document.getElementById("ae-save").disabled = true;
+  document.getElementById("ae-revert").disabled = true;
+  setAEStatus("Reverted", "");
+};
+
+document.getElementById("ae-save").onclick = async () => {
+  const a = state.activeAgent;
+  if (!a) return;
+  const ta = document.getElementById("ae-system-prompt");
+  const newPrompt = ta.value;
+  const saveBtn = document.getElementById("ae-save");
+  saveBtn.disabled = true;
+  setAEStatus("Saving…", "");
+  try {
+    const r = await fetch(`/api/agents/${encodeURIComponent(a.id)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ system_prompt: newPrompt }),
+    });
+    if (!r.ok) {
+      const text = await r.text().catch(() => "");
+      throw new Error(`HTTP ${r.status}: ${text || "save failed"}`);
+    }
+    const updated = await r.json();
+    // Refresh local cache so next chat uses the new prompt
+    a.system_prompt = updated.system_prompt ?? newPrompt;
+    state.agentById[a.id] = a;
+    ta.dataset.original = a.system_prompt || "";
+    document.getElementById("ae-revert").disabled = true;
+    setAEStatus(`Saved · ${new Date().toLocaleTimeString()}`, "ok");
+  } catch (err) {
+    setAEStatus(err.message || "Save failed", "err");
+    saveBtn.disabled = false;
+  }
+};
+
+document.querySelectorAll(".mode-toggle button").forEach(b => {
+  b.onclick = () => setMode(b.dataset.mode);
+});
+
+["send", "overlay-send"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.onclick = send;
+});
+["input", "overlay-input"].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+});
+
+document.getElementById("chat-overlay-close").onclick = () => {
+  document.getElementById("chat-overlay").classList.remove("show");
+};
+
+// ---------- Bootstrap ----------
+
+async function main() {
+  await loadHealth();
+  const agents = await loadAgents();
+
+  // Transform to the shape the scene expects
+  const sceneAgents = agents.map(a => ({
+    id: a.id,
+    displayName: a.display_name,
+    department: a.department,
+    role: a.role,
+    deskX: a.desk_x,
+    deskY: a.desk_y,
+    adapterType: a.adapter_type,
+  }));
+
+  const parent = document.getElementById("map-view");
+  const { game, scene } = await bootHQMap({
+    parent,
+    agents: sceneAgents,
+    onSelectAgent: (id) => selectAgent(id),
+  });
+  state.mapGame = game;
+  state.mapScene = scene;
+
+  loadDispatches();
+  connectWs();
+  setInterval(loadHealth, 30000);
+  setInterval(loadDispatches, 60000);
+}
+
+main();
 </script>
 </body>
 </html>

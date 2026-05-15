@@ -40,7 +40,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Clu",
         department="board",
         role="Chairman & CEO",
-        adapter_type="api",
+        adapter_type="hermes_local",
         desk=(2, 2),
         system_prompt=(
             "You are Clu — but in HQ you ARE the user. This persona is reserved for the operator. "
@@ -51,7 +51,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Nelly",
         department="cos",
         role="General Counsel & Head of Business Affairs",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(4, 2),
         system_prompt=(
             "You are Nelly, Chief of Staff at Apulu Records. You coordinate across departments, "
@@ -64,7 +64,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Letitia",
         department="marketing",
         role="President, Marketing, Audience & Revenue",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(10, 4),
         system_prompt=(
             "You are Letitia, President of Marketing, Audience & Revenue. You own social "
@@ -76,7 +76,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Sage & Khari",
         department="marketing",
         role="Content & Visuals Team",
-        adapter_type="process",
+        adapter_type="hermes_local",
         desk=(12, 4),
         system_prompt=(
             "You are the Sage & Khari duo — content creation and visual content production for "
@@ -89,7 +89,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Dex",
         department="marketing",
         role="Community & Fan Engagement Manager",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(14, 4),
         system_prompt=(
             "You are Dex, Engagement agent. You monitor comments and DMs across platforms and "
@@ -102,7 +102,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Nova",
         department="marketing",
         role="Analytics & Streaming Strategy Lead",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(16, 4),
         system_prompt=(
             "You are Nova, Analytics. You run content-performance-daily (11am) and the weekly "
@@ -114,7 +114,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Echo",
         department="marketing",
         role="Head of Publicity & DSP Relations",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(18, 4),
         system_prompt=(
             "You are Echo, Press & PR. You run the weekly press-opportunity-scan (Wed 2pm), "
@@ -126,7 +126,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Nari",
         department="operations",
         role="COO, Operations, Finance & Tech",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(10, 8),
         system_prompt=(
             "You are Nari, COO of Operations, Finance & Tech. You own infrastructure, cash "
@@ -139,7 +139,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Cipher",
         department="operations",
         role="CFO & Finance Lead",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(12, 8),
         system_prompt=(
             "You are Cipher, Finance & Royalties. You run streaming-revenue-check (Mon 12pm) "
@@ -150,7 +150,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Vibe",
         department="operations",
         role="Head of Partnerships & Revenue",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(14, 8),
         system_prompt=(
             "You are Vibe, Partnerships & Sync Licensing. You run sync-opportunity-scan "
@@ -162,7 +162,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Rex",
         department="operations",
         role="CTO & AI Infrastructure Lead",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(4, 8),
         system_prompt=(
             "You are Rex, Tech & Reliability. You own the bulletproofing stack: retry wrapper, "
@@ -174,7 +174,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Rhythm",
         department="research",
         role="A&R Scout & Discovery Analyst",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(4, 12),
         system_prompt=(
             "You are Rhythm, Research Director. You run artist-discovery-scan (daily 9:30am), "
@@ -186,7 +186,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Sable",
         department="production",
         role="Artist Relations Manager",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(6, 2),
         system_prompt=(
             "You are Sable, Artist Relations Manager. You handle day-to-day artist "
@@ -200,7 +200,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Timbo",
         department="production",
         role="President, A&R & Talent Development",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(12, 12),
         system_prompt=(
             "You are Timbo, President of A&R & Talent Development. You read the cultural "
@@ -212,7 +212,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Cole",
         department="production",
         role="In-House Producer & Songwriter",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(14, 12),
         system_prompt=(
             "You are Cole, In-House Producer & Songwriter. You turn Timbo's briefs into "
@@ -223,7 +223,7 @@ AGENT_SEEDS: list[AgentSeed] = [
         name="Onyx",
         department="post-prod",
         role="Studio & Post-Production Lead",
-        adapter_type="claude_local",
+        adapter_type="hermes_local",
         desk=(16, 12),
         system_prompt=(
             "You are Onyx, Mix/Master/QC. You take stems through Vawn's mix engine and "

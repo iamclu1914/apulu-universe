@@ -28,7 +28,7 @@ def test_list_agents(client):
     assert len(agents) == 16
     nelly = next(a for a in agents if a["display_name"] == "Nelly")
     assert nelly["department"] == "cos"
-    assert nelly["adapter_type"] == "claude_local"
+    assert nelly["adapter_type"] == "hermes_local"
     assert nelly["system_prompt"] is not None
 
 
@@ -69,91 +69,23 @@ def test_patch_agent_system_prompt(client):
     assert r.json()["system_prompt"] == "TEST PROMPT REX"
 
 
-def test_chat_mock_mode_round_trip(client):
-    """With no ANTHROPIC_API_KEY, chat with an `api`-adapter agent should
-    return a deterministic mock reply and persist both user + assistant
-    messages. (Clu is the only `api` agent — claude_local agents take a
-    different path via the claude CLI.)"""
-    agents = client.get("/api/agents").json()
-    clu = next(a for a in agents if a["display_name"] == "Clu")
-    assert clu["adapter_type"] == "api"
-
-    r = client.post(
-        f"/api/agents/{clu['id']}/chat",
-        json={"message": "ping"},
-    )
-    assert r.status_code == 200
-
-    # Mock mode is synchronous-ish (no await on Anthropic) — but the task is
-    # scheduled asynchronously. Poll the threads endpoint briefly.
+def test_chat_hermes_local_uses_subprocess_adapter(client, monkeypatch):
+    """All seeded agents now route through the hermes_local adapter. We stub
+    it so the test doesn't actually spawn Hermes."""
     import time
-    deadline = time.time() + 2.0
-    while time.time() < deadline:
-        threads = client.get(f"/api/agents/{clu['id']}/threads").json()
-        if threads:
-            break
-        time.sleep(0.05)
-    assert threads, "no thread created"
+    from apulu_hq.chat import hermes_local as hl
 
-    msgs = client.get(f"/api/threads/{threads[0]['id']}/messages").json()
-    deadline = time.time() + 2.0
-    while time.time() < deadline and len(msgs) < 2:
-        time.sleep(0.05)
-        msgs = client.get(f"/api/threads/{threads[0]['id']}/messages").json()
-    assert len(msgs) >= 2
-    assert msgs[0]["role"] == "user"
-    assert msgs[0]["content"] == "ping"
-    assert msgs[1]["role"] == "assistant"
-    assert "mock mode" in msgs[1]["content"]
-
-
-def test_chat_process_agent_returns_hint(client):
-    """`process`-adapter agents (Sage & Khari) don't have a chat path; the
-    router returns a clear hint instead of crashing."""
-    import time
-
-    agents = client.get("/api/agents").json()
-    sage = next(a for a in agents if a["display_name"] == "Sage & Khari")
-    assert sage["adapter_type"] == "process"
-
-    r = client.post(f"/api/agents/{sage['id']}/chat", json={"message": "hi"})
-    assert r.status_code == 200
-
-    deadline = time.time() + 2.0
-    threads = []
-    while time.time() < deadline:
-        threads = client.get(f"/api/agents/{sage['id']}/threads").json()
-        if threads:
-            break
-        time.sleep(0.05)
-    assert threads
-
-    msgs = client.get(f"/api/threads/{threads[0]['id']}/messages").json()
-    deadline = time.time() + 2.0
-    while time.time() < deadline and len(msgs) < 2:
-        time.sleep(0.05)
-        msgs = client.get(f"/api/threads/{threads[0]['id']}/messages").json()
-    assert len(msgs) >= 2
-    assert "scheduled process adapter" in msgs[1]["content"]
-
-
-def test_chat_claude_local_uses_subprocess_adapter(client, monkeypatch):
-    """For `claude_local` agents, the router should call into the
-    claude_local adapter. We stub it so the test doesn't depend on the CLI."""
-    import time
-    from apulu_hq.chat import claude_local as cl
-
-    async def fake_stream(*, agent_id, thread_id, user_message, history, system_prompt, model=None):
+    async def fake_stream(*, agent_id, thread_id, user_message, history, system_prompt, model=None, cwd=None, timeout_seconds=300.0):
         from apulu_hq.events import Event
         yield Event(type="chat.token", payload={"thread_id": thread_id, "agent_id": agent_id, "token": "STUB "})
         yield Event(type="chat.token", payload={"thread_id": thread_id, "agent_id": agent_id, "token": "OK"})
-        yield Event(type="chat.done", payload={"thread_id": thread_id, "agent_id": agent_id, "subscription": True, "cost_usd": 0.0, "input_tokens": 5, "output_tokens": 2})
+        yield Event(type="chat.done", payload={"thread_id": thread_id, "agent_id": agent_id, "duration_ms": 12, "input_tokens": 5, "output_tokens": 2})
 
-    monkeypatch.setattr(cl, "stream_claude_local", fake_stream)
+    monkeypatch.setattr(hl, "stream_hermes_local", fake_stream)
 
     agents = client.get("/api/agents").json()
     nelly = next(a for a in agents if a["display_name"] == "Nelly")
-    assert nelly["adapter_type"] == "claude_local"
+    assert nelly["adapter_type"] == "hermes_local"
 
     r = client.post(f"/api/agents/{nelly['id']}/chat", json={"message": "hi"})
     assert r.status_code == 200

@@ -171,7 +171,8 @@ a{color:inherit;text-decoration:none}
 .dept-view-btn:hover{background:var(--surface-3);border-color:var(--line-2);color:var(--ink)}
 
 /* Analytics row */
-.analytics-row{display:grid;grid-template-columns:1.6fr 1fr 1.3fr;gap:14px}
+.analytics-row{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:14px;align-items:start}
+.analytics-row.two-col{grid-template-columns:1fr 1.2fr}
 .analytics-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px}
 .analytics-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .analytics-title{font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:var(--ink-2);text-transform:uppercase}
@@ -381,7 +382,9 @@ a{color:inherit;text-decoration:none}
   :root{--sidebar-w:220px;--comm-w:300px}
   .kpi-value{font-size:28px}
   .dept-grid{grid-template-columns:repeat(2,1fr)}
-  .analytics-row{grid-template-columns:1fr}
+}
+@media(max-width:850px){
+  .analytics-row,.analytics-row.two-col{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -515,14 +518,15 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
 
-      <div class="analytics-row">
-        <div class="analytics-card">
-          <div class="analytics-head">
-            <div class="analytics-title">Live Agent Activity</div>
-            <span class="live-pulse" id="activity-pulse" title="Real-time"><span class="live-pulse-dot"></span>LIVE</span>
-          </div>
-          <div id="activity-feed"></div>
+      <div class="analytics-card">
+        <div class="analytics-head">
+          <div class="analytics-title">Live Agent Activity</div>
+          <span class="live-pulse" id="activity-pulse" title="Real-time"><span class="live-pulse-dot"></span>LIVE</span>
         </div>
+        <div id="activity-feed"></div>
+      </div>
+
+      <div class="analytics-row two-col">
         <div class="analytics-card">
           <div class="analytics-head"><div class="analytics-title">Top Performing Agents</div></div>
           <div class="top-agents" id="top-agents"></div>

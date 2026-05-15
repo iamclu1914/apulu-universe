@@ -286,25 +286,25 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Routine grid */
-.routine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 8px; }
+.routine-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
 .routine-card {
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 12px 14px;
-  display: flex; align-items: center; gap: 12px;
-  transition: border-color 0.15s;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  transition: border-color 0.15s, transform 0.08s;
   cursor: default;
 }
-.routine-card:hover { border-color: var(--border-2); }
+.routine-card:hover { transform: translateY(-1px); border-color: var(--border-2); box-shadow: var(--shadow-2); }
 .routine-card.enabled  { border-left: 3px solid var(--green); }
 .routine-card.shadow   { border-left: 3px solid var(--gold); }
 .routine-card.disabled { border-left: 3px solid var(--border-2); opacity: 0.55; }
 .routine-card.firing   { border-left: 3px solid var(--blue); background: var(--blue-dim); }
 .routine-card.failed   { border-left: 3px solid var(--red); }
 .routine-info { flex: 1; min-width: 0; }
-.routine-name { font-size: 12.5px; font-weight: 500; color: var(--text-1); }
-.routine-meta { font-size: 10.5px; color: var(--text-4); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+.routine-name { font-size: 12.5px; font-weight: 500; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.routine-meta { font-size: 10.5px; color: var(--text-4); margin-top: 2px; font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .routine-badge {
   font-size: 10px; font-weight: 600;
   padding: 2px 8px; border-radius: 999px;
@@ -379,6 +379,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Chat View ─────────────────────────────────────────────── */
 #view-chat { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+#view-chat.hidden { display: none; }
 .chat-topbar {
   padding: 0 20px;
   height: 52px;
@@ -458,11 +459,13 @@ a { color: inherit; text-decoration: none; }
 .send-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .empty-state {
   flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 8px;
-  color: var(--text-4); text-align: center; padding: 40px;
+  align-items: center; justify-content: center; gap: 6px;
+  color: var(--text-4); text-align: center; padding: 20px;
 }
-.empty-state-icon { font-size: 32px; opacity: 0.5; }
-.empty-state-text { font-size: 13px; }
+.empty-state-icon { font-size: 20px; opacity: 0.4; }
+.empty-state-text { font-size: 12px; color: var(--text-3); }
+.empty-state-hint { font-size: 11px; color: var(--text-4); }
+.empty-state-hint code { color: var(--gold); font-family: 'JetBrains Mono', monospace; background: var(--surface-3); padding: 1px 4px; border-radius: 3px; font-size: 10.5px; }
 
 /* ── Agent Profile View ────────────────────────────────────── */
 #view-agent {}
@@ -693,7 +696,11 @@ a { color: inherit; text-decoration: none; }
 .event-type.fail { color: var(--red); }
 .event-type.gold { color: var(--gold); }
 .event-ts { color: var(--text-4); font-family: 'JetBrains Mono', monospace; font-size: 10px; }
-.event-payload { color: var(--text-4); font-size: 10px; margin-top: 2px; font-family: 'JetBrains Mono', monospace; word-break: break-all; }
+.event-payload { color: var(--text-4); font-size: 10px; margin-top: 3px; font-family: 'JetBrains Mono', monospace; white-space: pre-wrap; word-break: break-word; line-height: 1.45; }
+.event-payload .json-k { color: var(--text-3); }
+.event-payload .json-s { color: var(--green); }
+.event-payload .json-n { color: var(--gold); }
+.event-payload .json-b { color: var(--blue); font-weight: 500; }
 
 /* Agent persona editor */
 .ae-wrap { display: flex; flex-direction: column; gap: 14px; padding: 4px 0; }
@@ -895,14 +902,15 @@ a { color: inherit; text-decoration: none; }
   <!-- Chat -->
   <div class="view hidden" id="view-chat">
     <div class="chat-topbar" id="chat-topbar">
-      <div class="empty-state" style="padding:0; flex-direction:row; color:var(--text-3); font-size:13px;">
+      <div style="padding:0 20px; color:var(--text-3); font-size:13px;">
         ← Select an agent to start chatting
       </div>
     </div>
     <div class="chat-messages" id="chat-messages">
-      <div class="empty-state">
+      <div class="empty-state" style="gap:4px;">
         <div class="empty-state-icon">💬</div>
-        <div class="empty-state-text">Select an agent from the grid or type <code>/chat &lt;agent&gt;</code></div>
+        <div class="empty-state-text">No agent selected</div>
+        <div class="empty-state-hint">Select an agent from the grid or type <code>/chat &lt;agent&gt;</code></div>
       </div>
     </div>
     <div class="chat-composer">
@@ -990,8 +998,8 @@ function renderRoutineGrid() {
     }).join('');
     card.innerHTML = `
       <div class="routine-info">
-        <div class="routine-name">${r.display_name}</div>
-        <div class="routine-meta">${r.cron_expr||''} · ${r.timezone?.replace('America/','')}</div>
+        <div class="routine-name">${escHtml(r.display_name)}</div>
+        <div class="routine-meta">${escHtml(r.cron_expr||'')} · ${escHtml(r.timezone?.replace('America/','')||'')}</div>
       </div>
       <div class="uptime-bars">${bars}</div>
       <div class="routine-badge ${badgeCls}">${badgeLabel}</div>`;
@@ -1280,7 +1288,13 @@ document.addEventListener('keydown',e=>{
 // ── Quick pills ──────────────────────────────────────────────
 
 document.querySelectorAll('.quick-pill').forEach(p=>{
-  p.onclick=()=>{const v=p.dataset.view;if(v==='chat'){if(state.activeAgent)openChat(state.activeAgent);else setView('agents-grid');}else setView(v);};
+  p.onclick=()=>{
+    const v=p.dataset.view;
+    if(v==='chat'){
+      if(state.activeAgent){openChat(state.activeAgent);}
+      else {setView('agents-grid'); showCmdOutput('💬','Select an agent to start chatting','info');}
+    } else setView(v);
+  };
 });
 
 // ── Profile back / chat ──────────────────────────────────────
@@ -1336,8 +1350,18 @@ function pushEventRow(e) {
   const el=document.createElement('div');el.className='event-row';
   const cls=e.type.includes('succeeded')||e.type==='breaker.cleared'?'ok':e.type.includes('failed')||e.type==='breaker.tripped'||e.type==='dlq.appended'?'fail':e.type.includes('chat')?'gold':'';
   const ts=(e.ts||'').split('T')[1]?.slice(0,8)||'';
-  el.innerHTML=`<div><span class="event-type ${cls}">${e.type}</span> <span class="event-ts">${ts}</span></div><div class="event-payload">${JSON.stringify(e.payload||{}).slice(0,140)}</div>`;
+  const payload=formatJson(e.payload||{});
+  el.innerHTML=`<div><span class="event-type ${cls}">${escHtml(e.type)}</span> <span class="event-ts">${escHtml(ts)}</span></div><div class="event-payload">${payload}</div>`;
   root.prepend(el);while(root.children.length>120)root.lastChild.remove();
+}
+
+function formatJson(obj) {
+  const raw=JSON.stringify(obj,null,1);
+  return raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/("[^"]+")\s*:/g,'<span class="json-k">$1</span>:')
+    .replace(/: ("[^"]*")/g,': <span class="json-s">$1</span>')
+    .replace(/: (\d+)/g,': <span class="json-n">$1</span>')
+    .replace(/: (true|false)/g,': <span class="json-b">$1</span>');
 }
 
 function flashRoutineCard(routineId,cls){if(cls){renderRoutineGrid();}else{renderRoutineGrid();}}

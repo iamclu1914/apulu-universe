@@ -94,6 +94,10 @@ class HQScheduler:
         self.shadow = _shadow_default() if shadow is None else shadow
         self._scheduler: AsyncIOScheduler | None = None
         self._lock = asyncio.Lock()
+        # Drift-detection fingerprint of the routines table — used by the
+        # auto-reload watcher to pick up direct SQL UPDATEs (i.e. bulk-enable
+        # outside the API). Format: (enabled_count, max_updated_at).
+        self._routines_fingerprint: tuple = (0, "")
 
     async def start(self) -> None:
         async with self._lock:
@@ -102,11 +106,44 @@ class HQScheduler:
             self._scheduler = AsyncIOScheduler(timezone="America/New_York")
             self._scheduler.start()
             await self.reload_jobs()
-            log.info(
-                "HQScheduler started (shadow=%s, %d job(s) loaded)",
-                self.shadow,
-                len(self._scheduler.get_jobs()),
+            # Watcher: every 5 min, reload if the routines table changed under us.
+            # Catches direct SQL writes (e.g. bulk-enable via sqlite3 CLI).
+            self._scheduler.add_job(
+                self._auto_reload_if_drifted,
+                trigger="interval",
+                minutes=5,
+                id="__auto_reload_watcher__",
+                name="auto-reload routines on drift",
+                replace_existing=True,
+                misfire_grace_time=60,
+                coalesce=True,
+                max_instances=1,
             )
+            log.info(
+                "HQScheduler started (shadow=%s, %d job(s) loaded, auto-reload watcher every 5 min)",
+                self.shadow,
+                len(self._scheduler.get_jobs()) - 1,
+            )
+
+    def _compute_routines_fingerprint(self) -> tuple:
+        """Cheap signal of routines-table state: (enabled_count, max(updated_at))."""
+        row = get_conn().execute(
+            "SELECT COUNT(*) AS c, COALESCE(MAX(updated_at),'') AS m "
+            "FROM routines WHERE enabled=1"
+        ).fetchone()
+        return (int(row["c"]), str(row["m"]))
+
+    async def _auto_reload_if_drifted(self) -> None:
+        """Watcher: reload jobs if the routines fingerprint changed."""
+        if self._scheduler is None:
+            return
+        current = self._compute_routines_fingerprint()
+        if current != self._routines_fingerprint:
+            log.info(
+                "auto-reload: routines fingerprint drifted %s → %s — reloading jobs",
+                self._routines_fingerprint, current,
+            )
+            await self.reload_jobs()
 
     async def stop(self) -> None:
         async with self._lock:
@@ -116,10 +153,15 @@ class HQScheduler:
             self._scheduler = None
 
     async def reload_jobs(self) -> None:
-        """Drop all jobs and rebuild from the routines table (enabled only)."""
+        """Drop all routine jobs and rebuild from the routines table.
+
+        Preserves the auto-reload watcher job.
+        """
         if self._scheduler is None:
             return
         for job in self._scheduler.get_jobs():
+            if job.id == "__auto_reload_watcher__":
+                continue
             self._scheduler.remove_job(job.id)
 
         rows = get_conn().execute(
@@ -149,6 +191,11 @@ class HQScheduler:
                 max_instances=1,
             )
             added += 1
+        # Refresh the drift fingerprint so the watcher only fires on real changes.
+        try:
+            self._routines_fingerprint = self._compute_routines_fingerprint()
+        except Exception:
+            pass
         log.info("reload_jobs: %d enabled routine(s) scheduled (shadow=%s)", added, self.shadow)
 
     async def fire_now(self, routine_id: str) -> str:
@@ -202,4 +249,5 @@ class HQScheduler:
                 "trigger": str(j.trigger),
             }
             for j in self._scheduler.get_jobs()
+            if j.id != "__auto_reload_watcher__"
         ]

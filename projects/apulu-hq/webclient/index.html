@@ -191,6 +191,9 @@ a{color:inherit;text-decoration:none}
 .task-reassign-menu.open{display:block}
 .reassign-row{display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer;transition:background .08s}
 .reassign-row:hover{background:var(--surface-3)}
+.task-head-badge{font-size:8.5px;font-weight:800;color:var(--accent);background:var(--accent-dim);padding:1px 5px;border-radius:3px;letter-spacing:0.06em;border:1px solid rgba(124,58,237,0.25)}
+.task-route-arrow{font-size:10.5px;color:var(--ink-3);margin-top:5px;padding-left:4px}
+.task-route-arrow strong{color:var(--ink-2);font-weight:600}
 
 /* footer */
 .footer-quote{text-align:center;padding:16px 0 8px;color:var(--ink-3);font-size:13px;font-style:italic}
@@ -676,14 +679,23 @@ function buildDepartments(){
 
 // Client-side fallback metadata (mirrors backend DEPT_META — used if /api/departments 404s on older backends)
 const FALLBACK_DEPT_META={
-  'board':{label:'Office of the Chairman',icon:'👑',color:'amber',description:'Executive leadership, vision, and final authority on signings and strategy'},
-  'cos':{label:'Legal & Business Affairs',icon:'⚖',color:'purple',description:'Contracts, licensing, publishing, clearances and artist relations'},
-  'marketing':{label:'Marketing, Audience & Revenue',icon:'📣',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy'},
-  'operations':{label:'Operations, Finance & Tech',icon:'⚙',color:'cyan',description:'Infrastructure, finance, royalties, partnerships and AI orchestration'},
-  'post-prod':{label:'Post-Production',icon:'🎚',color:'teal',description:'Mixing, mastering and quality control'},
-  'production':{label:'A&R & Production',icon:'🎵',color:'pink',description:'Artist scouting, creative direction, songwriting and production'},
-  'research':{label:'Discovery & Research',icon:'🔍',color:'lime',description:'Streaming/social data mining, trend analysis and breakout signal detection'}
+  'board':{label:'Office of the Chairman',icon:'👑',color:'amber',description:'Executive leadership, vision, and final authority on signings and strategy',headName:'Clu'},
+  'cos':{label:'Legal & Business Affairs',icon:'⚖',color:'purple',description:'Contracts, licensing, publishing, clearances and artist relations',headName:'Nelly'},
+  'marketing':{label:'Marketing, Audience & Revenue',icon:'📣',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy',headName:'Letitia'},
+  'operations':{label:'Operations, Finance & Tech',icon:'⚙',color:'cyan',description:'Infrastructure, finance, royalties, partnerships and AI orchestration',headName:'Nari'},
+  'post-prod':{label:'Post-Production',icon:'🎚',color:'teal',description:'Mixing, mastering and quality control',headName:'Onyx'},
+  'production':{label:'A&R & Production',icon:'🎵',color:'pink',description:'Artist scouting, creative direction, songwriting and production',headName:'Timbo'},
+  'research':{label:'Discovery & Research',icon:'🔍',color:'lime',description:'Streaming/social data mining, trend analysis and breakout signal detection',headName:'Rhythm'}
 };
+
+// Resolve a department's head agent — uses API-provided headAgentId, else falls back to FALLBACK_DEPT_META[id].headName
+function deptHead(deptId){
+  const d=state.deptById[deptId];
+  if(d&&d.headAgentId)return state.agentById[d.headAgentId]||null;
+  const fb=FALLBACK_DEPT_META[deptId];
+  if(fb&&fb.headName)return state.agents.find(a=>a.display_name===fb.headName)||null;
+  return null;
+}
 
 async function loadDepartments(){
   try{
@@ -715,9 +727,11 @@ function deriveDepartments(){
   const all=[...new Set([...order,...Object.keys(groups)])];
   state.deptList=all.filter(id=>groups[id]).map(id=>{
     const meta=FALLBACK_DEPT_META[id]||{label:id,icon:'🏢',color:'purple',description:id};
+    const head=meta.headName?state.agents.find(a=>a.display_name===meta.headName):null;
     return {
       id,name:meta.label,icon:meta.icon,color:meta.color,description:meta.description,
-      agentCount:groups[id].agents.length,onlineAgentCount:groups[id].online
+      agentCount:groups[id].agents.length,onlineAgentCount:groups[id].online,
+      headAgentId:head?head.id:null,headAgentName:meta.headName||null
     };
   });
 }
@@ -929,31 +943,46 @@ async function renderTasks(){
     const failures=(dispatches||[]).filter(d=>d.outcome==='failure'||d.outcome==='fail').slice(0,3);
     const dlqItems=(dlq||[]).slice(0,3);
     const items=[];
+    // Helper: build a task that routes to the dept head with context about the underlying agent
+    const buildTask=(rawAgentId,baseTask)=>{
+      const direct=rawAgentId?state.agentById[rawAgentId]:null;
+      const head=direct?deptHead(direct.department):null;
+      const routedAgent=head||direct;  // Fallback to direct if head missing
+      const directName=direct?direct.display_name:'an unowned routine';
+      const directRole=direct?direct.role:'';
+      const headBlurb=head&&direct&&head.id!==direct.id
+        ? `Your team member ${directName} (${directRole}) owns this routine. Please review with them and decide: investigate, reassign, retry, or escalate to Clu.`
+        : 'Please investigate and decide on the right next step.';
+      return Object.assign(baseTask,{
+        assignedAgentId:routedAgent?routedAgent.id:null,
+        directAgentId:direct?direct.id:null,
+        deptHeadId:head?head.id:null,
+        context:`${baseTask.context}\n\n${headBlurb}`,
+      });
+    };
     failures.forEach(f=>{
-      const agentId=f.agent_id||(state.routines.find(r=>r.id===f.routine_id)||{}).agent_id;
-      items.push({
+      const ownerId=f.agent_id||(state.routines.find(r=>r.id===f.routine_id)||{}).agent_id;
+      items.push(buildTask(ownerId,{
         id:'fail:'+f.id,
         title:`Failed: ${f.routine_name||f.routine_id}`,
         sub:f.outcome+(f.duration_ms?` · ${(f.duration_ms/1000).toFixed(1)}s`:''),
         pri:'high',
-        assignedAgentId:agentId,
-        context:`Routine "${f.routine_name||f.routine_id}" failed (${f.outcome}). Please investigate and propose a fix.`,
-      });
+        context:`Routine "${f.routine_name||f.routine_id}" failed (${f.outcome}).`,
+      }));
     });
-    // Default-route system issues to Rex (CTO & AI Infrastructure Lead) if no owner
+    // System issues without an owner default-route to Rex (CTO)
     const rex=state.agents.find(a=>a.display_name==='Rex');
     dlqItems.forEach(d=>{
       const r=state.routines.find(x=>x.id===d.routine_id);
-      const agentId=d.agent_id||(r&&r.agent_id)||(rex&&rex.id);
+      const ownerId=d.agent_id||(r&&r.agent_id)||(rex&&rex.id);
       const slot=(d.payload&&d.payload.slot)||d.routine_id;
-      items.push({
+      items.push(buildTask(ownerId,{
         id:'dlq:'+d.id,
         title:`DLQ: ${slot}`,
         sub:d.signature?String(d.signature).slice(0,48):'unsigned payload',
         pri:'medium',
-        assignedAgentId:agentId,
         context:`DLQ entry: slot="${slot}". Signature: ${d.signature||'none'}. Replay or discard?`,
-      });
+      }));
     });
     state.tasks=items;
     if(!items.length){
@@ -961,22 +990,30 @@ async function renderTasks(){
       return;
     }
     root.innerHTML=items.map((t,idx)=>{
-      const a=t.assignedAgentId?state.agentById[t.assignedAgentId]:null;
-      const aName=a?a.display_name:'Unassigned';
-      const aInit=a?initials(a.display_name):'?';
-      const colorVar=a?agentColorVar(deptColor(a.department)):'var(--ink-3)';
+      const head=t.assignedAgentId?state.agentById[t.assignedAgentId]:null;
+      const direct=t.directAgentId?state.agentById[t.directAgentId]:null;
+      const headName=head?head.display_name:'Unassigned';
+      const headInit=head?initials(head.display_name):'?';
+      const headColor=head?agentColorVar(deptColor(head.department)):'var(--ink-3)';
+      // Show routing if head and direct differ (i.e. CEO → Head ↳ Team Member)
+      const showRouting=head&&direct&&head.id!==direct.id;
+      const routingHtml=showRouting
+        ? `<div class="task-route-arrow">↳ owned by <strong>${escHtml(direct.display_name)}</strong> <span style="color:var(--ink-4)">(${escHtml(direct.role||'')})</span></div>`
+        : '';
       return `<div class="task-row" data-task-idx="${idx}">
         <div class="task-info">
           <div class="task-title">${escHtml(t.title)}</div>
           <div class="task-sub">${escHtml(t.sub)}</div>
           <div class="task-assign-row">
-            <div class="task-assign-chip" onclick="event.stopPropagation();sendTaskToAgent(${idx})" title="Send to ${escHtml(aName)}">
-              <span class="task-assign-avatar" style="background:linear-gradient(135deg,${colorVar},#3a1670)">${aInit}</span>
-              <span class="task-assign-name">${escHtml(aName)}</span>
+            <div class="task-assign-chip" onclick="event.stopPropagation();sendTaskToAgent(${idx})" title="Send to ${escHtml(headName)} (dept head)">
+              <span class="task-assign-avatar" style="background:linear-gradient(135deg,${headColor},#3a1670)">${headInit}</span>
+              <span class="task-assign-name">${escHtml(headName)}</span>
+              ${head&&showRouting?'<span class="task-head-badge">HEAD</span>':''}
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
             </div>
             <button class="task-reassign-btn" onclick="event.stopPropagation();toggleReassign(${idx})" title="Reassign">↻</button>
           </div>
+          ${routingHtml}
           <div class="task-reassign-menu" id="reassign-menu-${idx}"></div>
         </div>
         <div class="task-pri ${t.pri}">${t.pri[0].toUpperCase()+t.pri.slice(1)}</div>

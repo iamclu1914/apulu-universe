@@ -50,6 +50,20 @@ log = logging.getLogger(__name__)
 # Keys are the *raw* department values stored on the agents table.
 # ---------------------------------------------------------------------------
 
+# Department heads — the agent who manages each department and receives
+# escalated tasks. CEO communicates with these heads; they coordinate
+# within their teams.
+DEPT_HEAD: dict[str, str] = {
+    "board": "Clu",           # Chairman & CEO
+    "cos": "Nelly",           # General Counsel & Head of Business Affairs
+    "marketing": "Letitia",   # President, Marketing, Audience & Revenue
+    "operations": "Nari",     # COO, Operations, Finance & Tech
+    "production": "Timbo",    # President, A&R & Talent Development
+    "post-prod": "Onyx",      # Studio & Post-Production Lead
+    "research": "Rhythm",     # A&R Scout & Discovery Analyst
+}
+
+
 DEPT_META: dict[str, dict[str, str]] = {
     "board": {
         "label": "Office of the Chairman",
@@ -304,15 +318,22 @@ def create_app() -> FastAPI:
     # ---- departments ----
     @app.get("/api/departments")
     def list_departments():
-        """All departments derived from agents, with metadata + counts."""
-        rows = get_conn().execute(
+        """All departments derived from agents, with metadata + counts + head agent."""
+        conn = get_conn()
+        rows = conn.execute(
             "SELECT department, COUNT(*) AS agent_count, "
             "SUM(CASE WHEN enabled=1 THEN 1 ELSE 0 END) AS online_count "
             "FROM agents GROUP BY department ORDER BY department"
         ).fetchall()
+        # Build display_name → agent_id lookup for resolving heads
+        head_lookup = {
+            r["display_name"]: r["id"]
+            for r in conn.execute("SELECT id, display_name FROM agents").fetchall()
+        }
         out = []
         for r in rows:
             meta = _dept_meta(r["department"])
+            head_name = DEPT_HEAD.get(r["department"])
             out.append({
                 "id": r["department"],
                 "name": meta["label"],
@@ -321,6 +342,8 @@ def create_app() -> FastAPI:
                 "description": meta["description"],
                 "agentCount": r["agent_count"],
                 "onlineAgentCount": int(r["online_count"] or 0),
+                "headAgentId": head_lookup.get(head_name) if head_name else None,
+                "headAgentName": head_name,
             })
         return out
 

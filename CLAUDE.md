@@ -18,6 +18,30 @@ If you see references to "Paperclip" in the codebase or docs, they are historica
 ## Apulu HQ (Agent Orchestration)
 Apulu HQ runs at `http://127.0.0.1:8741`. The desktop shell (`python -m apulu_hq.shell`) launches it with a system-tray icon. Backend-only mode for dev: `python projects/apulu-hq/scripts/run_dev.py` (auto-reloads).
 
+## Hermes Skills (installed 2026-05-15)
+All agents chat through **Hermes ACP** (`apulu_hq/chat/hermes_local.py`). Hermes auto-discovers skills under `~/.hermes/skills/` recursively.
+
+Installed from [blacktwist/social-media-skills](https://github.com/blacktwist/social-media-skills) at `~/.hermes/skills/social-media-skills/skills/`:
+
+| Skill | Primary owner | Notes |
+|---|---|---|
+| `post-writer-sms` | Sage & Khari | Text-first posts (LinkedIn / X / Threads / Bluesky) |
+| `caption-writer-sms` | Sage & Khari | Visual-first captions (IG / TikTok / Pinterest / YT) |
+| `hook-writer-sms` | Sage & Khari | Opening lines |
+| `thread-writer-sms` | Sage & Khari | X / Threads multi-post threads |
+| `carousel-writer-sms` | Sage & Khari | Multi-slide IG / LinkedIn carousels |
+| `content-calendar-sms` | Letitia | Scheduling, cadence, pillar rotation |
+| `content-strategy-sms` | Letitia | Campaign + pillar strategy |
+| `platform-strategy-sms` | Letitia | Per-platform optimization |
+| `content-repurposer-sms` | Sage & Khari + Letitia | Cross-platform recycling |
+| `social-media-context-sms` | shared | Background context any social agent can pull |
+| `performance-analyzer-sms` | Nova | Post-mortem analytics |
+| `audience-growth-tracker-sms` | Nova | Audience metrics over time |
+| `optimization-advisor-sms` | Nova | Where to allocate next |
+| `content-pattern-analyzer-sms` | Nova | What's working / what's not |
+
+Hermes' default system prompt already instructs each agent to scan available skills before replying, so no explicit per-agent system_prompt edits are required — these will be discovered and used automatically when the agent's task matches.
+
 ### Org Structure (16 agents — current, 2026-04-16)
 ```
 Clu (Chairman & CEO — you)

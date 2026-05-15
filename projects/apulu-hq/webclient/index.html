@@ -156,9 +156,28 @@ a{color:inherit;text-decoration:none}
 .analytics-title{font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:var(--ink-2);text-transform:uppercase}
 .analytics-select{height:24px;padding:0 22px 0 9px;background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r-sm);font-size:10.5px;color:var(--ink-2);appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23A1A1AA' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 7px center;outline:none}
 
-/* chart */
-.chart-wrap{height:170px;position:relative}
-.chart-svg{width:100%;height:100%;overflow:visible}
+/* live activity */
+.live-pulse{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;letter-spacing:0.1em;color:var(--green);background:var(--green-dim);border:1px solid rgba(34,197,94,0.25);padding:2px 8px;border-radius:999px}
+.live-pulse-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.activity-list{display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto}
+.activity-row{display:flex;align-items:center;gap:10px;padding:7px 9px;background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r);cursor:pointer;transition:all .12s}
+.activity-row:hover{border-color:var(--line-2);background:var(--surface-2)}
+.activity-row.running{border-color:rgba(34,197,94,0.35);background:rgba(34,197,94,0.04)}
+.activity-row.fail{border-color:rgba(239,68,68,0.35);background:rgba(239,68,68,0.04)}
+.activity-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;position:relative}
+.activity-spin{position:absolute;inset:-3px;border-radius:50%;border:2px solid transparent;border-top-color:var(--green);border-right-color:var(--green);animation:spin 1.1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.activity-info{flex:1;min-width:0}
+.activity-top{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.activity-agent{font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.activity-status-pill{font-size:8.5px;font-weight:800;padding:1px 6px;border-radius:3px;letter-spacing:0.06em;flex-shrink:0;background:var(--surface-3);color:var(--ink-3)}
+.activity-status-pill.running{background:var(--green-dim);color:var(--green)}
+.activity-status-pill.success{background:var(--green-dim);color:var(--green)}
+.activity-status-pill.shadow{background:var(--accent-dim);color:var(--accent)}
+.activity-status-pill.fail{background:var(--red-dim);color:var(--red)}
+.activity-time{font-size:9.5px;color:var(--ink-4);font-family:"JetBrains Mono",monospace;margin-left:auto;flex-shrink:0}
+.activity-task{font-size:10.5px;color:var(--ink-3);line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* top agents */
 .top-agents{display:flex;flex-direction:column;gap:9px}
@@ -484,10 +503,10 @@ a{color:inherit;text-decoration:none}
       <div class="analytics-row">
         <div class="analytics-card">
           <div class="analytics-head">
-            <div class="analytics-title">Agent Activity Overview</div>
-            <select class="analytics-select"><option>This Week</option><option>This Month</option></select>
+            <div class="analytics-title">Live Agent Activity</div>
+            <span class="live-pulse" id="activity-pulse" title="Real-time"><span class="live-pulse-dot"></span>LIVE</span>
           </div>
-          <div class="chart-wrap" id="chart-wrap"></div>
+          <div id="activity-feed"></div>
         </div>
         <div class="analytics-card">
           <div class="analytics-head"><div class="analytics-title">Top Performing Agents</div></div>
@@ -782,7 +801,7 @@ function renderAll(){
   renderCommList();
   renderTopAgents();
   renderTasks();
-  renderChart();
+  renderActivity();
   document.getElementById('sb-agent-count').textContent=state.agents.length;
   document.getElementById('sb-dept-count').textContent=Object.keys(state.departments).length;
 }
@@ -1068,39 +1087,64 @@ document.addEventListener('click',e=>{
   }
 });
 
-function renderChart(){
-  const wrap=document.getElementById('chart-wrap');
-  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const series=[
-    {color:'#7C3AED',data:[42,55,48,72,68,60,75]},
-    {color:'#EC4899',data:[28,35,52,45,62,55,48]},
-    {color:'#06B6D4',data:[60,52,68,58,72,80,65]},
-    {color:'#F59E0B',data:[35,42,38,52,48,42,55]}
-  ];
-  const W=400,H=170,padL=30,padR=10,padT=10,padB=24;
-  const innerW=W-padL-padR,innerH=H-padT-padB;
-  const maxY=100;
-  const yTicks=[0,20,40,60,80,100];
-  const xStep=innerW/(days.length-1);
-  let svg=`<svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
-  yTicks.forEach(y=>{
-    const py=padT+innerH-(y/maxY)*innerH;
-    svg+=`<line x1="${padL}" y1="${py}" x2="${W-padR}" y2="${py}" stroke="#23232A" stroke-width="1"/>`;
-    svg+=`<text x="${padL-6}" y="${py+3}" fill="#52525B" font-size="9" text-anchor="end" font-family="JetBrains Mono">${y}</text>`;
-  });
-  days.forEach((d,i)=>{
-    svg+=`<text x="${padL+i*xStep}" y="${H-6}" fill="#71717A" font-size="9.5" text-anchor="middle">${d}</text>`;
-  });
-  series.forEach(s=>{
-    const points=s.data.map((v,i)=>`${padL+i*xStep},${padT+innerH-(v/maxY)*innerH}`).join(' ');
-    svg+=`<polyline points="${points}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
-    s.data.forEach((v,i)=>{
-      const cx=padL+i*xStep,cy=padT+innerH-(v/maxY)*innerH;
-      svg+=`<circle cx="${cx}" cy="${cy}" r="3" fill="${s.color}"/>`;
-    });
-  });
-  svg+='</svg>';
-  wrap.innerHTML=svg;
+// Live agent activity — replaces the mock line chart with what agents are actually doing
+async function renderActivity(){
+  const root=document.getElementById('activity-feed');
+  if(!root)return;
+  let inProgress=[],recent=[];
+  try{
+    const res=await fetch(API+'/api/activity?window_minutes=120');
+    if(res.ok){
+      const data=await res.json();
+      inProgress=data.inProgress||[];
+      recent=data.recent||[];
+    }
+  }catch{}
+  // Fallback for old backends — derive from /api/dispatches (will lack 'in-progress' detection
+  // since old backend may not return ended_at=null rows, but we still get recent activity)
+  if(!inProgress.length&&!recent.length){
+    try{
+      const rows=await fetch(API+'/api/dispatches?limit=30').then(r=>r.json());
+      recent=(rows||[]).filter(d=>d.ended_at).slice(0,12);
+    }catch{}
+  }
+  const items=[];
+  inProgress.forEach(d=>items.push({...d,_status:'running'}));
+  recent.slice(0,8).forEach(d=>items.push({...d,_status:d.outcome}));
+  if(!items.length){
+    root.innerHTML='<div class="empty-state" style="padding:24px"><div class="empty-text">No agent activity yet</div><div class="empty-hint">Agents will appear here when their routines fire</div></div>';
+    return;
+  }
+  root.innerHTML=`<div class="activity-list">${items.map(d=>{
+    const agent=d.agent_id?state.agentById[d.agent_id]:null;
+    const aName=d.agent_name||(agent?agent.display_name:'—');
+    const dept=d.agent_department||(agent?agent.department:'');
+    const color=deptColor(dept);
+    const colorVar=agentColorVar(color);
+    const init=initials(aName);
+    const status=d._status;
+    const isRunning=status==='running';
+    const statusLabel=isRunning?'WORKING':(status==='success'?'DONE':(status==='shadow_ok'?'SHADOW':(status==='failure'||status==='fail'?'FAILED':status||'—')));
+    const statusClass=isRunning?'running':(status==='success'?'success':(status==='shadow_ok'?'shadow':(status==='failure'||status==='fail'?'fail':'')));
+    const dur=d.duration_ms?` · ${(d.duration_ms/1000).toFixed(1)}s`:'';
+    const when=isRunning?'now':relTime(d.started_at);
+    const taskDesc=d.routine_description||d.routine_name||d.routine_id||'—';
+    const onclick=agent?`onclick="viewAgent('${escHtml(agent.id)}')"`:'';
+    return `<div class="activity-row ${statusClass}" ${onclick}>
+      <div class="activity-avatar" style="background:linear-gradient(135deg,${colorVar},#3a1670)">
+        ${init}
+        ${isRunning?'<span class="activity-spin"></span>':''}
+      </div>
+      <div class="activity-info">
+        <div class="activity-top">
+          <span class="activity-agent">${escHtml(aName)}</span>
+          <span class="activity-status-pill ${statusClass}">${statusLabel}</span>
+          <span class="activity-time">${when}${dur}</span>
+        </div>
+        <div class="activity-task">${escHtml(taskDesc)}</div>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
 }
 
 function filterComm(q){
@@ -1274,6 +1318,10 @@ function handleEvent(e){
   }else if(e.type==='chat.done'&&p.agent_id===state.activeAgent?.id){
     const last=document.querySelector('#chat-messages .msg-row[data-streaming="1"]');
     if(last)last.dataset.streaming='0';
+  }else if(e.type==='routine.started'||e.type==='routine.succeeded'||e.type==='routine.failed'){
+    // Refresh live activity feed on dispatch lifecycle events
+    renderActivity();
+    if(e.type!=='routine.started'){renderTasks();renderTopAgents()}
   }else if(e.type==='breaker.tripped'){
     const b=document.getElementById('banner');
     b.textContent=`⚠ Circuit breaker tripped: ${p.component||''} — ${p.reason||''}`;
@@ -1314,6 +1362,8 @@ async function main(){
     renderKpi();
     renderTasks();
   },60000);
+  // Live activity feed refreshes more aggressively (15s) so in-progress fires update
+  setInterval(renderActivity,15000);
 }
 main();
 </script>

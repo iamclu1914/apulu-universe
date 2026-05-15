@@ -409,6 +409,43 @@ def create_app() -> FastAPI:
             "departmentAlerts": dlq_active,
         }
 
+    # ---- live agent activity ----
+    @app.get("/api/activity")
+    def list_activity(window_minutes: int = 60):
+        """Currently running dispatches + recent finished ones within a window.
+
+        Returns:
+          inProgress: dispatches with ended_at IS NULL (currently executing).
+          recent: dispatches finished in the last `window_minutes` (default 60).
+        """
+        win = max(1, min(int(window_minutes), 1440))
+        conn = get_conn()
+        base = (
+            "SELECT d.id, d.routine_id, d.agent_id, d.started_at, d.ended_at, "
+            "d.outcome, d.duration_ms, d.attempt, "
+            "r.display_name AS routine_name, r.description AS routine_description, "
+            "a.display_name AS agent_name, a.department AS agent_department, "
+            "a.role AS agent_role "
+            "FROM dispatches d "
+            "LEFT JOIN routines r ON r.id = d.routine_id "
+            "LEFT JOIN agents a ON a.id = d.agent_id "
+        )
+        in_progress = conn.execute(
+            base + "WHERE d.ended_at IS NULL ORDER BY d.started_at DESC LIMIT 20"
+        ).fetchall()
+        recent = conn.execute(
+            base
+            + "WHERE d.ended_at IS NOT NULL AND "
+              "d.started_at > datetime('now', ?) "
+              "ORDER BY d.started_at DESC LIMIT 30",
+            (f"-{win} minutes",),
+        ).fetchall()
+        return {
+            "inProgress": [dict(r) for r in in_progress],
+            "recent": [dict(r) for r in recent],
+            "windowMinutes": win,
+        }
+
     # ---- recent message conversations ----
     @app.get("/api/messages/conversations")
     def list_conversations(limit: int = 20):

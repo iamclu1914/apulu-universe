@@ -661,13 +661,52 @@ function buildDepartments(){
   });
 }
 
+// Client-side fallback metadata (mirrors backend DEPT_META — used if /api/departments 404s on older backends)
+const FALLBACK_DEPT_META={
+  'board':{label:'Board',icon:'👑',color:'amber',description:'Executive leadership and creative direction'},
+  'cos':{label:'Chief of Staff',icon:'🎯',color:'purple',description:'Cross-department coordination and operations oversight'},
+  'marketing':{label:'Marketing',icon:'📣',color:'blue',description:'Campaigns, engagement, press, content and analytics'},
+  'operations':{label:'Operations',icon:'⚙',color:'cyan',description:'Finance, reliability, partnerships and sync licensing'},
+  'post-prod':{label:'Post-Production',icon:'🎚',color:'teal',description:'Mixing, mastering and quality control'},
+  'production':{label:'Music Production',icon:'🎵',color:'pink',description:'A&R, creative briefs and music production'},
+  'research':{label:'Research',icon:'🔍',color:'lime',description:'Trend research, intel and strategic analysis'}
+};
+
 async function loadDepartments(){
   try{
-    const list=await fetch(API+'/api/departments').then(r=>r.json());
-    state.deptList=Array.isArray(list)?list:[];
+    const res=await fetch(API+'/api/departments');
+    if(res.ok){
+      const list=await res.json();
+      state.deptList=Array.isArray(list)?list:[];
+    }else{
+      state.deptList=[];
+    }
   }catch{state.deptList=[]}
+  // Fallback: if backend doesn't expose /api/departments (old version), derive from agents.
+  if(!state.deptList.length&&state.agents.length){
+    deriveDepartments();
+  }
   state.deptById={};
   state.deptList.forEach(d=>{state.deptById[d.id]=d});
+}
+
+function deriveDepartments(){
+  const groups={};
+  state.agents.forEach(a=>{
+    const d=a.department||'operations';
+    if(!groups[d])groups[d]={agents:[],online:0};
+    groups[d].agents.push(a);
+    if(a.enabled)groups[d].online++;
+  });
+  const order=['board','cos','marketing','operations','post-prod','production','research'];
+  const all=[...new Set([...order,...Object.keys(groups)])];
+  state.deptList=all.filter(id=>groups[id]).map(id=>{
+    const meta=FALLBACK_DEPT_META[id]||{label:id,icon:'🏢',color:'purple',description:id};
+    return {
+      id,name:meta.label,icon:meta.icon,color:meta.color,description:meta.description,
+      agentCount:groups[id].agents.length,onlineAgentCount:groups[id].online
+    };
+  });
 }
 
 async function loadAgents(){
@@ -682,8 +721,26 @@ async function loadAgents(){
 
 async function loadSummary(){
   try{
-    state.summary=await fetch(API+'/api/dashboard/summary').then(r=>r.json());
-  }catch{state.summary=null}
+    const res=await fetch(API+'/api/dashboard/summary');
+    if(res.ok){state.summary=await res.json();return}
+  }catch{}
+  // Fallback: derive from agents + routines client-side
+  state.summary=null;
+}
+
+function deriveSummary(){
+  if(state.summary)return state.summary;
+  const enabledR=state.routines.filter(r=>r.enabled).length;
+  return {
+    totalAgents:state.agents.length,
+    activeAgents:state.agents.filter(a=>a.enabled).length,
+    totalDepartments:state.deptList.length,
+    totalRoutines:state.routines.length,
+    activeRoutines:enabledR,
+    firesToday:0,
+    pendingTasks:0,
+    departmentAlerts:0,
+  };
 }
 
 async function loadRoutines(){
@@ -704,7 +761,7 @@ function renderAll(){
 }
 
 function renderKpi(){
-  const s=state.summary||{};
+  const s=state.summary||deriveSummary()||{};
   const total=s.totalAgents||state.agents.length||0;
   const depts=s.totalDepartments||state.deptList.length||0;
   document.getElementById('kpi-total').textContent=total;
@@ -953,7 +1010,14 @@ async function viewAgent(agentId){
   const routinesBody=document.getElementById('ap-routines');
   routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">Loading…</div>';
   try{
-    const routines=await fetch(`${API}/api/agents/${agentId}/routines`).then(r=>r.json());
+    let routines;
+    const res=await fetch(`${API}/api/agents/${agentId}/routines`);
+    if(res.ok){
+      routines=await res.json();
+    }else{
+      // Fallback: filter the routines we already loaded
+      routines=state.routines.filter(r=>r.agent_id===agentId);
+    }
     document.getElementById('ap-routine-count').textContent=routines.length;
     if(!routines.length){
       routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">No scheduled functions</div>';
@@ -968,7 +1032,12 @@ async function viewAgent(agentId){
       </div>`).join('');
     }
   }catch{
-    routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--red)">Failed to load routines</div>';
+    // Last-resort fallback
+    const routines=state.routines.filter(r=>r.agent_id===agentId);
+    document.getElementById('ap-routine-count').textContent=routines.length;
+    routinesBody.innerHTML=routines.length
+      ?routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}"><div class="ap-routine-dot"></div><div class="ap-routine-info"><div class="ap-routine-name">${escHtml(r.display_name)}</div><div class="ap-routine-meta">${escHtml(r.cron_expr)} · ${escHtml(r.priority||'normal')}</div></div><div class="ap-routine-state">${r.enabled?'enabled':'off'}</div></div>`).join('')
+      :'<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">No scheduled functions</div>';
   }
   setView('agent-profile');
 }
@@ -1092,12 +1161,12 @@ document.getElementById('chat-input').addEventListener('input',e=>{
 });
 
 async function main(){
-  // Load departments first (used for icon/color/desc lookups everywhere else)
-  await loadDepartments();
+  // Load agents + routines first — needed for dept fallback if backend lacks /api/departments
   await Promise.all([loadAgents(),loadRoutines(),loadSummary()]);
+  await loadDepartments();  // tries API, falls back to deriving from agents
+  buildDepartments();        // re-bucket agents now that deptList is final
   renderAll();
   connectWs();
-  // Refresh summary + tasks every 60s
   setInterval(async()=>{
     await loadSummary();
     renderKpi();

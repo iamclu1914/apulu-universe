@@ -39,7 +39,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Clu",
         department="board",
-        role="CEO & Creative Director",
+        role="Chairman & CEO",
         adapter_type="api",
         desk=(2, 2),
         system_prompt=(
@@ -50,7 +50,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Nelly",
         department="cos",
-        role="Chief of Staff",
+        role="General Counsel & Head of Business Affairs",
         adapter_type="claude_local",
         desk=(4, 2),
         system_prompt=(
@@ -61,15 +61,15 @@ AGENT_SEEDS: list[AgentSeed] = [
         ),
     ),
     AgentSeed(
-        name="Oaklyn",
+        name="Letitia",
         department="marketing",
-        role="Marketing Division President",
+        role="President, Marketing, Audience & Revenue",
         adapter_type="claude_local",
         desk=(10, 4),
         system_prompt=(
-            "You are Oaklyn, Marketing Division President. You own social presence, posting "
-            "cadence, engagement quality, and analytics. Direct reports: Sage & Khari (content), "
-            "Dex (engagement), Nova (analytics), Echo (press)."
+            "You are Letitia, President of Marketing, Audience & Revenue. You own social "
+            "presence, posting cadence, engagement quality, and analytics. Direct reports: "
+            "Sage & Khari (content), Dex (engagement), Nova (analytics), Echo (publicity)."
         ),
     ),
     AgentSeed(
@@ -88,7 +88,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Dex",
         department="marketing",
-        role="Engagement",
+        role="Community & Fan Engagement Manager",
         adapter_type="claude_local",
         desk=(14, 4),
         system_prompt=(
@@ -101,7 +101,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Nova",
         department="marketing",
-        role="Analytics",
+        role="Analytics & Streaming Strategy Lead",
         adapter_type="claude_local",
         desk=(16, 4),
         system_prompt=(
@@ -113,7 +113,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Echo",
         department="marketing",
-        role="Press & PR",
+        role="Head of Publicity & DSP Relations",
         adapter_type="claude_local",
         desk=(18, 4),
         system_prompt=(
@@ -123,21 +123,22 @@ AGENT_SEEDS: list[AgentSeed] = [
         ),
     ),
     AgentSeed(
-        name="Aspyn",
+        name="Nari",
         department="operations",
-        role="Operations Division President (Analytics, Finance, Partnerships)",
+        role="COO, Operations, Finance & Tech",
         adapter_type="claude_local",
         desk=(10, 8),
         system_prompt=(
-            "You are Aspyn, Operations Division President. You own analytics, finance, and "
-            "partnerships. Direct reports: Nova (analytics), Cipher (finance), Vibe "
-            "(partnerships). Run weekly-ops-digest (Sun 10pm)."
+            "You are Nari, COO of Operations, Finance & Tech. You own infrastructure, cash "
+            "flow, royalties, and high-margin revenue (sync, live, partnerships). Direct "
+            "reports: Rex (tech), Cipher (finance), Vibe (partnerships). Run weekly-ops-digest "
+            "(Sun 10pm)."
         ),
     ),
     AgentSeed(
         name="Cipher",
         department="operations",
-        role="Finance & Royalties",
+        role="CFO & Finance Lead",
         adapter_type="claude_local",
         desk=(12, 8),
         system_prompt=(
@@ -148,7 +149,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Vibe",
         department="operations",
-        role="Partnerships & Sync Licensing",
+        role="Head of Partnerships & Revenue",
         adapter_type="claude_local",
         desk=(14, 8),
         system_prompt=(
@@ -160,7 +161,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Rex",
         department="operations",
-        role="Tech & Reliability",
+        role="CTO & AI Infrastructure Lead",
         adapter_type="claude_local",
         desk=(4, 8),
         system_prompt=(
@@ -172,7 +173,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Rhythm",
         department="research",
-        role="Research Director",
+        role="A&R Scout & Discovery Analyst",
         adapter_type="claude_local",
         desk=(4, 12),
         system_prompt=(
@@ -184,7 +185,7 @@ AGENT_SEEDS: list[AgentSeed] = [
     AgentSeed(
         name="Sable",
         department="cos",
-        role="Artist Management",
+        role="Artist Relations Manager",
         adapter_type="claude_local",
         desk=(6, 2),
         system_prompt=(
@@ -193,31 +194,32 @@ AGENT_SEEDS: list[AgentSeed] = [
         ),
     ),
     AgentSeed(
-        name="Camdyn",
+        name="Timbo",
         department="production",
-        role="A&R + Creative Brief",
+        role="President, A&R & Talent Development",
         adapter_type="claude_local",
         desk=(12, 12),
         system_prompt=(
-            "You are Camdyn, A&R & Creative Brief. You read the cultural radar before every "
-            "creative decision. You turn artist direction into briefs for Cole and the studio."
+            "You are Timbo, President of A&R & Talent Development. You read the cultural "
+            "radar before every creative decision. You lead artist scouting, signing, and "
+            "creative direction, and turn artist direction into briefs for Cole and the studio."
         ),
     ),
     AgentSeed(
         name="Cole",
         department="production",
-        role="Music Production (Suno prompts)",
+        role="In-House Producer & Songwriter",
         adapter_type="claude_local",
         desk=(14, 12),
         system_prompt=(
-            "You are Cole, Music Production. You turn Camdyn's briefs into Suno prompts and "
-            "iterate to land the right vocal, tempo, and arrangement."
+            "You are Cole, In-House Producer & Songwriter. You turn Timbo's briefs into "
+            "Suno prompts and iterate to land the right vocal, tempo, and arrangement."
         ),
     ),
     AgentSeed(
         name="Onyx",
         department="post-prod",
-        role="Mix / Master / QC",
+        role="Studio & Post-Production Lead",
         adapter_type="claude_local",
         desk=(16, 12),
         system_prompt=(
@@ -305,8 +307,8 @@ ROUTINE_SEEDS: list[RoutineSeed] = [
                 "Daily playlist monitor"),
     RoutineSeed("competitor-tracking", "Rhythm", "0 15 * * 5",
                 "Friday competitor tracking", priority="low"),
-    # Ops digest — Aspyn
-    RoutineSeed("weekly-ops-digest", "Aspyn", "0 22 * * 0",
+    # Ops digest — Nari
+    RoutineSeed("weekly-ops-digest", "Nari", "0 22 * * 0",
                 "Sunday 10pm weekly ops digest", priority="low"),
     # Tech health — Rex
     RoutineSeed("system-health-check", "Rex", "0 6 * * *",

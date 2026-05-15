@@ -12,8 +12,8 @@ def test_import_populates_16_agents_and_26_routines():
     }
     expected = {
         "Clu", "Nelly", "Dex", "Nova", "Sage & Khari", "Rex", "Rhythm",
-        "Cipher", "Onyx", "Cole", "Echo", "Vibe", "Sable", "Camdyn",
-        "Oaklyn", "Aspyn",
+        "Cipher", "Onyx", "Cole", "Echo", "Vibe", "Sable", "Timbo",
+        "Letitia", "Nari",
     }
     assert names == expected, names ^ expected
 

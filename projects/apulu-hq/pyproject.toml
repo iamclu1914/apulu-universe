@@ -1,0 +1,43 @@
+[project]
+name = "apulu-hq"
+version = "0.1.0"
+description = "Apulu HQ — interactive label operations app (replaces Paperclip orchestration)"
+requires-python = ">=3.11"
+authors = [{ name = "Apulu Records" }]
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "anthropic>=0.39",
+    "apscheduler>=3.10",
+    "python-multipart>=0.0.12",
+    "websockets>=13",
+]
+
+[project.optional-dependencies]
+shell = [
+    "pywebview>=5.0",
+    "pystray>=0.19",
+    "Pillow>=10.0",
+]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "httpx>=0.27",
+    "ruff>=0.7",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["apulu_hq*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

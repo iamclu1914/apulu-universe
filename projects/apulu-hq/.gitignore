@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Local data
+*.db
+*.db-wal
+*.db-shm
+logs/
+secrets.env
+
+# IDE
+.vscode/
+.idea/

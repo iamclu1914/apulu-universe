@@ -663,13 +663,13 @@ function buildDepartments(){
 
 // Client-side fallback metadata (mirrors backend DEPT_META — used if /api/departments 404s on older backends)
 const FALLBACK_DEPT_META={
-  'board':{label:'Board',icon:'👑',color:'amber',description:'Executive leadership and creative direction'},
-  'cos':{label:'Chief of Staff',icon:'🎯',color:'purple',description:'Cross-department coordination and operations oversight'},
-  'marketing':{label:'Marketing',icon:'📣',color:'blue',description:'Campaigns, engagement, press, content and analytics'},
-  'operations':{label:'Operations',icon:'⚙',color:'cyan',description:'Finance, reliability, partnerships and sync licensing'},
+  'board':{label:'Office of the Chairman',icon:'👑',color:'amber',description:'Executive leadership, vision, and final authority on signings and strategy'},
+  'cos':{label:'Legal & Business Affairs',icon:'⚖',color:'purple',description:'Contracts, licensing, publishing, clearances and artist relations'},
+  'marketing':{label:'Marketing, Audience & Revenue',icon:'📣',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy'},
+  'operations':{label:'Operations, Finance & Tech',icon:'⚙',color:'cyan',description:'Infrastructure, finance, royalties, partnerships and AI orchestration'},
   'post-prod':{label:'Post-Production',icon:'🎚',color:'teal',description:'Mixing, mastering and quality control'},
-  'production':{label:'Music Production',icon:'🎵',color:'pink',description:'A&R, creative briefs and music production'},
-  'research':{label:'Research',icon:'🔍',color:'lime',description:'Trend research, intel and strategic analysis'}
+  'production':{label:'A&R & Production',icon:'🎵',color:'pink',description:'Artist scouting, creative direction, songwriting and production'},
+  'research':{label:'Discovery & Research',icon:'🔍',color:'lime',description:'Streaming/social data mining, trend analysis and breakout signal detection'}
 };
 
 async function loadDepartments(){

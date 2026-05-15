@@ -52,28 +52,28 @@ log = logging.getLogger(__name__)
 
 DEPT_META: dict[str, dict[str, str]] = {
     "board": {
-        "label": "Board",
+        "label": "Office of the Chairman",
         "icon": "👑",
         "color": "amber",
-        "description": "Executive leadership and creative direction",
+        "description": "Executive leadership, vision, and final authority on signings and strategy",
     },
     "cos": {
-        "label": "Chief of Staff",
-        "icon": "🎯",
+        "label": "Legal & Business Affairs",
+        "icon": "⚖",
         "color": "purple",
-        "description": "Cross-department coordination and operations oversight",
+        "description": "Contracts, licensing, publishing, clearances and artist relations",
     },
     "marketing": {
-        "label": "Marketing",
+        "label": "Marketing, Audience & Revenue",
         "icon": "📣",
         "color": "blue",
-        "description": "Campaigns, engagement, press, content and analytics",
+        "description": "Campaigns, fan acquisition, content, publicity and streaming strategy",
     },
     "operations": {
-        "label": "Operations",
+        "label": "Operations, Finance & Tech",
         "icon": "⚙",
         "color": "cyan",
-        "description": "Finance, reliability, partnerships and sync licensing",
+        "description": "Infrastructure, finance, royalties, partnerships and AI orchestration",
     },
     "post-prod": {
         "label": "Post-Production",
@@ -82,16 +82,16 @@ DEPT_META: dict[str, dict[str, str]] = {
         "description": "Mixing, mastering and quality control",
     },
     "production": {
-        "label": "Music Production",
+        "label": "A&R & Production",
         "icon": "🎵",
         "color": "pink",
-        "description": "A&R, creative briefs and music production",
+        "description": "Artist scouting, creative direction, songwriting and production",
     },
     "research": {
-        "label": "Research",
+        "label": "Discovery & Research",
         "icon": "🔍",
         "color": "lime",
-        "description": "Trend research, intel and strategic analysis",
+        "description": "Streaming/social data mining, trend analysis and breakout signal detection",
     },
 }
 

@@ -202,6 +202,25 @@ a{color:inherit;text-decoration:none}
 .activity-task{font-size:11px;color:var(--ink-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .activity-task strong{color:var(--ink);font-weight:600;font-family:"JetBrains Mono",monospace;font-size:10.5px;background:var(--surface-3);padding:1px 5px;border-radius:3px;margin-right:2px}
 
+/* Posts view */
+.posts-breakdown{display:flex;flex-direction:column;gap:9px}
+.posts-bar{display:grid;grid-template-columns:90px 1fr 60px;align-items:center;gap:10px;font-size:11.5px}
+.posts-bar-label{display:flex;align-items:center;gap:7px;color:var(--ink-2);text-transform:capitalize;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.posts-bar-icon{width:20px;height:20px;border-radius:var(--r-sm);display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0}
+.posts-bar-track{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.posts-bar-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s}
+.posts-bar-fill.mixed{background:linear-gradient(90deg,var(--green),var(--amber))}
+.posts-bar-value{font-size:11px;font-weight:600;color:var(--ink);font-family:"JetBrains Mono",monospace;text-align:right}
+.posts-list{display:flex;flex-direction:column;gap:8px;max-height:380px;overflow-y:auto}
+.post-row{display:flex;align-items:flex-start;gap:11px;padding:10px 12px;background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r)}
+.post-row.failed{border-color:rgba(239,68,68,0.25);background:rgba(239,68,68,0.04)}
+.post-platform{width:32px;height:32px;border-radius:var(--r);display:grid;place-items:center;font-size:14px;font-weight:700;flex-shrink:0}
+.post-info{flex:1;min-width:0}
+.post-caption{font-size:12px;color:var(--ink);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.post-meta{font-size:10.5px;color:var(--ink-3);margin-top:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.post-meta a{color:var(--accent-2)}
+.post-meta a:hover{text-decoration:underline}
+
 /* top agents */
 .top-agents{display:flex;flex-direction:column;gap:9px}
 .top-agent{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:10px;font-size:12px}
@@ -424,9 +443,9 @@ a{color:inherit;text-decoration:none}
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
       Calendar
     </div>
-    <div class="sb-item" data-view="reports">
-      <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
-      Reports
+    <div class="sb-item" data-view="posts">
+      <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4z"/><path d="M4 20h16"/><path d="M8 10l3 3 5-5"/></svg></span>
+      Posts <span class="sb-badge" id="sb-posts-today">—</span>
     </div>
     <div class="sb-item" data-view="resources">
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
@@ -617,8 +636,34 @@ a{color:inherit;text-decoration:none}
     <div class="view" id="view-calendar">
       <div class="section"><div class="section-head"><div class="section-title">Calendar</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">📅</div><div class="empty-text">Calendar view</div><div class="empty-hint">Releases, sessions, meetings, deadlines</div></div></div>
     </div>
-    <div class="view" id="view-reports">
-      <div class="section"><div class="section-head"><div class="section-title">Reports &amp; Analytics</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">📊</div><div class="empty-text">Reports view</div><div class="empty-hint">Revenue trends, agent performance, task completion</div></div></div>
+    <div class="view" id="view-posts">
+      <div class="section-head" style="margin-bottom:14px">
+        <div class="section-title">Today's Social Media Activity</div>
+        <input type="date" id="posts-date" class="view-select" style="height:32px;padding:0 12px;background-image:none" />
+      </div>
+      <div class="kpi-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px">
+        <div class="kpi"><div class="kpi-head"><span class="kpi-label">Total Attempts</span></div><div class="kpi-value" id="posts-total">—</div><div class="kpi-sub" id="posts-total-sub"></div></div>
+        <div class="kpi green"><div class="kpi-head"><span class="kpi-dot green"></span><span class="kpi-label">Posted</span></div><div class="kpi-value" id="posts-ok">—</div><div class="kpi-sub up" id="posts-ok-sub"></div></div>
+        <div class="kpi red"><div class="kpi-head"><span class="kpi-dot red"></span><span class="kpi-label">Failed</span></div><div class="kpi-value" id="posts-fail">—</div><div class="kpi-sub warn" id="posts-fail-sub"></div></div>
+      </div>
+      <div class="analytics-row two-col">
+        <div class="analytics-card">
+          <div class="analytics-head"><div class="analytics-title">By Platform</div></div>
+          <div id="posts-by-platform" class="posts-breakdown"></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-head"><div class="analytics-title">By Time Slot</div></div>
+          <div id="posts-by-cron" class="posts-breakdown"></div>
+        </div>
+      </div>
+      <div class="analytics-card" style="margin-top:14px">
+        <div class="analytics-head"><div class="analytics-title">Successful Posts</div></div>
+        <div id="posts-list" class="posts-list"></div>
+      </div>
+      <div class="analytics-card" style="margin-top:14px">
+        <div class="analytics-head"><div class="analytics-title">Failures &amp; Skipped</div></div>
+        <div id="posts-failures" class="posts-list"></div>
+      </div>
     </div>
     <div class="view" id="view-resources">
       <div class="section"><div class="section-head"><div class="section-title">Resources</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">📁</div><div class="empty-text">Resources view</div><div class="empty-hint">Files, contracts, assets, documentation</div></div></div>
@@ -1220,7 +1265,106 @@ function setView(v){
   document.querySelectorAll('.sb-item').forEach(el=>{
     el.classList.toggle('active',el.dataset.view===v||(v==='dept-detail'&&el.dataset.view==='departments'));
   });
+  if(v==='posts')loadPosts();
 }
+
+const PLATFORM_META={
+  x:{icon:'𝕏',color:'#ffffff'},
+  bluesky:{icon:'🦋',color:'#3B82F6'},
+  instagram:{icon:'📷',color:'#EC4899'},
+  threads:{icon:'@',color:'#A1A1AA'},
+  tiktok:{icon:'♬',color:'#06B6D4'},
+  facebook:{icon:'f',color:'#3B82F6'},
+  unknown:{icon:'?',color:'#71717A'},
+};
+
+async function loadPosts(){
+  const dateInput=document.getElementById('posts-date');
+  const today=new Date().toISOString().slice(0,10);
+  if(!dateInput.value)dateInput.value=today;
+  const date=dateInput.value||today;
+  let data;
+  try{
+    data=await fetch(`${API}/api/posts?date=${date}&limit=300`).then(r=>r.json());
+  }catch{
+    document.getElementById('posts-list').innerHTML='<div class="empty-state" style="padding:24px"><div class="empty-text">Failed to load posts</div></div>';
+    return;
+  }
+  const s=data.summary||{};
+  document.getElementById('posts-total').textContent=s.total??0;
+  document.getElementById('posts-ok').textContent=s.succeeded??0;
+  document.getElementById('posts-fail').textContent=s.failed??0;
+  const rate=s.total?Math.round(100*(s.succeeded||0)/s.total):0;
+  document.getElementById('posts-total-sub').textContent=`${rate}% success rate`;
+  document.getElementById('posts-ok-sub').textContent=`across ${Object.keys(s.by_platform||{}).length} platform(s)`;
+  document.getElementById('posts-fail-sub').textContent=s.failed?'requires attention':'all clear';
+  document.getElementById('sb-posts-today').textContent=s.succeeded??'—';
+  // By platform
+  const bp=s.by_platform||{};
+  document.getElementById('posts-by-platform').innerHTML=Object.entries(bp).map(([p,v])=>{
+    const meta=PLATFORM_META[p]||PLATFORM_META.unknown;
+    const total=(v.ok||0)+(v.fail||0);
+    const pct=total?Math.round(100*v.ok/total):0;
+    return `<div class="posts-bar">
+      <div class="posts-bar-label"><span class="posts-bar-icon" style="background:${meta.color}22;color:${meta.color}">${meta.icon}</span>${escHtml(p)}</div>
+      <div class="posts-bar-track"><div class="posts-bar-fill" style="width:${pct}%"></div></div>
+      <div class="posts-bar-value">${v.ok}/${total}</div>
+    </div>`;
+  }).join('')||'<div class="empty-text" style="padding:12px;color:var(--ink-4)">No platform activity</div>';
+  // By cron
+  const bc=s.by_cron||{};
+  const cronOrder=['morning','midday','evening','ad-hoc'];
+  const cronKeys=[...new Set([...cronOrder,...Object.keys(bc)])].filter(k=>bc[k]);
+  document.getElementById('posts-by-cron').innerHTML=cronKeys.map(k=>{
+    const v=bc[k];
+    const total=(v.ok||0)+(v.fail||0);
+    const pct=total?Math.round(100*v.ok/total):0;
+    return `<div class="posts-bar">
+      <div class="posts-bar-label">${escHtml(k)}</div>
+      <div class="posts-bar-track"><div class="posts-bar-fill ${v.fail?'mixed':''}" style="width:${pct}%"></div></div>
+      <div class="posts-bar-value">${v.ok}/${total}</div>
+    </div>`;
+  }).join('')||'<div class="empty-text" style="padding:12px;color:var(--ink-4)">No slot activity</div>';
+  // Successful posts list
+  const urls=s.post_urls||[];
+  document.getElementById('posts-list').innerHTML=urls.length
+    ?urls.map(u=>{
+      const meta=PLATFORM_META[u.platform]||PLATFORM_META.unknown;
+      const time=u.timestamp?new Date(u.timestamp).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+      return `<div class="post-row">
+        <div class="post-platform" style="background:${meta.color}22;color:${meta.color}">${meta.icon}</div>
+        <div class="post-info">
+          <div class="post-caption">${escHtml(u.caption_preview||'(no caption)')}</div>
+          <div class="post-meta"><span>${escHtml(u.cron)}</span> · <span>${time}</span> · <a href="${escHtml(u.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">View on ${escHtml(u.platform)} ↗</a></div>
+        </div>
+      </div>`;
+    }).join('')
+    :'<div class="empty-state" style="padding:24px"><div class="empty-text">No successful posts yet today</div></div>';
+  // Failures
+  const failures=(data.events||[]).filter(e=>{
+    const et=e.event||'';
+    if(et==='post_preflight_failed')return true;
+    if((et==='post_attempt'||et==='story_repost_attempt')&&!e.success)return true;
+    return false;
+  });
+  document.getElementById('posts-failures').innerHTML=failures.length
+    ?failures.slice(0,30).map(e=>{
+      const p=(e.platform||'unknown').toLowerCase();
+      const meta=PLATFORM_META[p]||PLATFORM_META.unknown;
+      const time=e.timestamp?new Date(e.timestamp).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+      const reason=(e.errors&&e.errors.length)?e.errors.join('; '):(e.error||e.event||'unknown');
+      return `<div class="post-row failed">
+        <div class="post-platform" style="background:${meta.color}22;color:${meta.color}">${meta.icon}</div>
+        <div class="post-info">
+          <div class="post-caption">${escHtml(String(reason).slice(0,200))}</div>
+          <div class="post-meta"><span>${escHtml(e.cron||'?')}</span> · <span>${escHtml(p)}</span> · <span>${time}</span> · <span style="color:var(--red)">${escHtml(e.event||'failed')}</span></div>
+        </div>
+      </div>`;
+    }).join('')
+    :'<div class="empty-state" style="padding:24px"><div class="empty-text">No failures today — clean run</div></div>';
+}
+
+document.getElementById('posts-date')?.addEventListener('change',loadPosts);
 
 function viewDept(deptId){
   state.activeDept=deptId;
@@ -1410,17 +1554,26 @@ document.getElementById('chat-input').addEventListener('input',e=>{
   e.target.style.height=Math.min(e.target.scrollHeight,140)+'px';
 });
 
+async function refreshPostsBadge(){
+  try{
+    const r=await fetch(API+'/api/posts').then(r=>r.json());
+    document.getElementById('sb-posts-today').textContent=r.summary?.succeeded??'—';
+  }catch{}
+}
+
 async function main(){
   // Load agents + routines first — needed for dept fallback if backend lacks /api/departments
   await Promise.all([loadAgents(),loadRoutines(),loadSummary()]);
   await loadDepartments();  // tries API, falls back to deriving from agents
   buildDepartments();        // re-bucket agents now that deptList is final
   renderAll();
+  refreshPostsBadge();
   connectWs();
   setInterval(async()=>{
     await loadSummary();
     renderKpi();
     renderTasks();
+    refreshPostsBadge();
   },60000);
   // Live activity feed refreshes more aggressively (15s) so in-progress fires update
   setInterval(renderActivity,15000);

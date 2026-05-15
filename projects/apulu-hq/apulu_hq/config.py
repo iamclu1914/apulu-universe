@@ -62,13 +62,21 @@ class Settings:
     )
 
     # Path to the universe repo root, used by the importer to locate the
-    # Paperclip-era JSON files. Override via env when running outside the repo.
+    # seed JSON files. Override via env when running outside the repo.
     repo_root: Path = field(
         default_factory=lambda: Path(
             os.environ.get(
                 "APULU_HQ_REPO_ROOT",
                 str(Path(__file__).resolve().parents[3]),
             )
+        )
+    )
+
+    # Path to the Vawn project root. post_ledger.jsonl + posted_log.json live
+    # here. Used by /api/posts to surface social activity. Override via env.
+    vawn_dir: Path = field(
+        default_factory=lambda: Path(
+            os.environ.get("APULU_HQ_VAWN_DIR", "C:/Users/rdyal/Vawn")
         )
     )
 

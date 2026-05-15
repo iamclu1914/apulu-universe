@@ -446,6 +446,109 @@ def create_app() -> FastAPI:
             "windowMinutes": win,
         }
 
+    # ---- social-media post activity (Vawn) ----
+    @app.get("/api/posts")
+    def list_posts(date: str | None = None, limit: int = 200):
+        """Read Vawn's post_ledger.jsonl and return events for a given date.
+
+        Args:
+            date: ISO date YYYY-MM-DD. Defaults to today (local).
+            limit: cap on number of events returned (most-recent first).
+
+        Returns:
+            {
+              "date": "2026-05-15",
+              "events": [ <ledger entry> ... ],
+              "summary": {
+                "total": int, "succeeded": int, "failed": int,
+                "by_platform": {"x": {"ok": n, "fail": n}, ...},
+                "by_cron": {"morning": {...}, "midday": {...}, ...},
+                "post_urls": [str, ...]
+              }
+            }
+        """
+        from datetime import datetime, date as _date_cls
+        import json as _json
+
+        ledger_path = settings.vawn_dir / "post_ledger.jsonl"
+        if not ledger_path.is_file():
+            return {
+                "date": date or _date_cls.today().isoformat(),
+                "events": [],
+                "summary": {"total": 0, "succeeded": 0, "failed": 0, "by_platform": {}, "by_cron": {}, "post_urls": []},
+                "note": f"post_ledger.jsonl not found at {ledger_path}",
+            }
+
+        target = date or _date_cls.today().isoformat()
+        limit = max(1, min(int(limit), 1000))
+
+        # Stream the file — read only lines from `target`
+        events: list[dict] = []
+        try:
+            with ledger_path.open("r", encoding="utf-8", errors="replace") as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line or target not in line:
+                        # Cheap pre-filter: skip lines that can't contain the date
+                        continue
+                    try:
+                        rec = _json.loads(line)
+                    except _json.JSONDecodeError:
+                        continue
+                    ts = rec.get("timestamp", "")
+                    if isinstance(ts, str) and ts.startswith(target):
+                        events.append(rec)
+        except OSError as exc:
+            return {"date": target, "events": [], "summary": {}, "error": str(exc)}
+
+        events.sort(key=lambda e: e.get("timestamp", ""), reverse=True)
+        events = events[:limit]
+
+        # Summary
+        by_platform: dict[str, dict[str, int]] = {}
+        by_cron: dict[str, dict[str, int]] = {}
+        post_urls: list[dict] = []
+        succeeded = 0
+        failed = 0
+        for e in events:
+            platform = (e.get("platform") or "unknown").lower()
+            cron = e.get("cron") or "ad-hoc"
+            success = bool(e.get("success"))
+            event_type = e.get("event") or ""
+            # Only count posting attempts (skip preflight-failed since those didn't try)
+            if event_type in {"post_attempt", "story_repost_attempt"}:
+                by_platform.setdefault(platform, {"ok": 0, "fail": 0})
+                by_cron.setdefault(cron, {"ok": 0, "fail": 0})
+                if success:
+                    succeeded += 1
+                    by_platform[platform]["ok"] += 1
+                    by_cron[cron]["ok"] += 1
+                    if e.get("post_url"):
+                        post_urls.append({
+                            "platform": platform,
+                            "url": e["post_url"],
+                            "caption_preview": (e.get("caption") or "")[:140],
+                            "timestamp": e.get("timestamp"),
+                            "cron": cron,
+                        })
+                else:
+                    failed += 1
+                    by_platform[platform]["fail"] += 1
+                    by_cron[cron]["fail"] += 1
+
+        return {
+            "date": target,
+            "events": events,
+            "summary": {
+                "total": succeeded + failed,
+                "succeeded": succeeded,
+                "failed": failed,
+                "by_platform": by_platform,
+                "by_cron": by_cron,
+                "post_urls": post_urls,
+            },
+        }
+
     # ---- recent message conversations ----
     @app.get("/api/messages/conversations")
     def list_conversations(limit: int = 20):

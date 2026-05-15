@@ -56,6 +56,27 @@ a{color:inherit;text-decoration:none}
 .sb-badge{margin-left:auto;font-size:10px;font-weight:600;padding:1px 6px;border-radius:999px;background:var(--surface-2);color:var(--ink-3)}
 .sb-item.active .sb-badge{background:rgba(255,255,255,0.18);color:#fff}
 
+/* Sidebar dept tree (org chart) */
+.sb-section-label{font-size:9.5px;font-weight:800;letter-spacing:0.14em;color:var(--ink-4);padding:14px 12px 6px;text-transform:uppercase}
+.sb-dept-tree{display:flex;flex-direction:column;gap:2px;padding-bottom:8px}
+.sb-dept-group{display:flex;flex-direction:column}
+.sb-dept-head{display:flex;align-items:center;gap:7px;padding:6px 12px;cursor:pointer;border-radius:var(--r);transition:background .1s;user-select:none}
+.sb-dept-head:hover{background:var(--surface-1)}
+.sb-dept-caret{font-size:10px;color:var(--ink-3);transition:transform .15s;flex-shrink:0}
+.sb-dept-head.collapsed .sb-dept-caret{transform:rotate(-90deg)}
+.sb-dept-icon{width:20px;height:20px;border-radius:var(--r-sm);display:grid;place-items:center;font-size:10px;flex-shrink:0}
+.sb-dept-name{font-size:11.5px;font-weight:600;color:var(--ink-2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-dept-count{font-size:9.5px;font-weight:600;color:var(--ink-4);background:var(--surface-2);padding:1px 5px;border-radius:999px;flex-shrink:0}
+.sb-dept-agents{display:flex;flex-direction:column;gap:1px;padding:2px 0 4px 22px;border-left:1px solid var(--line);margin-left:18px}
+.sb-agent-row{display:flex;align-items:center;gap:7px;padding:4px 9px;cursor:pointer;border-radius:4px;transition:all .1s}
+.sb-agent-row:hover{background:var(--surface-1)}
+.sb-agent-dot{width:6px;height:6px;border-radius:50%;background:var(--ink-4);flex-shrink:0}
+.sb-agent-row.online .sb-agent-dot{background:var(--green);box-shadow:0 0 4px var(--green)}
+.sb-agent-name{font-size:11px;color:var(--ink-2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-agent-row:hover .sb-agent-name{color:var(--ink)}
+.sb-agent-head-pill{font-size:8px;font-weight:800;color:var(--accent);background:var(--accent-dim);padding:1px 4px;border-radius:3px;letter-spacing:0.04em;flex-shrink:0}
+.sb-dept-empty{font-size:10.5px;color:var(--ink-4);padding:8px 12px}
+
 /* now playing widget */
 .now-playing{margin-top:14px;background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r-lg);padding:11px;flex-shrink:0}
 .np-label{font-size:9px;font-weight:700;letter-spacing:0.14em;color:var(--ink-3);margin-bottom:8px}
@@ -177,7 +198,8 @@ a{color:inherit;text-decoration:none}
 .activity-status-pill.shadow{background:var(--accent-dim);color:var(--accent)}
 .activity-status-pill.fail{background:var(--red-dim);color:var(--red)}
 .activity-time{font-size:9.5px;color:var(--ink-4);font-family:"JetBrains Mono",monospace;margin-left:auto;flex-shrink:0}
-.activity-task{font-size:10.5px;color:var(--ink-3);line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.activity-task{font-size:11px;color:var(--ink-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.activity-task strong{color:var(--ink);font-weight:600;font-family:"JetBrains Mono",monospace;font-size:10.5px;background:var(--surface-3);padding:1px 5px;border-radius:3px;margin-right:2px}
 
 /* top agents */
 .top-agents{display:flex;flex-direction:column;gap:9px}
@@ -408,9 +430,13 @@ a{color:inherit;text-decoration:none}
       Resources
     </div>
     <div class="sb-item" data-view="settings">
-      <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33h0a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51h0a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v0a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span>
+      <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33h0a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51h0a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v0a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.69 1.69 0 00-1.51 1z"/></svg></span>
       Settings
     </div>
+
+    <!-- Department tree — full org chart in the sidebar -->
+    <div class="sb-section-label">ORG CHART</div>
+    <div class="sb-dept-tree" id="sb-dept-tree"></div>
   </nav>
   <div class="now-playing">
     <div class="np-label">NOW PLAYING</div>
@@ -487,17 +513,6 @@ a{color:inherit;text-decoration:none}
           <div class="kpi-value" id="kpi-revenue">$2.48M</div>
           <div class="kpi-sub up">+12.4% this month</div>
         </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title">Departments &amp; Agents</div>
-          <div class="view-toggle">
-            <button class="view-toggle-btn active" title="Grid"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
-            <button class="view-toggle-btn" title="List"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></button>
-          </div>
-        </div>
-        <div class="dept-grid" id="dept-grid"></div>
       </div>
 
       <div class="analytics-row">
@@ -797,6 +812,7 @@ function renderAll(){
   renderKpi();
   renderDeptGrid();
   renderDeptGridFull();
+  renderDeptTree();
   renderAllAgents();
   renderCommList();
   renderTopAgents();
@@ -804,6 +820,41 @@ function renderAll(){
   renderActivity();
   document.getElementById('sb-agent-count').textContent=state.agents.length;
   document.getElementById('sb-dept-count').textContent=Object.keys(state.departments).length;
+}
+
+// Persisted collapsed state for the sidebar org tree
+state.deptCollapsed=JSON.parse(localStorage.getItem('apulu_dept_collapsed')||'{}');
+
+function toggleDeptInTree(deptId){
+  state.deptCollapsed[deptId]=!state.deptCollapsed[deptId];
+  localStorage.setItem('apulu_dept_collapsed',JSON.stringify(state.deptCollapsed));
+  renderDeptTree();
+}
+
+function renderDeptTree(){
+  const root=document.getElementById('sb-dept-tree');
+  if(!root)return;
+  root.innerHTML=state.deptList.map(d=>{
+    const agents=state.departments[d.id]||[];
+    const collapsed=!!state.deptCollapsed[d.id];
+    const headId=d.headAgentId;
+    return `<div class="sb-dept-group">
+      <div class="sb-dept-head ${collapsed?'collapsed':''}" onclick="toggleDeptInTree('${escHtml(d.id)}')">
+        <span class="sb-dept-caret">▾</span>
+        <span class="sb-dept-icon color-${d.color}">${d.icon}</span>
+        <span class="sb-dept-name">${escHtml(d.name)}</span>
+        <span class="sb-dept-count">${agents.length}</span>
+      </div>
+      ${collapsed?'':`<div class="sb-dept-agents">${agents.map(a=>{
+        const isHead=a.id===headId;
+        return `<div class="sb-agent-row ${a.enabled?'online':'offline'}" onclick="event.stopPropagation();viewAgent('${escHtml(a.id)}')" title="${escHtml(a.display_name)} — ${escHtml(a.role||'')}">
+          <span class="sb-agent-dot"></span>
+          <span class="sb-agent-name">${escHtml(a.display_name)}</span>
+          ${isHead?'<span class="sb-agent-head-pill">HEAD</span>':''}
+        </div>`;
+      }).join('')}</div>`}
+    </div>`;
+  }).join('')||'<div class="sb-dept-empty">Loading departments…</div>';
 }
 
 function renderKpi(){
@@ -834,6 +885,7 @@ function renderKpi(){
 
 function renderDeptGrid(){
   const grid=document.getElementById('dept-grid');
+  if(!grid)return;  // dashboard no longer hosts the dept grid — sidebar tree takes its place
   grid.innerHTML=state.deptList.map(d=>{
     const agents=state.departments[d.id]||[];
     const count=agents.length;
@@ -1128,7 +1180,11 @@ async function renderActivity(){
     const statusClass=isRunning?'running':(status==='success'?'success':(status==='shadow_ok'?'shadow':(status==='failure'||status==='fail'?'fail':'')));
     const dur=d.duration_ms?` · ${(d.duration_ms/1000).toFixed(1)}s`:'';
     const when=isRunning?'now':relTime(d.started_at);
-    const taskDesc=d.routine_description||d.routine_name||d.routine_id||'—';
+    // Resolve routine description — backend may not return it (old version),
+    // so fall back to looking it up client-side from state.routines
+    const routineFromState=state.routines.find(r=>r.id===d.routine_id);
+    const description=d.routine_description||(routineFromState&&routineFromState.description)||'';
+    const routineName=d.routine_name||(routineFromState&&routineFromState.display_name)||d.routine_id||'—';
     const onclick=agent?`onclick="viewAgent('${escHtml(agent.id)}')"`:'';
     return `<div class="activity-row ${statusClass}" ${onclick}>
       <div class="activity-avatar" style="background:linear-gradient(135deg,${colorVar},#3a1670)">
@@ -1141,7 +1197,7 @@ async function renderActivity(){
           <span class="activity-status-pill ${statusClass}">${statusLabel}</span>
           <span class="activity-time">${when}${dur}</span>
         </div>
-        <div class="activity-task">${escHtml(taskDesc)}</div>
+        <div class="activity-task">${isRunning?'Working on: ':''}<strong>${escHtml(routineName)}</strong>${description?' — '+escHtml(description):''}</div>
       </div>
     </div>`;
   }).join('')}</div>`;

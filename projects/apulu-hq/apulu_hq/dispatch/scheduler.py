@@ -156,6 +156,8 @@ class HQScheduler:
     async def fire_now(self, routine_id: str) -> str:
         """Manually fire a routine immediately. Returns the dispatch_id."""
         result = await self._fire(routine_id=routine_id)
+        if result is None:
+            raise RuntimeError(f"routine {routine_id} vanished during fire")
         return result.dispatch_id
 
     async def _fire(self, routine_id: str):

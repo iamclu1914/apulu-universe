@@ -367,7 +367,9 @@ def create_app() -> FastAPI:
         desired = body.get("shadow")
         if desired is None:
             return {"ok": True, "shadow": current, "changed": False}
-        sched.shadow = bool(desired)
+        if not isinstance(desired, bool):
+            raise HTTPException(status_code=422, detail="shadow must be a boolean")
+        sched.shadow = desired
         return {"ok": True, "shadow": sched.shadow, "previous": current, "changed": current != sched.shadow}
 
     @app.post("/api/routines/{routine_id}/fire")
@@ -380,7 +382,10 @@ def create_app() -> FastAPI:
         ).fetchone()
         if row is None:
             raise HTTPException(status_code=404, detail="routine not found")
-        dispatch_id = await sched.fire_now(routine_id)
+        try:
+            dispatch_id = await sched.fire_now(routine_id)
+        except RuntimeError as e:
+            raise HTTPException(status_code=410, detail=str(e))
         return {"ok": True, "dispatch_id": dispatch_id, "shadow": sched.shadow}
 
     # ---- dispatches ----

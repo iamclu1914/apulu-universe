@@ -935,6 +935,7 @@ const WS_URL = (()=>{ const u=new URL(API||window.location.href); return `ws://$
 const state = { agents:[], routines:[], agentById:{}, activeAgent:null, threadId:null, view:'dashboard', ws:null, dispatchHistory:{} };
 
 function initials(name) { return (name||'A').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase(); }
+function escHtml(s) { return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function relTime(iso) {
   if(!iso)return''; const s=(Date.now()-new Date(iso).getTime())/1000;
   if(s<60)return'now'; if(s<3600)return Math.round(s/60)+'m'; if(s<86400)return Math.round(s/3600)+'h';
@@ -1168,7 +1169,7 @@ function executeCommand(line) {
     case '/chat': {
       const name = rest.toLowerCase();
       const a = state.agents.find(x=>x.display_name.toLowerCase().includes(name)||x.id.toLowerCase().includes(name));
-      if(!a){showCmdOutput('⚠',`Agent "${rest}" not found`,'error');return;}
+      if(!a){showCmdOutput('⚠',`Agent "${escHtml(rest)}" not found`,'error');return;}
       openChat(a);
       return;
     }
@@ -1178,22 +1179,25 @@ function executeCommand(line) {
     case '/agent': {
       const name = rest.toLowerCase();
       const a = state.agents.find(x=>x.display_name.toLowerCase().includes(name)||x.id.toLowerCase().includes(name));
-      if(!a){showCmdOutput('⚠',`Agent "${rest}" not found`,'error');return;}
+      if(!a){showCmdOutput('⚠',`Agent "${escHtml(rest)}" not found`,'error');return;}
       selectAgent(a.id);
       return;
     }
     case '/agents': setView('agents-grid'); showCmdOutput('✓','Showing all agents','ok'); break;
     case '/fire': {
-      const rName = rest.toLowerCase();
-      const r = state.routines.find(x => x.display_name.toLowerCase().includes(rName) || x.id.toLowerCase().includes(rName));
-      if(!r){showCmdOutput('⚠',`Routine "${rest}" not found`,'error');break;}
+      const rName = rest.toLowerCase().trim();
+      if(!rName){showCmdOutput('🔥','Usage: /fire <routine name><br>Available: '+state.routines.filter(x=>x.enabled).map(x=>x.display_name).join(', '),'info');break;}
+      const matches = state.routines.filter(x => x.display_name.toLowerCase().includes(rName) || x.id.toLowerCase().includes(rName));
+      if(!matches.length){showCmdOutput('⚠',`No routine matches "${escHtml(rest)}"`,'error');break;}
+      if(matches.length>1){showCmdOutput('⚠',`Multiple matches: ${matches.map(x=>escHtml(x.display_name)).join(', ')}<br>Be more specific.`,'error');break;}
+      const r = matches[0];
       (async()=>{
-        showCmdOutput('🔥',`Firing ${r.display_name}…`,'info');
+        showCmdOutput('🔥',`Firing ${escHtml(r.display_name)}…`,'info');
         try{
           const res=await fetch(`${API}/api/routines/${encodeURIComponent(r.id)}/fire`,{method:'POST'});
           const j=await res.json();
           if(!res.ok)throw new Error(j.detail||`HTTP ${res.status}`);
-          showCmdOutput('✓',`Fired <b>${r.display_name}</b><br>Dispatch: ${j.dispatch_id}<br>Mode: ${j.shadow?'shadow':'live'}`,'ok');
+          showCmdOutput('✓',`Fired <b>${escHtml(r.display_name)}</b><br>Dispatch: ${escHtml(j.dispatch_id)}<br>Mode: ${j.shadow?'shadow':'live'}`,'ok');
           setTimeout(loadDispatches,500);
         }catch(err){showCmdOutput('✗',err.message,'error');}
       })();
@@ -1212,7 +1216,7 @@ function executeCommand(line) {
           window.__shadowMode=j.shadow;
           document.getElementById('pill-shadow').style.display=j.shadow?'':'none';
           document.getElementById('go-live-btn').style.display=j.shadow?'':'none';
-          showCmdOutput(j.shadow?'👻':'🚀',`Shadow mode ${j.changed?'changed':'unchanged'}<br>Now: <b>${j.shadow?'ON (shadow)':'OFF (live)'}</b>`,j.changed?'ok':'info');
+          showCmdOutput(j.shadow?'👻':'🚀',`Shadow mode ${j.changed?'changed':'unchanged'}<br>Now: <b>${escHtml(j.shadow?'ON (shadow)':'OFF (live)')}</b>`,j.changed?'ok':'info');
         }catch(err){showCmdOutput('✗',err.message,'error');}
       })();
       break;
@@ -1222,7 +1226,7 @@ function executeCommand(line) {
       break;
     default:
       if(line.startsWith('/')){
-        showCmdOutput('❓',`Unknown command: ${cmd}. Type <code>/help</code> for available commands.`,'error');
+        showCmdOutput('❓',`Unknown command: ${escHtml(cmd)}. Type <code>/help</code> for available commands.`,'error');
       } else if(line) {
         // Natural language — route to CoS (agent 1) or default
         const cos = state.agents.find(a=>a.role?.toLowerCase().includes('chief of staff'))||state.agents[0];

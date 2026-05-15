@@ -109,6 +109,36 @@ async def stream_chat(
     model = agent["model"]
     adapter_type = agent["adapter_type"]
 
+    # ---- hermes_local adapter (Hermes ACP server, tool-rich) ---------------
+    if adapter_type == "hermes_local":
+        from .hermes_local import stream_hermes_local
+        collected: list[str] = []
+        meta: dict = {}
+        async for ev in stream_hermes_local(
+            agent_id=agent_id,
+            thread_id=thread_id,
+            user_message=user_message,
+            history=history,
+            system_prompt=system_prompt,
+            model=model,
+        ):
+            if ev.type == "chat.token":
+                collected.append(ev.payload.get("token", ""))
+            elif ev.type == "chat.done":
+                meta = ev.payload
+            yield ev
+        full_text = "".join(collected)
+        with tx() as conn_tx:
+            _persist_message(
+                conn_tx,
+                thread_id,
+                "assistant",
+                full_text,
+                tokens_in=meta.get("input_tokens"),
+                tokens_out=meta.get("output_tokens"),
+            )
+        return
+
     # ---- claude_local adapter (subscription, OAuth) ------------------------
     if adapter_type == "claude_local":
         from .claude_local import stream_claude_local

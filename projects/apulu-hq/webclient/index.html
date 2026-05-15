@@ -169,15 +169,28 @@ a{color:inherit;text-decoration:none}
 .ta-score{font-size:11.5px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
 
 /* tasks list */
-.tasks-list{display:flex;flex-direction:column;gap:11px}
-.task-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.tasks-list{display:flex;flex-direction:column;gap:13px}
+.task-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;position:relative}
 .task-info{flex:1;min-width:0}
-.task-title{font-size:12px;font-weight:500;color:var(--ink);line-height:1.35}
+.task-title{font-size:12px;font-weight:600;color:var(--ink);line-height:1.35}
 .task-sub{font-size:10.5px;color:var(--ink-3);margin-top:2px}
 .task-pri{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:var(--r-sm);letter-spacing:0.04em;flex-shrink:0;margin-top:2px}
 .task-pri.high{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.25)}
 .task-pri.medium{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(245,158,11,0.25)}
 .task-pri.low{background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,94,0.25)}
+.task-assign-row{display:flex;align-items:center;gap:6px;margin-top:6px}
+.task-assign-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 8px 3px 3px;background:var(--surface-1);border:1px solid var(--line);border-radius:999px;font-size:10.5px;color:var(--ink-2);cursor:pointer;transition:all .12s}
+.task-assign-chip:hover{border-color:var(--accent);color:var(--ink);background:var(--surface-2)}
+.task-assign-chip svg{color:var(--ink-3);transition:color .1s}
+.task-assign-chip:hover svg{color:var(--accent)}
+.task-assign-avatar{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:8.5px;font-weight:700;color:#fff;flex-shrink:0}
+.task-assign-name{font-weight:500}
+.task-reassign-btn{width:22px;height:22px;border-radius:50%;background:var(--surface-1);border:1px solid var(--line);color:var(--ink-3);font-size:13px;cursor:pointer;display:grid;place-items:center;transition:all .12s}
+.task-reassign-btn:hover{color:var(--ink);border-color:var(--accent);transform:rotate(45deg)}
+.task-reassign-menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface-2);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--shadow-lg);z-index:20;max-height:240px;overflow-y:auto;margin-top:4px}
+.task-reassign-menu.open{display:block}
+.reassign-row{display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer;transition:background .08s}
+.reassign-row:hover{background:var(--surface-3)}
 
 /* footer */
 .footer-quote{text-align:center;padding:16px 0 8px;color:var(--ink-3);font-size:13px;font-style:italic}
@@ -900,31 +913,123 @@ function renderTopAgents(){
   }).join('');
 }
 
+// In-memory task list — recomputed on every render
+state.tasks=[];
+
 async function renderTasks(){
-  // Real "tasks requiring attention" = recent failed dispatches + DLQ entries
+  // Tasks requiring attention = recent failures + DLQ entries.
+  // Each task is auto-assigned to the routine's owning agent;
+  // CEO can reassign via the dropdown or click to send.
   const root=document.getElementById('tasks-list');
   try{
     const [dispatches,dlq]=await Promise.all([
-      fetch(API+'/api/dispatches?limit=50').then(r=>r.json()),
-      fetch(API+'/api/dlq').then(r=>r.json())
+      fetch(API+'/api/dispatches?limit=50').then(r=>r.json()).catch(()=>[]),
+      fetch(API+'/api/dlq').then(r=>r.json()).catch(()=>[])
     ]);
     const failures=(dispatches||[]).filter(d=>d.outcome==='failure'||d.outcome==='fail').slice(0,3);
     const dlqItems=(dlq||[]).slice(0,3);
     const items=[];
-    failures.forEach(f=>items.push({title:`Failed: ${f.routine_name||f.routine_id}`,sub:`${f.agent_name||'—'} · ${f.outcome}`,pri:'high'}));
-    dlqItems.forEach(d=>items.push({title:`DLQ: ${(d.payload&&d.payload.slot)||d.routine_id}`,sub:d.signature?String(d.signature).slice(0,40):'—',pri:'medium'}));
+    failures.forEach(f=>{
+      const agentId=f.agent_id||(state.routines.find(r=>r.id===f.routine_id)||{}).agent_id;
+      items.push({
+        id:'fail:'+f.id,
+        title:`Failed: ${f.routine_name||f.routine_id}`,
+        sub:f.outcome+(f.duration_ms?` · ${(f.duration_ms/1000).toFixed(1)}s`:''),
+        pri:'high',
+        assignedAgentId:agentId,
+        context:`Routine "${f.routine_name||f.routine_id}" failed (${f.outcome}). Please investigate and propose a fix.`,
+      });
+    });
+    // Default-route system issues to Rex (CTO & AI Infrastructure Lead) if no owner
+    const rex=state.agents.find(a=>a.display_name==='Rex');
+    dlqItems.forEach(d=>{
+      const r=state.routines.find(x=>x.id===d.routine_id);
+      const agentId=d.agent_id||(r&&r.agent_id)||(rex&&rex.id);
+      const slot=(d.payload&&d.payload.slot)||d.routine_id;
+      items.push({
+        id:'dlq:'+d.id,
+        title:`DLQ: ${slot}`,
+        sub:d.signature?String(d.signature).slice(0,48):'unsigned payload',
+        pri:'medium',
+        assignedAgentId:agentId,
+        context:`DLQ entry: slot="${slot}". Signature: ${d.signature||'none'}. Replay or discard?`,
+      });
+    });
+    state.tasks=items;
     if(!items.length){
       root.innerHTML='<div class="empty-state" style="padding:16px"><div class="empty-text">All clear — no failures or DLQ items</div></div>';
       return;
     }
-    root.innerHTML=items.map(t=>`<div class="task-row">
-      <div class="task-info"><div class="task-title">${escHtml(t.title)}</div><div class="task-sub">${escHtml(t.sub)}</div></div>
-      <div class="task-pri ${t.pri}">${t.pri[0].toUpperCase()+t.pri.slice(1)}</div>
-    </div>`).join('');
+    root.innerHTML=items.map((t,idx)=>{
+      const a=t.assignedAgentId?state.agentById[t.assignedAgentId]:null;
+      const aName=a?a.display_name:'Unassigned';
+      const aInit=a?initials(a.display_name):'?';
+      const colorVar=a?agentColorVar(deptColor(a.department)):'var(--ink-3)';
+      return `<div class="task-row" data-task-idx="${idx}">
+        <div class="task-info">
+          <div class="task-title">${escHtml(t.title)}</div>
+          <div class="task-sub">${escHtml(t.sub)}</div>
+          <div class="task-assign-row">
+            <div class="task-assign-chip" onclick="event.stopPropagation();sendTaskToAgent(${idx})" title="Send to ${escHtml(aName)}">
+              <span class="task-assign-avatar" style="background:linear-gradient(135deg,${colorVar},#3a1670)">${aInit}</span>
+              <span class="task-assign-name">${escHtml(aName)}</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </div>
+            <button class="task-reassign-btn" onclick="event.stopPropagation();toggleReassign(${idx})" title="Reassign">↻</button>
+          </div>
+          <div class="task-reassign-menu" id="reassign-menu-${idx}"></div>
+        </div>
+        <div class="task-pri ${t.pri}">${t.pri[0].toUpperCase()+t.pri.slice(1)}</div>
+      </div>`;
+    }).join('');
   }catch{
     root.innerHTML='<div class="empty-state" style="padding:16px"><div class="empty-text">Failed to load tasks</div></div>';
   }
 }
+
+function sendTaskToAgent(idx){
+  const t=state.tasks[idx];if(!t||!t.assignedAgentId){alert('No agent assigned');return}
+  const a=state.agentById[t.assignedAgentId];if(!a){alert('Agent not found');return}
+  openAgentChat(a.id);
+  setTimeout(()=>{
+    const input=document.getElementById('chat-input');
+    if(input){input.value=t.context;input.dispatchEvent(new Event('input'));input.focus()}
+  },120);
+}
+
+function toggleReassign(idx){
+  const menu=document.getElementById('reassign-menu-'+idx);
+  if(!menu)return;
+  if(menu.classList.contains('open')){menu.classList.remove('open');menu.innerHTML='';return}
+  // Close any other open menus
+  document.querySelectorAll('.task-reassign-menu.open').forEach(m=>{m.classList.remove('open');m.innerHTML=''});
+  const t=state.tasks[idx];
+  menu.innerHTML=state.agents.map(a=>{
+    const colorVar=agentColorVar(deptColor(a.department));
+    return `<div class="reassign-row" onclick="reassignTask(${idx},'${escHtml(a.id)}')">
+      <span class="task-assign-avatar" style="background:linear-gradient(135deg,${colorVar},#3a1670)">${initials(a.display_name)}</span>
+      <div><div style="font-size:11.5px;font-weight:600;color:var(--ink)">${escHtml(a.display_name)}</div><div style="font-size:10px;color:var(--ink-3)">${escHtml(a.role||'')}</div></div>
+    </div>`;
+  }).join('');
+  menu.classList.add('open');
+}
+
+function reassignTask(idx,agentId){
+  const t=state.tasks[idx];if(!t)return;
+  t.assignedAgentId=agentId;
+  document.getElementById('reassign-menu-'+idx)?.classList.remove('open');
+  // Re-render tasks list to reflect the new assignment
+  renderTasks();
+  // Then immediately send context to new agent
+  setTimeout(()=>sendTaskToAgent(idx),200);
+}
+
+// Close reassign menus on outside click
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.task-reassign-menu')&&!e.target.closest('.task-reassign-btn')){
+    document.querySelectorAll('.task-reassign-menu.open').forEach(m=>{m.classList.remove('open');m.innerHTML=''});
+  }
+});
 
 function renderChart(){
   const wrap=document.getElementById('chart-wrap');

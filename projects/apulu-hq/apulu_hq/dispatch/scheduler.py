@@ -1,17 +1,15 @@
 """APScheduler-driven routine dispatcher.
 
 Cron-fires every enabled routine. Each fire runs through `run_with_retries`
-and writes dispatch + DLQ rows. **Defaults to shadow mode** — until you
-flip `shadow=False`, no real commands are executed; the scheduler only
-publishes events and writes audit rows. This lets Phase 3 soak the
-scheduler alongside Paperclip without dual-fire risk.
+and writes dispatch + DLQ rows. **Defaults to live mode** — every enabled
+routine executes its real command on its cron schedule.
 
-Flipping a routine to "real fire":
-  1) Set HQ_DISPATCHER_SHADOW=0 in the environment (global)
-  2) OR set per-routine: `routines.shadow_only = 0` via PATCH endpoint (v2)
+Shadow mode (dry-run) is opt-in via ``HQ_DISPATCHER_SHADOW=1`` or the
+``/api/scheduler/shadow`` runtime toggle. In shadow, fires log + write
+audit rows but the subprocess is never spawned; useful for staging.
 
-For v1 the env var is the on/off switch. The 3-day soak in shadow mode
-should be the gate to flipping the env var.
+History: shadow used to be the default during the Paperclip→Apulu HQ
+soak. Once cutover completed we flipped the default to live.
 """
 
 from __future__ import annotations
@@ -35,8 +33,8 @@ log = logging.getLogger(__name__)
 
 
 def _shadow_default() -> bool:
-    """Shadow mode unless HQ_DISPATCHER_SHADOW is explicitly set to '0'."""
-    return os.environ.get("HQ_DISPATCHER_SHADOW", "1") != "0"
+    """Live by default. Opt back in to shadow with HQ_DISPATCHER_SHADOW=1."""
+    return os.environ.get("HQ_DISPATCHER_SHADOW", "0") == "1"
 
 
 def _parse_cron(cron_expr: str, tz: str) -> CronTrigger:

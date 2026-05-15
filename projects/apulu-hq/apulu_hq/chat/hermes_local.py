@@ -228,6 +228,16 @@ async def stream_hermes_local(
         reader = threading.Thread(target=_reader, daemon=True)
         reader.start()
 
+        def _stderr_reader() -> None:
+            if proc.stderr is None:
+                return
+            for line in proc.stderr:
+                line = line.rstrip()
+                if line:
+                    log.warning("hermes-stderr: %s", line)
+        stderr_thread = threading.Thread(target=_stderr_reader, daemon=True)
+        stderr_thread.start()
+
         try:
             # 1. initialize
             init_id = _send(

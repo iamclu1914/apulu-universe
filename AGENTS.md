@@ -16,7 +16,7 @@ Use:
 - `wiki/` for digested operational knowledge
 - `pipeline/` for content pipeline work
 - `projects/apulu-prompt-generator/` for the prompt generator app
-- `scripts/paperclip/` for Paperclip setup and operations
+- `scripts/seeds/` for the agent/routine seed JSON used by Apulu HQ (renamed from `scripts/paperclip/` on 2026-05-15 when Paperclip was retired; see CLAUDE.md "Paperclip Retired" section for the migration story)
 - `skills/` for packaged workflow skills
 - `research/` for formal research outputs
 - `journals/` for historical notes and Vawn development context

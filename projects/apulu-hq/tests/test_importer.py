@@ -41,7 +41,7 @@ def test_disabled_routines_carry_reason():
         assert r["disabled_reason"]
 
 
-def test_routine_ids_match_paperclip_legacy():
+def test_routine_ids_match_seed_legacy():
     """Every routine row must have a legacy_id == its id."""
     import json
     from pathlib import Path
@@ -52,7 +52,7 @@ def test_routine_ids_match_paperclip_legacy():
 
     import_all()
     legacy = json.loads(
-        (settings.repo_root / "scripts" / "paperclip" / "routine_ids.json").read_text()
+        (settings.repo_root / "scripts" / "seeds" / "routine_ids.json").read_text()
     )
     rows = get_conn().execute(
         "SELECT id, legacy_id, display_name FROM routines"

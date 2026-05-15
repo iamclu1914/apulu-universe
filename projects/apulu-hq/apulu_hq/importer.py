@@ -1,4 +1,4 @@
-"""One-shot importer: Paperclip JSON → Apulu HQ SQLite.
+"""One-shot importer: seed JSON → Apulu HQ SQLite.
 
 Idempotent. Re-running will:
   - INSERT OR REPLACE agents by id (preserves UUIDs verbatim)
@@ -6,8 +6,13 @@ Idempotent. Re-running will:
   - Leave dispatches/dlq/chat tables untouched
 
 Reads:
-  scripts/paperclip/agent_ids.json
-  scripts/paperclip/routine_ids.json
+  scripts/seeds/agent_ids.json
+  scripts/seeds/routine_ids.json
+
+History: these JSONs originated in the Paperclip era (when paperclip owned
+the agent registry). Paperclip was retired 2026-05-15 — the files moved
+from scripts/paperclip/ → scripts/seeds/ but their content + UUIDs are
+preserved verbatim so existing chat threads / dispatches still link.
 """
 
 from __future__ import annotations
@@ -235,7 +240,7 @@ AGENT_SEEDS: list[AgentSeed] = [
 
 # ---------------------------------------------------------------------------
 # Routine metadata. IDs from routine_ids.json. Schedules + assignees from
-# scripts/paperclip/setup_marketing.py, add_remotion_routines.py, and CLAUDE.md.
+# scripts/seeds/setup_marketing.py, add_remotion_routines.py, and CLAUDE.md.
 # ---------------------------------------------------------------------------
 
 
@@ -328,8 +333,8 @@ def _load_legacy_json(path: Path) -> dict[str, str]:
 def import_all(*, repo_root: Path | None = None) -> dict[str, int]:
     """Run the import. Returns counts: {agents, routines}."""
     root = repo_root or settings.repo_root
-    agent_ids_file = root / "scripts" / "paperclip" / "agent_ids.json"
-    routine_ids_file = root / "scripts" / "paperclip" / "routine_ids.json"
+    agent_ids_file = root / "scripts" / "seeds" / "agent_ids.json"
+    routine_ids_file = root / "scripts" / "seeds" / "routine_ids.json"
 
     legacy_agents = _load_legacy_json(agent_ids_file)
     legacy_routines = _load_legacy_json(routine_ids_file)

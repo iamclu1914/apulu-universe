@@ -11,7 +11,7 @@ Self-hosted, interactive desktop app that replaces Paperclip as the orchestratio
 - ⏳ **Phase 2** — Tauri shell + chat-with-agents
 - ⏳ **Phase 3+** — Routine cutover, Phaser HQ map
 
-Apulu HQ runs **alongside** Paperclip until each routine has been cut over individually and soaked for 3+ days. Nothing in `scripts/paperclip/`, `pipeline/`, or live state files is modified by this codebase.
+**Paperclip was retired 2026-05-15.** Apulu HQ now owns the agent registry, scheduled routines, and chat. The seed JSONs (formerly `scripts/paperclip/`) live at `scripts/seeds/`. The `paperclip/` directory at the repo root is dormant and can be archived. See top-level `CLAUDE.md` for the migration story.
 
 ## Layout
 

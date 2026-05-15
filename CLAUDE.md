@@ -3,13 +3,20 @@
 @VAULT.md
 
 ## What This Is
-**Apulu Records** is an AI-powered record label running on [Paperclip](https://github.com/paperclipai/paperclip) — an open-source orchestration platform for managing teams of AI agents as a business. The label has 16 agents under 3 division presidents, and manages artist Vawn as its first client (multi-artist extensible).
+**Apulu Records** is an AI-powered record label. The orchestration layer is **Apulu HQ** (at `projects/apulu-hq/`): a FastAPI + SQLite backend with a desktop shell, plus a CEO command-center dashboard. 16 agents under 3 division presidents (A&R/Marketing/Operations), managing artist Vawn as the first client (multi-artist extensible).
 
-## Paperclip (Agent Orchestration)
-Paperclip runs at `http://localhost:3100`. Start it with:
-```bash
-cd "C:/Users/rdyal/Apulu Universe/paperclip" && pnpm dev
-```
+## Paperclip Retired (2026-05-15)
+Apulu Records used to run on [Paperclip](https://github.com/paperclipai/paperclip) — Paperclip was the orchestration layer at `localhost:3100`. As of **2026-05-15** Paperclip is retired. The full agent registry, chat threads, scheduled routines, and dispatch history were migrated into Apulu HQ. Agent chat now routes through the **Hermes ACP** adapter (`apulu_hq/chat/hermes_local.py`), and the scheduler in `apulu_hq/dispatch/` owns all cron-fired routines (defaults to live mode).
+
+If you see references to "Paperclip" in the codebase or docs, they are historical context. The relevant artifacts have moved:
+- `scripts/paperclip/` → `scripts/seeds/` (seed JSON the importer reads)
+- `localhost:3100` API → `localhost:8741` (Apulu HQ FastAPI)
+- Paperclip's web UI → `http://127.0.0.1:8741/ui/` (CEO command center)
+- `paperclip/server/...` directory → dormant on disk, can be archived/deleted when ready
+- The 3 `\Vawn\Paperclip*` scheduled tasks → disabled
+
+## Apulu HQ (Agent Orchestration)
+Apulu HQ runs at `http://127.0.0.1:8741`. The desktop shell (`python -m apulu_hq.shell`) launches it with a system-tray icon. Backend-only mode for dev: `python projects/apulu-hq/scripts/run_dev.py` (auto-reloads).
 
 ### Org Structure (16 agents — current, 2026-04-16)
 ```

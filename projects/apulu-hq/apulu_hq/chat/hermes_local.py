@@ -140,7 +140,8 @@ async def stream_hermes_local(
             text=True,
             encoding="utf-8",
             bufsize=1,
-            env={**os.environ, "PYTHONUNBUFFERED": "1", "HERMES_QUIET": "1"},
+            env={**os.environ, "PYTHONUNBUFFERED": "1", "HERMES_QUIET": "1",
+                 **({"ANTHROPIC_LOG": "debug"} if os.environ.get("APULU_HQ_HERMES_DEBUG") else {})},
         )
         if proc.stdin is None or proc.stdout is None:
             log.error("Hermes ACP process missing stdio pipes")

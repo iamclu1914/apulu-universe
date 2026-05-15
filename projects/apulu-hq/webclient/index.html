@@ -247,6 +247,35 @@ a{color:inherit;text-decoration:none}
 .dept-detail-btn:hover{opacity:.9}
 
 .agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+
+/* Agent profile */
+.agent-profile-head{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px}
+.agent-profile-avatar{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0}
+.agent-profile-info{flex:1;min-width:0}
+.agent-profile-name{font-size:22px;font-weight:700;letter-spacing:-0.02em;color:var(--ink)}
+.agent-profile-role{font-size:13px;color:var(--accent-2);margin-top:3px;font-weight:500}
+.profile-chips{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.profile-chip{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.profile-chip.dept{background:var(--accent-dim);color:var(--accent-2);border-color:rgba(124,58,237,0.25)}
+.profile-chip.adapter{background:var(--cyan-dim);color:var(--cyan);border-color:rgba(6,182,212,0.25)}
+.profile-chip.model{background:var(--green-dim);color:var(--green);border-color:rgba(34,197,94,0.25)}
+.profile-chip.on{background:var(--green-dim);color:var(--green);border-color:rgba(34,197,94,0.25)}
+.profile-chip.off{background:var(--red-dim);color:var(--red);border-color:rgba(239,68,68,0.25)}
+.agent-profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.profile-section{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column}
+.profile-section-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font-size:11px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:0.08em}
+.profile-section-body{padding:14px 16px;flex:1;max-height:480px;overflow-y:auto}
+.prompt-text{font-family:"JetBrains Mono",monospace;font-size:11.5px;line-height:1.65;color:var(--ink-2);white-space:pre-wrap;word-break:break-word;margin:0}
+.ap-routine{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--r);background:var(--surface-1);border:1px solid var(--line);margin-bottom:6px}
+.ap-routine.off{opacity:.55}
+.ap-routine-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 6px var(--green)}
+.ap-routine.off .ap-routine-dot{background:var(--ink-4);box-shadow:none}
+.ap-routine-info{flex:1;min-width:0}
+.ap-routine-name{font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap-routine-meta{font-size:10.5px;color:var(--ink-3);font-family:"JetBrains Mono",monospace;margin-top:2px}
+.ap-routine-state{font-size:9.5px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.06em;padding:2px 7px;border-radius:999px;background:var(--surface-2)}
+.ap-routine.on .ap-routine-state{background:var(--green-dim);color:var(--green)}
+@media(max-width:1400px){.agent-profile-grid{grid-template-columns:1fr}}
 .agent-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:all .12s}
 .agent-card:hover{border-color:var(--line-2);transform:translateY(-1px)}
 .agent-card-head{display:flex;align-items:center;gap:10px}
@@ -480,6 +509,33 @@ a{color:inherit;text-decoration:none}
       <div id="all-agents-by-dept"></div>
     </div>
 
+    <!-- ============ AGENT PROFILE VIEW ============ -->
+    <div class="view" id="view-agent-profile">
+      <button class="view-back" onclick="setView('dashboard')">← Back to Dashboard</button>
+      <div class="agent-profile-head">
+        <div class="agent-profile-avatar" id="ap-avatar"></div>
+        <div class="agent-profile-info">
+          <div class="agent-profile-name" id="ap-name">—</div>
+          <div class="agent-profile-role" id="ap-role">—</div>
+          <div class="profile-chips" id="ap-chips"></div>
+        </div>
+        <button class="dept-detail-btn" onclick="openAgentChat(state.activeAgent?.id)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Message
+        </button>
+      </div>
+      <div class="agent-profile-grid">
+        <div class="profile-section">
+          <div class="profile-section-head"><span>System Prompt</span><span style="font-size:10px;color:var(--ink-4);font-weight:500">Defines agent behavior</span></div>
+          <div class="profile-section-body"><pre class="prompt-text" id="ap-prompt">—</pre></div>
+        </div>
+        <div class="profile-section">
+          <div class="profile-section-head"><span>Functions (Scheduled Routines)</span><span class="sb-badge" id="ap-routine-count">0</span></div>
+          <div class="profile-section-body" id="ap-routines"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- ============ CHAT VIEW ============ -->
     <div class="view" id="view-chat">
       <div class="chat-wrap" id="chat-wrap">
@@ -576,38 +632,42 @@ a{color:inherit;text-decoration:none}
 const API=window.location.port==='5000'?'http://127.0.0.1:8741':'';
 const WS_URL=(()=>{try{const u=new URL(API||window.location.href);return`ws://${u.host}/ws`}catch{return null}})();
 
-const DEPT_META={
-  'A&R':{icon:'🎧',color:'pink',desc:'Talent scouting, artist development and A&R operations'},
-  'Marketing':{icon:'📣',color:'blue',desc:'Campaigns, promotions, brand strategy and growth'},
-  'Music Production':{icon:'🎚',color:'teal',desc:'Production, mixing, mastering and sound engineering'},
-  'Legal':{icon:'⚖',color:'green',desc:'Contracts, licensing, publishing and legal affairs'},
-  'Finance':{icon:'💰',color:'lime',desc:'Budgeting, accounting, royalties and financial planning'},
-  'Distribution':{icon:'🌐',color:'cyan',desc:'Digital distribution, logistics and platform management'},
-  'Creative':{icon:'🎨',color:'pink',desc:'Design, content creation, visuals and creative direction'},
-  'Operations':{icon:'⚙',color:'purple',desc:'Project management, scheduling and workflow operations'}
-};
-const DEPT_ORDER=['A&R','Marketing','Music Production','Legal','Finance','Distribution','Creative','Operations'];
+// Dept metadata is loaded from /api/departments — falls back to defaults for unknown depts
+const DEFAULT_DEPT_META={icon:'🏢',color:'purple',description:'Department'};
 
 const state={
   agents:[],agentById:{},departments:{},routines:[],
+  deptList:[],deptById:{},
+  summary:null,
   activeAgent:null,activeDept:null,threadId:null,
   view:'dashboard',ws:null,commTab:'all'
 };
 
 function initials(n){return(n||'A').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase()}
 function escHtml(s){return(s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function deptColor(name){return(DEPT_META[name]||{}).color||'purple'}
-function deptIcon(name){return(DEPT_META[name]||{}).icon||'🏢'}
-function deptDesc(name){return(DEPT_META[name]||{}).desc||name}
+function deptMeta(id){return state.deptById[id]||{id,name:id,...DEFAULT_DEPT_META}}
+function deptColor(id){return deptMeta(id).color}
+function deptIcon(id){return deptMeta(id).icon}
+function deptDesc(id){return deptMeta(id).description}
+function deptName(id){return deptMeta(id).name}
 
 function buildDepartments(){
   state.departments={};
-  DEPT_ORDER.forEach(d=>state.departments[d]=[]);
+  state.deptList.forEach(d=>{state.departments[d.id]=[]});
   state.agents.forEach(a=>{
-    const d=a.department||'Operations';
+    const d=a.department||'operations';
     if(!state.departments[d])state.departments[d]=[];
     state.departments[d].push(a);
   });
+}
+
+async function loadDepartments(){
+  try{
+    const list=await fetch(API+'/api/departments').then(r=>r.json());
+    state.deptList=Array.isArray(list)?list:[];
+  }catch{state.deptList=[]}
+  state.deptById={};
+  state.deptList.forEach(d=>{state.deptById[d.id]=d});
 }
 
 async function loadAgents(){
@@ -618,7 +678,12 @@ async function loadAgents(){
   state.agentById={};
   state.agents.forEach(a=>state.agentById[a.id]=a);
   buildDepartments();
-  renderAll();
+}
+
+async function loadSummary(){
+  try{
+    state.summary=await fetch(API+'/api/dashboard/summary').then(r=>r.json());
+  }catch{state.summary=null}
 }
 
 async function loadRoutines(){
@@ -639,40 +704,53 @@ function renderAll(){
 }
 
 function renderKpi(){
-  const total=state.agents.length||42;
+  const s=state.summary||{};
+  const total=s.totalAgents||state.agents.length||0;
+  const depts=s.totalDepartments||state.deptList.length||0;
   document.getElementById('kpi-total').textContent=total;
-  document.getElementById('kpi-total-sub').textContent=`Across ${Object.keys(state.departments).length||8} Departments`;
-  document.getElementById('kpi-projects').textContent=Math.max(18,Math.floor(total*0.42));
-  document.getElementById('kpi-pending').textContent=Math.max(27,Math.floor(total*0.65));
-  const rev=Math.max(2.48,(total*0.06)).toFixed(2);
-  document.getElementById('kpi-revenue').textContent=`$${rev}M`;
+  document.getElementById('kpi-total-sub').textContent=`Across ${depts} Department${depts===1?'':'s'}`;
+  // "Active Projects" = active routines (their actual scheduled work)
+  document.getElementById('kpi-projects').textContent=s.activeRoutines??'—';
+  const projectsKpi=document.querySelector('#view-dashboard .kpi:nth-child(2)');
+  if(projectsKpi){
+    projectsKpi.querySelector('.kpi-label').textContent='Active Routines';
+    projectsKpi.querySelector('.kpi-sub').textContent=`${s.firesToday||0} fires today`;
+  }
+  document.getElementById('kpi-pending').textContent=s.pendingTasks??'—';
+  const pendingKpi=document.querySelector('#view-dashboard .kpi:nth-child(3)');
+  if(pendingKpi){
+    pendingKpi.querySelector('.kpi-sub').textContent=(s.departmentAlerts||0)+' alerts · '+((s.pendingTasks||0)-(s.departmentAlerts||0))+' failures';
+  }
+  document.getElementById('kpi-revenue').textContent=`${s.totalRoutines||0}`;
+  const revKpi=document.querySelector('#view-dashboard .kpi:nth-child(4)');
+  if(revKpi){
+    revKpi.querySelector('.kpi-label').textContent='Total Routines';
+    revKpi.querySelector('.kpi-sub').textContent=`${s.activeRoutines||0} enabled`;
+  }
 }
 
 function renderDeptGrid(){
   const grid=document.getElementById('dept-grid');
-  grid.innerHTML=DEPT_ORDER.map(deptName=>{
-    const agents=state.departments[deptName]||[];
+  grid.innerHTML=state.deptList.map(d=>{
+    const agents=state.departments[d.id]||[];
     const count=agents.length;
-    const color=deptColor(deptName);
-    const icon=deptIcon(deptName);
-    const desc=deptDesc(deptName);
     const avatars=agents.slice(0,5).map((a,i)=>{
-      const st=i===0?'online':(i===4?'away':'');
+      const st=a.enabled?(i===4?'away':'online'):'';
       return `<div class="dept-avatar ${st}" title="${escHtml(a.display_name)}">${initials(a.display_name)}</div>`;
     }).join('');
-    return `<div class="dept-card" onclick="viewDept('${escHtml(deptName)}')">
+    return `<div class="dept-card" onclick="viewDept('${escHtml(d.id)}')">
       <div class="dept-card-head">
-        <div class="dept-icon color-${color}">${icon}</div>
+        <div class="dept-icon color-${d.color}">${d.icon}</div>
         <div class="dept-info">
-          <div class="dept-name">${escHtml(deptName)} Department</div>
-          <div class="dept-count">${count} Agent${count===1?'':'s'}</div>
+          <div class="dept-name">${escHtml(d.name)}</div>
+          <div class="dept-count">${count} Agent${count===1?'':'s'} · ${d.onlineAgentCount||0} online</div>
         </div>
       </div>
-      <div class="dept-desc">${escHtml(desc)}</div>
+      <div class="dept-desc">${escHtml(d.description)}</div>
       <div class="dept-avatars">${avatars||'<div class="dept-count" style="margin:0">No agents yet</div>'}</div>
       <button class="dept-view-btn">View Agents</button>
     </div>`;
-  }).join('');
+  }).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No departments loaded</div></div>';
 }
 
 function renderDeptGridFull(){
@@ -685,24 +763,26 @@ function renderAllAgents(){
   const root=document.getElementById('all-agents-by-dept');
   if(!root)return;
   root.innerHTML='';
-  DEPT_ORDER.forEach(deptName=>{
-    const agents=state.departments[deptName]||[];
+  state.deptList.forEach(d=>{
+    const agents=state.departments[d.id]||[];
     if(!agents.length)return;
-    const color=deptColor(deptName);
-    const icon=deptIcon(deptName);
     const section=document.createElement('div');
     section.style.marginBottom='24px';
-    section.innerHTML=`<div class="section-head" style="margin-bottom:12px"><div class="section-title">${icon} ${escHtml(deptName)} <span class="sb-badge" style="margin-left:8px">${agents.length}</span></div></div>
-      <div class="agents-grid">${agents.map(a=>agentCardHtml(a,color)).join('')}</div>`;
+    section.innerHTML=`<div class="section-head" style="margin-bottom:12px"><div class="section-title">${d.icon} ${escHtml(d.name)} <span class="sb-badge" style="margin-left:8px">${agents.length}</span></div></div>
+      <div class="agents-grid">${agents.map(a=>agentCardHtml(a,d.color)).join('')}</div>`;
     root.appendChild(section);
   });
 }
 
+function agentColorVar(color){
+  return ({pink:'var(--pink)',blue:'var(--blue)',teal:'var(--teal)',green:'var(--green)',lime:'var(--lime)',cyan:'var(--cyan)',amber:'var(--amber)',purple:'var(--accent)'})[color]||'var(--accent)';
+}
+
 function agentCardHtml(a,color){
-  const colorVar=({pink:'var(--pink)',blue:'var(--blue)',teal:'var(--teal)',green:'var(--green)',lime:'var(--lime)',cyan:'var(--cyan)',amber:'var(--amber)',purple:'var(--accent)'})[color]||'var(--accent)';
-  return `<div class="agent-card" onclick="openAgentChat('${escHtml(a.id)}')">
+  const colorVar=agentColorVar(color);
+  return `<div class="agent-card" onclick="viewAgent('${escHtml(a.id)}')">
     <div class="agent-card-head">
-      <div class="agent-avatar" style="background:linear-gradient(135deg,${colorVar},#3a1670)">${initials(a.display_name)}</div>
+      <div class="agent-avatar ${a.enabled?'':'away'}" style="background:linear-gradient(135deg,${colorVar},#3a1670)">${initials(a.display_name)}</div>
       <div class="agent-info">
         <div class="agent-name">${escHtml(a.display_name)}</div>
         <div class="agent-role">${escHtml(a.role||a.department||'Agent')}</div>
@@ -721,15 +801,13 @@ function renderCommList(){
   const tab=state.commTab;
   let items=[];
   if(tab==='all'||tab==='departments'){
-    DEPT_ORDER.forEach(d=>{
-      const agents=state.departments[d]||[];
-      const online=Math.max(1,Math.floor(agents.length*0.7));
-      items.push({type:'dept',name:d,meta:`${online||agents.length||1} agents online`,icon:deptIcon(d),color:deptColor(d),onClick:`viewDept('${escHtml(d)}')`});
+    state.deptList.forEach(d=>{
+      items.push({type:'dept',name:d.name,meta:`${d.agentCount} agents · ${d.onlineAgentCount} online`,icon:d.icon,color:d.color,onClick:`viewDept('${escHtml(d.id)}')`});
     });
   }
   if(tab==='all'||tab==='agents'||tab==='direct'){
-    state.agents.slice(0,12).forEach(a=>{
-      items.push({type:'agent',name:a.display_name,meta:a.role||a.department||'Agent',icon:initials(a.display_name),color:deptColor(a.department||'Operations'),isInitials:true,onClick:`openAgentChat('${escHtml(a.id)}')`});
+    state.agents.slice(0,30).forEach(a=>{
+      items.push({type:'agent',name:a.display_name,meta:a.role||deptName(a.department)||'Agent',icon:initials(a.display_name),color:deptColor(a.department),isInitials:true,onClick:`viewAgent('${escHtml(a.id)}')`});
     });
   }
   list.innerHTML=items.map(it=>{
@@ -744,34 +822,51 @@ function renderCommList(){
 
 function renderTopAgents(){
   const root=document.getElementById('top-agents');
-  const pool=[...state.agents].slice(0,5);
-  const seeds=[95,93,91,89,88];
-  const filler=[
-    {name:'Lyric Scout',dept:'A&R',score:95},
-    {name:'Promo Titan',dept:'Marketing',score:93},
-    {name:'MixMaster',dept:'Production',score:91},
-    {name:'DealMaker',dept:'Legal',score:89},
-    {name:'BudgetBoss',dept:'Finance',score:88}
-  ];
-  const rows=pool.length?pool.map((a,i)=>({name:a.display_name,dept:a.department||'—',score:seeds[i]||80})):filler;
-  root.innerHTML=rows.map((r,i)=>`<div class="top-agent">
-    <div class="ta-rank">${i+1}</div>
-    <div><span class="ta-name">${escHtml(r.name)}</span> <span class="ta-dept">(${escHtml(r.dept)})</span></div>
-    <div class="ta-score">${r.score}%</div>
-  </div>`).join('');
+  // Rank by routine ownership: agents owning the most enabled routines = top performers
+  const ranked=state.agents.map(a=>{
+    const owned=state.routines.filter(r=>r.agent_id===a.id);
+    const enabled=owned.filter(r=>r.enabled).length;
+    return {agent:a,total:owned.length,enabled};
+  }).filter(x=>x.total>0).sort((a,b)=>(b.enabled-a.enabled)||(b.total-a.total)).slice(0,5);
+  if(!ranked.length){
+    root.innerHTML='<div class="empty-state" style="padding:16px"><div class="empty-text">No routine activity yet</div></div>';
+    return;
+  }
+  const maxTotal=Math.max(...ranked.map(r=>r.total),1);
+  root.innerHTML=ranked.map((r,i)=>{
+    const pct=Math.round((r.enabled/maxTotal)*100)||(r.total/maxTotal*60);
+    return `<div class="top-agent" onclick="viewAgent('${escHtml(r.agent.id)}')" style="cursor:pointer">
+      <div class="ta-rank">${i+1}</div>
+      <div><span class="ta-name">${escHtml(r.agent.display_name)}</span> <span class="ta-dept">(${escHtml(deptName(r.agent.department))})</span></div>
+      <div class="ta-score">${r.enabled}/${r.total}</div>
+    </div>`;
+  }).join('');
 }
 
-function renderTasks(){
-  const tasks=[
-    {title:'Review new artist contract',sub:'Legal Department',pri:'high'},
-    {title:'Approve marketing campaign',sub:'Marketing Department',pri:'high'},
-    {title:'Royalties report review',sub:'Finance Department',pri:'medium'},
-    {title:'Album master final review',sub:'Music Production',pri:'medium'}
-  ];
-  document.getElementById('tasks-list').innerHTML=tasks.map(t=>`<div class="task-row">
-    <div class="task-info"><div class="task-title">${escHtml(t.title)}</div><div class="task-sub">${escHtml(t.sub)}</div></div>
-    <div class="task-pri ${t.pri}">${t.pri[0].toUpperCase()+t.pri.slice(1)}</div>
-  </div>`).join('');
+async function renderTasks(){
+  // Real "tasks requiring attention" = recent failed dispatches + DLQ entries
+  const root=document.getElementById('tasks-list');
+  try{
+    const [dispatches,dlq]=await Promise.all([
+      fetch(API+'/api/dispatches?limit=50').then(r=>r.json()),
+      fetch(API+'/api/dlq').then(r=>r.json())
+    ]);
+    const failures=(dispatches||[]).filter(d=>d.outcome==='failure'||d.outcome==='fail').slice(0,3);
+    const dlqItems=(dlq||[]).slice(0,3);
+    const items=[];
+    failures.forEach(f=>items.push({title:`Failed: ${f.routine_name||f.routine_id}`,sub:`${f.agent_name||'—'} · ${f.outcome}`,pri:'high'}));
+    dlqItems.forEach(d=>items.push({title:`DLQ: ${(d.payload&&d.payload.slot)||d.routine_id}`,sub:d.signature?String(d.signature).slice(0,40):'—',pri:'medium'}));
+    if(!items.length){
+      root.innerHTML='<div class="empty-state" style="padding:16px"><div class="empty-text">All clear — no failures or DLQ items</div></div>';
+      return;
+    }
+    root.innerHTML=items.map(t=>`<div class="task-row">
+      <div class="task-info"><div class="task-title">${escHtml(t.title)}</div><div class="task-sub">${escHtml(t.sub)}</div></div>
+      <div class="task-pri ${t.pri}">${t.pri[0].toUpperCase()+t.pri.slice(1)}</div>
+    </div>`).join('');
+  }catch{
+    root.innerHTML='<div class="empty-state" style="padding:16px"><div class="empty-text">Failed to load tasks</div></div>';
+  }
 }
 
 function renderChart(){
@@ -824,18 +919,58 @@ function setView(v){
   });
 }
 
-function viewDept(deptName){
-  state.activeDept=deptName;
-  const agents=state.departments[deptName]||[];
-  const color=deptColor(deptName);
-  document.getElementById('dd-icon').className='dept-detail-icon color-'+color;
-  document.getElementById('dd-icon').textContent=deptIcon(deptName);
-  document.getElementById('dd-name').textContent=deptName+' Department';
-  document.getElementById('dd-meta').textContent=`${agents.length} agent${agents.length===1?'':'s'} · ${deptDesc(deptName)}`;
+function viewDept(deptId){
+  state.activeDept=deptId;
+  const meta=deptMeta(deptId);
+  const agents=state.departments[deptId]||[];
+  document.getElementById('dd-icon').className='dept-detail-icon color-'+meta.color;
+  document.getElementById('dd-icon').textContent=meta.icon;
+  document.getElementById('dd-name').textContent=meta.name;
+  document.getElementById('dd-meta').textContent=`${agents.length} agent${agents.length===1?'':'s'} · ${meta.description}`;
   document.getElementById('dd-agents').innerHTML=agents.length
-    ?agents.map(a=>agentCardHtml(a,color)).join('')
+    ?agents.map(a=>agentCardHtml(a,meta.color)).join('')
     :'<div class="empty-state" style="grid-column:1/-1;padding:40px"><div class="empty-icon">👥</div><div class="empty-text">No agents in this department yet</div></div>';
   setView('dept-detail');
+}
+
+async function viewAgent(agentId){
+  const a=state.agentById[agentId];
+  if(!a){alert('Agent not found');return}
+  state.activeAgent=a;
+  const meta=deptMeta(a.department);
+  const colorVar=agentColorVar(meta.color);
+  document.getElementById('ap-avatar').style.background=`linear-gradient(135deg,${colorVar},#3a1670)`;
+  document.getElementById('ap-avatar').textContent=initials(a.display_name);
+  document.getElementById('ap-name').textContent=a.display_name;
+  document.getElementById('ap-role').textContent=a.role||'Agent';
+  document.getElementById('ap-chips').innerHTML=`
+    <span class="profile-chip dept">${meta.icon} ${escHtml(meta.name)}</span>
+    <span class="profile-chip adapter">⚙ ${escHtml(a.adapter_type||'unknown')}</span>
+    ${a.model?`<span class="profile-chip model">◎ ${escHtml(a.model)}</span>`:''}
+    <span class="profile-chip ${a.enabled?'on':'off'}">● ${a.enabled?'Active':'Disabled'}</span>`;
+  document.getElementById('ap-prompt').textContent=a.system_prompt||'(no system prompt set)';
+  // Load routines (functions)
+  const routinesBody=document.getElementById('ap-routines');
+  routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">Loading…</div>';
+  try{
+    const routines=await fetch(`${API}/api/agents/${agentId}/routines`).then(r=>r.json());
+    document.getElementById('ap-routine-count').textContent=routines.length;
+    if(!routines.length){
+      routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">No scheduled functions</div>';
+    }else{
+      routinesBody.innerHTML=routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}">
+        <div class="ap-routine-dot"></div>
+        <div class="ap-routine-info">
+          <div class="ap-routine-name">${escHtml(r.display_name)}</div>
+          <div class="ap-routine-meta">${escHtml(r.cron_expr)} · ${escHtml(r.priority||'normal')}</div>
+        </div>
+        <div class="ap-routine-state">${r.enabled?'enabled':'off'}</div>
+      </div>`).join('');
+    }
+  }catch{
+    routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--red)">Failed to load routines</div>';
+  }
+  setView('agent-profile');
 }
 
 function messageDept(){
@@ -850,7 +985,7 @@ function quickMessageDept(){
   document.getElementById('comm-search')?.focus();
 }
 function quickMessageAgent(){
-  if(state.agents.length)openAgentChat(state.agents[0].id);
+  if(state.agents.length)viewAgent(state.agents[0].id);
   else alert('No agents available');
 }
 
@@ -957,8 +1092,17 @@ document.getElementById('chat-input').addEventListener('input',e=>{
 });
 
 async function main(){
-  await Promise.all([loadAgents(),loadRoutines()]);
+  // Load departments first (used for icon/color/desc lookups everywhere else)
+  await loadDepartments();
+  await Promise.all([loadAgents(),loadRoutines(),loadSummary()]);
+  renderAll();
   connectWs();
+  // Refresh summary + tasks every 60s
+  setInterval(async()=>{
+    await loadSummary();
+    renderKpi();
+    renderTasks();
+  },60000);
 }
 main();
 </script>

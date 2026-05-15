@@ -46,6 +46,64 @@ log = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
+# Department metadata — single source of truth for icon/color/description
+# Keys are the *raw* department values stored on the agents table.
+# ---------------------------------------------------------------------------
+
+DEPT_META: dict[str, dict[str, str]] = {
+    "board": {
+        "label": "Board",
+        "icon": "👑",
+        "color": "amber",
+        "description": "Executive leadership and creative direction",
+    },
+    "cos": {
+        "label": "Chief of Staff",
+        "icon": "🎯",
+        "color": "purple",
+        "description": "Cross-department coordination and operations oversight",
+    },
+    "marketing": {
+        "label": "Marketing",
+        "icon": "📣",
+        "color": "blue",
+        "description": "Campaigns, engagement, press, content and analytics",
+    },
+    "operations": {
+        "label": "Operations",
+        "icon": "⚙",
+        "color": "cyan",
+        "description": "Finance, reliability, partnerships and sync licensing",
+    },
+    "post-prod": {
+        "label": "Post-Production",
+        "icon": "🎚",
+        "color": "teal",
+        "description": "Mixing, mastering and quality control",
+    },
+    "production": {
+        "label": "Music Production",
+        "icon": "🎵",
+        "color": "pink",
+        "description": "A&R, creative briefs and music production",
+    },
+    "research": {
+        "label": "Research",
+        "icon": "🔍",
+        "color": "lime",
+        "description": "Trend research, intel and strategic analysis",
+    },
+}
+
+
+def _dept_meta(dept_id: str) -> dict[str, str]:
+    return DEPT_META.get(
+        dept_id,
+        {"label": dept_id.title(), "icon": "🏢", "color": "purple", "description": dept_id},
+    )
+
+
+# ---------------------------------------------------------------------------
 # Pydantic request/response models
 # ---------------------------------------------------------------------------
 
@@ -242,6 +300,106 @@ def create_app() -> FastAPI:
         conn.execute(f"UPDATE agents SET {sets}, updated_at=datetime('now') WHERE id=:id", params)
         conn.commit()
         return get_agent(agent_id)
+
+    # ---- departments ----
+    @app.get("/api/departments")
+    def list_departments():
+        """All departments derived from agents, with metadata + counts."""
+        rows = get_conn().execute(
+            "SELECT department, COUNT(*) AS agent_count, "
+            "SUM(CASE WHEN enabled=1 THEN 1 ELSE 0 END) AS online_count "
+            "FROM agents GROUP BY department ORDER BY department"
+        ).fetchall()
+        out = []
+        for r in rows:
+            meta = _dept_meta(r["department"])
+            out.append({
+                "id": r["department"],
+                "name": meta["label"],
+                "icon": meta["icon"],
+                "color": meta["color"],
+                "description": meta["description"],
+                "agentCount": r["agent_count"],
+                "onlineAgentCount": int(r["online_count"] or 0),
+            })
+        return out
+
+    @app.get("/api/departments/{dept_id}/agents")
+    def list_department_agents(dept_id: str):
+        rows = get_conn().execute(
+            "SELECT id, legacy_id, display_name, department, role, adapter_type, model, "
+            "provider, system_prompt, desk_x, desk_y, sprite_key, enabled "
+            "FROM agents WHERE department=? ORDER BY display_name",
+            (dept_id,),
+        ).fetchall()
+        return [AgentOut(**{**dict(r), "enabled": bool(r["enabled"])}) for r in rows]
+
+    # ---- agent functions (routines they own) ----
+    @app.get("/api/agents/{agent_id}/routines")
+    def list_agent_routines(agent_id: str):
+        """Functions the agent performs — the cron routines they own."""
+        rows = get_conn().execute(
+            "SELECT id, display_name, agent_id, cron_expr, timezone, description, "
+            "priority, enabled, disabled_reason FROM routines WHERE agent_id=? "
+            "ORDER BY enabled DESC, display_name",
+            (agent_id,),
+        ).fetchall()
+        return [RoutineOut(**{**dict(r), "enabled": bool(r["enabled"])}) for r in rows]
+
+    # ---- dashboard summary (KPIs) ----
+    @app.get("/api/dashboard/summary")
+    def dashboard_summary():
+        conn = get_conn()
+        total_agents = conn.execute("SELECT COUNT(*) AS c FROM agents").fetchone()["c"]
+        active_agents = conn.execute(
+            "SELECT COUNT(*) AS c FROM agents WHERE enabled=1"
+        ).fetchone()["c"]
+        total_routines = conn.execute("SELECT COUNT(*) AS c FROM routines").fetchone()["c"]
+        active_routines = conn.execute(
+            "SELECT COUNT(*) AS c FROM routines WHERE enabled=1"
+        ).fetchone()["c"]
+        n_departments = conn.execute(
+            "SELECT COUNT(DISTINCT department) AS c FROM agents"
+        ).fetchone()["c"]
+        # Fires today
+        fires_today = conn.execute(
+            "SELECT COUNT(*) AS c FROM dispatches "
+            "WHERE date(started_at) = date('now')"
+        ).fetchone()["c"]
+        # Failures + DLQ count = "pending tasks requiring attention"
+        recent_failures = conn.execute(
+            "SELECT COUNT(*) AS c FROM dispatches "
+            "WHERE outcome IN ('failure','fail') AND date(started_at) >= date('now','-7 days')"
+        ).fetchone()["c"]
+        dlq_active = conn.execute(
+            "SELECT COUNT(*) AS c FROM dlq "
+            "WHERE replayed_at IS NULL AND discarded_at IS NULL"
+        ).fetchone()["c"]
+        return {
+            "totalAgents": total_agents,
+            "activeAgents": active_agents,
+            "totalDepartments": n_departments,
+            "totalRoutines": total_routines,
+            "activeRoutines": active_routines,
+            "firesToday": fires_today,
+            "pendingTasks": recent_failures + dlq_active,
+            "departmentAlerts": dlq_active,
+        }
+
+    # ---- recent message conversations ----
+    @app.get("/api/messages/conversations")
+    def list_conversations(limit: int = 20):
+        rows = get_conn().execute(
+            "SELECT t.id, t.agent_id, t.title, t.updated_at, a.display_name AS agent_name, "
+            "a.department AS agent_department, "
+            "(SELECT content FROM chat_messages m WHERE m.thread_id=t.id "
+            "  ORDER BY m.created_at DESC LIMIT 1) AS last_message "
+            "FROM chat_threads t "
+            "LEFT JOIN agents a ON a.id = t.agent_id "
+            "ORDER BY t.updated_at DESC LIMIT ?",
+            (max(1, min(int(limit), 100)),),
+        ).fetchall()
+        return [dict(r) for r in rows]
 
     @app.get("/api/agents/{agent_id}/threads")
     def list_threads(agent_id: str):

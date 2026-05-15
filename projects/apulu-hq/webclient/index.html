@@ -352,6 +352,14 @@ a{color:inherit;text-decoration:none}
 .ap-routine-meta{font-size:10.5px;color:var(--ink-3);font-family:"JetBrains Mono",monospace;margin-top:2px}
 .ap-routine-state{font-size:9.5px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.06em;padding:2px 7px;border-radius:999px;background:var(--surface-2)}
 .ap-routine.on .ap-routine-state{background:var(--green-dim);color:var(--green)}
+/* iOS-style toggle */
+.routine-toggle{position:relative;display:inline-block;width:34px;height:20px;flex-shrink:0;cursor:pointer}
+.routine-toggle input{opacity:0;width:0;height:0;position:absolute}
+.routine-toggle-track{position:absolute;inset:0;background:var(--surface-3);border-radius:999px;transition:background .15s}
+.routine-toggle-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .15s,background .15s;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
+.routine-toggle input:checked + .routine-toggle-track{background:var(--green)}
+.routine-toggle input:checked + .routine-toggle-track .routine-toggle-thumb{transform:translateX(14px)}
+.routine-toggle:hover .routine-toggle-track{filter:brightness(1.1)}
 @media(max-width:1400px){.agent-profile-grid{grid-template-columns:1fr}}
 .agent-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:all .12s}
 .agent-card:hover{border-color:var(--line-2);transform:translateY(-1px)}
@@ -1412,13 +1420,16 @@ async function viewAgent(agentId){
     if(!routines.length){
       routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">No scheduled functions</div>';
     }else{
-      routinesBody.innerHTML=routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}">
+      routinesBody.innerHTML=routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}" data-routine-id="${escHtml(r.id)}">
         <div class="ap-routine-dot"></div>
         <div class="ap-routine-info">
           <div class="ap-routine-name">${escHtml(r.display_name)}</div>
-          <div class="ap-routine-meta">${escHtml(r.cron_expr)} · ${escHtml(r.priority||'normal')}</div>
+          <div class="ap-routine-meta">${escHtml(r.cron_expr)} · ${escHtml(r.priority||'normal')}${r.disabled_reason?' · '+escHtml(r.disabled_reason):''}</div>
         </div>
-        <div class="ap-routine-state">${r.enabled?'enabled':'off'}</div>
+        <label class="routine-toggle" title="${r.enabled?'Disable':'Enable'} this routine">
+          <input type="checkbox" ${r.enabled?'checked':''} onchange="toggleRoutine('${escHtml(r.id)}',this)">
+          <span class="routine-toggle-track"><span class="routine-toggle-thumb"></span></span>
+        </label>
       </div>`).join('');
     }
   }catch{
@@ -1553,6 +1564,32 @@ document.getElementById('chat-input').addEventListener('input',e=>{
   e.target.style.height='auto';
   e.target.style.height=Math.min(e.target.scrollHeight,140)+'px';
 });
+
+async function toggleRoutine(routineId, checkbox){
+  const newState=checkbox.checked;
+  const row=checkbox.closest('.ap-routine');
+  // Optimistic UI
+  if(row)row.classList.toggle('on',newState),row.classList.toggle('off',!newState);
+  try{
+    const r=await fetch(`${API}/api/routines/${encodeURIComponent(routineId)}`,{
+      method:'PATCH',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({enabled:newState,disabled_reason:newState?null:'manually disabled via dashboard'}),
+    });
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const updated=await r.json();
+    // Refresh state.routines so other views (top agents, activity, tasks) reflect it
+    const idx=state.routines.findIndex(x=>x.id===routineId);
+    if(idx>=0)state.routines[idx]=updated;
+    else state.routines.push(updated);
+    renderTopAgents();
+  }catch(e){
+    // Revert on failure
+    checkbox.checked=!newState;
+    if(row)row.classList.toggle('on',!newState),row.classList.toggle('off',newState);
+    alert('Failed to toggle routine: '+e.message);
+  }
+}
 
 async function refreshPostsBadge(){
   try{

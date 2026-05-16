@@ -25,6 +25,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, date as date_cls, timezone
 from pathlib import Path
 
+import httpx
 from fastapi import (
     FastAPI,
     HTTPException,
@@ -34,7 +35,7 @@ from fastapi import (
     Body,
 )
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -45,6 +46,23 @@ from ..events import Event, get_bus
 from ..tailer import TailerConfig, start_tailers, stop_tailers
 
 log = logging.getLogger(__name__)
+
+PROMPT_GENERATOR_BACKEND_URL = os.environ.get(
+    "APULU_PROMPT_GENERATOR_BACKEND_URL",
+    "https://apulu-backend.onrender.com",
+).rstrip("/")
+HOP_BY_HOP_HEADERS = {
+    "connection",
+    "keep-alive",
+    "proxy-authenticate",
+    "proxy-authorization",
+    "te",
+    "trailer",
+    "transfer-encoding",
+    "upgrade",
+    "content-length",
+    "content-encoding",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -1383,6 +1401,63 @@ def create_app() -> FastAPI:
             out.append(d)
         return out
 
+    # ---- Prompt Generator bridge ----
+    @app.get("/api/prompt-generator/status")
+    def prompt_generator_status():
+        return {
+            "ok": True,
+            "backend_url": PROMPT_GENERATOR_BACKEND_URL,
+            "ui": "/ui/prompt-generator/",
+        }
+
+    @app.api_route(
+        "/api/prompt-generator/{path:path}",
+        methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    )
+    async def prompt_generator_proxy(path: str, request: Request):
+        target = f"{PROMPT_GENERATOR_BACKEND_URL}/api/{path}"
+        body = await request.body()
+        headers = {
+            key: value
+            for key, value in request.headers.items()
+            if key.lower() not in HOP_BY_HOP_HEADERS and key.lower() != "host"
+        }
+        headers["origin"] = PROMPT_GENERATOR_BACKEND_URL
+
+        timeout = httpx.Timeout(connect=15.0, read=None, write=120.0, pool=15.0)
+        client = httpx.AsyncClient(timeout=timeout, follow_redirects=False)
+        upstream = await client.send(
+            client.build_request(
+                request.method,
+                target,
+                params=request.query_params,
+                content=body,
+                headers=headers,
+            ),
+            stream=True,
+        )
+
+        response_headers = {
+            key: value
+            for key, value in upstream.headers.items()
+            if key.lower() not in HOP_BY_HOP_HEADERS
+        }
+
+        async def body_iter():
+            try:
+                async for chunk in upstream.aiter_bytes():
+                    yield chunk
+            finally:
+                await upstream.aclose()
+                await client.aclose()
+
+        return StreamingResponse(
+            body_iter(),
+            status_code=upstream.status_code,
+            headers=response_headers,
+            media_type=upstream.headers.get("content-type"),
+        )
+
     # ---- WebSocket gateway ----
     @app.websocket("/ws")
     async def ws(ws: WebSocket):
@@ -1407,9 +1482,7 @@ def create_app() -> FastAPI:
 
         @app.get("/")
         def root_redirect():
-            return JSONResponse(
-                {"ok": True, "ui": "/ui/", "api_health": "/api/health", "ws": "/ws"}
-            )
+            return RedirectResponse(url="/ui/", status_code=307)
 
     return app
 

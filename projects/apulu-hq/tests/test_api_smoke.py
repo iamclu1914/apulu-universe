@@ -21,6 +21,12 @@ def test_health(client):
     assert j["routines"] == 26
 
 
+def test_root_redirects_to_dashboard(client):
+    r = client.get("/", follow_redirects=False)
+    assert r.status_code == 307
+    assert r.headers["location"] == "/ui/"
+
+
 def test_list_agents(client):
     r = client.get("/api/agents")
     assert r.status_code == 200
@@ -219,3 +225,11 @@ def test_social_platforms_reports_all_channels(client):
     ids = {p["id"] for p in r.json()["platforms"]}
     assert {"instagram", "tiktok", "threads", "x", "bluesky", "facebook"} <= ids
 
+
+def test_prompt_generator_status(client):
+    r = client.get("/api/prompt-generator/status")
+    assert r.status_code == 200
+    data = r.json()
+    assert data["ok"] is True
+    assert data["backend_url"] == "https://apulu-backend.onrender.com"
+    assert data["ui"] == "/ui/prompt-generator/"

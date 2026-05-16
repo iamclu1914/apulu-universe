@@ -105,6 +105,10 @@ a{color:inherit;text-decoration:none}
 .topbar-title h1{font-size:22px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);line-height:1.2}
 .topbar-title p{font-size:12px;color:var(--ink-3);margin-top:2px}
 .topbar-end{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.app-switcher{display:flex;align-items:center;gap:3px;padding:3px;background:var(--surface);border:1px solid var(--line);border-radius:999px}
+.app-switch{height:30px;display:inline-flex;align-items:center;padding:0 12px;border-radius:999px;font-size:11px;font-weight:700;color:var(--ink-3);letter-spacing:0.02em;white-space:nowrap;transition:all .12s}
+.app-switch:hover{color:var(--ink);background:var(--surface-1)}
+.app-switch.active{color:#fff;background:var(--accent);box-shadow:0 3px 12px var(--accent-glow)}
 .view-select{height:36px;padding:0 32px 0 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);font-size:12px;font-weight:500;color:var(--ink);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A1A1AA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 12px center;outline:none;transition:border-color .12s}
 .view-select:hover{border-color:var(--line-2)}
 .view-select:focus{border-color:var(--accent)}
@@ -501,6 +505,10 @@ a{color:inherit;text-decoration:none}
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 001 1h3v-6h6v6h3a1 1 0 001-1V10"/></svg></span>
       Dashboard
     </div>
+    <a class="sb-item" href="/ui/prompt-generator/">
+      <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span>
+      Prompt Generator
+    </a>
     <div class="sb-item" data-view="agents">
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><circle cx="17" cy="7" r="3"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M17 14a4 4 0 014 4v3"/></svg></span>
       Agents <span class="sb-badge" id="sb-agent-count">0</span>
@@ -569,6 +577,10 @@ a{color:inherit;text-decoration:none}
       <p>Label operations, publishing, agents, and incidents</p>
     </div>
     <div class="topbar-end">
+      <div class="app-switcher" aria-label="Apulu apps">
+        <a class="app-switch active" href="/ui/">Command Center</a>
+        <a class="app-switch" href="/ui/prompt-generator/">Prompt Generator</a>
+      </div>
       <select class="view-select" id="view-select">
         <option>CEO View</option>
         <option>Operations View</option>

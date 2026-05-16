@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: apulu-hq
+    runtime: python
+    rootDir: projects/apulu-hq
+    buildCommand: pip install -e .
+    startCommand: uvicorn apulu_hq.api.app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: APULU_PROMPT_GENERATOR_BACKEND_URL
+        value: https://apulu-backend.onrender.com
+      - key: APULU_HQ_DATA_DIR
+        value: /var/data/apulu-hq
+    disk:
+      name: apulu-hq-data
+      mountPath: /var/data/apulu-hq
+      sizeGB: 1

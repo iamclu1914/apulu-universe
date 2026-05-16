@@ -666,6 +666,14 @@ a{color:inherit;text-decoration:none}
         <div id="activity-feed"></div>
       </div>
 
+      <div class="analytics-card">
+        <div class="analytics-head">
+          <div class="analytics-title">Departments & Agents</div>
+          <button class="mini-btn" onclick="setView('departments')">View All</button>
+        </div>
+        <div class="dept-grid" id="dashboard-dept-grid"></div>
+      </div>
+
       <div class="analytics-row two-col">
         <div class="analytics-card">
           <div class="analytics-head"><div class="analytics-title">Top Performing Agents</div></div>
@@ -687,7 +695,7 @@ a{color:inherit;text-decoration:none}
     <div class="view" id="view-dept-detail">
       <button class="view-back" onclick="setView('dashboard')"><- Back to Dashboard</button>
       <div class="dept-detail-head">
-        <div class="dept-detail-icon" id="dd-icon">ðŸŽµ</div>
+        <div class="dept-detail-icon" id="dd-icon">AR</div>
         <div class="dept-detail-info">
           <div class="dept-detail-name" id="dd-name">Department</div>
           <div class="dept-detail-meta" id="dd-meta"></div>
@@ -738,7 +746,7 @@ a{color:inherit;text-decoration:none}
         </div>
         <div class="chat-messages" id="chat-messages">
           <div class="empty-state">
-            <div class="empty-icon">ðŸ’¬</div>
+            <div class="empty-icon">Chat</div>
             <div class="empty-text">No conversation selected</div>
             <div class="empty-hint">Pick a department or agent from the right panel</div>
           </div>
@@ -877,7 +885,7 @@ const API=window.location.port==='5000'?'http://127.0.0.1:8741':'';
 const WS_URL=(()=>{try{const u=new URL(API||window.location.href);return`ws://${u.host}/ws`}catch{return null}})();
 
 // Dept metadata is loaded from /api/departments -- falls back to defaults for unknown depts
-const DEFAULT_DEPT_META={icon:'ðŸ¢',color:'purple',description:'Department'};
+const DEFAULT_DEPT_META={icon:'D',color:'purple',description:'Department'};
 
 const state={
   agents:[],agentById:{},departments:{},routines:[],
@@ -908,13 +916,23 @@ function buildDepartments(){
 
 // Client-side fallback metadata (mirrors backend DEPT_META -- used if /api/departments 404s on older backends)
 const FALLBACK_DEPT_META={
-  'board':{label:'Office of the Chairman',icon:'ðŸ‘‘',color:'amber',description:'Executive leadership, vision, and final authority on signings and strategy',headName:'Clu'},
+  'board':{label:'Office of the Chairman',icon:'CEO',color:'amber',description:'Executive leadership, vision, and final authority on signings and strategy',headName:'Clu'},
   'cos':{label:'Legal & Business Affairs',icon:'L',color:'purple',description:'Contracts, licensing, publishing, clearances and artist relations',headName:'Nelly'},
-  'marketing':{label:'Marketing, Audience & Revenue',icon:'ðŸ“£',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy',headName:'Letitia'},
+  'marketing':{label:'Marketing, Audience & Revenue',icon:'M',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy',headName:'Letitia'},
   'operations':{label:'Operations, Finance & Tech',icon:'*',color:'cyan',description:'Infrastructure, finance, royalties, partnerships and AI orchestration',headName:'Nari'},
-  'post-prod':{label:'Post-Production',icon:'ðŸŽš',color:'teal',description:'Mixing, mastering and quality control',headName:'Onyx'},
-  'production':{label:'A&R & Production',icon:'ðŸŽµ',color:'pink',description:'Artist scouting, creative direction, songwriting and production',headName:'Timbo'},
-  'research':{label:'Discovery & Research',icon:'ðŸ”',color:'lime',description:'Streaming/social data mining, trend analysis and breakout signal detection',headName:'Rhythm'}
+  'post-prod':{label:'Post-Production',icon:'PP',color:'teal',description:'Mixing, mastering and quality control',headName:'Onyx'},
+  'production':{label:'A&R & Production',icon:'AR',color:'pink',description:'Artist scouting, creative direction, songwriting and production',headName:'Timbo'},
+  'research':{label:'Discovery & Research',icon:'R',color:'lime',description:'Streaming/social data mining, trend analysis and breakout signal detection',headName:'Rhythm'}
+};
+
+const DEPT_ICON_MAP={
+  board:'CEO',
+  cos:'L',
+  marketing:'M',
+  operations:'O',
+  'post-prod':'PP',
+  production:'AR',
+  research:'R'
 };
 
 // Resolve a department's head agent -- uses API-provided headAgentId, else falls back to FALLBACK_DEPT_META[id].headName
@@ -926,12 +944,23 @@ function deptHead(deptId){
   return null;
 }
 
+function normalizeDept(d){
+  const fb=FALLBACK_DEPT_META[d.id]||{};
+  return {
+    ...d,
+    name:d.name||fb.label||d.id,
+    icon:DEPT_ICON_MAP[d.id]||d.icon||'D',
+    color:d.color||fb.color||'purple',
+    description:d.description||fb.description||d.id
+  };
+}
+
 async function loadDepartments(){
   try{
     const res=await fetch(API+'/api/departments');
     if(res.ok){
       const list=await res.json();
-      state.deptList=Array.isArray(list)?list:[];
+      state.deptList=Array.isArray(list)?list.map(normalizeDept):[];
     }else{
       state.deptList=[];
     }
@@ -955,10 +984,10 @@ function deriveDepartments(){
   const order=['board','cos','marketing','operations','post-prod','production','research'];
   const all=[...new Set([...order,...Object.keys(groups)])];
   state.deptList=all.filter(id=>groups[id]).map(id=>{
-    const meta=FALLBACK_DEPT_META[id]||{label:id,icon:'ðŸ¢',color:'purple',description:id};
+    const meta=FALLBACK_DEPT_META[id]||{label:id,icon:'D',color:'purple',description:id};
     const head=meta.headName?state.agents.find(a=>a.display_name===meta.headName):null;
     return {
-      id,name:meta.label,icon:meta.icon,color:meta.color,description:meta.description,
+      id,name:meta.label,icon:DEPT_ICON_MAP[id]||meta.icon||'D',color:meta.color,description:meta.description,
       agentCount:groups[id].agents.length,onlineAgentCount:groups[id].online,
       headAgentId:head?head.id:null,headAgentName:meta.headName||null
     };
@@ -1039,6 +1068,7 @@ function renderAll(){
   renderCampaignPerformance();
   renderFinancePanels();
   renderCalendarBoard();
+  renderDashboardDepartments();
   renderDeptGridFull();
   renderDeptTree();
   renderAllAgents();
@@ -1134,6 +1164,12 @@ function renderDeptGridFull(){
   const grid=document.getElementById('dept-grid-full');
   if(!grid)return;
   grid.innerHTML=state.deptList.map(deptCardHtml).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No departments loaded</div></div>';
+}
+
+function renderDashboardDepartments(){
+  const grid=document.getElementById('dashboard-dept-grid');
+  if(!grid)return;
+  grid.innerHTML=state.deptList.slice(0,4).map(deptCardHtml).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No departments loaded</div></div>';
 }
 
 function renderAllAgents(){
@@ -1443,9 +1479,9 @@ function setView(v){
 }
 
 const PLATFORM_META={
-  x:{icon:'ð•',color:'#ffffff'},
-  bluesky:{icon:'ðŸ¦‹',color:'#3B82F6'},
-  instagram:{icon:'ðŸ“·',color:'#EC4899'},
+  x:{icon:'X',color:'#ffffff'},
+  bluesky:{icon:'B',color:'#3B82F6'},
+  instagram:{icon:'IG',color:'#EC4899'},
   threads:{icon:'@',color:'#A1A1AA'},
   tiktok:{icon:'music',color:'#06B6D4'},
   facebook:{icon:'f',color:'#3B82F6'},
@@ -1695,7 +1731,7 @@ function viewDept(deptId){
   document.getElementById('dd-meta').textContent=`${agents.length} agent${agents.length===1?'':'s'} - ${meta.description}`;
   document.getElementById('dd-agents').innerHTML=agents.length
     ?agents.map(a=>agentCardHtml(a,meta.color)).join('')
-    :'<div class="empty-state" style="grid-column:1/-1;padding:40px"><div class="empty-icon">ðŸ‘¥</div><div class="empty-text">No agents in this department yet</div></div>';
+    :'<div class="empty-state" style="grid-column:1/-1;padding:40px"><div class="empty-icon">Agents</div><div class="empty-text">No agents in this department yet</div></div>';
   setView('dept-detail');
 }
 
@@ -1783,7 +1819,7 @@ function openAgentChat(agentId){
       <div class="chat-head-name">${escHtml(a.display_name)}</div>
       <div class="chat-head-sub">${escHtml(a.role||'')} - ${escHtml(a.department||'Operations')}</div>
     </div>`;
-  document.getElementById('chat-messages').innerHTML=`<div class="empty-state"><div class="empty-icon">ðŸ‘‹</div><div class="empty-text">Say hi to ${escHtml(a.display_name)}</div><div class="empty-hint">Start a conversation below</div></div>`;
+  document.getElementById('chat-messages').innerHTML=`<div class="empty-state"><div class="empty-icon">Chat</div><div class="empty-text">Say hi to ${escHtml(a.display_name)}</div><div class="empty-hint">Start a conversation below</div></div>`;
   document.getElementById('chat-input').disabled=false;
   document.getElementById('chat-send').disabled=false;
   setView('chat');

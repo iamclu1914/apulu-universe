@@ -66,11 +66,11 @@ HOP_BY_HOP_HEADERS = {
 
 
 # ---------------------------------------------------------------------------
-# Department metadata â€” single source of truth for icon/color/description
+# Department metadata -- single source of truth for icon/color/description
 # Keys are the *raw* department values stored on the agents table.
 # ---------------------------------------------------------------------------
 
-# Department heads â€” the agent who manages each department and receives
+# Department heads -- the agent who manages each department and receives
 # escalated tasks. CEO communicates with these heads; they coordinate
 # within their teams.
 DEPT_HEAD: dict[str, str] = {
@@ -87,43 +87,43 @@ DEPT_HEAD: dict[str, str] = {
 DEPT_META: dict[str, dict[str, str]] = {
     "board": {
         "label": "Office of the Chairman",
-        "icon": "ðŸ‘‘",
+        "icon": "CEO",
         "color": "amber",
         "description": "Executive leadership, vision, and final authority on signings and strategy",
     },
     "cos": {
         "label": "Legal & Business Affairs",
-        "icon": "âš–",
+        "icon": "L",
         "color": "purple",
         "description": "Contracts, licensing, publishing, clearances and artist relations",
     },
     "marketing": {
         "label": "Marketing, Audience & Revenue",
-        "icon": "ðŸ“£",
+        "icon": "M",
         "color": "blue",
         "description": "Campaigns, fan acquisition, content, publicity and streaming strategy",
     },
     "operations": {
         "label": "Operations, Finance & Tech",
-        "icon": "âš™",
+        "icon": "O",
         "color": "cyan",
         "description": "Infrastructure, finance, royalties, partnerships and AI orchestration",
     },
     "post-prod": {
         "label": "Post-Production",
-        "icon": "ðŸŽš",
+        "icon": "PP",
         "color": "teal",
         "description": "Mixing, mastering and quality control",
     },
     "production": {
         "label": "A&R & Production",
-        "icon": "ðŸŽµ",
+        "icon": "AR",
         "color": "pink",
         "description": "Artist scouting, creative direction, songwriting and production",
     },
     "research": {
         "label": "Discovery & Research",
-        "icon": "ðŸ”",
+        "icon": "R",
         "color": "lime",
         "description": "Streaming/social data mining, trend analysis and breakout signal detection",
     },
@@ -165,7 +165,7 @@ SOCIAL_PLATFORM_META: dict[str, dict[str, str]] = {
 def _dept_meta(dept_id: str) -> dict[str, str]:
     return DEPT_META.get(
         dept_id,
-        {"label": dept_id.title(), "icon": "ðŸ¢", "color": "purple", "description": dept_id},
+        {"label": dept_id.title(), "icon": "D", "color": "purple", "description": dept_id},
     )
 
 
@@ -407,7 +407,7 @@ def _patch_row(table: str, item_id: str, payload: dict, allowed: set[str]) -> di
 
 
 # ---------------------------------------------------------------------------
-# Heartbeat task â€” emits one event every 10s so the UI knows the WS is alive
+# Heartbeat task -- emits one event every 10s so the UI knows the WS is alive
 # ---------------------------------------------------------------------------
 
 
@@ -450,7 +450,7 @@ async def lifespan(app: FastAPI):
         except Exception:
             log.exception("failed to start tailers")
 
-    # Scheduler â€” defaults to shadow mode (HQ_DISPATCHER_SHADOW != "0").
+    # Scheduler -- defaults to shadow mode (HQ_DISPATCHER_SHADOW != "0").
     # Disabled in tests by APULU_HQ_DISABLE_SCHEDULER=1.
     app.state.scheduler = None
     if os.environ.get("APULU_HQ_DISABLE_SCHEDULER") != "1":
@@ -564,7 +564,7 @@ def create_app() -> FastAPI:
             "SUM(CASE WHEN enabled=1 THEN 1 ELSE 0 END) AS online_count "
             "FROM agents GROUP BY department ORDER BY department"
         ).fetchall()
-        # Build display_name â†’ agent_id lookup for resolving heads
+        # Build display_name -> agent_id lookup for resolving heads
         head_lookup = {
             r["display_name"]: r["id"]
             for r in conn.execute("SELECT id, display_name FROM agents").fetchall()
@@ -599,7 +599,7 @@ def create_app() -> FastAPI:
     # ---- agent functions (routines they own) ----
     @app.get("/api/agents/{agent_id}/routines")
     def list_agent_routines(agent_id: str):
-        """Functions the agent performs â€” the cron routines they own."""
+        """Functions the agent performs -- the cron routines they own."""
         rows = get_conn().execute(
             "SELECT id, display_name, agent_id, cron_expr, timezone, description, "
             "priority, enabled, disabled_reason FROM routines WHERE agent_id=? "
@@ -863,7 +863,7 @@ def create_app() -> FastAPI:
         target = date or _date_cls.today().isoformat()
         limit = max(1, min(int(limit), 1000))
 
-        # Stream the file â€” read only lines from `target`
+        # Stream the file -- read only lines from `target`
         events: list[dict] = []
         try:
             with ledger_path.open("r", encoding="utf-8", errors="replace") as fh:
@@ -1255,7 +1255,7 @@ def create_app() -> FastAPI:
                     agent_id, body.thread_id,
                 )
 
-        # Fire and forget â€” caller subscribes to WS for tokens
+        # Fire and forget -- caller subscribes to WS for tokens
         task = asyncio.create_task(_run_chat())
         # Hold a strong ref so the task isn't GC'd mid-flight (a Python 3.11+ pitfall).
         if not hasattr(app.state, "chat_tasks"):

@@ -76,9 +76,9 @@ HOP_BY_HOP_HEADERS = {
 DEPT_HEAD: dict[str, str] = {
     "board": "Clu",           # Chairman & CEO
     "cos": "Nelly",           # General Counsel & Head of Business Affairs
-    "marketing": "Letitia",   # President, Marketing, Audience & Revenue
-    "operations": "Nari",     # COO, Operations, Finance & Tech
-    "production": "Timbo",    # President, A&R & Talent Development
+    "marketing": "Oaklyn",    # President, Marketing, Audience & Revenue
+    "operations": "Aspyn",    # President, Operations, Finance & Tech
+    "production": "Camdyn",   # President, A&R & Talent Development
     "post-prod": "Onyx",      # Studio & Post-Production Lead
     "research": "Rhythm",     # A&R Scout & Discovery Analyst
 }
@@ -447,7 +447,10 @@ def _ensure_registry_seeded() -> None:
     conn = get_conn()
     agents = conn.execute("SELECT COUNT(*) AS c FROM agents").fetchone()["c"]
     routines = conn.execute("SELECT COUNT(*) AS c FROM routines").fetchone()["c"]
-    if agents and routines:
+    retired_names = conn.execute(
+        "SELECT COUNT(*) AS c FROM agents WHERE display_name IN ('Timbo', 'Letitia', 'Nari')"
+    ).fetchone()["c"]
+    if agents and routines and retired_names == 0:
         return
 
     from ..importer import import_all

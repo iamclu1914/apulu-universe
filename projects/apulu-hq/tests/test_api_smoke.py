@@ -50,6 +50,9 @@ def test_list_agents(client):
     assert nelly["department"] == "cos"
     assert nelly["adapter_type"] == "hermes_local"
     assert nelly["system_prompt"] is not None
+    names = {a["display_name"] for a in agents}
+    assert {"Aspyn", "Oaklyn", "Camdyn"} <= names
+    assert not {"Nari", "Letitia", "Timbo"} & names
 
 
 def test_list_routines(client):

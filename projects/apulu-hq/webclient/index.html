@@ -750,7 +750,7 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
 
-    <!-- ============ PLACEHOLDER VIEWS ============ -->
+    <!-- ============ OPERATIONS VIEWS ============ -->
     <div class="view" id="view-projects">
       <div class="ops-grid">
         <div class="analytics-card">
@@ -768,14 +768,12 @@ a{color:inherit;text-decoration:none}
           <div class="ops-list" id="projects-campaign-list"></div>
         </div>
       </div>
-      <div class="section"><div class="section-head"><div class="section-title">Projects</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">ðŸŽ¼</div><div class="empty-text">Projects view</div><div class="empty-hint">Active label projects, releases, and campaigns</div></div></div>
     </div>
     <div class="view" id="view-calendar">
       <div class="analytics-card">
         <div class="analytics-head"><div class="analytics-title">Label Calendar</div></div>
         <div class="calendar-board" id="calendar-board"></div>
       </div>
-      <div class="section"><div class="section-head"><div class="section-title">Calendar</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">ðŸ“…</div><div class="empty-text">Calendar view</div><div class="empty-hint">Releases, sessions, meetings, deadlines</div></div></div>
     </div>
     <div class="view" id="view-posts">
       <div class="section-head" style="margin-bottom:14px">
@@ -824,7 +822,6 @@ a{color:inherit;text-decoration:none}
           <div class="ops-list" id="finance-entry-list"></div>
         </div>
       </div>
-      <div class="section"><div class="section-head"><div class="section-title">Resources</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">ðŸ“</div><div class="empty-text">Resources view</div><div class="empty-hint">Files, contracts, assets, documentation</div></div></div>
     </div>
     <div class="view" id="view-departments">
       <div class="section"><div class="section-head"><div class="section-title">All Departments</div></div><div class="dept-grid" id="dept-grid-full"></div></div>
@@ -869,16 +866,6 @@ a{color:inherit;text-decoration:none}
       <button class="qa-btn" onclick="quickMessageAgent()">
         <div class="qa-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
         <div class="qa-info"><div class="qa-name">Message Agent</div><div class="qa-desc">Send a direct message to any agent</div></div>
-        <svg class="qa-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-      <button class="qa-btn" onclick="alert('Voice calling -- placeholder')">
-        <div class="qa-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
-        <div class="qa-info"><div class="qa-name">Voice Call</div><div class="qa-desc">Start a voice call with a department</div></div>
-        <svg class="qa-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-      <button class="qa-btn" onclick="alert('Video calling -- placeholder')">
-        <div class="qa-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-        <div class="qa-info"><div class="qa-name">Video Call</div><div class="qa-desc">Start a video call with a department</div></div>
         <svg class="qa-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
@@ -1052,7 +1039,6 @@ function renderAll(){
   renderCampaignPerformance();
   renderFinancePanels();
   renderCalendarBoard();
-  renderDeptGrid();
   renderDeptGridFull();
   renderDeptTree();
   renderAllAgents();
@@ -1123,10 +1109,7 @@ function renderKpi(){
     revKpi.querySelector('.kpi-sub').textContent=`${k.activeRoutines??s.activeRoutines??0} active routines`;
   }
 }
-function renderDeptGrid(){
-  const grid=document.getElementById('dept-grid');
-  if(!grid)return;  // dashboard no longer hosts the dept grid -- sidebar tree takes its place
-  grid.innerHTML=state.deptList.map(d=>{
+function deptCardHtml(d){
     const agents=state.departments[d.id]||[];
     const count=agents.length;
     const avatars=agents.slice(0,5).map((a,i)=>{
@@ -1145,15 +1128,12 @@ function renderDeptGrid(){
       <div class="dept-avatars">${avatars||'<div class="dept-count" style="margin:0">No agents yet</div>'}</div>
       <button class="dept-view-btn">View Agents</button>
     </div>`;
-  }).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No departments loaded</div></div>';
 }
 
 function renderDeptGridFull(){
   const grid=document.getElementById('dept-grid-full');
   if(!grid)return;
-  const source=document.getElementById('dept-grid');
-  if(!source)return;
-  grid.innerHTML=source.innerHTML;
+  grid.innerHTML=state.deptList.map(deptCardHtml).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No departments loaded</div></div>';
 }
 
 function renderAllAgents(){

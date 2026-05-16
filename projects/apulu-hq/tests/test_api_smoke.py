@@ -35,6 +35,28 @@ def test_startup_seed_helper_populates_empty_registry():
     assert conn.execute("SELECT COUNT(*) AS c FROM routines").fetchone()["c"] == 26
 
 
+def test_startup_seed_helper_repairs_zeroed_routine_state():
+    from apulu_hq.api.app import _ensure_registry_seeded
+    from apulu_hq.db import get_conn
+    from apulu_hq.importer import import_all
+
+    import_all()
+    conn = get_conn()
+    conn.execute("UPDATE routines SET enabled=0, disabled_reason='accidental reset'")
+    conn.commit()
+    assert conn.execute("SELECT COUNT(*) AS c FROM routines WHERE enabled=1").fetchone()["c"] == 0
+
+    _ensure_registry_seeded()
+
+    active = conn.execute("SELECT COUNT(*) AS c FROM routines WHERE enabled=1").fetchone()["c"]
+    inactive = {
+        r["display_name"]
+        for r in conn.execute("SELECT display_name FROM routines WHERE enabled=0").fetchall()
+    }
+    assert active == 24
+    assert inactive == {"lyric-card", "video-cinematic"}
+
+
 def test_root_redirects_to_dashboard(client):
     r = client.get("/", follow_redirects=False)
     assert r.status_code == 307
@@ -55,6 +77,19 @@ def test_list_agents(client):
     assert not {"Nari", "Letitia", "Timbo"} & names
 
 
+def test_departments_resolve_current_president_heads(client):
+    r = client.get("/api/departments")
+    assert r.status_code == 200
+    departments = {d["id"]: d for d in r.json()}
+
+    assert departments["marketing"]["headAgentName"] == "Oaklyn"
+    assert departments["operations"]["headAgentName"] == "Aspyn"
+    assert departments["production"]["headAgentName"] == "Camdyn"
+    assert departments["marketing"]["headAgentId"]
+    assert departments["operations"]["headAgentId"]
+    assert departments["production"]["headAgentId"]
+
+
 def test_list_routines(client):
     r = client.get("/api/routines")
     assert r.status_code == 200
@@ -68,6 +103,32 @@ def test_list_routines(client):
     disabled = [x for x in routines if not x["enabled"]]
     disabled_names = {x["display_name"] for x in disabled}
     assert {"lyric-card", "video-cinematic"} <= disabled_names
+    assert len([x for x in routines if x["enabled"]]) == 24
+
+
+def test_president_routine_wiring(client):
+    agents = client.get("/api/agents").json()
+    routines = client.get("/api/routines").json()
+    by_name = {a["display_name"]: a for a in agents}
+
+    for name in ("Aspyn", "Oaklyn", "Camdyn"):
+        assert by_name[name]["adapter_type"] == "hermes_local"
+        assert by_name[name]["enabled"] is True
+
+    ops = client.get(f"/api/agents/{by_name['Aspyn']['id']}/routines")
+    assert ops.status_code == 200
+    assert {r["display_name"] for r in ops.json()} == {"weekly-ops-digest"}
+
+    marketing_agent_ids = {a["id"] for a in agents if a["department"] == "marketing"}
+    marketing_routines = [r for r in routines if r["agent_id"] in marketing_agent_ids]
+    assert {r["display_name"] for r in marketing_routines} >= {
+        "morning-main",
+        "midday-main",
+        "evening-main",
+        "text-post-morning",
+        "text-post-afternoon",
+        "content-performance-daily",
+    }
 
 
 def test_patch_routine_enable(client):

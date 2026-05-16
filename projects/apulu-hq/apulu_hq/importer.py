@@ -251,7 +251,7 @@ class RoutineSeed:
     cron: str
     description: str
     priority: str = "medium"
-    enabled: bool = False
+    enabled: bool = True
     disabled_reason: str | None = None
 
 
@@ -398,6 +398,10 @@ def import_all(*, repo_root: Path | None = None) -> dict[str, int]:
                 f"Add them to importer.py before re-running."
             )
 
+        existing_enabled_count = conn.execute(
+            "SELECT COUNT(*) AS c FROM routines WHERE enabled=1"
+        ).fetchone()["c"]
+
         # ---- Routines ----
         for r in ROUTINE_SEEDS:
             if r.name not in legacy_routines:
@@ -414,9 +418,16 @@ def import_all(*, repo_root: Path | None = None) -> dict[str, int]:
             seen_routines.add(r.name)
 
             existing = conn.execute(
-                "SELECT created_at FROM routines WHERE id = ?", (rid,)
+                "SELECT created_at, enabled, disabled_reason FROM routines WHERE id = ?",
+                (rid,),
             ).fetchone()
             created = existing["created_at"] if existing else now_iso()
+            if existing and existing_enabled_count > 0:
+                enabled = bool(existing["enabled"])
+                disabled_reason = None if enabled else (existing["disabled_reason"] or r.disabled_reason)
+            else:
+                enabled = r.enabled
+                disabled_reason = r.disabled_reason
 
             routine = Routine(
                 id=rid,
@@ -429,8 +440,8 @@ def import_all(*, repo_root: Path | None = None) -> dict[str, int]:
                 args=[],
                 description=r.description,
                 priority=r.priority,
-                enabled=r.enabled,
-                disabled_reason=r.disabled_reason,
+                enabled=enabled,
+                disabled_reason=disabled_reason,
                 created_at=created,
                 updated_at=now_iso(),
             )

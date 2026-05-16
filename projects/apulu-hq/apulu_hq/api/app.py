@@ -447,10 +447,13 @@ def _ensure_registry_seeded() -> None:
     conn = get_conn()
     agents = conn.execute("SELECT COUNT(*) AS c FROM agents").fetchone()["c"]
     routines = conn.execute("SELECT COUNT(*) AS c FROM routines").fetchone()["c"]
+    active_routines = conn.execute(
+        "SELECT COUNT(*) AS c FROM routines WHERE enabled=1"
+    ).fetchone()["c"]
     retired_names = conn.execute(
         "SELECT COUNT(*) AS c FROM agents WHERE display_name IN ('Timbo', 'Letitia', 'Nari')"
     ).fetchone()["c"]
-    if agents and routines and retired_names == 0:
+    if agents and routines and retired_names == 0 and active_routines > 0:
         return
 
     from ..importer import import_all

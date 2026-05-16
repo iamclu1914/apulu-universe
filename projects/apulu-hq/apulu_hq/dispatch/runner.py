@@ -55,6 +55,13 @@ FAILURE_SIGNATURES: list[tuple[str, str, re.Pattern, str, bool]] = [
     (
         "claude_auth_expired",
         "critical",
+        re.compile(r"Not logged in\s*\S+\s*Please run /login", re.I),
+        "Run `claude /login` -- all claude_local agents are blocked.",
+        False,
+    ),
+    (
+        "claude_auth_expired",
+        "critical",
         re.compile(r"Not logged in\s*·\s*Please run /login|invalid_token|authentication.*expired", re.I),
         "Run `claude /login` — all claude_local agents are blocked.",
         False,

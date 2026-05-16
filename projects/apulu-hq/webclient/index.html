@@ -942,10 +942,10 @@ function buildDepartments(){
 const FALLBACK_DEPT_META={
   'board':{label:'Office of the Chairman',icon:'CEO',color:'amber',description:'Executive leadership, vision, and final authority on signings and strategy',headName:'Clu'},
   'cos':{label:'Legal & Business Affairs',icon:'L',color:'purple',description:'Contracts, licensing, publishing, clearances and artist relations',headName:'Nelly'},
-  'marketing':{label:'Marketing, Audience & Revenue',icon:'M',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy',headName:'Letitia'},
-  'operations':{label:'Operations, Finance & Tech',icon:'*',color:'cyan',description:'Infrastructure, finance, royalties, partnerships and AI orchestration',headName:'Nari'},
+  'marketing':{label:'Marketing, Audience & Revenue',icon:'M',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy',headName:'Oaklyn'},
+  'operations':{label:'Operations, Finance & Tech',icon:'*',color:'cyan',description:'Infrastructure, finance, royalties, partnerships and AI orchestration',headName:'Aspyn'},
   'post-prod':{label:'Post-Production',icon:'PP',color:'teal',description:'Mixing, mastering and quality control',headName:'Onyx'},
-  'production':{label:'A&R & Production',icon:'AR',color:'pink',description:'Artist scouting, creative direction, songwriting and production',headName:'Timbo'},
+  'production':{label:'A&R & Production',icon:'AR',color:'pink',description:'Artist scouting, creative direction, songwriting and production',headName:'Camdyn'},
   'research':{label:'Discovery & Research',icon:'R',color:'lime',description:'Streaming/social data mining, trend analysis and breakout signal detection',headName:'Rhythm'}
 };
 
@@ -1197,13 +1197,43 @@ function renderDashboardDepartments(){
   grid.innerHTML=state.deptList.map(deptCardHtml).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No departments loaded</div></div>';
 }
 
+function isDeptHeadAgent(a){
+  const head=deptHead(a.department);
+  return !!(head&&head.id===a.id);
+}
+
+function departmentRoutines(deptId){
+  const ids=new Set((state.departments[deptId]||[]).map(a=>a.id));
+  return state.routines.filter(r=>ids.has(r.agent_id));
+}
+
+function agentRoutineCoverage(a){
+  const direct=state.routines.filter(r=>r.agent_id===a.id);
+  if(isDeptHeadAgent(a)){
+    const dept=departmentRoutines(a.department);
+    if(dept.length>direct.length){
+      const enabled=dept.filter(r=>r.enabled).length;
+      return {routines:dept,enabled,label:`${enabled}/${dept.length}`};
+    }
+    if(!direct.length&&a.department==='production'){
+      return {routines:[],enabled:0,label:'event-driven'};
+    }
+  }
+  const enabled=direct.filter(r=>r.enabled).length;
+  return {routines:direct,enabled,label:`${enabled}/${direct.length}`};
+}
+
+function routineOwnerLabel(r){
+  const owner=state.agentById[r.agent_id];
+  return owner?owner.display_name:'Unassigned';
+}
+
 function renderDashboardAgents(){
   const grid=document.getElementById('dashboard-agent-command');
   if(!grid)return;
   const agents=[...state.agents].sort((a,b)=>(b.enabled-a.enabled)||deptName(a.department).localeCompare(deptName(b.department))||a.display_name.localeCompare(b.display_name));
   grid.innerHTML=agents.map(a=>{
-    const owned=state.routines.filter(r=>r.agent_id===a.id);
-    const enabled=owned.filter(r=>r.enabled).length;
+    const coverage=agentRoutineCoverage(a);
     const colorVar=agentColorVar(deptColor(a.department));
     return `<div class="agent-command-card" onclick="viewAgent('${escHtml(a.id)}')">
       <div class="agent-command-avatar ${a.enabled?'online':''}" style="background:linear-gradient(135deg,${colorVar},#3a1670)">${initials(a.display_name)}</div>
@@ -1211,7 +1241,7 @@ function renderDashboardAgents(){
         <div class="agent-command-name">${escHtml(a.display_name)}</div>
         <div class="agent-command-role">${escHtml(deptName(a.department))}</div>
       </div>
-      <div class="agent-command-meta">${enabled}/${owned.length}</div>
+      <div class="agent-command-meta">${escHtml(coverage.label)}</div>
     </div>`;
   }).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No agents loaded</div></div>';
 }
@@ -1807,15 +1837,20 @@ async function viewAgent(agentId){
       // Fallback: filter the routines we already loaded
       routines=state.routines.filter(r=>r.agent_id===agentId);
     }
+    const directCount=routines.length;
+    if(isDeptHeadAgent(a)){
+      const deptRoutines=departmentRoutines(a.department);
+      if(deptRoutines.length>routines.length)routines=deptRoutines;
+    }
     document.getElementById('ap-routine-count').textContent=routines.length;
     if(!routines.length){
-      routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">No scheduled functions</div>';
+      routinesBody.innerHTML=`<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">${a.department==='production'&&isDeptHeadAgent(a)?'Event-driven creative briefs and studio approvals':'No scheduled functions'}</div>`;
     }else{
       routinesBody.innerHTML=routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}" data-routine-id="${escHtml(r.id)}">
         <div class="ap-routine-dot"></div>
         <div class="ap-routine-info">
           <div class="ap-routine-name">${escHtml(r.display_name)}</div>
-          <div class="ap-routine-meta">${escHtml(r.cron_expr)} - ${escHtml(r.priority||'normal')}${r.disabled_reason?' - '+escHtml(r.disabled_reason):''}</div>
+          <div class="ap-routine-meta">${isDeptHeadAgent(a)&&r.agent_id!==a.id?escHtml(routineOwnerLabel(r))+' - ':''}${escHtml(r.cron_expr)} - ${escHtml(r.priority||'normal')}${r.disabled_reason?' - '+escHtml(r.disabled_reason):''}</div>
         </div>
         <label class="routine-toggle" title="${r.enabled?'Disable':'Enable'} this routine">
           <input type="checkbox" ${r.enabled?'checked':''} onchange="toggleRoutine('${escHtml(r.id)}',this)">
@@ -1825,11 +1860,11 @@ async function viewAgent(agentId){
     }
   }catch{
     // Last-resort fallback
-    const routines=state.routines.filter(r=>r.agent_id===agentId);
+    const routines=isDeptHeadAgent(a)?departmentRoutines(a.department):state.routines.filter(r=>r.agent_id===agentId);
     document.getElementById('ap-routine-count').textContent=routines.length;
     routinesBody.innerHTML=routines.length
-      ?routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}"><div class="ap-routine-dot"></div><div class="ap-routine-info"><div class="ap-routine-name">${escHtml(r.display_name)}</div><div class="ap-routine-meta">${escHtml(r.cron_expr)} - ${escHtml(r.priority||'normal')}</div></div><div class="ap-routine-state">${r.enabled?'enabled':'off'}</div></div>`).join('')
-      :'<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">No scheduled functions</div>';
+      ?routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}"><div class="ap-routine-dot"></div><div class="ap-routine-info"><div class="ap-routine-name">${escHtml(r.display_name)}</div><div class="ap-routine-meta">${isDeptHeadAgent(a)&&r.agent_id!==a.id?escHtml(routineOwnerLabel(r))+' - ':''}${escHtml(r.cron_expr)} - ${escHtml(r.priority||'normal')}</div></div><div class="ap-routine-state">${r.enabled?'enabled':'off'}</div></div>`).join('')
+      :`<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">${a.department==='production'&&isDeptHeadAgent(a)?'Event-driven creative briefs and studio approvals':'No scheduled functions'}</div>`;
   }
   setView('agent-profile');
 }

@@ -231,6 +231,21 @@ a{color:inherit;text-decoration:none}
 .mini-btn{height:26px;padding:0 9px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);font-size:10.5px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 .mini-btn:hover{border-color:var(--accent);color:var(--ink)}
 .mini-btn.primary{background:var(--accent);border-color:var(--accent);color:#111}
+.people-command-row{grid-template-columns:1.25fr 1fr;margin-top:14px}
+.dept-command-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
+.dept-command-grid .dept-card{padding:12px;gap:10px;min-height:150px}
+.dept-command-grid .dept-icon{width:34px;height:34px;font-size:13px}
+.dept-command-grid .dept-desc{min-height:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dept-command-grid .dept-view-btn{height:30px}
+.agent-command-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:340px;overflow-y:auto}
+.agent-command-card{display:flex;align-items:center;gap:10px;background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r);padding:9px;cursor:pointer;transition:all .12s;min-width:0}
+.agent-command-card:hover{border-color:var(--line-2);background:var(--surface-2);transform:translateY(-1px)}
+.agent-command-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0;position:relative}
+.agent-command-avatar.online::after{content:"";position:absolute;right:-1px;bottom:-1px;width:8px;height:8px;border-radius:50%;background:var(--green);border:2px solid var(--surface-1)}
+.agent-command-info{min-width:0;flex:1}
+.agent-command-name{font-size:12px;font-weight:800;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-command-role{font-size:10.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-command-meta{font-size:10px;font-weight:800;color:var(--ink-4);font-family:"JetBrains Mono",monospace;flex-shrink:0}
 .calendar-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .calendar-day{background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r);padding:12px;min-height:120px}
 .calendar-date{font-size:10px;font-weight:800;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
@@ -627,6 +642,23 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
 
+      <div class="command-row people-command-row">
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Department Command</div>
+            <button class="mini-btn" onclick="setView('departments')">Open Departments</button>
+          </div>
+          <div class="dept-command-grid" id="dashboard-dept-grid"></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Agent Command</div>
+            <button class="mini-btn" onclick="setView('agents')">Open Agents</button>
+          </div>
+          <div class="agent-command-grid" id="dashboard-agent-command"></div>
+        </div>
+      </div>
+
       <div class="command-row">
         <div class="analytics-card">
           <div class="analytics-head"><div class="analytics-title">CEO Decision Queue</div></div>
@@ -664,14 +696,6 @@ a{color:inherit;text-decoration:none}
           <span class="live-pulse" id="activity-pulse" title="Real-time"><span class="live-pulse-dot"></span>LIVE</span>
         </div>
         <div id="activity-feed"></div>
-      </div>
-
-      <div class="analytics-card">
-        <div class="analytics-head">
-          <div class="analytics-title">Departments & Agents</div>
-          <button class="mini-btn" onclick="setView('departments')">View All</button>
-        </div>
-        <div class="dept-grid" id="dashboard-dept-grid"></div>
       </div>
 
       <div class="analytics-row two-col">
@@ -1069,6 +1093,7 @@ function renderAll(){
   renderFinancePanels();
   renderCalendarBoard();
   renderDashboardDepartments();
+  renderDashboardAgents();
   renderDeptGridFull();
   renderDeptTree();
   renderAllAgents();
@@ -1169,7 +1194,26 @@ function renderDeptGridFull(){
 function renderDashboardDepartments(){
   const grid=document.getElementById('dashboard-dept-grid');
   if(!grid)return;
-  grid.innerHTML=state.deptList.slice(0,4).map(deptCardHtml).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No departments loaded</div></div>';
+  grid.innerHTML=state.deptList.map(deptCardHtml).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No departments loaded</div></div>';
+}
+
+function renderDashboardAgents(){
+  const grid=document.getElementById('dashboard-agent-command');
+  if(!grid)return;
+  const agents=[...state.agents].sort((a,b)=>(b.enabled-a.enabled)||deptName(a.department).localeCompare(deptName(b.department))||a.display_name.localeCompare(b.display_name));
+  grid.innerHTML=agents.map(a=>{
+    const owned=state.routines.filter(r=>r.agent_id===a.id);
+    const enabled=owned.filter(r=>r.enabled).length;
+    const colorVar=agentColorVar(deptColor(a.department));
+    return `<div class="agent-command-card" onclick="viewAgent('${escHtml(a.id)}')">
+      <div class="agent-command-avatar ${a.enabled?'online':''}" style="background:linear-gradient(135deg,${colorVar},#3a1670)">${initials(a.display_name)}</div>
+      <div class="agent-command-info">
+        <div class="agent-command-name">${escHtml(a.display_name)}</div>
+        <div class="agent-command-role">${escHtml(deptName(a.department))}</div>
+      </div>
+      <div class="agent-command-meta">${enabled}/${owned.length}</div>
+    </div>`;
+  }).join('')||'<div class="empty-state" style="grid-column:1/-1;padding:32px"><div class="empty-text">No agents loaded</div></div>';
 }
 
 function renderAllAgents(){

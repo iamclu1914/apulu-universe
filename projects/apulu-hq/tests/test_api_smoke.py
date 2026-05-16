@@ -21,6 +21,20 @@ def test_health(client):
     assert j["routines"] == 26
 
 
+def test_startup_seed_helper_populates_empty_registry():
+    from apulu_hq.api.app import _ensure_registry_seeded
+    from apulu_hq.db import get_conn
+
+    conn = get_conn()
+    assert conn.execute("SELECT COUNT(*) AS c FROM agents").fetchone()["c"] == 0
+    assert conn.execute("SELECT COUNT(*) AS c FROM routines").fetchone()["c"] == 0
+
+    _ensure_registry_seeded()
+
+    assert conn.execute("SELECT COUNT(*) AS c FROM agents").fetchone()["c"] == 16
+    assert conn.execute("SELECT COUNT(*) AS c FROM routines").fetchone()["c"] == 26
+
+
 def test_root_redirects_to_dashboard(client):
     r = client.get("/", follow_redirects=False)
     assert r.status_code == 307

@@ -437,11 +437,35 @@ async def _heartbeat_loop() -> None:
         await asyncio.sleep(10)
 
 
+def _ensure_registry_seeded() -> None:
+    """Seed the core agent/routine registry when a fresh DB is empty.
+
+    Render keeps SQLite on a persistent disk, so schema creation alone is not
+    enough for first deploys or rebuilt disks. The dashboard depends on these
+    records for Agents, Departments, and routine ownership.
+    """
+    conn = get_conn()
+    agents = conn.execute("SELECT COUNT(*) AS c FROM agents").fetchone()["c"]
+    routines = conn.execute("SELECT COUNT(*) AS c FROM routines").fetchone()["c"]
+    if agents and routines:
+        return
+
+    from ..importer import import_all
+
+    counts = import_all()
+    log.info(
+        "seeded Apulu HQ registry: agents=%s routines=%s",
+        counts["agents"],
+        counts["routines"],
+    )
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings.ensure_dirs()
-    # Touch DB to ensure schema bootstrap
+    # Touch DB to ensure schema bootstrap and seed the core label registry.
     get_conn()
+    _ensure_registry_seeded()
     heartbeat = asyncio.create_task(_heartbeat_loop())
     tailers: list[asyncio.Task] = []
     if os.environ.get("APULU_HQ_DISABLE_TAILERS") != "1":

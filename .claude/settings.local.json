@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.github.com)",
+      "Bash(curl -fsSL https://bun.sh/install | bash)",
+      "Bash(export BUN_INSTALL=\"$HOME/.bun\")",
+      "Bash(export PATH=\"$BUN_INSTALL/bin:$PATH\")",
+      "Read(//c/Users/rdyal/tools/nano-banana-2/**)",
+      "Bash(bun link:*)",
+      "Bash(grep -o '\\\\${frames\\\\.length}' \"C:\\\\Users\\\\rdyal\\\\Apulu Universe\\\\projects\\\\apulu-prompt-generator\\\\index.html\")",
+      "Bash(npm test:*)",
+      "Bash(node -e \"require\\('./agents/pipeline.js'\\); console.log\\('OK'\\)\")",
+      "mcp__ruflo__aidefence_learn"
+    ]
+  },
+  "enableAllProjectMcpServers": false,
+  "enabledMcpjsonServers": [
+    "claude-flow"
+  ]
+}

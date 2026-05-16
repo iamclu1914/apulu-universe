@@ -1,0 +1,19 @@
+node_modules/
+.env
+.env.local
+.DS_Store
+.worktrees/
+
+.vercel
+
+# Ruflo / claude-flow runtime
+.claude-flow/
+.claude/agents/
+.claude/commands/
+.claude/helpers/
+.claude/skills/*
+!.claude/skills/music-composition-skill/
+.claude/worktrees/
+.mcp.json
+CLAUDE.md
+package-lock.json

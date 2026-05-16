@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Cinematic prompt generation for music video production — translate lyrics into image and video prompts.">
+<meta name="theme-color" content="#0c0b0a">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Apulu Generation">
+<meta property="og:description" content="Cinematic prompt generation for music video production.">
+<meta property="og:type" content="website">
+<title>Apulu Generation</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c0b0a'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='22' font-style='italic' text-anchor='middle' fill='%23d4a03a'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="logo"><em>Apulu</em> Generation</div>
+
+  <nav class="h-tabs" id="hTabsBar" aria-label="Output mode">
+    <button class="h-tab active" id="omBoth"   onclick="setOutputMode('both')">Both</button>
+    <button class="h-tab"        id="omNb2"    onclick="setOutputMode('nb2')">Image</button>
+    <button class="h-tab"        id="omVideo"  onclick="setOutputMode('video')">Video</button>
+    <span class="h-tab-sep" aria-hidden="true"></span>
+    <button class="h-tab" id="tabStudio" onclick="activateStudio()">Studio</button>
+  </nav>
+
+  <div class="h-right">
+    <span class="h-badge nb2"    id="badgeNb2"><span class="h-badge-dot"></span>Nano Banana 2</span>
+    <span class="h-badge hf"     id="badgeHf"><span class="h-badge-dot"></span>Higgsfield</span>
+    <span class="h-badge studio-badge" id="badgeStudio" style="display:none"><span class="h-badge-dot studio-dot"></span>Claude Sonnet</span>
+    <button class="h-reset" onclick="resetAll()" title="Start fresh">Reset</button>
+  </div>
+</header>
+
+<!-- CANVAS -->
+<main class="canvas" id="canvas">
+
+  <section class="empty-state" id="emptyState">
+    <h1 class="empty-title"><em>Apulu</em> Generation</h1>
+    <p class="empty-sub" id="emptyTxt">Photo · Lyrics · Generate.</p>
+  </section>
+
+  <div class="loading-state" id="loadingState">
+    <div class="load-ring" aria-hidden="true"></div>
+    <div class="load-txt" id="loadTxt">Finding key moments…</div>
+  </div>
+
+  <div id="progressBar" class="progress-bar">
+    <div class="progress-inner">
+      <div class="progress-title">Generating</div>
+      <div class="progress-stages" id="progressStages"></div>
+      <button class="btn-cancel-gen" id="cancelGenBtn" onclick="cancelGeneration()">Cancel</button>
+    </div>
+  </div>
+
+  <section id="results" class="results">
+    <div class="results-bar" id="copyBar">
+      <div class="rb-meta"><strong id="totalScenes">0</strong> scenes <span class="rb-dot">·</span> <strong id="trackLabel">—</strong></div>
+      <div class="rb-actions">
+        <button class="btn-copy-all img"   id="copyImgBtn" onclick="copyAllImg()">Copy all images</button>
+        <button class="btn-copy-all vid"   id="copyVidBtn" onclick="copyAllVid()">Copy all videos</button>
+        <button class="btn-copy-all reset" onclick="resetAll()">Start fresh</button>
+      </div>
+    </div>
+    <div id="treatmentCard"></div>
+    <div id="qaWarnings" class="qa-warning-bar" style="display:none"></div>
+    <div class="scenes-wrap" id="scenesOut"></div>
+  </section>
+
+</main>
+
+<!-- CREATE PROMPT VIEW — Phase 1: prompt command center for Image/Video -->
+<div id="createView" class="create-view" style="display:none">
+  <div class="create-workspace">
+
+    <header class="create-hero">
+      <div class="create-hero-text">
+        <h1 class="create-hero-title">Create Prompt</h1>
+        <p class="create-hero-sub">Turn lyrics, descriptions, and references into polished, copy-ready prompts.</p>
+      </div>
+    </header>
+
+    <!-- Reference images (locked across generations) -->
+    <div class="create-card create-refs-card">
+      <div class="create-section-head">
+        <span class="create-section-label">REFERENCES</span>
+        <span class="create-section-sub">Locked across every generation — face + wardrobe are inherited until you clear them.</span>
+      </div>
+      <div class="create-refs-row">
+        <div class="create-ref-zone" id="createFaceZone" title="Upload face reference" onclick="document.getElementById('createFaceFile').click()">
+          <img class="create-ref-img" id="createFaceImg" alt="" aria-hidden="true"/>
+          <div class="create-ref-ph">Face<br><span>Subject lock</span></div>
+          <div class="create-ref-lock-badge" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>LOCKED</span>
+          </div>
+          <div class="create-ref-ov">
+            <button class="create-ref-btn" onclick="event.stopPropagation();document.getElementById('createFaceFile').click()">Replace</button>
+            <button class="create-ref-btn del" onclick="event.stopPropagation();window.createClearRef('face')">Clear</button>
+          </div>
+        </div>
+        <div class="create-ref-zone" id="createWardrobeZone" title="Upload wardrobe reference" onclick="document.getElementById('createWardrobeFile').click()">
+          <img class="create-ref-img" id="createWardrobeImg" alt="" aria-hidden="true"/>
+          <div class="create-ref-ph">Wardrobe<br><span>Garment lock</span></div>
+          <div class="create-ref-lock-badge" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>LOCKED</span>
+          </div>
+          <div class="create-ref-ov">
+            <button class="create-ref-btn" onclick="event.stopPropagation();document.getElementById('createWardrobeFile').click()">Replace</button>
+            <button class="create-ref-btn del" onclick="event.stopPropagation();window.createClearRef('wardrobe')">Clear</button>
+          </div>
+        </div>
+        <div class="create-refs-hint">
+          <p><strong>Face lock</strong> — the subject's identity is preserved across every prompt. The model won't re-describe the face.</p>
+          <p><strong>Wardrobe lock</strong> — the garment shown becomes a wardrobe constraint in every generated prompt.</p>
+        </div>
+      </div>
+      <input type="file" id="createFaceFile"      accept="image/*" hidden onchange="window.createHandleRef(event,'face')">
+      <input type="file" id="createWardrobeFile" accept="image/*" hidden onchange="window.createHandleRef(event,'wardrobe')">
+    </div>
+
+    <!-- Source selector -->
+    <div class="create-card create-source-card">
+      <div class="create-section-head">
+        <span class="create-section-label">SOURCE</span>
+        <span class="create-section-sub">Where the prompt starts from.</span>
+      </div>
+      <div class="create-source-tabs" role="tablist">
+        <button class="create-source-tab is-active" data-source="lyrics"      role="tab">From Lyrics</button>
+        <button class="create-source-tab"           data-source="description" role="tab">From Description</button>
+        <button class="create-source-tab is-disabled" data-source="audio"     role="tab" disabled title="Phase 2">From Audio</button>
+        <button class="create-source-tab is-disabled" data-source="image"     role="tab" disabled title="Phase 2">From Image</button>
+        <button class="create-source-tab"           data-source="blank"       role="tab">Blank Prompt</button>
+      </div>
+
+      <!-- Lyrics input -->
+      <div class="create-input-pane" data-pane="lyrics">
+        <div class="create-input-row">
+          <input type="text" id="createSongTitle"  class="create-text-input" placeholder="Song title (optional)">
+          <input type="text" id="createArtistName" class="create-text-input" placeholder="Artist (optional)">
+        </div>
+        <textarea id="createLyrics" class="create-textarea" rows="6" placeholder="Paste your lyrics here…"></textarea>
+        <div class="create-input-row">
+          <label class="create-field">
+            <span class="create-field-label">Focus</span>
+            <select id="createFocus" class="create-select">
+              <option value="">Overall theme</option>
+              <option>Specific verse</option>
+              <option>Hook / chorus</option>
+              <option>Character / subject</option>
+              <option>World-building</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- Description input -->
+      <div class="create-input-pane" data-pane="description" hidden>
+        <textarea id="createDescription" class="create-textarea" rows="6" placeholder="Describe what you want to create — setting, mood, subject, action…"></textarea>
+      </div>
+
+      <!-- Blank input -->
+      <div class="create-input-pane" data-pane="blank" hidden>
+        <textarea id="createBlank" class="create-textarea" rows="4" placeholder="Freeform idea — leave blank to generate from style + mood alone."></textarea>
+      </div>
+    </div>
+
+    <!-- Generate action -->
+    <div class="create-actions-bar">
+      <div class="create-actions-meta">
+        <span class="create-actions-meta-label">Output</span>
+        <span class="create-actions-meta-value" id="createModeLabel">Image Prompt</span>
+        <span class="create-actions-meta-hint">— switch tabs above to change.</span>
+      </div>
+      <button class="create-generate-btn" id="createGenerateBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span>Generate Prompt</span>
+      </button>
+    </div>
+
+    <!-- Output preview -->
+    <div class="create-card create-output-card">
+      <div class="create-output-head">
+        <div class="create-output-head-left">
+          <h2 class="create-output-title">Prompt Preview</h2>
+          <p class="create-output-sub" id="createOutputSub">Your generated prompt will appear here.</p>
+        </div>
+        <div class="create-output-actions">
+          <button class="create-mini-btn" id="createCopyAllBtn"  style="display:none">Copy all</button>
+          <button class="create-mini-btn" id="createRegenBtn"    style="display:none">Regenerate</button>
+        </div>
+      </div>
+      <div class="create-output-body">
+        <div class="create-output-empty" id="createOutputEmpty">
+          <p>Pick a source, set your controls, hit <strong>Generate Prompt</strong>.</p>
+        </div>
+        <div class="create-output-cards" id="createOutputCards" hidden></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STUDIO VIEW -->
+<div id="studioView" class="studio-view" style="display:none">
+  <div class="studio-workspace">
+
+    <!-- LEFT: Chat panel -->
+    <section class="studio-chat-panel" aria-label="Chat with Apulu Agent">
+      <div class="studio-agent-header">
+        <div class="studio-agent-avatar" aria-hidden="true"></div>
+        <div class="studio-agent-info">
+          <div class="studio-agent-name-row">
+            <span class="studio-agent-name">Apulu Agent</span>
+            <span class="studio-agent-badge">Active</span>
+          </div>
+          <p class="studio-agent-tagline">Your creative co-pilot for producing amazing music.</p>
+        </div>
+      </div>
+      <div id="studioMessages" class="studio-messages" role="log" aria-live="polite"></div>
+      <div class="studio-composer-wrap">
+        <div class="studio-composer">
+          <textarea id="studioInput" class="studio-textarea" placeholder="Message Apulu Agent…" rows="1" aria-label="Message Apulu Agent"></textarea>
+          <div class="studio-composer-row">
+            <button class="studio-util-btn" id="studioNewSession">New session</button>
+            <button class="studio-util-btn" id="studioSessions">Sessions</button>
+            <button class="studio-util-btn" id="studioCopyLast">Copy last</button>
+            <button id="studioSendBtn" class="studio-send-btn" aria-label="Send message">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <p class="studio-disclaimer">Apulu Agent can make mistakes. Please review outputs before using.</p>
+      </div>
+    </section>
+
+    <!-- RIGHT: Output panel -->
+    <section class="studio-output-panel" id="studioOutputPanel" aria-label="Track output">
+      <div class="studio-output-header">
+        <div class="studio-output-header-left">
+          <h2 class="studio-output-title">Track Output</h2>
+          <p class="studio-output-sub" id="studioOutputSub">Start by describing the song you want to create.</p>
+        </div>
+        <button class="studio-regen-all-btn" id="studioRegenAll" aria-label="Regenerate all sections" style="display:none">Regenerate All</button>
+      </div>
+      <div class="studio-output-body">
+        <div class="studio-panel-empty" id="studioEmptyState">
+          <p class="studio-panel-empty-hint">Lyrics, production prompt, excludes, and final recording prompt will appear here.</p>
+        </div>
+        <div id="studioOutputCards" class="studio-output-cards" style="display:none"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Mobile-only bottom sheet for tapped track block -->
+  <div id="studioTrackSheet" class="studio-track-sheet" hidden>
+    <div class="studio-track-sheet-backdrop" data-sheet-close></div>
+    <div class="studio-track-sheet-panel">
+      <div class="studio-track-sheet-header">
+        <span class="studio-track-sheet-label" id="studioSheetLabel">—</span>
+        <span class="studio-track-sheet-count" id="studioSheetCount"></span>
+        <button class="studio-track-sheet-copy"  id="studioSheetCopy">Copy</button>
+        <button class="studio-track-sheet-close" id="studioSheetCloseBtn" data-sheet-close aria-label="Close">✕</button>
+      </div>
+      <pre class="studio-track-sheet-body" id="studioSheetBody"></pre>
+    </div>
+  </div>
+
+  <!-- Sessions modal -->
+  <div id="studioSessionsModal" class="studio-sessions-modal" hidden>
+    <div class="studio-sessions-backdrop" data-sessions-close></div>
+    <div class="studio-sessions-panel">
+      <div class="studio-sessions-header">
+        <span class="studio-sessions-title">Previous sessions</span>
+        <button class="studio-sessions-close" id="studioSessionsCloseBtn" data-sessions-close aria-label="Close">✕</button>
+      </div>
+      <div class="studio-sessions-list" id="studioSessionsList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM BAR / COMPOSER -->
+<div class="bottom-bar" id="bottomBar">
+
+  <div class="composer-pill" id="composerPill">
+    <div class="pill-top">
+
+      <!-- Photo references -->
+      <div class="photo-thumb" id="imgZone" title="Upload face reference" onclick="document.getElementById('imgFileMain').click()">
+        <img id="imgPreview" src="" alt=""/>
+        <div class="photo-ph" aria-hidden="true">Face</div>
+        <div class="photo-thumb-ov">
+          <div class="pto-btn" onclick="event.stopPropagation();document.getElementById('imgFileMain').click()">Edit</div>
+          <div class="pto-btn del" onclick="event.stopPropagation();clearImg('main')">✕</div>
+        </div>
+      </div>
+
+      <div class="photo-thumb shirt-thumb" id="shirtZone" title="Upload wardrobe reference" onclick="document.getElementById('shirtFileMain').click()">
+        <img id="shirtPreview" src="" alt=""/>
+        <div class="photo-ph" aria-hidden="true">Fit</div>
+        <div class="photo-thumb-ov">
+          <div class="pto-btn" onclick="event.stopPropagation();document.getElementById('shirtFileMain').click()">Edit</div>
+          <div class="pto-btn del" onclick="event.stopPropagation();clearImg('shirt')">✕</div>
+        </div>
+      </div>
+
+      <div class="pill-fields">
+        <div class="pill-name-row">
+          <input type="text" id="artistName" placeholder="Artist name" autocomplete="off"/>
+        </div>
+
+        <textarea class="pill-textarea" id="lyricsInput" placeholder="Paste lyrics — Apulu picks the six to eight most visually concrete moments." oninput="autoResize(this)" style="display:block;"></textarea>
+
+        <div class="hf-extras" id="hfExtras">
+          <select id="videoStyleSelect" class="composer-select">
+            <option value="hybrid">Style — Hybrid (narrative + performance)</option>
+            <option value="narrative">Style — Narrative</option>
+            <option value="performance">Style — Performance</option>
+            <option value="abstract">Style — Abstract</option>
+          </select>
+          <div class="hf-audio-upload" id="hfAudioUpload" style="display:none">
+            <div class="hf-audio-label" id="hfAudioLabel" onclick="document.getElementById('audioFileInput').click()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <span id="hfAudioLabelText">Drop audio or click to upload</span>
+              <span class="hf-audio-hint">MP3 · WAV · M4A · AAC · OGG · FLAC</span>
+            </div>
+            <button class="hf-audio-remove" id="hfAudioRemove" style="display:none" onclick="event.stopPropagation();clearAudioTrack()">Remove track</button>
+            <input type="file" id="audioFileInput" accept="audio/*,audio/mp3,audio/wav,audio/m4a,audio/aac,audio/ogg,audio/flac" style="display:none" onchange="handleAudioFile(this)">
+          </div>
+        </div>
+
+        <textarea class="pill-textarea" id="descInput" placeholder="Describe what you want to see — location, what the artist is doing, the vibe." style="display:none;" oninput="autoResize(this)"></textarea>
+        <button id="btnGenerateDescription" class="btn-generate-description" style="display:none" onclick="generateDescription()">Expand idea</button>
+        <div class="desc-helpers" id="descHelpers" style="display:none">
+          <button id="btnConceptFromAudio" class="btn-generate-description" onclick="document.getElementById('conceptAudioInput').click()" title="Upload an audio track — Apulu listens and writes a concept">🎵 Concept from audio</button>
+          <span id="conceptAudioStatus" class="concept-audio-status" aria-live="polite"></span>
+          <input type="file" id="conceptAudioInput" accept="audio/*,audio/mp3,audio/wav,audio/m4a,audio/aac,audio/ogg,audio/flac" style="display:none" onchange="handleConceptAudio(this)"/>
+        </div>
+
+        <!-- Generate button anchored to the form -->
+        <div class="pill-submit-row">
+          <button class="gen-btn" id="genBtn" onclick="generate()">Generate</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Controls -->
+    <div class="pill-controls">
+
+      <div class="ctrl-group" id="ctrlInputMode">
+        <button class="ctrl-btn active" id="modeLyrics" onclick="setMode('lyrics')">Lyrics</button>
+        <button class="ctrl-btn"        id="modeDesc"   onclick="setMode('desc')">Description</button>
+      </div>
+
+      <span class="ctrl-sep" id="ctrlSep" aria-hidden="true"></span>
+
+      <div class="ctrl-group" id="ctrlHfWf" style="display:none;">
+        <button class="ctrl-btn active-hf" id="hwStory"  onclick="setHfMode('story')">Story chain</button>
+        <button class="ctrl-btn"           id="hwTiktok" onclick="setHfMode('tiktok')">TikTok</button>
+      </div>
+
+      <div class="tiktok-shot-selector" id="ctrlTiktokShots" style="display:none;">
+        <span class="label">Shots</span>
+        <button class="tiktok-shot-chip"        id="tiktokShot3" onclick="setTiktokShotCount(3)">3</button>
+        <button class="tiktok-shot-chip active" id="tiktokShot4" onclick="setTiktokShotCount(4)">4</button>
+        <button class="tiktok-shot-chip"        id="tiktokShot5" onclick="setTiktokShotCount(5)">5</button>
+        <button class="tiktok-shot-chip"        id="tiktokShot6" onclick="setTiktokShotCount(6)">6</button>
+      </div>
+
+      <div class="tiktok-shot-selector" id="ctrlNb2Shots" style="display:none;">
+        <span class="label">Scenes</span>
+        <button class="tiktok-shot-chip active" id="nb2Shot1" onclick="setNb2SceneCount(1)">1</button>
+        <button class="tiktok-shot-chip"        id="nb2Shot3" onclick="setNb2SceneCount(3)">3</button>
+        <button class="tiktok-shot-chip"        id="nb2Shot4" onclick="setNb2SceneCount(4)">4</button>
+        <button class="tiktok-shot-chip"        id="nb2Shot6" onclick="setNb2SceneCount(6)">6</button>
+      </div>
+
+      <div class="nb2-style-selector" id="ctrlNb2Style" style="display:none;">
+        <span class="label">Style</span>
+        <select id="nb2StylePreset" class="nb2-style-select" onchange="setNb2StylePreset(this.value)">
+          <option value="vawn-editorial">Vawn Editorial</option>
+          <option value="90s-disposable">90s Disposable Flash</option>
+          <option value="70s-warm-film">70s Warm Film</option>
+          <option value="kodachrome-daylight">Kodachrome Daylight</option>
+          <option value="cinestill-night">CineStill Night</option>
+          <option value="super8-dusk">Super 8 Dusk</option>
+          <option value="contax-highkey">Contax T2 High-Key</option>
+        </select>
+      </div>
+
+      <!-- Hidden refs read by JS -->
+      <span id="wardrobeCountLabel" style="display:none;"></span>
+      <span id="styleWorldLabel" style="display:none;"></span>
+      <span id="modeFrames" style="display:none;"></span>
+      <span id="modeGrid"   style="display:none;"></span>
+
+      <button class="hist-toggle" id="histToggleBtn" onclick="toggleHistory()">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M6 3.5V6.5L8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        History
+      </button>
+
+    </div>
+
+    <div class="hist-panel" id="histPanel"></div>
+
+  </div>
+
+</div>
+
+<!-- HIDDEN FILE INPUTS -->
+<input type="file" id="imgFileMain"   accept="image/*" style="display:none" onchange="handleImg(event,'main')"/>
+<input type="file" id="shirtFileMain" accept="image/*" style="display:none" onchange="handleImg(event,'shirt')"/>
+
+<script src="js/studio.js?v=20260515c"></script>
+<script src="js/create.js?v=20260515c"></script>
+<script src="js/app.js?v=20260515c"></script>
+</body>
+</html>

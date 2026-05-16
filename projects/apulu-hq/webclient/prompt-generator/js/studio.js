@@ -449,7 +449,7 @@
     const apiBase     = window.APULU_PROMPT_API_BASE || '/api/prompt-generator';
 
     try {
-      const resp = await fetch(apiBase + '/api/studio/chat', {
+      const resp = await fetch(apiBase + '/studio/chat', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ messages: apiMessages }),

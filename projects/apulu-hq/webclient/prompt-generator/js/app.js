@@ -472,7 +472,7 @@ async function generateDescription(){
   const btn=document.getElementById('btnGenerateDescription');
   if(btn){btn.disabled=true;btn.textContent='Expanding...';}
   try{
-    const resp=await fetch(API_BASE+'/api/generate-description',{
+    const resp=await fetch(API_BASE+'/generate-description',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({idea})
@@ -543,7 +543,7 @@ async function handleConceptAudio(input){
     // Stage 2 — analyze + condense
     setStatus('Apulu is listening to the track…', 'info');
     const artistDescription=(document.getElementById('artistName')?.value||'').trim();
-    const cResp=await fetch(`${API_BASE}/api/concept-from-audio`,{
+    const cResp=await fetch(`${API_BASE}/concept-from-audio`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({fileUri:upData.fileUri,mimeType:upData.mimeType,artistDescription}),
@@ -1142,7 +1142,7 @@ function generateStory(overrideSceneCount){
     ...(overrideSceneCount?{sceneCount:overrideSceneCount}:{}),
   };
 
-  _cancelSSE=connectSSE(API_BASE+'/api/generate-story-stream', reqBody, {
+  _cancelSSE=connectSSE(API_BASE+'/generate-story-stream', reqBody, {
     onEvent(event){
       if(event.type==='stage'){
         updateProgressStage(event.name, event.status);
@@ -1198,7 +1198,7 @@ function generateMV(){
       mimeType:uploadedAudio?.mimeType||null,
     };
 
-    _cancelSSE=connectSSE(API_BASE+'/api/music-video-director-stream', reqBody, {
+    _cancelSSE=connectSSE(API_BASE+'/music-video-director-stream', reqBody, {
       onEvent:(event)=>{
         if(event.type==='stage'){
           updateProgressStage(event.key, event.status);
@@ -1266,7 +1266,7 @@ function generateMV(){
   };
   lastReqBody = reqBody;
 
-  _cancelSSE = connectSSE(API_BASE+'/api/generate-prompts-stream', reqBody, {
+  _cancelSSE = connectSSE(API_BASE+'/generate-prompts-stream', reqBody, {
     onEvent(event){
       if(event.type==='stage'){
         updateProgressStage(event.name, event.status);
@@ -1840,7 +1840,7 @@ async function regenerateScene(sceneIndex){
       shirtReference: lastReqBody.shirtReference||'',
       ...(lastReqBody.stylePreset?{stylePreset:lastReqBody.stylePreset}:{}),
     };
-    const resp=await fetch(API_BASE+'/api/regenerate-scene',{
+    const resp=await fetch(API_BASE+'/regenerate-scene',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(body),
@@ -1984,7 +1984,7 @@ async function generateImage(btn,sceneKey){
   const resultEl=document.getElementById(`genImg_${sceneKey}`);
   resultEl.innerHTML='';
   try{
-    const resp=await fetch(API_BASE+'/api/generate-image',{
+    const resp=await fetch(API_BASE+'/generate-image',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({image_prompt:sc.image_prompt,reference_image:imgBase64||null,shirt_reference_image:shirtBase64||null}),
@@ -2018,7 +2018,7 @@ async function generateImageShot(btn,sceneKey){
   const resultEl=document.getElementById(`genImg_${sceneKey}`);
   resultEl.innerHTML='';
   try{
-    const resp=await fetch(API_BASE+'/api/generate-image',{
+    const resp=await fetch(API_BASE+'/generate-image',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({flat_prompt:sc._flat_prompt,reference_image:imgBase64||null,shirt_reference_image:shirtBase64||null}),
@@ -2052,7 +2052,7 @@ async function generateLocationShot(btn,sceneKey){
   const resultEl=document.getElementById(`genLocImg_${sceneKey}`);
   resultEl.innerHTML='';
   try{
-    const resp=await fetch(API_BASE+'/api/generate-image',{
+    const resp=await fetch(API_BASE+'/generate-image',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({flat_prompt:sc._location_prompt,reference_image:null}),
@@ -2153,7 +2153,7 @@ async function generateAllImages(){
       const reqPayload = isDirectorShot
         ? {flat_prompt:sc._flat_prompt, reference_image:imgBase64||null, shirt_reference_image:shirtBase64||null}
         : {image_prompt:sc.image_prompt, reference_image:imgBase64||null, shirt_reference_image:shirtBase64||null};
-      const resp = await fetch(API_BASE+'/api/generate-image',{
+      const resp = await fetch(API_BASE+'/generate-image',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(reqPayload),

@@ -247,7 +247,7 @@
   }
 
   async function fetchPrompt(apiBase, body) {
-    const resp = await fetch(apiBase + '/api/prompt/single', {
+    const resp = await fetch(apiBase + '/prompt/single', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(body),

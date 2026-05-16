@@ -4,9 +4,9 @@ description: Creates original tracks for the Vawn hip-hop project. Handles Suno 
 ---
 
 # Music Composition Skill — Vawn Project
-# Suno v5.5 — Architecture v2.1
+# Suno v5.5 — Architecture v2.2
 
-> **Version note (v2.1):** This file replaces the v1 JSON-field/MAX-tag architecture and tightens the v2 prompt doctrine.
+> **Version note (v2.2):** This file preserves the v2.1 prompt doctrine and updates Vawn from a dark-trap-centered identity into a broader Atlanta Message Music artist system.
 > Three structural changes from v1:
 > 1. **MAX tags removed.** They are not documented Suno controls. They were
 >    consuming character budget without verified effect. If APULU Studio's parser
@@ -21,109 +21,643 @@ description: Creates original tracks for the Vawn hip-hop project. Handles Suno 
 >
 > Architecture is five parts: Identity, Universal Suno Doctrine, Vawn-Specific
 > Format, Lyrics + Humanizer, Studio Output Contract. Producer reference library
-> retained. v2.1 adds concise word-count targets, instrument-role language,
-> combined lyric brackets, and stricter separation between positive style prompts
-> and the Exclude field.
+> retained. v2.2 keeps the same prompt structure and template skeletons while
+> updating the artist identity, Vawn-specific examples, hook diagnostics, and
+> reference language around Message Music, fan phrases, pressure, motion, and
+> hit-oriented song lanes.
 
 ---
 
 # PART A — VAWN IDENTITY
 
-This is the anchor. Before writing a brief, a lyric, or a prompt — know what
-Vawn's work draws from. The specificity diagnostic in Part D only functions
-if you know who this person is. The voice and sonic locks below define how
-he sounds. The territories below define what he is actually saying and why
-only he can say it.
+This is the anchor. Before writing a brief, a lyric, a Suno prompt, a visual,
+a caption, or a rollout idea, know what Vawn represents.
+
+Vawn is not defined by darkness.
+
+Vawn is not defined by AI.
+
+Vawn is defined by **the messages people do not know how to say out loud**.
+
+He is a virtual Atlanta hip-hop/R&B artist with a deep bass-baritone voice,
+trunk-heavy 808s, gospel-soul memory, grown-man pressure, and hooks built
+from texts, comments, regrets, prayers, flexes, late-night thoughts, and
+emotional truths people usually keep hidden.
+
+His lane is **Message Music**.
+
+He turns what people carry, type, delete, send, regret, or never say into
+records that hit in the car, the club, the bedroom, the gym, and the
+late-night scroll.
+
+The music can be dark, but it cannot only be dark. The sound can move, but
+the voice must stay grounded. The hook must feel like something somebody
+would text, caption, yell, post, or replay because it says the thing they
+could not say cleanly themselves.
 
 ## North Star
 
-Vawn is dark cinematic trap-soul with a deep dry bass-baritone vocal,
-Atlanta-weighted 808s, gospel organ shadows, dusty soul chops, snapping
-drums, warm analog tape texture, and grown-man lyrics about ownership,
-love, pressure, family, and what it costs to carry them.
+Vawn makes **Atlanta Message Music**: bass-baritone hip-hop/R&B built around
+trunk-heavy 808s, Atlanta bounce, gospel-soul tension, warm analog texture,
+hard drums, and emotionally direct hooks pulled from real human pressure.
+
+He is the artist who turns private messages into public anthems.
+
+Core formula:
+
+> real message + real pressure + low voice + big hook + trunk knock
+
+Vawn should be able to make:
+
+- viral hook records
+- Atlanta trunk anthems
+- grown love songs
+- pressure records
+- club and motion records
+- gospel-lift victory records
+- late-night noir records
+- soul-rap confessionals
+- fan-comment-to-song records
+
+The sound can change. The emotional center cannot.
+
+## Core Artist Statement
+
+Vawn is the low voice for what people almost said.
+
+He makes records from the sentence left in the drafts. The text that never
+got sent. The comment that sounded simple but had a whole story behind it.
+The apology that came too late. The flex that was really fear. The love that
+felt like home and damage at the same time. The weight of being the person
+everybody calls when things get heavy.
+
+Vawn does not only make pain music.
+
+He makes **message music with weight**.
+
+Every song should feel like somebody finally said the quiet part out loud.
+
+## The Missing Hole Vawn Fills
+
+Hip-hop has enough empty flexing, fake toxicity, sad-boy repetition,
+copy-paste melodic trap, and dark records with no emotional payoff.
+
+Vawn fills a sharper lane:
+
+**low-register, masculine, emotionally specific hip-hop/R&B with big hooks
+built from real messages, real pressure, and real-life contradictions.**
+
+He is not just a rapper. He is not just an R&B act. He is not just a virtual
+artist.
+
+He is the artist who turns emotional pressure into replayable hooks.
+
+The missing space is:
+
+- hip-hop records with R&B emotional weight
+- R&B records with Atlanta trunk energy
+- love songs with accountability, not fake toxicity
+- flex records where the flex feels earned
+- club records with emotional stakes underneath
+- fan-driven songs built from comments, texts, and real phrases
+- low bass-baritone male vocals in a field dominated by higher melodic tones
+- songs men can feel without sounding soft, corny, or performative
+
+Vawn's advantage is not that he is AI-powered.
+
+His advantage is that he can turn the audience's own words into records.
+
+## Public-Facing Position
+
+Do not lead with:
+
+> Vawn is an AI artist.
+
+Lead with:
+
+> Vawn turns real messages into hip-hop/R&B anthems.
+
+The AI/virtual identity is part of the presentation, not the whole pitch.
+The song is the product. The hook is the weapon. The message is the reason.
+
+Fan-facing language:
+
+- "Comment a phrase. Vawn turns it into a hook."
+- "Send the text you never sent."
+- "The song starts where the message ended."
+- "Your message. His voice. One hook."
+- "He makes records out of what people never say out loud."
+- "Every song starts with something real."
+
+This gives Vawn a repeatable content engine, not just a sound.
 
 ## Core Fear
 
-Failing. Not making it after all the sacrifice. Being irrelevant after the
-years spent. This fear doesn't stay in the background — it lives in how
-Vawn moves, how he talks about money, loyalty, and time. Every flex has
-this fear underneath it. Every brag is partly a prayer. Do not sanitize
-it. Write toward the fear, not around it.
+Failing after all the sacrifice.
+
+Not becoming who he was supposed to become. Not making it in time. Being
+needed before being ready. Letting people down. Getting love only when he is
+useful. Winning too late to fix what it cost.
+
+This fear should live underneath the music, but it should not trap every
+song in sadness.
+
+In Vawn's music, fear can become:
+
+- hunger
+- urgency
+- discipline
+- flexing
+- love
+- paranoia
+- motion
+- celebration
+- confidence
+- prayer
+- silence
+- escape
+
+Every brag should have a scar under it. Every love song should have risk in
+it. Every club record should feel like release after carrying too much.
+Every anthem should feel like the chorus was earned.
 
 ## What He Thinks About That Others Don't
 
-Being the person people depend on. Not just personal success — being the
-one others call when things collapse. The specific weight of that. Who
-counts on him. What it costs to hold them. Whether being reliable is
-strength or just another way to get used. Most Atlanta rappers flex the
-result. Vawn carries the cost. That gap is where his artistic identity
-lives.
+Vawn thinks about the cost of being dependable.
 
-## The Contradiction He Holds (Do Not Resolve It)
+Who calls him. Who expects him to answer. Who loves him when he is useful.
+Who disappears when he needs help. Who he is trying not to fail. Who is
+watching him become somebody. Who he still wants after the damage. Who he
+had to become to survive.
 
-Marriage and love. It's the thing he wants most and the thing that's done
-the most damage. He loves women deeply — not as a flex, not casually.
-That same depth is why it costs him. Great and damaging aren't opposites
-in his experience; they are the same feeling at different moments with the
-same person. Lines about love must carry both without choosing a side.
-The moment a song resolves this contradiction it becomes generic.
+Most artists flex the result.
+
+Vawn carries the cost.
+
+That cost is his artistic center.
+
+## The Main Contradiction
+
+Vawn wants peace, but pressure made him powerful.
+
+He wants love, but love has damaged him.
+
+He wants to be needed, but being needed sometimes feels like being used.
+
+He wants success, but success does not erase what it took.
+
+He wants to celebrate, but he remembers the nights that almost broke him.
+
+Do not resolve this contradiction.
+
+The best Vawn songs hold two truths at once:
+
+- "I made it" and "I still feel behind."
+- "I love you" and "I do not trust this."
+- "I am blessed" and "I am tired."
+- "Everybody calls me" and "nobody checks on me."
+- "We outside" and "I earned this night the hard way."
+- "I forgive you" and "I still remember everything."
+- "I am him" and "I almost quit."
+
+If the song chooses only one side, it becomes generic.
+
+Vawn lives in the tension.
+
+## Core Territories
+
+Before writing any Vawn track, choose one primary territory.
+
+A track can touch multiple territories, but one must lead.
+
+### 1. Message Hooks
+
+This is Vawn's most important lane.
+
+Songs built from a phrase, comment, text, DM, voice note, caption, or
+sentence people instantly understand.
+
+The hook should sound like something somebody would send to someone.
+
+Examples of Vawn-style message hooks:
+
+- "You only miss me when it's quiet."
+- "Everybody call when it's heavy."
+- "You feel like home and damage."
+- "I carried you and called it love."
+- "We outside with the weight still on us."
+- "Don't check on me after I win."
+- "I was the one you called, not the one you chose."
+
+This lane powers short-form content, fan interaction, and viral discovery.
+
+### 2. Pressure
+
+Fear of failure, ambition, sacrifice, money, time, responsibility, survival,
+and the need to make the years mean something.
+
+This is Vawn's deepest emotional lane.
+
+Pressure can sound dark, triumphant, aggressive, motivational, reflective,
+or cinematic.
+
+Pressure does not mean sadness. Pressure means stakes.
+
+### 3. Release
+
+The moment pressure turns into movement.
+
+These are the anthems, bounce records, car records, club records, gym
+records, cookout records, and chant-heavy hooks.
+
+This lane keeps Vawn from becoming too heavy.
+
+Release records should feel like:
+
+> "I carried too much to stand still tonight."
+
+### 4. Devotion
+
+Love, marriage, desire, loyalty, apology, pride, temptation, damage, and
+emotional contradiction.
+
+Vawn does not make generic toxic love songs.
+
+His love records should feel like a man who can handle the world but still
+gets undone by one person.
+
+The love is not casual. The damage is not decoration. The contradiction is
+the song.
+
+### 5. Motion
+
+Rhythm-first records built for movement.
+
+Atlanta bounce, 2-step swing, log-drum influence, snap patterns,
+call-and-response hooks, hard low end, and simple repeatable phrases.
+
+Motion records are not shallow. They are pressure escaping through rhythm.
+
+The beat can smile. The voice still carries weight.
+
+### 6. Victory
+
+Records about winning, ownership, family, pride, survival, and proving the
+sacrifice meant something.
+
+Avoid generic "I made it" language.
+
+Show the win through images:
+
+- who he brought with him
+- what changed
+- what still hurts
+- what he can finally afford
+- who doubted quietly
+- who gets protected now
+- what the younger version of him would not believe
+
+Victory should feel earned, not random.
+
+### 7. After-Hours Noir
+
+Dark cinematic trap-soul, late-night regret, unanswered calls, spiritual
+shadows, minor keys, heavy bass, and emotional exhaustion.
+
+This is one Vawn lane.
+
+It is not the whole artist.
+
+Use darkness when the song earns it. Do not default to it.
+
+## Hit Record System
+
+Every Vawn song should be built with one of these commercial jobs in mind.
+
+| Lane | Job | Sound |
+|---|---|---|
+| **Message Hook** | Viral discovery | Fan phrase, text-message hook, simple emotional repeat |
+| **Trunk Anthem** | Hip-hop credibility | Heavy 808s, Atlanta bounce, chant hook, hard drums |
+| **Grown Love Record** | R&B crossover | Warm chords, intimate vocal, romantic damage, heavy low end |
+| **Motion Record** | Club/car/gym energy | Bounce, 2-step, log drum, call-and-response |
+| **Pressure Record** | Core fan depth | Soul chops, organ tension, ambition, fear, responsibility |
+| **Victory Record** | Big moments | Gospel lift, brass, strings, triumphant hook |
+| **Noir Record** | Cinematic identity | Dark trap-soul, late-night mood, emotional weight |
+
+If a song does not have a job, the concept is not ready.
 
 ## The Pre-Brief Check
 
-Before writing any lyric, name which territory this track lives in:
+Before writing any lyric, prompt, visual, or rollout idea, answer these:
 
-1. Fear of failure and what he does with it
-2. The weight of being the person others depend on
-3. Love that costs as much as it gives
+1. What is the message, text, comment, or emotional sentence at the center?
+2. What pressure is underneath it?
+3. What does the song turn that pressure into: love, flex, motion, pain, victory, or release?
+4. What is the hook phrase people can repeat after one listen?
+5. Where does Atlanta show up: drums, rhythm, language, confidence, bounce, or setting?
+6. Why would this song need Vawn's low voice specifically?
+7. What makes this something only Vawn would say?
 
-If the answer is none of them — the brief needs work. Fix it before
-touching the lyrics.
+If the answer is only "dark," the brief is weak.
 
-## Voice (Locked Every Track)
+If the answer is only "vibey," the brief is weak.
 
-1. Deep bass-baritone male rap — sub-100Hz, commanding
-2. Thick Atlanta drawl — specific regional identity, not exaggerated
-3. Layered doubles — stacked vocal doubles for depth
-4. Chest-voice dominant — no falsetto, no heavy auto-tune
-5. Close-mic dry booth — raw, no reverb on lead vocals
+If there is no message, no pressure, and no hook phrase, it is not Vawn yet.
 
-## Sonic Standards (Vawn Signature)
+## Voice Identity
 
-- 808 = dominant, sliding, trunk-rattling
-- Organs = Hammond B3, churchy/gospel
-- Keys = Fender Rhodes, soul chops, Zaytoven-style piano
-- Drums = hard kicks, snapping snares
-- Mix = SSL punchy, warm analog, heavy tape saturation
-- Vocal texture = Tascam 388 tape saturation, dry close-mic
+Vawn's voice is the anchor.
+
+The production can move across different lanes, but the voice should remain
+instantly recognizable.
+
+### Locked Vocal Center
+
+1. Deep bass-baritone male rap/R&B vocal
+2. Thick Atlanta drawl, natural not exaggerated
+3. Chest-voice dominant delivery
+4. Dry close-mic lead vocal presence
+5. Calm authority instead of shouting
+6. Crisp consonants and grounded human delivery
+7. Layered doubles for size and depth
+8. Low-register melodic phrasing allowed
+9. Light tuning allowed as polish, not identity
+10. Ad-libs should feel human, not robotic
+
+Vawn should sound close, direct, and controlled.
+
+Like he is saying the line to one person, but the whole room feels it.
+
+## Vocal Flexibility Rule
+
+Do not over-restrict the vocal so much that the records cannot become hits.
+
+The lead vocal stays low, dry, and commanding.
+
+But the record may use:
+
+- low harmonies
+- stacked hook doubles
+- crowd chants
+- call-and-response layers
+- gospel-style responses
+- background vocal textures
+- delay throws on ad-libs
+- wider hook stacks
+- spoken intro or outro moments
+
+The lead remains Vawn. The world around him can expand.
+
+## Sonic Identity
+
+Vawn's music should be recognizable by feel, not one fixed genre.
+
+### Core Sound DNA
+
+- trunk-heavy 808s
+- Atlanta bounce
+- gospel/soul memory
+- hard drums
+- warm analog texture
+- dry low vocal
+- big repeatable hooks
+- emotional low-end pressure
+- clean, punchy mix energy
+
+### Core Instruments
+
+Use these as Vawn's home base:
+
+- TR-808 sliding sub-bass
+- Hammond B3 organ
+- Fender Rhodes
+- dusty soul chops
+- Zaytoven-style piano textures
+- hard kicks
+- snapping snares
+- handclaps
+- low vocal stacks
+- warm tape saturation
+
+The instruments should have roles, not just names.
+
+The 808 carries pressure. The drums create motion. The organ carries spirit.
+The soul chop carries memory. The vocal carries the message.
+
+## Vawn Sound Lanes
+
+| Lane | Purpose | Sound |
+|---|---|---|
+| **Message Music** | Main identity | Text-message hooks, bass-baritone vocal, emotional directness |
+| **Pressure&B** | Core depth | Trap-soul, 808s, soul chords, grown-man pressure |
+| **Cathedral Bounce** | Uplift | Gospel organ, choir stabs, Atlanta drums, triumphant hooks |
+| **Trunk Love** | R&B crossover | Warm chords, heavy 808s, romantic damage, dry vocal |
+| **Motion Records** | Hit/club potential | 2-step, log-drum bounce, Atlanta snap, chant hooks |
+| **Sunday Flex** | Victory | Gospel lift, luxury drums, survival energy |
+| **After-Hours Noir** | Dark lane | Minor keys, shadowy organ, late-night emotional pressure |
+| **Cookout Soul Trap** | Warmth | Soul samples, handclaps, bounce bass, feel-good but grounded |
+| **Victory Rap-Soul** | Anthem lane | Brass, strings, organ lift, hard drums, motivational pressure |
+
+## Mood System
+
+Do not default to one-word moods like "dark," "moody," or "vibey."
+
+Vawn's moods are contradictions.
+
+Use these as emotional anchors:
+
+- triumphant but tired
+- romantic but guarded
+- expensive but burdened
+- celebratory but scarred
+- confident but under pressure
+- spiritual but not preachy
+- heavy but moving
+- wounded but composed
+- outside but still carrying weight
+- smooth but dangerous
+- warm but unresolved
+- victorious but not healed
+- intimate but trunk-heavy
+- catchy but not empty
+
+The contradiction gives the song depth.
+
+## Hook Standard
+
+Vawn's hook is the product.
+
+A Vawn hook must be:
+
+- simple enough to remember
+- heavy enough to matter
+- repeatable after one listen
+- built around a phrase people would text, caption, comment, or quote
+- emotionally specific
+- rhythmically strong
+- useful for short-form content
+- strong enough to survive without the full beat
+
+Weak hook:
+
+> "I'm under pressure but I keep going."
+
+Stronger Vawn hook:
+
+> "Everybody call when it's heavy."
+
+Weak hook:
+
+> "I still love you even though it hurts."
+
+Stronger Vawn hook:
+
+> "You feel like home and damage."
+
+Weak hook:
+
+> "We made it through the struggle."
+
+Stronger Vawn hook:
+
+> "We outside with the weight still on us."
+
+Weak hook:
+
+> "I miss you late at night."
+
+Stronger Vawn hook:
+
+> "You only miss me when it's quiet."
 
 ## What Vawn Is NOT
 
-- Mumble rap / melodic trap drift
-- Heavy auto-tune
-- Female vocals or high-pitched leads
-- Shouting or screaming
-- Robotic or metallic vocal texture
-- Generic flexing without substance
+- Not just an AI artist
+- Not only dark trap-soul
+- Not generic pain rap
+- Not empty flex music
+- Not fake-toxic lover-boy music
+- Not mumble rap
+- Not preach rap
+- Not robotic auto-tune music
+- Not high-pitched melodic drift
+- Not rage rap
+- Not sadness without movement
+- Not club music with nothing underneath
+- Not trend-chasing without a Vawn reason
+- Not luxury with no emotional cost
+- Not a gimmick built around technology instead of songs
 
 ## What Makes Vawn Distinct
 
-The avoid list above tells you what to refuse. This table tells you what
-to be instead. The mistake is making Vawn sound like a generic dark trap
-artist. The distinction is in how each element is used, not just what's
-present.
+| Element | Generic Artist | Vawn |
+|---|---|---|
+| Identity | Mood or aesthetic | Message, pressure, and voice |
+| AI Angle | Novelty | Virtual artist powered by real human messages |
+| Hook | Vibe phrase | Textable, quotable emotional sentence |
+| Voice | High, melodic, tuned | Low, dry, bass-baritone, commanding |
+| 808s | Loud low end | Trunk pressure with emotional weight |
+| Gospel | Church effect | Spirit, survival, memory, lift |
+| Love | Toxic games | Devotion, damage, pride, accountability |
+| Flexing | Status | Proof the sacrifice paid off |
+| Pain | Sadness | Responsibility, fear, cost |
+| Party Records | Escape | Release after carrying too much |
+| Atlanta Identity | Surface slang | Bounce, rhythm, confidence, pressure |
+| Fan Engine | Passive listening | Comments and messages become songs |
+| Catalog | One sound | One worldview across many sounds |
 
-| Element       | Generic trap artist        | Vawn                                              |
-|---------------|----------------------------|---------------------------------------------------|
-| 808s          | Loud low end               | Sliding, trunk-heavy, emotional pressure          |
-| Soul samples  | Decoration                 | Memory, inheritance, regret                       |
-| Organ         | Churchy effect             | Spiritual weight without preaching                |
-| Vocal         | Melodic / autotuned        | Dry bass-baritone chest voice                     |
-| Lyrics        | Flex / status              | Ownership, dependability, family, cost            |
-| Mood          | Dark / cool                | Triumphant but burdened                           |
-| Mix           | Glossy trap                | Warm analog, SSL punch, dry vocal                 |
+If a track lands in the generic column, it is not Vawn yet.
 
-If a track lands on the left column for any row, it isn't Vawn yet. Push
-the brief or the prompt until every row sits on the right.
+Push the hook, rhythm, vocal, or emotional angle until it becomes specific.
+
+## Song Decision Rule
+
+Every Vawn song must answer:
+
+**What message is he turning into a record, and what pressure is underneath
+it?**
+
+Examples:
+
+- "You only miss me when it's quiet" → love damage
+- "Everybody call when it's heavy" → dependability
+- "We outside with the weight still on us" → release
+- "Don't check on me after I win" → pressure and victory
+- "You feel like home and damage" → devotion
+- "I carried you and called it love" → romantic exhaustion
+- "I had to become who they needed" → family pressure
+- "The win came late, but it came" → victory
+
+If the song only describes a feeling but does not transform it into a
+message, the concept is unfinished.
+
+## Final Identity Line
+
+Vawn is a virtual Atlanta hip-hop/R&B artist turning real messages, private
+pressure, love damage, ambition, and survival into bass-heavy hooks people
+can quote, post, ride to, and feel.
+
+## Short Public Bio
+
+Vawn is the low voice for the message you almost sent.
+
+A virtual Atlanta hip-hop/R&B artist blending trunk-heavy 808s,
+gospel-soul memory, grown-man pressure, and hook-driven songwriting, Vawn
+turns texts, comments, regrets, flexes, and private truths into records
+built for the car, the club, the bedroom, and the late-night scroll.
+
+## Practical Style Anchor
+
+Use this as the default identity phrase when building prompts:
+
+**Atlanta Message Music, deep bass-baritone male rap/R&B vocal, thick
+Atlanta drawl, trunk-heavy 808s, gospel-soul chords, warm Rhodes, hard
+snapping drums, chantable text-message hook, dry close-mic lead vocal,
+analog tape warmth, grown emotional lyrics, pressure turning into release,
+love and ambition themes, modern hip-hop/R&B anthem energy**
+
+For darker records, add:
+
+**after-hours noir, cinematic minor-key tension, shadowy organ, late-night
+emotional pressure**
+
+For hit records, add:
+
+**bounce-driven drums, big repeatable hook, call-and-response chants,
+club-ready low end, memorable phrase repetition**
+
+For love records, add:
+
+**trunk R&B, warm chords, intimate dry vocal, romantic but guarded, heavy
+808s under smooth melodic phrasing**
+
+For motion records, add:
+
+**2-step swing, Atlanta snap, log-drum bounce, chant hook, rhythmic
+call-and-response, body-moving low end**
+
+For victory records, add:
+
+**Sunday flex energy, gospel lift, brass or organ accents, triumphant but
+tired, celebration with weight**
+
+## The Rule
+
+Vawn is not a dark artist.
+
+Vawn is not an AI gimmick.
+
+Vawn is a message artist.
+
+Dark is only one way pressure sounds.
+
+AI is only the tool.
+
+The song is the product.
+
+The hook is the weapon.
+
+The message is the reason.
 
 ---
 
@@ -177,10 +711,10 @@ The nine elements above collapse into this practical shape:
 > arrangement arc → texture/mix.
 
 Default Vawn shape:
-> Dark cinematic southern trap-soul, [BPM] BPM, [key + vibe],
-> [mood contradiction], [vocal identity if Final Recording Prompt],
+> Atlanta Message Music or selected Vawn lane, [BPM] BPM, [key + vibe],
+> [message-centered mood contradiction], [vocal identity if Final Recording Prompt],
 > [808 role], [organ/soul chop/key role], [drum pocket],
-> [sparse verse → wider hook movement], [analog/tape texture],
+> [verse-to-hook movement around the central message], [analog/tape texture],
 > [dry forward vocal or 808-dominant mix].
 
 Use this as a checklist, not a reason to overfill the prompt. If a clause
@@ -216,21 +750,29 @@ The mood field is where most prompts go generic. "Dark," "moody," "cool,"
 Vawn's emotional palette runs in pairs. The contradiction is the point.
 Pick one pair as the mood anchor, or combine two if the track earns it.
 
-- triumphant but haunted
+- triumphant but tired
+- romantic but guarded
 - expensive but burdened
-- street but polished
-- romantic but damaged
-- confident but aware of the cost
-- spiritual without becoming gospel
-- cinematic without becoming movie-score rap
+- celebratory but scarred
+- confident but under pressure
+- spiritual but not preachy
+- heavy but moving
+- wounded but composed
+- outside but still carrying weight
+- smooth but dangerous
+- warm but unresolved
+- victorious but not healed
+- intimate but trunk-heavy
+- catchy but not empty
 
 These plug directly into element 3 of the nine-element order. Example:
-"Dark cinematic trap-soul, 128 BPM, minor key, *triumphant but haunted*,
-deep bass-baritone..."
+"Atlanta Message Music, 102 BPM, Bb major warm and triumphant,
+*celebratory but scarred*, deep bass-baritone..."
 
 Banned mood-word reminder: "legacy" is on the humanizer purge list for
 lyrics. Do not let it leak into mood descriptors either. Use "what it
-costs to carry it," "the weight," or one of the pairs above instead.
+costs to carry it," "the weight," "what the win changes," or one of the
+pairs above instead.
 
 ## What Belongs Where (The Hard Lines)
 
@@ -322,14 +864,13 @@ Template skeleton:
 > [arrangement architecture], [production texture and analog warmth],
 > [mix focus].
 
-Example (dark cinematic southern trap-soul, 128 BPM):
-> Dark cinematic southern trap-soul, 128 BPM, D minor brooding,
-> triumphant but haunted, TR-808 sliding sub-bass anchors the hook,
-> Hammond B3 answers the vocal with church-shadow weight, dusty SP-1200
-> soul chop carries memory, MPC3000 kicks and snapping snares lock a
-> heavy half-time pocket, sparse verses open into an organ-led hook,
-> Tascam 388 tape warmth, SSL punchy dark mix, clean low-end separation,
-> 808 dominant.
+Example (Atlanta Message Music, 102 BPM):
+> Atlanta Message Music, 102 BPM, Bb major warm and triumphant,
+> celebratory but scarred, TR-808 bouncy sub-bass makes the hook trunk-ready,
+> Hammond B3 answers the main phrase with gospel lift, Fender Rhodes cushions
+> the verse, MPC3000 kicks and snapping snares lock an Atlanta bounce pocket,
+> sparse verse opens into a chantable text-message hook, Tascam 388 tape warmth,
+> SSL punchy warm mix, clean low-end separation, 808 dominant.
 
 ## Final Recording Prompt Template
 
@@ -339,21 +880,22 @@ moves to lyrics box as combined bracket cues.
 
 Vawn's locked vocal identity (paste this into every Final Recording
 Prompt):
-> deep bass-baritone male rap with thick Atlanta drawl, chest-voice
-> dominant, layered doubles, dry close-mic booth recording, grounded
-> human delivery, crisp consonants, controlled low-register authority
+> deep bass-baritone male rap/R&B vocal with thick Atlanta drawl,
+> chest-voice dominant, layered doubles, dry close-mic booth recording,
+> grounded human delivery, crisp consonants, controlled low-register
+> authority, low melodic phrasing allowed as polish
 
 Full example:
-> Dark cinematic southern trap-soul, 128 BPM, D minor brooding,
-> triumphant but haunted, deep bass-baritone male rap with thick Atlanta
-> drawl, chest-voice dominant, layered doubles, dry close-mic booth
-> recording, grounded human delivery, crisp consonants, controlled
-> low-register authority, TR-808 sliding sub-bass anchors the hook,
-> Hammond B3 answers the vocal with church-shadow weight, dusty SP-1200
-> soul chop carries memory, MPC3000 kicks and snapping snares lock a
-> heavy half-time pocket, sparse verses open into an organ-led hook,
-> Tascam 388 tape warmth, SSL punchy dark mix, dry forward vocal,
-> 808 dominant.
+> Atlanta Message Music, 102 BPM, Bb major warm and triumphant,
+> celebratory but scarred, deep bass-baritone male rap/R&B vocal with thick
+> Atlanta drawl, chest-voice dominant, layered doubles, dry close-mic booth
+> recording, grounded human delivery, crisp consonants, controlled low-register
+> authority, low melodic phrasing allowed as polish, TR-808 bouncy sub-bass
+> makes the hook trunk-ready, Hammond B3 answers the main phrase with gospel
+> lift, Fender Rhodes cushions the verse, MPC3000 kicks and snapping snares
+> lock an Atlanta bounce pocket, sparse verse opens into a chantable
+> text-message hook, Tascam 388 tape warmth, SSL punchy warm mix, dry forward
+> vocal, 808 dominant.
 
 ## Hard Rules for Vawn Style Prompts
 
@@ -383,9 +925,9 @@ vocal, dusty SP-1200 soul chop carries memory, Rhodes cushions the verse"
 Genre slot contains ONE primary genre. Mood words go in mood slot, not
 genre slot.
 
-WRONG: "Dark cinematic southern trap, moody atmospheric, late-night..."
-RIGHT: "Dark cinematic southern trap, ..., late night cinematic
-melancholy mood, ..."
+WRONG: "Atlanta Message Music, moody atmospheric, late-night..."
+RIGHT: "Atlanta Message Music, 102 BPM, Bb major warm and triumphant,
+celebratory but scarred, ..."
 
 ### Key Names — Use Vibe Words, Not Theory
 
@@ -406,21 +948,21 @@ and analog warmth."
 
 - 60–75 = ballad, ambient, slow R&B
 - 76–95 = hip-hop, lo-fi, soul, boom bap
-- 96–115 = pop, indie, mid-tempo trap, Motown × trap fusion
-- 116–130 = OVO / moody atmospheric hip hop
-- 128–138 = dark cinematic southern trap, Don Cannon / OVO hybrid
-- 131–150 = fast trap, southern trap, club trap
+- 96–115 = pop, indie, mid-tempo trap, Motown × trap fusion, Atlanta Message Music, Trunk Love, Motion Records
+- 116–130 = OVO / moody atmospheric hip hop, Cathedral Bounce, Sunday Flex
+- 128–138 = dark cinematic southern trap, After-Hours Noir, southern trap hybrid
+- 131–150 = fast trap, southern trap, club trap, Trunk Anthem
 - 151+ = drum and bass, extreme
 
 ## Standard Vawn Exclude Styles
 
 Default exclude block (paste into Exclude Styles field):
 
-> female vocals, high-pitched vocals, choir, female humming, mumble
-> rap, shouting, screaming, robotic vocals, metallic vocals, heavy
-> auto-tune, monotone delivery, bedroom lo-fi mix, thin lo-fi vocals,
-> muddy mix, weak low end, cluttered arrangement, AI artifacts,
-> reverb on lead vocals, falsetto
+> female vocals, high-pitched vocals, female humming, full choir lead,
+> children's choir, mumble rap, shouting, screaming, robotic vocals,
+> metallic vocals, heavy auto-tune, monotone delivery, bedroom lo-fi mix,
+> thin lo-fi vocals, muddy mix, weak low end, cluttered arrangement,
+> AI artifacts, heavy reverb on lead vocals, falsetto lead vocal
 
 Adjust per track only when the track's brief explicitly requires it.
 
@@ -665,10 +1207,21 @@ Can layer:
 Cole, T.I., and Jadakiss are inputs, not the output. These are Vawn's
 specific moves. Use at least one per track.
 
+**The Message Hook Method**
+Start with a phrase that sounds like a text, comment, DM, caption, or line
+somebody almost sent. Build the hook around that phrase before writing the
+verse. The song should feel like the message opened a door into a bigger
+emotional truth.
+
+Strong message hooks are short, direct, quotable, and slightly unresolved:
+"You only miss me when it's quiet." / "Everybody call when it's heavy." /
+"You feel like home and damage." / "Don't check on me after I win."
+
 **The Dependability Verse**
 Verse from the position of the person others lean on. Not a flex — a
-reckoning. What he carries. Who doesn't see the cost. The verse ends on
-an image, not a conclusion: "Still picked up on the second ring."
+reckoning. What he carries. Who doesn't see the cost. The verse should make
+the hook feel like a message somebody could send him or receive from him.
+End on an image, not a conclusion: "Still picked up on the second ring."
 
 **The Love Damage Structure**
 The verse celebrates. The hook reveals the wound. Not as a twist — as
@@ -684,8 +1237,10 @@ words are what an AI writes when it doesn't know the actual angle.
 
 Before running the humanizer checklist, ask:
 - Does this verse name the specific territory from Part A?
+- Does it have a central message phrase, text, comment, DM, or emotional sentence?
 - Does it have one concrete image only Vawn could provide?
 - Does it know exactly what emotional moment it's capturing?
+- Does the hook feel quotable after one listen?
 
 If any answer is no — fix the brief and regenerate. Word bans are a
 last-resort cleanup tool, not a substitute for specificity upstream.
@@ -858,7 +1413,24 @@ inside the lyrics box.
 
 ## VAWN SIGNATURE SOUNDS
 
-**Dark cinematic trap / OVO hybrid (128 BPM)**
+
+**Atlanta Message Music / Text-Message Hook (98–106 BPM)**
+Style: Atlanta Message Music, 102 BPM, Bb major warm and triumphant, celebratory but scarred, TR-808 bouncy sub-bass makes the hook trunk-ready, Hammond B3 answers the main phrase with gospel lift, Fender Rhodes cushions the verse, dusty soul chop carries memory, MPC3000 kicks and snapping snares lock an Atlanta bounce pocket, sparse verse opens into a chantable text-message hook, Tascam 388 analog warmth, SSL punchy warm mix, 808 dominant, dry vocal space.
+Performance (lyrics box): [Hook - Energy: High, chantable, full chest], [Verse - chest voice, conversational and grounded].
+
+**Trunk Love / Grown R&B With Knock (88–100 BPM)**
+Style: Trunk R&B Atlanta hip hop, 94 BPM, F minor heavy and romantic, intimate but trunk-heavy, TR-808 warm sliding sub-bass carries the emotional weight, Fender Rhodes wraps the verse in soft chords, muted guitar answers the vocal, Hammond B3 adds gospel shadow at the hook, crisp kicks and snapping snares keep a slow bounce pocket, sparse verses widen into a stacked hook, Tascam 388 tape warmth, SSL warm punchy mix, dry intimate center, clean low-end separation.
+Performance (lyrics box): [Verse - chest voice, intimate and controlled], [Hook - soulful, layered, romantic but guarded].
+
+**Motion Record / 2-Step Atlanta Snap (104–116 BPM)**
+Style: Atlanta motion record, 110 BPM, major key bright, heavy but moving and catchy but not empty, TR-808 bouncy sub-bass locks with a 2-step swing, crisp snap snare and handclaps drive call-and-response movement, warm Rhodes stabs cushion the pocket, light organ hits add gospel color, minimal synth hook repeats the main phrase, sparse verses drop into a wider chant hook, tape saturation and analog warmth, SSL clean punchy mix, drums and 808 dominant.
+Performance (lyrics box): [Verse - chest voice, groove-locked and smooth], [Hook - Energy: High, call-and-response, crowd-ready].
+
+**Cathedral Bounce / Victory Message (116–128 BPM)**
+Style: Cathedral Bounce southern hip hop, 122 BPM, Bb major triumphant, victorious but not healed, Hammond B3 organ leads with gospel lift, brass stabs answer the hook phrase, TR-808 thundering sub-bass keeps trunk weight, MPC3000 kicks and snapping snares drive Atlanta bounce, handclaps add crowd energy, sparse verse rises into a wide chantable hook, Tascam 388 analog warmth, SSL punchy wide mix, organ bright, 808 dominant, clean low-end separation.
+Performance (lyrics box): [Verse - chest voice, authoritative and grounded], [Hook - Energy: High, full chest, triumphant and chantable].
+
+**After-Hours Noir / Dark cinematic trap hybrid (128 BPM)**
 Style: Dark cinematic southern trap, 128 BPM, minor key brooding melancholy, late night cinematic melancholy with held tension, SP-1200 dusty soul chop dominant, Roland JX-3P dark reverb pads, Hammond B3 church organ, TR-808 melodic sliding sub-bass, MPC3000 trap kicks, snapping snares, sparse hi-hats, half-time trap pocket measured and deliberate, sparse verses lifting into wider chorus with organ swells, Tascam 388 analog warmth and tape saturation, SSL warm punchy mix wide and dark, 808 melodic and heavy, clean low-end separation.
 Performance (lyrics box): [Verse - chest voice, measured cadence], [Hook - Energy: High, held authority, steady tone].
 
@@ -878,7 +1450,7 @@ Performance (lyrics box): [Verse - aggressive, hard percussive cadence], [Hook -
 Style: Atlanta southern trap, 135 BPM, minor key soulful, heavy dark verses lifting into gospel pride at chorus, SP-1200 soul chops and melodic loops, TR-808 massive sliding sub-bass dominant, MPC3000-style trap kicks and snares, Hammond B3 church organ full melodic chorus lead, Fender Rhodes verse accent, dark verse pocket opening into wide gospel hook, Tascam 388 analog warmth, SSL punchy mix, 808 dominant verses, organ melodic wide at chorus, tape saturation, clean low-end separation.
 Performance (lyrics box): [Verse - chest voice, measured and low], [Hook - Energy: High, soulful, organ rises, full chest].
 
-**Motown soul × Atlanta trap (celebratory, 108–118 BPM)**
+**Cookout Soul Trap / Motown soul × Atlanta trap (celebratory, 108–118 BPM)**
 Style: Motown soul Atlanta trap, 114 BPM, major key bright, bright celebratory Friday-night energy, TR-808 bouncy warm sub-bass dominant, MPC3000-style crisp trap kicks and snares, Hammond B3 Motown organ groove, Fender Rhodes warm 80s keys, lush string chorus swell, bouncy mid-tempo pocket, Tascam 388 analog warmth, SSL wide warm mix, 808 bouncy and present, organ bright, strings lush in chorus, tape saturation, clean low-end separation.
 Performance (lyrics box): [Verse - chest voice, smooth and conversational], [Hook - soulful, bright and warm, controlled energy].
 

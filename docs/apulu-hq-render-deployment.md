@@ -4,6 +4,12 @@ Apulu HQ is the main website and business dashboard. Render serves the FastAPI
 app, the `/ui/` dashboard, and the bundled Prompt Generator UI at
 `/ui/prompt-generator/`.
 
+The full Prompt Generator source also lives in this monorepo at:
+
+```text
+projects/prompt-generator
+```
+
 ## Render
 
 Use the repository root blueprint:
@@ -12,10 +18,16 @@ Use the repository root blueprint:
 render.yaml
 ```
 
-The web service deploys from:
+The HQ website service deploys from:
 
 ```text
 projects/apulu-hq
+```
+
+The Prompt Generator backend service deploys from:
+
+```text
+projects/prompt-generator
 ```
 
 Runtime behavior:
@@ -30,6 +42,8 @@ Required environment:
 ```text
 APULU_PROMPT_GENERATOR_BACKEND_URL=https://apulu-backend.onrender.com
 APULU_HQ_DATA_DIR=/var/data/apulu-hq
+GEMINI_API_KEY=<set on apulu-backend service>
+ANTHROPIC_API_KEY=<set on apulu-backend service>
 ```
 
 The blueprint also mounts a persistent Render disk at:

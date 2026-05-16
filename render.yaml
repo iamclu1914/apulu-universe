@@ -16,3 +16,14 @@ services:
       name: apulu-hq-data
       mountPath: /var/data/apulu-hq
       sizeGB: 1
+  - type: web
+    name: apulu-backend
+    runtime: node
+    rootDir: projects/prompt-generator
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false

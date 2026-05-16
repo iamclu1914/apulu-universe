@@ -160,9 +160,12 @@ function validatePromptFormat(prompt, expectedFormat, label, warnings) {
 // Kling 3.0 modes ('mv', 'kling-*') were removed 2026-04-16 — Seedance is the
 // canonical video target. See wiki/vawn-mix-engine/mix-rules.md for context.
 const MODE_CONFIG = {
+  mv:             { runVideoDirector: true,  defaultN: 6, minN: 6, maxN: 8 },
   nb2:            { runVideoDirector: false, defaultN: 6, minN: 1, maxN: 8 },
   'hf-mv':        { runVideoDirector: true,  defaultN: 6, minN: 6, maxN: 8 },
   'hf-multishot': { runVideoDirector: true,  defaultN: 6, minN: 6, maxN: 8, multishot: true },
+  'kling-9grid':  { runVideoDirector: true,  defaultN: 9, minN: 9, maxN: 9 },
+  'kling-startend': { runVideoDirector: true, defaultN: 2, minN: 2, maxN: 4 },
   'hf-9grid':     { runVideoDirector: true,  defaultN: 9, minN: 9, maxN: 9 },
   'hf-startend':  { runVideoDirector: true,  defaultN: 2, minN: 2, maxN: 4 },
   'hf-story':     { runVideoDirector: false, defaultN: 8, minN: 4, maxN: 12 },

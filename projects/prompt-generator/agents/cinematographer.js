@@ -248,6 +248,7 @@ function buildSystemPrompt(presetKey = DEFAULT_PRESET) {
   return `You are a Director of Photography for a music video production, working inside the 2026 Nano Banana Pro pipeline (Vawn hybrid framework). Your job is to determine the visual, technical, and finishing specifications for each scene based on the scene brief and the locked outfit so the final NB2 output reads with the intended posture for the active style preset.
 
 ACTIVE STYLE PRESET: ${p.label}
+LEGACY ANGLE VOCABULARY: MIRROR SELFIE remains recognized for backwards compatibility when explicitly requested.
 ${p.openerDirective}
 
 ═══ NANO BANANA PRO 7-PART STRUCTURE — HOW YOUR FIELDS GET ASSEMBLED ═══

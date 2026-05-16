@@ -142,3 +142,80 @@ def test_dispatches_endpoint_returns_recent_rows(client):
     assert rows[0]["agent_name"] == "Nelly"
     assert rows[0]["outcome"] == "success"
     assert rows[0]["duration_ms"] == 12000
+
+
+def test_command_center_endpoints(client):
+    releases = client.get("/api/releases")
+    assert releases.status_code == 200
+    assert releases.json()
+    assert releases.json()[0]["artist"] == "Vawn"
+    assert releases.json()[0]["distributor"] == "DistroKid"
+    assert "readiness" in releases.json()[0]
+
+    campaigns = client.get("/api/campaigns")
+    assert campaigns.status_code == 200
+    assert campaigns.json()
+    assert "platforms" in campaigns.json()[0]
+
+    approvals = client.get("/api/approvals")
+    assert approvals.status_code == 200
+    assert approvals.json()[0]["status"] == "open"
+
+    summary = client.get("/api/command/summary")
+    assert summary.status_code == 200
+    data = summary.json()
+    assert data["kpis"]["activeReleases"] >= 1
+    assert data["kpis"]["needsApproval"] >= 1
+    assert data["releases"]
+    assert data["campaigns"]
+
+
+def test_create_and_patch_label_ops(client):
+    release = client.post(
+        "/api/releases",
+        json={"title": "Test Single", "artist": "Vawn", "type": "single", "distributor": "DistroKid"},
+    )
+    assert release.status_code == 200
+    rid = release.json()["id"]
+    patched_release = client.patch(f"/api/releases/{rid}", json={"status": "ready"})
+    assert patched_release.status_code == 200
+    assert patched_release.json()["status"] == "ready"
+    assert patched_release.json()["distributor"] == "DistroKid"
+
+    campaign = client.post(
+        "/api/campaigns",
+        json={"name": "Test Campaign", "release_id": rid, "platforms": ["threads", "x"]},
+    )
+    assert campaign.status_code == 200
+    assert campaign.json()["platforms"] == ["threads", "x"]
+    cid = campaign.json()["id"]
+    patched_campaign = client.patch(f"/api/campaigns/{cid}", json={"status": "active"})
+    assert patched_campaign.status_code == 200
+    assert patched_campaign.json()["status"] == "active"
+
+    approval = client.post(
+        "/api/approvals",
+        json={"title": "Approve test campaign", "category": "campaign", "priority": "high"},
+    )
+    assert approval.status_code == 200
+    aid = approval.json()["id"]
+    patched_approval = client.patch(f"/api/approvals/{aid}", json={"status": "approved"})
+    assert patched_approval.status_code == 200
+    assert patched_approval.json()["status"] == "approved"
+
+    finance = client.post(
+        "/api/finance/entries",
+        json={"entry_type": "expense", "vendor": "Test Vendor", "category": "creative", "amount": 125},
+    )
+    assert finance.status_code == 200
+    finance_summary = client.get("/api/finance/summary")
+    assert finance_summary.status_code == 200
+    assert finance_summary.json()["monthly_spend"] >= 125
+
+
+def test_social_platforms_reports_all_channels(client):
+    r = client.get("/api/social/platforms")
+    assert r.status_code == 200
+    ids = {p["id"] for p in r.json()["platforms"]}
+    assert {"instagram", "tiktok", "threads", "x", "bluesky", "facebook"} <= ids
+

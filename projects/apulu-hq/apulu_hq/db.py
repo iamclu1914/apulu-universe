@@ -15,7 +15,7 @@ from typing import Iterator
 
 from .config import settings
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 3
 
 
 SCHEMA_SQL = """
@@ -120,6 +120,81 @@ CREATE TABLE IF NOT EXISTS events (
 );
 CREATE INDEX IF NOT EXISTS idx_events_ts ON events(ts DESC);
 CREATE INDEX IF NOT EXISTS idx_events_type ON events(type, ts DESC);
+
+CREATE TABLE IF NOT EXISTS releases (
+    id                  TEXT PRIMARY KEY,
+    title               TEXT NOT NULL,
+    artist              TEXT NOT NULL DEFAULT 'Vawn',
+    type                TEXT NOT NULL DEFAULT 'single',
+    status              TEXT NOT NULL DEFAULT 'planning',
+    release_date        TEXT,
+    distributor         TEXT NOT NULL DEFAULT 'DistroKid',
+    artwork_status      TEXT NOT NULL DEFAULT 'pending',
+    master_status       TEXT NOT NULL DEFAULT 'pending',
+    metadata_status     TEXT NOT NULL DEFAULT 'pending',
+    distributor_status  TEXT NOT NULL DEFAULT 'pending',
+    publishing_status   TEXT NOT NULL DEFAULT 'pending',
+    budget              REAL,
+    spend_to_date       REAL NOT NULL DEFAULT 0,
+    notes               TEXT,
+    created_at          TEXT NOT NULL,
+    updated_at          TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_releases_status ON releases(status, release_date);
+
+CREATE TABLE IF NOT EXISTS campaigns (
+    id              TEXT PRIMARY KEY,
+    name            TEXT NOT NULL,
+    artist          TEXT NOT NULL DEFAULT 'Vawn',
+    release_id      TEXT REFERENCES releases(id),
+    objective       TEXT NOT NULL DEFAULT 'awareness',
+    status          TEXT NOT NULL DEFAULT 'draft',
+    start_date      TEXT,
+    end_date        TEXT,
+    platforms       TEXT NOT NULL DEFAULT '[]',
+    budget          REAL,
+    spend_to_date   REAL NOT NULL DEFAULT 0,
+    primary_metric  TEXT,
+    target_value    REAL,
+    notes           TEXT,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_campaigns_status ON campaigns(status, start_date, end_date);
+
+CREATE TABLE IF NOT EXISTS approvals (
+    id              TEXT PRIMARY KEY,
+    title           TEXT NOT NULL,
+    category        TEXT NOT NULL DEFAULT 'operations',
+    priority        TEXT NOT NULL DEFAULT 'medium',
+    status          TEXT NOT NULL DEFAULT 'open',
+    requested_by    TEXT,
+    assigned_to     TEXT,
+    due_at          TEXT,
+    linked_type     TEXT,
+    linked_id       TEXT,
+    decision_note   TEXT,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_approvals_status ON approvals(status, priority, due_at);
+
+CREATE TABLE IF NOT EXISTS finance_entries (
+    id              TEXT PRIMARY KEY,
+    entry_type      TEXT NOT NULL DEFAULT 'expense',
+    source          TEXT,
+    vendor          TEXT,
+    category        TEXT NOT NULL DEFAULT 'operations',
+    amount          REAL NOT NULL DEFAULT 0,
+    entry_date      TEXT NOT NULL,
+    linked_type     TEXT,
+    linked_id       TEXT,
+    notes           TEXT,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_finance_entries_date ON finance_entries(entry_date DESC, entry_type);
+
 """
 
 
@@ -155,12 +230,108 @@ def init_schema(conn: sqlite3.Connection) -> None:
     conn.executescript(SCHEMA_SQL)
     row = conn.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()
     current = int(row["value"]) if row else 0
+    if current < 3:
+        cols = {r["name"] for r in conn.execute("PRAGMA table_info(releases)").fetchall()}
+        if "distributor" not in cols:
+            conn.execute("ALTER TABLE releases ADD COLUMN distributor TEXT NOT NULL DEFAULT 'DistroKid'")
+        conn.execute(
+            "UPDATE releases SET distributor='DistroKid' "
+            "WHERE artist='Vawn' AND (distributor IS NULL OR distributor='' OR distributor='pending')"
+        )
+    _seed_command_center(conn)
     if current < SCHEMA_VERSION:
         conn.execute(
             "INSERT OR REPLACE INTO meta(key, value) VALUES('schema_version', ?)",
             (str(SCHEMA_VERSION),),
         )
     conn.commit()
+
+
+def _seed_command_center(conn: sqlite3.Connection) -> None:
+    """Create starter label-ops records without inventing financial results."""
+    release_count = conn.execute("SELECT COUNT(*) AS c FROM releases").fetchone()["c"]
+    if release_count == 0:
+        now = "2026-05-16T00:00:00+00:00"
+        conn.execute(
+            """INSERT INTO releases
+               (id, title, artist, type, status, release_date, distributor, artwork_status,
+                master_status, metadata_status, distributor_status, publishing_status,
+                budget, spend_to_date, notes, created_at, updated_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                "rel-vawn-debut",
+                "Vawn Debut Project",
+                "Vawn",
+                "album",
+                "production",
+                None,
+                "DistroKid",
+                "in_progress",
+                "in_progress",
+                "pending",
+                "pending",
+                "pending",
+                None,
+                0,
+                "Starter release record. Replace with final title, date, and delivery status.",
+                now,
+                now,
+            ),
+        )
+
+    campaign_count = conn.execute("SELECT COUNT(*) AS c FROM campaigns").fetchone()["c"]
+    if campaign_count == 0:
+        now = "2026-05-16T00:00:00+00:00"
+        conn.execute(
+            """INSERT INTO campaigns
+               (id, name, artist, release_id, objective, status, start_date, end_date,
+                platforms, budget, spend_to_date, primary_metric, target_value, notes,
+                created_at, updated_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                "camp-vawn-rollout",
+                "Vawn Social Rollout",
+                "Vawn",
+                "rel-vawn-debut",
+                "awareness",
+                "active",
+                "2026-05-12",
+                None,
+                json.dumps(["instagram", "tiktok", "threads", "x", "bluesky", "facebook"]),
+                None,
+                0,
+                "successful_posts",
+                None,
+                "Starter campaign connected to the current social posting ledger.",
+                now,
+                now,
+            ),
+        )
+
+    approval_count = conn.execute("SELECT COUNT(*) AS c FROM approvals").fetchone()["c"]
+    if approval_count == 0:
+        now = "2026-05-16T00:00:00+00:00"
+        conn.execute(
+            """INSERT INTO approvals
+               (id, title, category, priority, status, requested_by, assigned_to,
+                due_at, linked_type, linked_id, decision_note, created_at, updated_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                "appr-release-readiness",
+                "Confirm release readiness checklist",
+                "release",
+                "high",
+                "open",
+                "Operations",
+                "CEO",
+                None,
+                "release",
+                "rel-vawn-debut",
+                None,
+                now,
+                now,
+            ),
+        )
 
 
 @contextmanager

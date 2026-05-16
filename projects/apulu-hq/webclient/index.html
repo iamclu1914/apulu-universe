@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Apulu Universe — Record Label Dashboard</title>
+<title>Apulu Universe â€” Record Label Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
@@ -11,7 +11,7 @@
   --bg:#0B0B0F;--surface:#121217;--surface-1:#16161D;--surface-2:#1C1C24;--surface-3:#23232A;
   --line:#23232A;--line-2:#2E2E38;--line-3:#3A3A46;
   --ink:#F5F5F7;--ink-2:#A1A1AA;--ink-3:#71717A;--ink-4:#52525B;
-  --accent:#7C3AED;--accent-2:#A78BFA;--accent-dim:rgba(124,58,237,0.12);--accent-glow:rgba(124,58,237,0.25);
+  --accent:#D6A93A;--accent-2:#F0C866;--accent-dim:rgba(214,169,58,0.12);--accent-glow:rgba(214,169,58,0.25);
   --pink:#EC4899;--pink-dim:rgba(236,72,153,0.12);
   --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.12);
   --cyan:#06B6D4;--cyan-dim:rgba(6,182,212,0.12);
@@ -177,6 +177,62 @@ a{color:inherit;text-decoration:none}
 .analytics-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .analytics-title{font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:var(--ink-2);text-transform:uppercase}
 .analytics-select{height:24px;padding:0 22px 0 9px;background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r-sm);font-size:10.5px;color:var(--ink-2);appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23A1A1AA' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 7px center;outline:none}
+
+/* social command center */
+.command-row{display:grid;grid-template-columns:1.55fr .95fr;gap:14px;align-items:start}
+.command-summary{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.command-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;background:var(--surface-1);border:1px solid var(--line);color:var(--ink-2)}
+.command-pill.ok{background:var(--green-dim);border-color:rgba(34,197,94,.28);color:var(--green)}
+.command-pill.attn{background:var(--red-dim);border-color:rgba(239,68,68,.28);color:var(--red)}
+.social-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--line)}
+.social-channel{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px;background:var(--surface-1);min-height:112px}
+.social-channel.attention{background:linear-gradient(180deg,rgba(239,68,68,.08),var(--surface-1));}
+.social-main{min-width:0}
+.social-name{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--ink)}
+.social-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);flex-shrink:0}
+.social-channel.attention .social-dot{background:var(--red);box-shadow:0 0 7px var(--red)}
+.social-meta{display:grid;grid-template-columns:78px 1fr;gap:3px 10px;margin-top:10px;font-size:10.5px}
+.social-meta span:nth-child(odd){color:var(--ink-4);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.social-meta span:nth-child(even){color:var(--ink-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.social-actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.social-link{font-size:10.5px;font-weight:800;color:var(--accent-2);text-transform:uppercase;letter-spacing:.06em}
+.social-link:hover{text-decoration:underline}
+.social-link.disabled{color:var(--ink-4);pointer-events:none;text-decoration:none}
+.command-queue{display:flex;flex-direction:column;gap:10px}
+.queue-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.queue-row:last-child{border-bottom:none}
+.queue-mark{width:8px;height:8px;border-radius:50%;margin-top:5px;background:var(--green);box-shadow:0 0 6px var(--green);flex-shrink:0}
+.queue-row.warn .queue-mark{background:var(--amber);box-shadow:0 0 6px var(--amber)}
+.queue-row.fail .queue-mark{background:var(--red);box-shadow:0 0 6px var(--red)}
+.queue-title{font-size:12px;font-weight:700;color:var(--ink)}
+.queue-sub{font-size:10.5px;color:var(--ink-3);margin-top:2px;line-height:1.45}
+.ops-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+.ops-list{display:flex;flex-direction:column;gap:10px}
+.ops-card{background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
+.ops-card.attention{border-color:rgba(239,68,68,.32);background:linear-gradient(180deg,rgba(239,68,68,.07),var(--surface-1))}
+.ops-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.ops-title{font-size:13px;font-weight:800;color:var(--ink);line-height:1.25}
+.ops-sub{font-size:10.5px;color:var(--ink-3);margin-top:2px}
+.ops-pill{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:3px 7px;border-radius:999px;background:var(--surface-3);color:var(--ink-2);white-space:nowrap}
+.ops-pill.green{background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.ops-pill.amber{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.ops-pill.red{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.ops-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ops-metric{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:8px}
+.ops-metric-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.ops-metric-value{font-size:12px;font-weight:800;color:var(--ink);margin-top:3px}
+.progress-track{height:7px;border-radius:999px;background:var(--surface-3);overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--green));border-radius:999px}
+.ops-actions{display:flex;gap:6px;flex-wrap:wrap}
+.mini-btn{height:26px;padding:0 9px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);font-size:10.5px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.mini-btn:hover{border-color:var(--accent);color:var(--ink)}
+.mini-btn.primary{background:var(--accent);border-color:var(--accent);color:#111}
+.calendar-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.calendar-day{background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r);padding:12px;min-height:120px}
+.calendar-date{font-size:10px;font-weight:800;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.calendar-item{font-size:11.5px;color:var(--ink-2);padding:7px 0;border-top:1px solid var(--line)}
+.calendar-item strong{color:var(--ink)}
+#view-projects > .section,#view-calendar > .section,#view-resources > .section{display:none}
 
 /* live activity */
 .live-pulse{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;letter-spacing:0.1em;color:var(--green);background:var(--green-dim);border:1px solid rgba(34,197,94,0.25);padding:2px 8px;border-radius:999px}
@@ -409,9 +465,23 @@ a{color:inherit;text-decoration:none}
   :root{--sidebar-w:220px;--comm-w:300px}
   .kpi-value{font-size:28px}
   .dept-grid{grid-template-columns:repeat(2,1fr)}
+  .command-row,.ops-grid{grid-template-columns:1fr}
+}
+@media(max-width:1200px){
+  :root{--comm-w:0px}
+  body{grid-template-columns:var(--sidebar-w) 1fr}
+  #comm-panel{display:none}
+  #banner{right:0}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:850px){
-  .analytics-row,.analytics-row.two-col{grid-template-columns:1fr}
+  body{grid-template-columns:1fr}
+  #sidebar{display:none}
+  #banner{left:0}
+  .topbar{padding:16px;align-items:flex-start;flex-direction:column}
+  .topbar-end{width:100%;justify-content:space-between}
+  .content{padding:8px 16px 20px}
+  .kpi-row,.analytics-row,.analytics-row.two-col,.command-row,.ops-grid,.social-board,.calendar-board{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -441,7 +511,7 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="sb-item" data-view="projects">
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg></span>
-      Projects
+      Releases
     </div>
     <div class="sb-item" data-view="chat">
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></span>
@@ -453,18 +523,18 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="sb-item" data-view="posts">
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4z"/><path d="M4 20h16"/><path d="M8 10l3 3 5-5"/></svg></span>
-      Posts <span class="sb-badge" id="sb-posts-today">—</span>
+      Posts <span class="sb-badge" id="sb-posts-today">â€”</span>
     </div>
     <div class="sb-item" data-view="resources">
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
-      Resources
+      Business
     </div>
     <div class="sb-item" data-view="settings">
       <span class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33h0a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51h0a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v0a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.69 1.69 0 00-1.51 1z"/></svg></span>
       Settings
     </div>
 
-    <!-- Department tree — full org chart in the sidebar -->
+    <!-- Department tree â€” full org chart in the sidebar -->
     <div class="sb-section-label">ORG CHART</div>
     <div class="sb-dept-tree" id="sb-dept-tree"></div>
   </nav>
@@ -495,8 +565,8 @@ a{color:inherit;text-decoration:none}
 <main id="main">
   <div class="topbar">
     <div class="topbar-title">
-      <h1>Record Label Dashboard</h1>
-      <p>CEO Command Center</p>
+      <h1>Apulu Command Center</h1>
+      <p>Label operations, publishing, agents, and incidents</p>
     </div>
     <div class="topbar-end">
       <select class="view-select" id="view-select">
@@ -524,24 +594,55 @@ a{color:inherit;text-decoration:none}
     <div class="view active" id="view-dashboard">
       <div class="kpi-row">
         <div class="kpi">
-          <div class="kpi-head"><span class="kpi-dot purple"></span><span class="kpi-label">Total Agents</span></div>
-          <div class="kpi-value" id="kpi-total">—</div>
-          <div class="kpi-sub" id="kpi-total-sub">Across 8 Departments</div>
+          <div class="kpi-head"><span class="kpi-dot purple"></span><span class="kpi-label">Posts Today</span></div>
+          <div class="kpi-value" id="kpi-total">â€”</div>
+          <div class="kpi-sub" id="kpi-total-sub">publishing ledger</div>
         </div>
         <div class="kpi green">
-          <div class="kpi-head"><span class="kpi-dot green"></span><span class="kpi-label">Active Projects</span></div>
+          <div class="kpi-head"><span class="kpi-dot green"></span><span class="kpi-label">Active Releases</span></div>
           <div class="kpi-value" id="kpi-projects">18</div>
-          <div class="kpi-sub up">+3 this week</div>
+          <div class="kpi-sub up">scheduled work</div>
         </div>
         <div class="kpi red">
-          <div class="kpi-head"><span class="kpi-dot red"></span><span class="kpi-label">Pending Tasks</span></div>
+          <div class="kpi-head"><span class="kpi-dot red"></span><span class="kpi-label">Needs Approval</span></div>
           <div class="kpi-value" id="kpi-pending">27</div>
-          <div class="kpi-sub warn">Requires Attention</div>
+          <div class="kpi-sub warn">CEO decisions</div>
         </div>
         <div class="kpi">
-          <div class="kpi-head"><span class="kpi-label">Label Revenue</span></div>
-          <div class="kpi-value" id="kpi-revenue">$2.48M</div>
-          <div class="kpi-sub up">+12.4% this month</div>
+          <div class="kpi-head"><span class="kpi-label">Operational Alerts</span></div>
+          <div class="kpi-value" id="kpi-revenue">--</div>
+          <div class="kpi-sub up" id="kpi-posts-sub">business risk</div>
+        </div>
+      </div>
+
+      <div class="command-row">
+        <div class="analytics-card">
+          <div class="analytics-head"><div class="analytics-title">CEO Decision Queue</div></div>
+          <div class="command-queue" id="command-queue"></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Release Pipeline</div>
+            <button class="mini-btn" onclick="createRelease()">Add Release</button>
+          </div>
+          <div class="ops-list" id="home-release-pipeline"></div>
+        </div>
+      </div>
+
+      <div class="command-row" style="margin-top:14px">
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Publishing Channels</div>
+            <div class="command-summary" id="social-summary"><span class="command-pill">Loading</span></div>
+          </div>
+          <div class="social-board" id="social-board"></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Campaign Performance</div>
+            <button class="mini-btn" onclick="createCampaign()">Add Campaign</button>
+          </div>
+          <div class="ops-list" id="home-campaign-performance"></div>
         </div>
       </div>
 
@@ -566,15 +667,15 @@ a{color:inherit;text-decoration:none}
 
       <div class="footer-quote">
         "One vision. One team. One label."
-        <div class="footer-quote-sub">— Lead. Communicate. Create.</div>
+        <div class="footer-quote-sub">â€” Lead. Communicate. Create.</div>
       </div>
     </div>
 
     <!-- ============ DEPARTMENT DETAIL VIEW ============ -->
     <div class="view" id="view-dept-detail">
-      <button class="view-back" onclick="setView('dashboard')">← Back to Dashboard</button>
+      <button class="view-back" onclick="setView('dashboard')">â† Back to Dashboard</button>
       <div class="dept-detail-head">
-        <div class="dept-detail-icon" id="dd-icon">🎵</div>
+        <div class="dept-detail-icon" id="dd-icon">ðŸŽµ</div>
         <div class="dept-detail-info">
           <div class="dept-detail-name" id="dd-name">Department</div>
           <div class="dept-detail-meta" id="dd-meta"></div>
@@ -592,12 +693,12 @@ a{color:inherit;text-decoration:none}
 
     <!-- ============ AGENT PROFILE VIEW ============ -->
     <div class="view" id="view-agent-profile">
-      <button class="view-back" onclick="setView('dashboard')">← Back to Dashboard</button>
+      <button class="view-back" onclick="setView('dashboard')">â† Back to Dashboard</button>
       <div class="agent-profile-head">
         <div class="agent-profile-avatar" id="ap-avatar"></div>
         <div class="agent-profile-info">
-          <div class="agent-profile-name" id="ap-name">—</div>
-          <div class="agent-profile-role" id="ap-role">—</div>
+          <div class="agent-profile-name" id="ap-name">â€”</div>
+          <div class="agent-profile-role" id="ap-role">â€”</div>
           <div class="profile-chips" id="ap-chips"></div>
         </div>
         <button class="dept-detail-btn" onclick="openAgentChat(state.activeAgent?.id)">
@@ -608,7 +709,7 @@ a{color:inherit;text-decoration:none}
       <div class="agent-profile-grid">
         <div class="profile-section">
           <div class="profile-section-head"><span>System Prompt</span><span style="font-size:10px;color:var(--ink-4);font-weight:500">Defines agent behavior</span></div>
-          <div class="profile-section-body"><pre class="prompt-text" id="ap-prompt">—</pre></div>
+          <div class="profile-section-body"><pre class="prompt-text" id="ap-prompt">â€”</pre></div>
         </div>
         <div class="profile-section">
           <div class="profile-section-head"><span>Functions (Scheduled Routines)</span><span class="sb-badge" id="ap-routine-count">0</span></div>
@@ -625,13 +726,13 @@ a{color:inherit;text-decoration:none}
         </div>
         <div class="chat-messages" id="chat-messages">
           <div class="empty-state">
-            <div class="empty-icon">💬</div>
+            <div class="empty-icon">ðŸ’¬</div>
             <div class="empty-text">No conversation selected</div>
             <div class="empty-hint">Pick a department or agent from the right panel</div>
           </div>
         </div>
         <div class="chat-composer">
-          <textarea id="chat-input" placeholder="Type a message…" rows="1" disabled></textarea>
+          <textarea id="chat-input" placeholder="Type a messageâ€¦" rows="1" disabled></textarea>
           <button class="send-btn" id="chat-send" disabled>Send</button>
         </div>
       </div>
@@ -639,10 +740,30 @@ a{color:inherit;text-decoration:none}
 
     <!-- ============ PLACEHOLDER VIEWS ============ -->
     <div class="view" id="view-projects">
-      <div class="section"><div class="section-head"><div class="section-title">Projects</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">🎼</div><div class="empty-text">Projects view</div><div class="empty-hint">Active label projects, releases, and campaigns</div></div></div>
+      <div class="ops-grid">
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Release Pipeline</div>
+            <button class="mini-btn primary" onclick="createRelease()">Add Release</button>
+          </div>
+          <div class="ops-list" id="projects-release-list"></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Campaign Command</div>
+            <button class="mini-btn primary" onclick="createCampaign()">Add Campaign</button>
+          </div>
+          <div class="ops-list" id="projects-campaign-list"></div>
+        </div>
+      </div>
+      <div class="section"><div class="section-head"><div class="section-title">Projects</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">ðŸŽ¼</div><div class="empty-text">Projects view</div><div class="empty-hint">Active label projects, releases, and campaigns</div></div></div>
     </div>
     <div class="view" id="view-calendar">
-      <div class="section"><div class="section-head"><div class="section-title">Calendar</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">📅</div><div class="empty-text">Calendar view</div><div class="empty-hint">Releases, sessions, meetings, deadlines</div></div></div>
+      <div class="analytics-card">
+        <div class="analytics-head"><div class="analytics-title">Label Calendar</div></div>
+        <div class="calendar-board" id="calendar-board"></div>
+      </div>
+      <div class="section"><div class="section-head"><div class="section-title">Calendar</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">ðŸ“…</div><div class="empty-text">Calendar view</div><div class="empty-hint">Releases, sessions, meetings, deadlines</div></div></div>
     </div>
     <div class="view" id="view-posts">
       <div class="section-head" style="margin-bottom:14px">
@@ -650,9 +771,9 @@ a{color:inherit;text-decoration:none}
         <input type="date" id="posts-date" class="view-select" style="height:32px;padding:0 12px;background-image:none" />
       </div>
       <div class="kpi-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px">
-        <div class="kpi"><div class="kpi-head"><span class="kpi-label">Total Attempts</span></div><div class="kpi-value" id="posts-total">—</div><div class="kpi-sub" id="posts-total-sub"></div></div>
-        <div class="kpi green"><div class="kpi-head"><span class="kpi-dot green"></span><span class="kpi-label">Posted</span></div><div class="kpi-value" id="posts-ok">—</div><div class="kpi-sub up" id="posts-ok-sub"></div></div>
-        <div class="kpi red"><div class="kpi-head"><span class="kpi-dot red"></span><span class="kpi-label">Failed</span></div><div class="kpi-value" id="posts-fail">—</div><div class="kpi-sub warn" id="posts-fail-sub"></div></div>
+        <div class="kpi"><div class="kpi-head"><span class="kpi-label">Total Attempts</span></div><div class="kpi-value" id="posts-total">â€”</div><div class="kpi-sub" id="posts-total-sub"></div></div>
+        <div class="kpi green"><div class="kpi-head"><span class="kpi-dot green"></span><span class="kpi-label">Posted</span></div><div class="kpi-value" id="posts-ok">â€”</div><div class="kpi-sub up" id="posts-ok-sub"></div></div>
+        <div class="kpi red"><div class="kpi-head"><span class="kpi-dot red"></span><span class="kpi-label">Failed</span></div><div class="kpi-value" id="posts-fail">â€”</div><div class="kpi-sub warn" id="posts-fail-sub"></div></div>
       </div>
       <div class="analytics-row two-col">
         <div class="analytics-card">
@@ -673,14 +794,31 @@ a{color:inherit;text-decoration:none}
         <div id="posts-failures" class="posts-list"></div>
       </div>
     </div>
+
     <div class="view" id="view-resources">
-      <div class="section"><div class="section-head"><div class="section-title">Resources</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">📁</div><div class="empty-text">Resources view</div><div class="empty-hint">Files, contracts, assets, documentation</div></div></div>
+      <div class="ops-grid">
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Business Operations</div>
+            <button class="mini-btn primary" onclick="createFinanceEntry('expense')">Add Expense</button>
+          </div>
+          <div id="finance-summary-panel"></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-head">
+            <div class="analytics-title">Finance Entries</div>
+            <button class="mini-btn" onclick="createFinanceEntry('revenue')">Add Revenue</button>
+          </div>
+          <div class="ops-list" id="finance-entry-list"></div>
+        </div>
+      </div>
+      <div class="section"><div class="section-head"><div class="section-title">Resources</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">ðŸ“</div><div class="empty-text">Resources view</div><div class="empty-hint">Files, contracts, assets, documentation</div></div></div>
     </div>
     <div class="view" id="view-departments">
       <div class="section"><div class="section-head"><div class="section-title">All Departments</div></div><div class="dept-grid" id="dept-grid-full"></div></div>
     </div>
     <div class="view" id="view-settings">
-      <div class="section"><div class="section-head"><div class="section-title">Settings</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">⚙</div><div class="empty-text">Settings</div><div class="empty-hint">Workspace, integrations, permissions</div></div></div>
+      <div class="section"><div class="section-head"><div class="section-title">Settings</div></div><div class="empty-state" style="min-height:280px"><div class="empty-icon">âš™</div><div class="empty-text">Settings</div><div class="empty-hint">Workspace, integrations, permissions</div></div></div>
     </div>
   </div>
 </main>
@@ -694,7 +832,7 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="comm-search">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="comm-search" placeholder="Search departments or agents…" oninput="filterComm(this.value)" />
+      <input type="text" id="comm-search" placeholder="Search departments or agentsâ€¦" oninput="filterComm(this.value)" />
     </div>
     <div class="comm-tabs">
       <div class="comm-tab active" data-tab="all">All</div>
@@ -721,12 +859,12 @@ a{color:inherit;text-decoration:none}
         <div class="qa-info"><div class="qa-name">Message Agent</div><div class="qa-desc">Send a direct message to any agent</div></div>
         <svg class="qa-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
-      <button class="qa-btn" onclick="alert('Voice calling — placeholder')">
+      <button class="qa-btn" onclick="alert('Voice calling â€” placeholder')">
         <div class="qa-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
         <div class="qa-info"><div class="qa-name">Voice Call</div><div class="qa-desc">Start a voice call with a department</div></div>
         <svg class="qa-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
-      <button class="qa-btn" onclick="alert('Video calling — placeholder')">
+      <button class="qa-btn" onclick="alert('Video calling â€” placeholder')">
         <div class="qa-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
         <div class="qa-info"><div class="qa-name">Video Call</div><div class="qa-desc">Start a video call with a department</div></div>
         <svg class="qa-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -739,13 +877,14 @@ a{color:inherit;text-decoration:none}
 const API=window.location.port==='5000'?'http://127.0.0.1:8741':'';
 const WS_URL=(()=>{try{const u=new URL(API||window.location.href);return`ws://${u.host}/ws`}catch{return null}})();
 
-// Dept metadata is loaded from /api/departments — falls back to defaults for unknown depts
-const DEFAULT_DEPT_META={icon:'🏢',color:'purple',description:'Department'};
+// Dept metadata is loaded from /api/departments â€” falls back to defaults for unknown depts
+const DEFAULT_DEPT_META={icon:'ðŸ¢',color:'purple',description:'Department'};
 
 const state={
   agents:[],agentById:{},departments:{},routines:[],
   deptList:[],deptById:{},
-  summary:null,
+  summary:null,command:null,social:null,postsSummary:null,
+  releases:[],campaigns:[],approvals:[],financeSummary:null,financeEntries:[],
   activeAgent:null,activeDept:null,threadId:null,
   view:'dashboard',ws:null,commTab:'all'
 };
@@ -768,18 +907,18 @@ function buildDepartments(){
   });
 }
 
-// Client-side fallback metadata (mirrors backend DEPT_META — used if /api/departments 404s on older backends)
+// Client-side fallback metadata (mirrors backend DEPT_META â€” used if /api/departments 404s on older backends)
 const FALLBACK_DEPT_META={
-  'board':{label:'Office of the Chairman',icon:'👑',color:'amber',description:'Executive leadership, vision, and final authority on signings and strategy',headName:'Clu'},
-  'cos':{label:'Legal & Business Affairs',icon:'⚖',color:'purple',description:'Contracts, licensing, publishing, clearances and artist relations',headName:'Nelly'},
-  'marketing':{label:'Marketing, Audience & Revenue',icon:'📣',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy',headName:'Letitia'},
-  'operations':{label:'Operations, Finance & Tech',icon:'⚙',color:'cyan',description:'Infrastructure, finance, royalties, partnerships and AI orchestration',headName:'Nari'},
-  'post-prod':{label:'Post-Production',icon:'🎚',color:'teal',description:'Mixing, mastering and quality control',headName:'Onyx'},
-  'production':{label:'A&R & Production',icon:'🎵',color:'pink',description:'Artist scouting, creative direction, songwriting and production',headName:'Timbo'},
-  'research':{label:'Discovery & Research',icon:'🔍',color:'lime',description:'Streaming/social data mining, trend analysis and breakout signal detection',headName:'Rhythm'}
+  'board':{label:'Office of the Chairman',icon:'ðŸ‘‘',color:'amber',description:'Executive leadership, vision, and final authority on signings and strategy',headName:'Clu'},
+  'cos':{label:'Legal & Business Affairs',icon:'âš–',color:'purple',description:'Contracts, licensing, publishing, clearances and artist relations',headName:'Nelly'},
+  'marketing':{label:'Marketing, Audience & Revenue',icon:'ðŸ“£',color:'blue',description:'Campaigns, fan acquisition, content, publicity and streaming strategy',headName:'Letitia'},
+  'operations':{label:'Operations, Finance & Tech',icon:'âš™',color:'cyan',description:'Infrastructure, finance, royalties, partnerships and AI orchestration',headName:'Nari'},
+  'post-prod':{label:'Post-Production',icon:'ðŸŽš',color:'teal',description:'Mixing, mastering and quality control',headName:'Onyx'},
+  'production':{label:'A&R & Production',icon:'ðŸŽµ',color:'pink',description:'Artist scouting, creative direction, songwriting and production',headName:'Timbo'},
+  'research':{label:'Discovery & Research',icon:'ðŸ”',color:'lime',description:'Streaming/social data mining, trend analysis and breakout signal detection',headName:'Rhythm'}
 };
 
-// Resolve a department's head agent — uses API-provided headAgentId, else falls back to FALLBACK_DEPT_META[id].headName
+// Resolve a department's head agent â€” uses API-provided headAgentId, else falls back to FALLBACK_DEPT_META[id].headName
 function deptHead(deptId){
   const d=state.deptById[deptId];
   if(d&&d.headAgentId)return state.agentById[d.headAgentId]||null;
@@ -817,7 +956,7 @@ function deriveDepartments(){
   const order=['board','cos','marketing','operations','post-prod','production','research'];
   const all=[...new Set([...order,...Object.keys(groups)])];
   state.deptList=all.filter(id=>groups[id]).map(id=>{
-    const meta=FALLBACK_DEPT_META[id]||{label:id,icon:'🏢',color:'purple',description:id};
+    const meta=FALLBACK_DEPT_META[id]||{label:id,icon:'ðŸ¢',color:'purple',description:id};
     const head=meta.headName?state.agents.find(a=>a.display_name===meta.headName):null;
     return {
       id,name:meta.label,icon:meta.icon,color:meta.color,description:meta.description,
@@ -865,8 +1004,42 @@ async function loadRoutines(){
   try{const r=await fetch(API+'/api/routines').then(r=>r.json());state.routines=Array.isArray(r)?r:[]}catch{state.routines=[]}
 }
 
+async function loadCommandCenter(){
+  try{
+    const r=await fetch(API+'/api/command/summary').then(r=>r.json());
+    state.command=r||null;
+    state.releases=r?.releases||[];
+    state.campaigns=r?.campaigns||[];
+    state.approvals=r?.approvals||[];
+    state.financeSummary=r?.finance||null;
+    state.postsSummary=r?.posts||state.postsSummary;
+  }catch{state.command=null}
+}
+
+async function loadLabelOps(){
+  const safe=async(url,fallback)=>{try{return await fetch(API+url).then(r=>r.json())}catch{return fallback}};
+  const [releases,campaigns,approvals,financeSummary,financeEntries]=await Promise.all([
+    safe('/api/releases',[]),
+    safe('/api/campaigns',[]),
+    safe('/api/approvals',[]),
+    safe('/api/finance/summary',null),
+    safe('/api/finance/entries',[])
+  ]);
+  state.releases=Array.isArray(releases)?releases:[];
+  state.campaigns=Array.isArray(campaigns)?campaigns:[];
+  state.approvals=Array.isArray(approvals)?approvals:[];
+  state.financeSummary=financeSummary;
+  state.financeEntries=Array.isArray(financeEntries)?financeEntries:[];
+}
+
 function renderAll(){
   renderKpi();
+  renderSocialCommand();
+  renderCommandQueue();
+  renderReleasePipeline();
+  renderCampaignPerformance();
+  renderFinancePanels();
+  renderCalendarBoard();
   renderDeptGrid();
   renderDeptGridFull();
   renderDeptTree();
@@ -897,52 +1070,50 @@ function renderDeptTree(){
     const headId=d.headAgentId;
     return `<div class="sb-dept-group">
       <div class="sb-dept-head ${collapsed?'collapsed':''}" onclick="toggleDeptInTree('${escHtml(d.id)}')">
-        <span class="sb-dept-caret">▾</span>
+        <span class="sb-dept-caret">â–¾</span>
         <span class="sb-dept-icon color-${d.color}">${d.icon}</span>
         <span class="sb-dept-name">${escHtml(d.name)}</span>
         <span class="sb-dept-count">${agents.length}</span>
       </div>
       ${collapsed?'':`<div class="sb-dept-agents">${agents.map(a=>{
         const isHead=a.id===headId;
-        return `<div class="sb-agent-row ${a.enabled?'online':'offline'}" onclick="event.stopPropagation();viewAgent('${escHtml(a.id)}')" title="${escHtml(a.display_name)} — ${escHtml(a.role||'')}">
+        return `<div class="sb-agent-row ${a.enabled?'online':'offline'}" onclick="event.stopPropagation();viewAgent('${escHtml(a.id)}')" title="${escHtml(a.display_name)} â€” ${escHtml(a.role||'')}">
           <span class="sb-agent-dot"></span>
           <span class="sb-agent-name">${escHtml(a.display_name)}</span>
           ${isHead?'<span class="sb-agent-head-pill">HEAD</span>':''}
         </div>`;
       }).join('')}</div>`}
     </div>`;
-  }).join('')||'<div class="sb-dept-empty">Loading departments…</div>';
+  }).join('')||'<div class="sb-dept-empty">Loading departmentsâ€¦</div>';
 }
 
 function renderKpi(){
   const s=state.summary||deriveSummary()||{};
-  const total=s.totalAgents||state.agents.length||0;
-  const depts=s.totalDepartments||state.deptList.length||0;
-  document.getElementById('kpi-total').textContent=total;
-  document.getElementById('kpi-total-sub').textContent=`Across ${depts} Department${depts===1?'':'s'}`;
-  // "Active Projects" = active routines (their actual scheduled work)
-  document.getElementById('kpi-projects').textContent=s.activeRoutines??'—';
+  const k=state.command?.kpis||{};
+  const ps=state.postsSummary||{};
+  document.getElementById('kpi-total').textContent=k.postsToday??ps.succeeded??'--';
+  document.getElementById('kpi-total-sub').textContent=`${ps.failed||state.command?.alerts?.postFailuresToday||0} failed today`;
+  document.getElementById('kpi-projects').textContent=k.activeReleases??state.releases.filter(r=>!['released','archived'].includes(r.status)).length??'--';
   const projectsKpi=document.querySelector('#view-dashboard .kpi:nth-child(2)');
   if(projectsKpi){
-    projectsKpi.querySelector('.kpi-label').textContent='Active Routines';
-    projectsKpi.querySelector('.kpi-sub').textContent=`${s.firesToday||0} fires today`;
+    projectsKpi.querySelector('.kpi-label').textContent='Active Releases';
+    projectsKpi.querySelector('.kpi-sub').textContent=`${state.campaigns.filter(c=>c.status==='active').length} active campaigns`;
   }
-  document.getElementById('kpi-pending').textContent=s.pendingTasks??'—';
+  document.getElementById('kpi-pending').textContent=k.needsApproval??state.approvals.filter(a=>a.status==='open').length??'--';
   const pendingKpi=document.querySelector('#view-dashboard .kpi:nth-child(3)');
   if(pendingKpi){
-    pendingKpi.querySelector('.kpi-sub').textContent=(s.departmentAlerts||0)+' alerts · '+((s.pendingTasks||0)-(s.departmentAlerts||0))+' failures';
+    pendingKpi.querySelector('.kpi-sub').textContent='CEO decisions';
   }
-  document.getElementById('kpi-revenue').textContent=`${s.totalRoutines||0}`;
+  document.getElementById('kpi-revenue').textContent=`${k.operationalAlerts??s.pendingTasks??'--'}`;
   const revKpi=document.querySelector('#view-dashboard .kpi:nth-child(4)');
   if(revKpi){
-    revKpi.querySelector('.kpi-label').textContent='Total Routines';
-    revKpi.querySelector('.kpi-sub').textContent=`${s.activeRoutines||0} enabled`;
+    revKpi.querySelector('.kpi-label').textContent='Operational Alerts';
+    revKpi.querySelector('.kpi-sub').textContent=`${k.activeRoutines??s.activeRoutines??0} active routines`;
   }
 }
-
 function renderDeptGrid(){
   const grid=document.getElementById('dept-grid');
-  if(!grid)return;  // dashboard no longer hosts the dept grid — sidebar tree takes its place
+  if(!grid)return;  // dashboard no longer hosts the dept grid â€” sidebar tree takes its place
   grid.innerHTML=state.deptList.map(d=>{
     const agents=state.departments[d.id]||[];
     const count=agents.length;
@@ -955,7 +1126,7 @@ function renderDeptGrid(){
         <div class="dept-icon color-${d.color}">${d.icon}</div>
         <div class="dept-info">
           <div class="dept-name">${escHtml(d.name)}</div>
-          <div class="dept-count">${count} Agent${count===1?'':'s'} · ${d.onlineAgentCount||0} online</div>
+          <div class="dept-count">${count} Agent${count===1?'':'s'} Â· ${d.onlineAgentCount||0} online</div>
         </div>
       </div>
       <div class="dept-desc">${escHtml(d.description)}</div>
@@ -968,7 +1139,9 @@ function renderDeptGrid(){
 function renderDeptGridFull(){
   const grid=document.getElementById('dept-grid-full');
   if(!grid)return;
-  grid.innerHTML=document.getElementById('dept-grid').innerHTML;
+  const source=document.getElementById('dept-grid');
+  if(!source)return;
+  grid.innerHTML=source.innerHTML;
 }
 
 function renderAllAgents(){
@@ -1002,7 +1175,7 @@ function agentCardHtml(a,color){
     </div>
     <div class="agent-meta">
       <span><strong>${a.enabled?'Active':'Off'}</strong></span>
-      <span>·</span>
+      <span>Â·</span>
       <span>${escHtml(a.adapter_type||'agent')}</span>
     </div>
   </div>`;
@@ -1014,7 +1187,7 @@ function renderCommList(){
   let items=[];
   if(tab==='all'||tab==='departments'){
     state.deptList.forEach(d=>{
-      items.push({type:'dept',name:d.name,meta:`${d.agentCount} agents · ${d.onlineAgentCount} online`,icon:d.icon,color:d.color,onClick:`viewDept('${escHtml(d.id)}')`});
+      items.push({type:'dept',name:d.name,meta:`${d.agentCount} agents Â· ${d.onlineAgentCount} online`,icon:d.icon,color:d.color,onClick:`viewDept('${escHtml(d.id)}')`});
     });
   }
   if(tab==='all'||tab==='agents'||tab==='direct'){
@@ -1055,7 +1228,7 @@ function renderTopAgents(){
   }).join('');
 }
 
-// In-memory task list — recomputed on every render
+// In-memory task list â€” recomputed on every render
 state.tasks=[];
 
 async function renderTasks(){
@@ -1093,7 +1266,7 @@ async function renderTasks(){
       items.push(buildTask(ownerId,{
         id:'fail:'+f.id,
         title:`Failed: ${f.routine_name||f.routine_id}`,
-        sub:f.outcome+(f.duration_ms?` · ${(f.duration_ms/1000).toFixed(1)}s`:''),
+        sub:f.outcome+(f.duration_ms?` Â· ${(f.duration_ms/1000).toFixed(1)}s`:''),
         pri:'high',
         context:`Routine "${f.routine_name||f.routine_id}" failed (${f.outcome}).`,
       }));
@@ -1114,7 +1287,7 @@ async function renderTasks(){
     });
     state.tasks=items;
     if(!items.length){
-      root.innerHTML='<div class="empty-state" style="padding:16px"><div class="empty-text">All clear — no failures or DLQ items</div></div>';
+      root.innerHTML='<div class="empty-state" style="padding:16px"><div class="empty-text">All clear â€” no failures or DLQ items</div></div>';
       return;
     }
     root.innerHTML=items.map((t,idx)=>{
@@ -1123,10 +1296,10 @@ async function renderTasks(){
       const headName=head?head.display_name:'Unassigned';
       const headInit=head?initials(head.display_name):'?';
       const headColor=head?agentColorVar(deptColor(head.department)):'var(--ink-3)';
-      // Show routing if head and direct differ (i.e. CEO → Head ↳ Team Member)
+      // Show routing if head and direct differ (i.e. CEO â†’ Head â†³ Team Member)
       const showRouting=head&&direct&&head.id!==direct.id;
       const routingHtml=showRouting
-        ? `<div class="task-route-arrow">↳ owned by <strong>${escHtml(direct.display_name)}</strong> <span style="color:var(--ink-4)">(${escHtml(direct.role||'')})</span></div>`
+        ? `<div class="task-route-arrow">â†³ owned by <strong>${escHtml(direct.display_name)}</strong> <span style="color:var(--ink-4)">(${escHtml(direct.role||'')})</span></div>`
         : '';
       return `<div class="task-row" data-task-idx="${idx}">
         <div class="task-info">
@@ -1139,7 +1312,7 @@ async function renderTasks(){
               ${head&&showRouting?'<span class="task-head-badge">HEAD</span>':''}
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
             </div>
-            <button class="task-reassign-btn" onclick="event.stopPropagation();toggleReassign(${idx})" title="Reassign">↻</button>
+            <button class="task-reassign-btn" onclick="event.stopPropagation();toggleReassign(${idx})" title="Reassign">â†»</button>
           </div>
           ${routingHtml}
           <div class="task-reassign-menu" id="reassign-menu-${idx}"></div>
@@ -1196,7 +1369,7 @@ document.addEventListener('click',e=>{
   }
 });
 
-// Live agent activity — replaces the mock line chart with what agents are actually doing
+// Live agent activity â€” replaces the mock line chart with what agents are actually doing
 async function renderActivity(){
   const root=document.getElementById('activity-feed');
   if(!root)return;
@@ -1209,7 +1382,7 @@ async function renderActivity(){
       recent=data.recent||[];
     }
   }catch{}
-  // Fallback for old backends — derive from /api/dispatches (will lack 'in-progress' detection
+  // Fallback for old backends â€” derive from /api/dispatches (will lack 'in-progress' detection
   // since old backend may not return ended_at=null rows, but we still get recent activity)
   if(!inProgress.length&&!recent.length){
     try{
@@ -1226,22 +1399,22 @@ async function renderActivity(){
   }
   root.innerHTML=`<div class="activity-list">${items.map(d=>{
     const agent=d.agent_id?state.agentById[d.agent_id]:null;
-    const aName=d.agent_name||(agent?agent.display_name:'—');
+    const aName=d.agent_name||(agent?agent.display_name:'â€”');
     const dept=d.agent_department||(agent?agent.department:'');
     const color=deptColor(dept);
     const colorVar=agentColorVar(color);
     const init=initials(aName);
     const status=d._status;
     const isRunning=status==='running';
-    const statusLabel=isRunning?'WORKING':(status==='success'?'DONE':(status==='shadow_ok'?'SHADOW':(status==='failure'||status==='fail'?'FAILED':status||'—')));
+    const statusLabel=isRunning?'WORKING':(status==='success'?'DONE':(status==='shadow_ok'?'SHADOW':(status==='failure'||status==='fail'?'FAILED':status||'â€”')));
     const statusClass=isRunning?'running':(status==='success'?'success':(status==='shadow_ok'?'shadow':(status==='failure'||status==='fail'?'fail':'')));
-    const dur=d.duration_ms?` · ${(d.duration_ms/1000).toFixed(1)}s`:'';
+    const dur=d.duration_ms?` Â· ${(d.duration_ms/1000).toFixed(1)}s`:'';
     const when=isRunning?'now':relTime(d.started_at);
-    // Resolve routine description — backend may not return it (old version),
+    // Resolve routine description â€” backend may not return it (old version),
     // so fall back to looking it up client-side from state.routines
     const routineFromState=state.routines.find(r=>r.id===d.routine_id);
     const description=d.routine_description||(routineFromState&&routineFromState.description)||'';
-    const routineName=d.routine_name||(routineFromState&&routineFromState.display_name)||d.routine_id||'—';
+    const routineName=d.routine_name||(routineFromState&&routineFromState.display_name)||d.routine_id||'â€”';
     const onclick=agent?`onclick="viewAgent('${escHtml(agent.id)}')"`:'';
     return `<div class="activity-row ${statusClass}" ${onclick}>
       <div class="activity-avatar" style="background:linear-gradient(135deg,${colorVar},#3a1670)">
@@ -1254,7 +1427,7 @@ async function renderActivity(){
           <span class="activity-status-pill ${statusClass}">${statusLabel}</span>
           <span class="activity-time">${when}${dur}</span>
         </div>
-        <div class="activity-task">${isRunning?'Working on: ':''}<strong>${escHtml(routineName)}</strong>${description?' — '+escHtml(description):''}</div>
+        <div class="activity-task">${isRunning?'Working on: ':''}<strong>${escHtml(routineName)}</strong>${description?' â€” '+escHtml(description):''}</div>
       </div>
     </div>`;
   }).join('')}</div>`;
@@ -1274,17 +1447,160 @@ function setView(v){
     el.classList.toggle('active',el.dataset.view===v||(v==='dept-detail'&&el.dataset.view==='departments'));
   });
   if(v==='posts')loadPosts();
+  if(['projects','calendar','resources'].includes(v))refreshCommandViews();
 }
 
 const PLATFORM_META={
-  x:{icon:'𝕏',color:'#ffffff'},
-  bluesky:{icon:'🦋',color:'#3B82F6'},
-  instagram:{icon:'📷',color:'#EC4899'},
+  x:{icon:'ð•',color:'#ffffff'},
+  bluesky:{icon:'ðŸ¦‹',color:'#3B82F6'},
+  instagram:{icon:'ðŸ“·',color:'#EC4899'},
   threads:{icon:'@',color:'#A1A1AA'},
-  tiktok:{icon:'♬',color:'#06B6D4'},
+  tiktok:{icon:'â™¬',color:'#06B6D4'},
   facebook:{icon:'f',color:'#3B82F6'},
   unknown:{icon:'?',color:'#71717A'},
 };
+
+function relTime(value){
+  if(!value)return '--';
+  const t=new Date(value).getTime();
+  if(!Number.isFinite(t))return '--';
+  const mins=Math.max(0,Math.round((Date.now()-t)/60000));
+  if(mins<1)return 'now';
+  if(mins<60)return `${mins}m`;
+  const hours=Math.round(mins/60);
+  if(hours<48)return `${hours}h`;
+  return `${Math.round(hours/24)}d`;
+}
+
+async function loadSocialPlatforms(){
+  try{
+    const res=await fetch(API+'/api/social/platforms');
+    state.social=res.ok?await res.json():null;
+  }catch{state.social=null}
+}
+
+function renderSocialCommand(){
+  const board=document.getElementById('social-board');
+  const summary=document.getElementById('social-summary');
+  if(!board||!summary)return;
+  const platforms=state.social?.platforms||[];
+  const s=state.social?.summary||{};
+  summary.innerHTML=`<span class="command-pill ok">${s.wired??0} wired</span><span class="command-pill ${s.attention?'attn':''}">${s.attention??0} attention</span>`;
+  if(!platforms.length){
+    board.innerHTML='<div class="empty-text" style="padding:14px;color:var(--ink-4)">Social publishing status unavailable</div>';
+    return;
+  }
+  board.innerHTML=platforms.map(p=>{
+    const attention=p.status==='attention';
+    const media=(p.media_types&&p.media_types.length)?p.media_types.join('/'): '--';
+    const postLink=p.last_post_url
+      ?`<a class="social-link" href="${escHtml(p.last_post_url)}" target="_blank" rel="noopener">Open post</a>`
+      :p.last_post_id?`<span class="social-link disabled" title="${escHtml(p.last_post_id)}">Post id</span>`:'<span class="social-link disabled">No post link</span>';
+    const site=p.account_url
+      ?`<a class="social-link" href="${escHtml(p.account_url)}" target="_blank" rel="noopener">Website</a>`
+      :'<span class="social-link disabled">Website</span>';
+    return `<div class="social-channel ${attention?'attention':''}">
+      <div class="social-main">
+        <div class="social-name"><span class="social-dot"></span><span>${escHtml(p.label)}</span></div>
+        <div class="social-meta">
+          <span>Attempt</span><span>${relTime(p.last_attempt_at)}</span>
+          <span>24H</span><span>${p.ok_24h||0} ok / ${p.fail_24h||0} fail</span>
+          <span>Media</span><span>${escHtml(media)}</span>
+          <span>Account</span><span>${escHtml(p.website_label||'--')}</span>
+          <span>Next</span><span>${escHtml(p.next_scheduled_post?.routine||'--')}</span>
+          <span>Issue</span><span title="${escHtml(p.last_error||'')}">${escHtml(p.last_error||'--')}</span>
+        </div>
+      </div>
+      <div class="social-actions">${site}${postLink}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderCommandQueue(){
+  const root=document.getElementById('command-queue');
+  if(!root)return;
+  const approvals=state.approvals.filter(a=>a.status==='open');
+  const alerts=state.command?.alerts||{};
+  const rows=approvals.length?approvals.slice(0,6).map(a=>({
+    kind:a.priority==='urgent'||a.priority==='high'?'fail':'warn',
+    title:a.title,
+    sub:`${a.category} Â· ${a.priority} Â· ${a.assigned_to||'CEO'}`,
+    id:a.id
+  })):[
+    {kind:(alerts.socialAttention||0)?'fail':'ok',title:(alerts.socialAttention||0)?'Publishing attention':'Publishing channels online',sub:`${state.social?.summary?.ok_24h||0} successful and ${state.social?.summary?.fail_24h||0} failed attempts in the last 24h`},
+    {kind:(alerts.postFailuresToday||0)?'fail':'ok',title:(alerts.postFailuresToday||0)?'Today has failed posts':'Today posts are clean',sub:`${state.postsSummary?.succeeded||0} successful posts today`},
+    {kind:(alerts.dlq||0)?'fail':'ok',title:'Automation queue',sub:`${alerts.dlq||0} dead-letter entries`}
+  ];
+  root.innerHTML=rows.map(r=>`<div class="queue-row ${r.kind==='ok'?'':r.kind}">
+    <span class="queue-mark"></span>
+    <div style="flex:1"><div class="queue-title">${escHtml(r.title)}</div><div class="queue-sub">${escHtml(r.sub)}</div>${r.id?`<div class="ops-actions" style="margin-top:6px"><button class="mini-btn" onclick="patchApproval('${escHtml(r.id)}','approved')">Approve</button><button class="mini-btn" onclick="patchApproval('${escHtml(r.id)}','deferred')">Defer</button><button class="mini-btn" onclick="patchApproval('${escHtml(r.id)}','rejected')">Reject</button></div>`:''}</div>
+  </div>`).join('');
+}
+
+function fmtMoney(v){return v==null||v===''?'--':Number(v).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:0})}
+function statusClass(status){return ['ready','scheduled','active','approved','released'].includes(status)?'green':(['blocked','attention','urgent','high','open'].includes(status)?'red':'amber')}
+
+function releaseCard(r){
+  const blockers=(r.blockers||[]).slice(0,3).join(', ')||'No blockers';
+  return `<div class="ops-card ${r.readiness<60?'attention':''}">
+    <div class="ops-top"><div><div class="ops-title">${escHtml(r.title)}</div><div class="ops-sub">${escHtml(r.artist)} Â· ${escHtml(r.type)} Â· ${escHtml(r.release_date||'date not set')} Â· ${escHtml(r.distributor||'DistroKid')}</div></div><span class="ops-pill ${statusClass(r.status)}">${escHtml(r.status)}</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:${r.readiness||0}%"></div></div>
+    <div class="ops-meta">
+      <div class="ops-metric"><div class="ops-metric-label">Ready</div><div class="ops-metric-value">${r.readiness||0}%</div></div>
+      <div class="ops-metric"><div class="ops-metric-label">Next</div><div class="ops-metric-value">${escHtml(r.next_milestone||'--')}</div></div>
+      <div class="ops-metric"><div class="ops-metric-label">Spend</div><div class="ops-metric-value">${fmtMoney(r.spend_to_date)}</div></div>
+    </div>
+    <div class="ops-sub">Blockers: ${escHtml(blockers)}</div>
+    <div class="ops-actions"><button class="mini-btn" onclick="patchRelease('${escHtml(r.id)}',{status:'ready'})">Mark Ready</button><button class="mini-btn" onclick="editReleaseNotes('${escHtml(r.id)}')">Edit Notes</button></div>
+  </div>`;
+}
+
+function campaignCard(c){
+  const platforms=(c.platforms||[]).join(', ')||'no platforms';
+  return `<div class="ops-card ${c.status==='paused'?'attention':''}">
+    <div class="ops-top"><div><div class="ops-title">${escHtml(c.name)}</div><div class="ops-sub">${escHtml(c.artist)} Â· ${escHtml(c.objective)}</div></div><span class="ops-pill ${statusClass(c.status)}">${escHtml(c.status)}</span></div>
+    <div class="ops-meta">
+      <div class="ops-metric"><div class="ops-metric-label">Budget</div><div class="ops-metric-value">${fmtMoney(c.budget)}</div></div>
+      <div class="ops-metric"><div class="ops-metric-label">Spend</div><div class="ops-metric-value">${fmtMoney(c.spend_to_date)}</div></div>
+      <div class="ops-metric"><div class="ops-metric-label">Metric</div><div class="ops-metric-value">${escHtml(c.primary_metric||'--')}</div></div>
+    </div>
+    <div class="ops-sub">Platforms: ${escHtml(platforms)}</div>
+    <div class="ops-actions"><button class="mini-btn" onclick="patchCampaign('${escHtml(c.id)}',{status:'active'})">Activate</button><button class="mini-btn" onclick="patchCampaign('${escHtml(c.id)}',{status:'paused'})">Pause</button></div>
+  </div>`;
+}
+
+function renderReleasePipeline(){
+  const html=state.releases.length?state.releases.map(releaseCard).join(''):'<div class="empty-text">No releases yet</div>';
+  ['home-release-pipeline','projects-release-list'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=html});
+}
+
+function renderCampaignPerformance(){
+  const html=state.campaigns.length?state.campaigns.map(campaignCard).join(''):'<div class="empty-text">No campaigns yet</div>';
+  ['home-campaign-performance','projects-campaign-list'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=html});
+}
+
+function renderFinancePanels(){
+  const f=state.financeSummary||{};
+  const panel=`<div class="ops-meta">
+    <div class="ops-metric"><div class="ops-metric-label">Monthly Spend</div><div class="ops-metric-value">${fmtMoney(f.monthly_spend)}</div></div>
+    <div class="ops-metric"><div class="ops-metric-label">Revenue</div><div class="ops-metric-value">${fmtMoney(f.monthly_revenue)}</div></div>
+    <div class="ops-metric"><div class="ops-metric-label">Runway</div><div class="ops-metric-value">${f.estimated_runway_months??'--'}</div></div>
+  </div><div class="ops-sub" style="margin-top:10px">Unassigned expenses: ${f.unassigned_expenses?.count||0} Â· ${fmtMoney(f.unassigned_expenses?.amount)}</div>`;
+  ['home-finance-panel','finance-summary-panel'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=panel});
+  const list=document.getElementById('finance-entry-list');
+  if(list)list.innerHTML=(state.financeEntries||[]).slice(0,20).map(e=>`<div class="ops-card"><div class="ops-top"><div><div class="ops-title">${escHtml(e.vendor||e.source||e.category)}</div><div class="ops-sub">${escHtml(e.entry_date)} Â· ${escHtml(e.entry_type)}</div></div><span class="ops-pill ${e.entry_type==='revenue'?'green':'amber'}">${fmtMoney(e.amount)}</span></div></div>`).join('')||'<div class="empty-text">No finance entries yet</div>';
+}
+
+function renderCalendarBoard(){
+  const root=document.getElementById('calendar-board');
+  if(!root)return;
+  const items=[
+    ...state.releases.filter(r=>r.release_date).map(r=>({date:r.release_date,type:'Release',title:r.title})),
+    ...state.campaigns.filter(c=>c.start_date).map(c=>({date:c.start_date,type:'Campaign',title:c.name})),
+    ...state.approvals.filter(a=>a.due_at).map(a=>({date:a.due_at,type:'Approval',title:a.title}))
+  ].sort((a,b)=>String(a.date).localeCompare(String(b.date))).slice(0,9);
+  root.innerHTML=items.length?items.map(i=>`<div class="calendar-day"><div class="calendar-date">${escHtml(i.date)}</div><div class="calendar-item"><strong>${escHtml(i.type)}</strong><br>${escHtml(i.title)}</div></div>`).join(''):'<div class="empty-text">No dated releases, campaigns, or approvals yet</div>';
+}
 
 async function loadPosts(){
   const dateInput=document.getElementById('posts-date');
@@ -1299,6 +1615,9 @@ async function loadPosts(){
     return;
   }
   const s=data.summary||{};
+  state.postsSummary=s;
+  renderKpi();
+  renderCommandQueue();
   document.getElementById('posts-total').textContent=s.total??0;
   document.getElementById('posts-ok').textContent=s.succeeded??0;
   document.getElementById('posts-fail').textContent=s.failed??0;
@@ -1306,7 +1625,7 @@ async function loadPosts(){
   document.getElementById('posts-total-sub').textContent=`${rate}% success rate`;
   document.getElementById('posts-ok-sub').textContent=`across ${Object.keys(s.by_platform||{}).length} platform(s)`;
   document.getElementById('posts-fail-sub').textContent=s.failed?'requires attention':'all clear';
-  document.getElementById('sb-posts-today').textContent=s.succeeded??'—';
+  document.getElementById('sb-posts-today').textContent=s.succeeded??'â€”';
   // By platform
   const bp=s.by_platform||{};
   document.getElementById('posts-by-platform').innerHTML=Object.entries(bp).map(([p,v])=>{
@@ -1343,7 +1662,7 @@ async function loadPosts(){
         <div class="post-platform" style="background:${meta.color}22;color:${meta.color}">${meta.icon}</div>
         <div class="post-info">
           <div class="post-caption">${escHtml(u.caption_preview||'(no caption)')}</div>
-          <div class="post-meta"><span>${escHtml(u.cron)}</span> · <span>${time}</span> · <a href="${escHtml(u.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">View on ${escHtml(u.platform)} ↗</a></div>
+          <div class="post-meta"><span>${escHtml(u.cron)}</span> Â· <span>${time}</span> Â· <a href="${escHtml(u.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">View on ${escHtml(u.platform)} â†—</a></div>
         </div>
       </div>`;
     }).join('')
@@ -1365,11 +1684,11 @@ async function loadPosts(){
         <div class="post-platform" style="background:${meta.color}22;color:${meta.color}">${meta.icon}</div>
         <div class="post-info">
           <div class="post-caption">${escHtml(String(reason).slice(0,200))}</div>
-          <div class="post-meta"><span>${escHtml(e.cron||'?')}</span> · <span>${escHtml(p)}</span> · <span>${time}</span> · <span style="color:var(--red)">${escHtml(e.event||'failed')}</span></div>
+          <div class="post-meta"><span>${escHtml(e.cron||'?')}</span> Â· <span>${escHtml(p)}</span> Â· <span>${time}</span> Â· <span style="color:var(--red)">${escHtml(e.event||'failed')}</span></div>
         </div>
       </div>`;
     }).join('')
-    :'<div class="empty-state" style="padding:24px"><div class="empty-text">No failures today — clean run</div></div>';
+    :'<div class="empty-state" style="padding:24px"><div class="empty-text">No failures today â€” clean run</div></div>';
 }
 
 document.getElementById('posts-date')?.addEventListener('change',loadPosts);
@@ -1381,10 +1700,10 @@ function viewDept(deptId){
   document.getElementById('dd-icon').className='dept-detail-icon color-'+meta.color;
   document.getElementById('dd-icon').textContent=meta.icon;
   document.getElementById('dd-name').textContent=meta.name;
-  document.getElementById('dd-meta').textContent=`${agents.length} agent${agents.length===1?'':'s'} · ${meta.description}`;
+  document.getElementById('dd-meta').textContent=`${agents.length} agent${agents.length===1?'':'s'} Â· ${meta.description}`;
   document.getElementById('dd-agents').innerHTML=agents.length
     ?agents.map(a=>agentCardHtml(a,meta.color)).join('')
-    :'<div class="empty-state" style="grid-column:1/-1;padding:40px"><div class="empty-icon">👥</div><div class="empty-text">No agents in this department yet</div></div>';
+    :'<div class="empty-state" style="grid-column:1/-1;padding:40px"><div class="empty-icon">ðŸ‘¥</div><div class="empty-text">No agents in this department yet</div></div>';
   setView('dept-detail');
 }
 
@@ -1400,13 +1719,13 @@ async function viewAgent(agentId){
   document.getElementById('ap-role').textContent=a.role||'Agent';
   document.getElementById('ap-chips').innerHTML=`
     <span class="profile-chip dept">${meta.icon} ${escHtml(meta.name)}</span>
-    <span class="profile-chip adapter">⚙ ${escHtml(a.adapter_type||'unknown')}</span>
-    ${a.model?`<span class="profile-chip model">◎ ${escHtml(a.model)}</span>`:''}
-    <span class="profile-chip ${a.enabled?'on':'off'}">● ${a.enabled?'Active':'Disabled'}</span>`;
+    <span class="profile-chip adapter">âš™ ${escHtml(a.adapter_type||'unknown')}</span>
+    ${a.model?`<span class="profile-chip model">â—Ž ${escHtml(a.model)}</span>`:''}
+    <span class="profile-chip ${a.enabled?'on':'off'}">â— ${a.enabled?'Active':'Disabled'}</span>`;
   document.getElementById('ap-prompt').textContent=a.system_prompt||'(no system prompt set)';
   // Load routines (functions)
   const routinesBody=document.getElementById('ap-routines');
-  routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">Loading…</div>';
+  routinesBody.innerHTML='<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">Loadingâ€¦</div>';
   try{
     let routines;
     const res=await fetch(`${API}/api/agents/${agentId}/routines`);
@@ -1424,7 +1743,7 @@ async function viewAgent(agentId){
         <div class="ap-routine-dot"></div>
         <div class="ap-routine-info">
           <div class="ap-routine-name">${escHtml(r.display_name)}</div>
-          <div class="ap-routine-meta">${escHtml(r.cron_expr)} · ${escHtml(r.priority||'normal')}${r.disabled_reason?' · '+escHtml(r.disabled_reason):''}</div>
+          <div class="ap-routine-meta">${escHtml(r.cron_expr)} Â· ${escHtml(r.priority||'normal')}${r.disabled_reason?' Â· '+escHtml(r.disabled_reason):''}</div>
         </div>
         <label class="routine-toggle" title="${r.enabled?'Disable':'Enable'} this routine">
           <input type="checkbox" ${r.enabled?'checked':''} onchange="toggleRoutine('${escHtml(r.id)}',this)">
@@ -1437,7 +1756,7 @@ async function viewAgent(agentId){
     const routines=state.routines.filter(r=>r.agent_id===agentId);
     document.getElementById('ap-routine-count').textContent=routines.length;
     routinesBody.innerHTML=routines.length
-      ?routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}"><div class="ap-routine-dot"></div><div class="ap-routine-info"><div class="ap-routine-name">${escHtml(r.display_name)}</div><div class="ap-routine-meta">${escHtml(r.cron_expr)} · ${escHtml(r.priority||'normal')}</div></div><div class="ap-routine-state">${r.enabled?'enabled':'off'}</div></div>`).join('')
+      ?routines.map(r=>`<div class="ap-routine ${r.enabled?'on':'off'}"><div class="ap-routine-dot"></div><div class="ap-routine-info"><div class="ap-routine-name">${escHtml(r.display_name)}</div><div class="ap-routine-meta">${escHtml(r.cron_expr)} Â· ${escHtml(r.priority||'normal')}</div></div><div class="ap-routine-state">${r.enabled?'enabled':'off'}</div></div>`).join('')
       :'<div class="empty-text" style="padding:12px;font-size:11px;color:var(--ink-4)">No scheduled functions</div>';
   }
   setView('agent-profile');
@@ -1470,9 +1789,9 @@ function openAgentChat(agentId){
     <div class="chat-head-avatar" style="background:linear-gradient(135deg,${colorVar},#3a1670)">${initials(a.display_name)}</div>
     <div class="chat-head-info">
       <div class="chat-head-name">${escHtml(a.display_name)}</div>
-      <div class="chat-head-sub">${escHtml(a.role||'')} · ${escHtml(a.department||'Operations')}</div>
+      <div class="chat-head-sub">${escHtml(a.role||'')} Â· ${escHtml(a.department||'Operations')}</div>
     </div>`;
-  document.getElementById('chat-messages').innerHTML=`<div class="empty-state"><div class="empty-icon">👋</div><div class="empty-text">Say hi to ${escHtml(a.display_name)}</div><div class="empty-hint">Start a conversation below</div></div>`;
+  document.getElementById('chat-messages').innerHTML=`<div class="empty-state"><div class="empty-icon">ðŸ‘‹</div><div class="empty-text">Say hi to ${escHtml(a.display_name)}</div><div class="empty-hint">Start a conversation below</div></div>`;
   document.getElementById('chat-input').disabled=false;
   document.getElementById('chat-send').disabled=false;
   setView('chat');
@@ -1539,7 +1858,7 @@ function handleEvent(e){
     if(e.type!=='routine.started'){renderTasks();renderTopAgents()}
   }else if(e.type==='breaker.tripped'){
     const b=document.getElementById('banner');
-    b.textContent=`⚠ Circuit breaker tripped: ${p.component||''} — ${p.reason||''}`;
+    b.textContent=`âš  Circuit breaker tripped: ${p.component||''} â€” ${p.reason||''}`;
     b.classList.add('show');
   }else if(e.type==='breaker.cleared'){
     document.getElementById('banner').classList.remove('show');
@@ -1591,16 +1910,88 @@ async function toggleRoutine(routineId, checkbox){
   }
 }
 
+async function refreshCommandViews(){
+  await Promise.all([loadCommandCenter(),loadLabelOps(),loadSocialPlatforms()]);
+  renderKpi();
+  renderCommandQueue();
+  renderReleasePipeline();
+  renderCampaignPerformance();
+  renderFinancePanels();
+  renderCalendarBoard();
+  renderSocialCommand();
+}
+
+async function apiJson(url, method, body){
+  const r=await fetch(API+url,{method,headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})});
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  return await r.json();
+}
+
+async function createRelease(){
+  const title=prompt('Release title');
+  if(!title)return;
+  await apiJson('/api/releases','POST',{title,artist:'Vawn',type:'single',status:'planning'});
+  await refreshCommandViews();
+}
+
+async function patchRelease(id, patch){
+  await apiJson(`/api/releases/${encodeURIComponent(id)}`,'PATCH',patch);
+  await refreshCommandViews();
+}
+
+async function editReleaseNotes(id){
+  const notes=prompt('Release notes');
+  if(notes==null)return;
+  await patchRelease(id,{notes});
+}
+
+async function createCampaign(){
+  const name=prompt('Campaign name');
+  if(!name)return;
+  await apiJson('/api/campaigns','POST',{name,artist:'Vawn',objective:'awareness',status:'draft',platforms:['instagram','tiktok','threads','x','bluesky','facebook']});
+  await refreshCommandViews();
+}
+
+async function patchCampaign(id, patch){
+  await apiJson(`/api/campaigns/${encodeURIComponent(id)}`,'PATCH',patch);
+  await refreshCommandViews();
+}
+
+async function patchApproval(id, status){
+  const decision_note=prompt(`${status} note`, '');
+  await apiJson(`/api/approvals/${encodeURIComponent(id)}`,'PATCH',{status,decision_note});
+  await refreshCommandViews();
+}
+
+async function createFinanceEntry(entryType){
+  const label=prompt(entryType==='revenue'?'Revenue source':'Vendor or expense name');
+  if(!label)return;
+  const raw=prompt('Amount');
+  const amount=Number(raw);
+  if(!Number.isFinite(amount))return alert('Amount must be a number');
+  await apiJson('/api/finance/entries','POST',{
+    entry_type:entryType,
+    source:entryType==='revenue'?label:null,
+    vendor:entryType==='expense'?label:null,
+    category:entryType==='revenue'?'revenue':'operations',
+    amount
+  });
+  await refreshCommandViews();
+}
+
 async function refreshPostsBadge(){
   try{
     const r=await fetch(API+'/api/posts').then(r=>r.json());
-    document.getElementById('sb-posts-today').textContent=r.summary?.succeeded??'—';
+    state.postsSummary=r.summary||null;
+    renderKpi();
+    renderCommandQueue();
+    document.getElementById('sb-posts-today').textContent=r.summary?.succeeded??'â€”';
   }catch{}
 }
 
 async function main(){
-  // Load agents + routines first — needed for dept fallback if backend lacks /api/departments
-  await Promise.all([loadAgents(),loadRoutines(),loadSummary()]);
+  // Load agents + routines first â€” needed for dept fallback if backend lacks /api/departments
+  await Promise.all([loadAgents(),loadRoutines(),loadSummary(),loadSocialPlatforms(),loadCommandCenter(),loadLabelOps()]);
   await loadDepartments();  // tries API, falls back to deriving from agents
   buildDepartments();        // re-bucket agents now that deptList is final
   renderAll();
@@ -1608,7 +1999,16 @@ async function main(){
   connectWs();
   setInterval(async()=>{
     await loadSummary();
+    await loadCommandCenter();
+    await loadLabelOps();
+    await loadSocialPlatforms();
     renderKpi();
+    renderSocialCommand();
+    renderCommandQueue();
+    renderReleasePipeline();
+    renderCampaignPerformance();
+    renderFinancePanels();
+    renderCalendarBoard();
     renderTasks();
     refreshPostsBadge();
   },60000);

@@ -20,7 +20,9 @@ import asyncio
 import json
 import logging
 import os
+import uuid
 from contextlib import asynccontextmanager
+from datetime import datetime, date as date_cls, timezone
 from pathlib import Path
 
 from fastapi import (
@@ -46,11 +48,11 @@ log = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
-# Department metadata — single source of truth for icon/color/description
+# Department metadata â€” single source of truth for icon/color/description
 # Keys are the *raw* department values stored on the agents table.
 # ---------------------------------------------------------------------------
 
-# Department heads — the agent who manages each department and receives
+# Department heads â€” the agent who manages each department and receives
 # escalated tasks. CEO communicates with these heads; they coordinate
 # within their teams.
 DEPT_HEAD: dict[str, str] = {
@@ -67,53 +69,85 @@ DEPT_HEAD: dict[str, str] = {
 DEPT_META: dict[str, dict[str, str]] = {
     "board": {
         "label": "Office of the Chairman",
-        "icon": "👑",
+        "icon": "ðŸ‘‘",
         "color": "amber",
         "description": "Executive leadership, vision, and final authority on signings and strategy",
     },
     "cos": {
         "label": "Legal & Business Affairs",
-        "icon": "⚖",
+        "icon": "âš–",
         "color": "purple",
         "description": "Contracts, licensing, publishing, clearances and artist relations",
     },
     "marketing": {
         "label": "Marketing, Audience & Revenue",
-        "icon": "📣",
+        "icon": "ðŸ“£",
         "color": "blue",
         "description": "Campaigns, fan acquisition, content, publicity and streaming strategy",
     },
     "operations": {
         "label": "Operations, Finance & Tech",
-        "icon": "⚙",
+        "icon": "âš™",
         "color": "cyan",
         "description": "Infrastructure, finance, royalties, partnerships and AI orchestration",
     },
     "post-prod": {
         "label": "Post-Production",
-        "icon": "🎚",
+        "icon": "ðŸŽš",
         "color": "teal",
         "description": "Mixing, mastering and quality control",
     },
     "production": {
         "label": "A&R & Production",
-        "icon": "🎵",
+        "icon": "ðŸŽµ",
         "color": "pink",
         "description": "Artist scouting, creative direction, songwriting and production",
     },
     "research": {
         "label": "Discovery & Research",
-        "icon": "🔍",
+        "icon": "ðŸ”",
         "color": "lime",
         "description": "Streaming/social data mining, trend analysis and breakout signal detection",
     },
 }
 
+SOCIAL_PLATFORM_META: dict[str, dict[str, str]] = {
+    "instagram": {
+        "label": "Instagram",
+        "account_url": "https://www.instagram.com/therealvawn/",
+        "website_label": "@therealvawn",
+    },
+    "tiktok": {
+        "label": "TikTok",
+        "account_url": "https://www.tiktok.com/@iamvawn",
+        "website_label": "@iamvawn",
+    },
+    "threads": {
+        "label": "Threads",
+        "account_url": "https://www.threads.net/@therealvawn",
+        "website_label": "@therealvawn",
+    },
+    "x": {
+        "label": "X",
+        "account_url": "https://x.com/iamvawn",
+        "website_label": "@iamvawn",
+    },
+    "bluesky": {
+        "label": "Bluesky",
+        "account_url": "https://bsky.app/profile/therealvawn.bsky.social",
+        "website_label": "therealvawn.bsky.social",
+    },
+    "facebook": {
+        "label": "Facebook",
+        "account_url": "",
+        "website_label": "not configured",
+    },
+}
 
 def _dept_meta(dept_id: str) -> dict[str, str]:
     return DEPT_META.get(
         dept_id,
-        {"label": dept_id.title(), "icon": "🏢", "color": "purple", "description": dept_id},
+        {"label": dept_id.title(), "icon": "ðŸ¢", "color": "purple", "description": dept_id},
     )
 
 
@@ -167,8 +201,195 @@ class ChatRequest(BaseModel):
     thread_id: str | None = None
 
 
+class ReleaseIn(BaseModel):
+    title: str
+    artist: str = "Vawn"
+    type: str = "single"
+    status: str = "planning"
+    release_date: str | None = None
+    distributor: str = "DistroKid"
+    artwork_status: str = "pending"
+    master_status: str = "pending"
+    metadata_status: str = "pending"
+    distributor_status: str = "pending"
+    publishing_status: str = "pending"
+    budget: float | None = None
+    spend_to_date: float = 0
+    notes: str | None = None
+
+
+class ReleasePatch(BaseModel):
+    title: str | None = None
+    artist: str | None = None
+    type: str | None = None
+    status: str | None = None
+    release_date: str | None = None
+    distributor: str | None = None
+    artwork_status: str | None = None
+    master_status: str | None = None
+    metadata_status: str | None = None
+    distributor_status: str | None = None
+    publishing_status: str | None = None
+    budget: float | None = None
+    spend_to_date: float | None = None
+    notes: str | None = None
+
+
+class CampaignIn(BaseModel):
+    name: str
+    artist: str = "Vawn"
+    release_id: str | None = None
+    objective: str = "awareness"
+    status: str = "draft"
+    start_date: str | None = None
+    end_date: str | None = None
+    platforms: list[str] = []
+    budget: float | None = None
+    spend_to_date: float = 0
+    primary_metric: str | None = None
+    target_value: float | None = None
+    notes: str | None = None
+
+
+class CampaignPatch(BaseModel):
+    name: str | None = None
+    artist: str | None = None
+    release_id: str | None = None
+    objective: str | None = None
+    status: str | None = None
+    start_date: str | None = None
+    end_date: str | None = None
+    platforms: list[str] | None = None
+    budget: float | None = None
+    spend_to_date: float | None = None
+    primary_metric: str | None = None
+    target_value: float | None = None
+    notes: str | None = None
+
+
+class ApprovalIn(BaseModel):
+    title: str
+    category: str = "operations"
+    priority: str = "medium"
+    status: str = "open"
+    requested_by: str | None = None
+    assigned_to: str | None = "CEO"
+    due_at: str | None = None
+    linked_type: str | None = None
+    linked_id: str | None = None
+    decision_note: str | None = None
+
+
+class ApprovalPatch(BaseModel):
+    title: str | None = None
+    category: str | None = None
+    priority: str | None = None
+    status: str | None = None
+    requested_by: str | None = None
+    assigned_to: str | None = None
+    due_at: str | None = None
+    linked_type: str | None = None
+    linked_id: str | None = None
+    decision_note: str | None = None
+
+
+class FinanceEntryIn(BaseModel):
+    entry_type: str = "expense"
+    source: str | None = None
+    vendor: str | None = None
+    category: str = "operations"
+    amount: float
+    entry_date: str | None = None
+    linked_type: str | None = None
+    linked_id: str | None = None
+    notes: str | None = None
+
+
+def _now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _new_id(prefix: str) -> str:
+    return f"{prefix}-{uuid.uuid4().hex[:12]}"
+
+
+def _model_data(model: BaseModel) -> dict:
+    if hasattr(model, "model_dump"):
+        return model.model_dump(exclude_unset=True)
+    return model.dict(exclude_unset=True)
+
+
+def _model_all(model: BaseModel) -> dict:
+    if hasattr(model, "model_dump"):
+        return model.model_dump()
+    return model.dict()
+
+
+def _release_readiness(row: dict) -> dict:
+    fields = [
+        "artwork_status",
+        "master_status",
+        "metadata_status",
+        "distributor_status",
+        "publishing_status",
+    ]
+    done_values = {"done", "ready", "complete", "completed", "approved", "scheduled", "released"}
+    done = sum(1 for key in fields if str(row.get(key) or "").lower() in done_values)
+    blockers = [
+        key.replace("_status", "").replace("_", " ").title()
+        for key in fields
+        if str(row.get(key) or "").lower() not in done_values
+    ]
+    next_milestone = blockers[0] if blockers else "Release ready"
+    return {
+        "readiness": round(100 * done / len(fields)),
+        "blockers": blockers,
+        "next_milestone": next_milestone,
+    }
+
+
+def _release_out(row) -> dict:
+    data = dict(row)
+    data.update(_release_readiness(data))
+    return data
+
+
+def _campaign_out(row) -> dict:
+    data = dict(row)
+    data["platforms"] = json_loads_safe(data.get("platforms"), [])
+    return data
+
+
+def _approval_out(row) -> dict:
+    return dict(row)
+
+
+def _finance_out(row) -> dict:
+    return dict(row)
+
+
+def _patch_row(table: str, item_id: str, payload: dict, allowed: set[str]) -> dict:
+    data = {k: v for k, v in payload.items() if k in allowed}
+    if not data:
+        row = get_conn().execute(f"SELECT * FROM {table} WHERE id=?", (item_id,)).fetchone()
+        if not row:
+            raise HTTPException(404, f"{table[:-1]} not found")
+        return dict(row)
+    data["updated_at"] = _now_iso()
+    sets = ", ".join(f"{k}=:{k}" for k in data)
+    data["id"] = item_id
+    conn = get_conn()
+    cur = conn.execute(f"SELECT id FROM {table} WHERE id=?", (item_id,)).fetchone()
+    if not cur:
+        raise HTTPException(404, f"{table[:-1]} not found")
+    conn.execute(f"UPDATE {table} SET {sets} WHERE id=:id", data)
+    conn.commit()
+    row = conn.execute(f"SELECT * FROM {table} WHERE id=?", (item_id,)).fetchone()
+    return dict(row)
+
+
 # ---------------------------------------------------------------------------
-# Heartbeat task — emits one event every 10s so the UI knows the WS is alive
+# Heartbeat task â€” emits one event every 10s so the UI knows the WS is alive
 # ---------------------------------------------------------------------------
 
 
@@ -211,7 +432,7 @@ async def lifespan(app: FastAPI):
         except Exception:
             log.exception("failed to start tailers")
 
-    # Scheduler — defaults to shadow mode (HQ_DISPATCHER_SHADOW != "0").
+    # Scheduler â€” defaults to shadow mode (HQ_DISPATCHER_SHADOW != "0").
     # Disabled in tests by APULU_HQ_DISABLE_SCHEDULER=1.
     app.state.scheduler = None
     if os.environ.get("APULU_HQ_DISABLE_SCHEDULER") != "1":
@@ -325,7 +546,7 @@ def create_app() -> FastAPI:
             "SUM(CASE WHEN enabled=1 THEN 1 ELSE 0 END) AS online_count "
             "FROM agents GROUP BY department ORDER BY department"
         ).fetchall()
-        # Build display_name → agent_id lookup for resolving heads
+        # Build display_name â†’ agent_id lookup for resolving heads
         head_lookup = {
             r["display_name"]: r["id"]
             for r in conn.execute("SELECT id, display_name FROM agents").fetchall()
@@ -360,7 +581,7 @@ def create_app() -> FastAPI:
     # ---- agent functions (routines they own) ----
     @app.get("/api/agents/{agent_id}/routines")
     def list_agent_routines(agent_id: str):
-        """Functions the agent performs — the cron routines they own."""
+        """Functions the agent performs â€” the cron routines they own."""
         rows = get_conn().execute(
             "SELECT id, display_name, agent_id, cron_expr, timezone, description, "
             "priority, enabled, disabled_reason FROM routines WHERE agent_id=? "
@@ -447,6 +668,148 @@ def create_app() -> FastAPI:
         }
 
     # ---- social-media post activity (Vawn) ----
+    @app.get("/api/social/platforms")
+    def social_platform_status(hours: int = 24):
+        """Return command-center status for Vawn social publishing channels."""
+        from datetime import datetime, timezone, timedelta
+        import json as _json
+
+        window_hours = max(1, min(int(hours), 168))
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=window_hours)
+        ledger_path = settings.vawn_dir / "post_ledger.jsonl"
+        platforms: dict[str, dict] = {
+            key: {
+                "id": key,
+                "label": meta["label"],
+                "account_url": meta["account_url"],
+                "website_label": meta["website_label"],
+                "wired": bool(meta["account_url"]) or key == "facebook",
+                "last_attempt_at": None,
+                "last_success_at": None,
+                "last_post_url": None,
+                "last_post_id": None,
+                "last_error": None,
+                "next_scheduled_post": None,
+                "ok_24h": 0,
+                "fail_24h": 0,
+                "media_types": set(),
+                "status": "idle",
+            }
+            for key, meta in SOCIAL_PLATFORM_META.items()
+        }
+
+        def parse_ts(value: object) -> datetime | None:
+            if not isinstance(value, str) or not value:
+                return None
+            try:
+                parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+                if parsed.tzinfo is None:
+                    parsed = parsed.replace(tzinfo=timezone.utc)
+                return parsed.astimezone(timezone.utc)
+            except ValueError:
+                return None
+
+        def media_kind(record: dict) -> str | None:
+            media = record.get("media") or record.get("image") or record.get("video_asset")
+            suffix = ""
+            if isinstance(media, dict):
+                suffix = str(media.get("suffix") or media.get("name") or "")
+            elif isinstance(media, str):
+                suffix = media
+            suffix = suffix.lower()
+            if suffix.endswith((".mp4", ".mov", ".m4v")):
+                return "video"
+            if suffix.endswith((".png", ".jpg", ".jpeg", ".webp")):
+                return "image"
+            return None
+
+        if ledger_path.is_file():
+            try:
+                with ledger_path.open("r", encoding="utf-8", errors="replace") as fh:
+                    for line in fh:
+                        try:
+                            record = _json.loads(line)
+                        except _json.JSONDecodeError:
+                            continue
+                        platform = str(record.get("platform") or "").lower()
+                        if platform not in platforms:
+                            continue
+                        event_type = record.get("event") or ""
+                        if event_type not in {
+                            "post_attempt",
+                            "story_repost_attempt",
+                            "post_preflight_failed",
+                            "post_exception",
+                        }:
+                            continue
+                        ts = parse_ts(record.get("timestamp"))
+                        if ts is None:
+                            continue
+                        item = platforms[platform]
+                        kind = media_kind(record)
+                        if kind:
+                            item["media_types"].add(kind)
+                        if item["last_attempt_at"] is None or ts.isoformat() > item["last_attempt_at"]:
+                            item["last_attempt_at"] = ts.isoformat()
+                            item["last_error"] = (
+                                record.get("error")
+                                or "; ".join(record.get("errors") or [])
+                                or None
+                            )
+                            item["last_post_id"] = record.get("platform_post_id")
+                        success = bool(record.get("success"))
+                        if ts >= cutoff:
+                            if success:
+                                item["ok_24h"] += 1
+                            else:
+                                item["fail_24h"] += 1
+                        if success and (item["last_success_at"] is None or ts.isoformat() > item["last_success_at"]):
+                            item["last_success_at"] = ts.isoformat()
+                            item["last_post_url"] = record.get("post_url")
+                            item["last_post_id"] = record.get("platform_post_id")
+            except OSError as exc:
+                for item in platforms.values():
+                    item["media_types"] = sorted(item["media_types"])
+                return {"platforms": list(platforms.values()), "error": str(exc)}
+
+        routine_rows = get_conn().execute(
+            "SELECT display_name, cron_expr, description, command, args FROM routines "
+            "WHERE enabled=1 ORDER BY display_name"
+        ).fetchall()
+        for key, item in platforms.items():
+            for row in routine_rows:
+                blob = " ".join(str(row[k] or "") for k in row.keys()).lower()
+                if key in blob:
+                    item["next_scheduled_post"] = {
+                        "routine": row["display_name"],
+                        "cron_expr": row["cron_expr"],
+                    }
+                    break
+
+        for item in platforms.values():
+            item["media_types"] = sorted(item["media_types"])
+            if item["fail_24h"] and not item["ok_24h"]:
+                item["status"] = "attention"
+            elif item["last_success_at"]:
+                item["status"] = "wired"
+            elif item["last_attempt_at"]:
+                item["status"] = "attention"
+            elif item["wired"]:
+                item["status"] = "wired"
+
+        ordered = [platforms[key] for key in SOCIAL_PLATFORM_META]
+        return {
+            "window_hours": window_hours,
+            "ledger_path": str(ledger_path),
+            "platforms": ordered,
+            "summary": {
+                "wired": sum(1 for p in ordered if p["wired"]),
+                "attention": sum(1 for p in ordered if p["status"] == "attention"),
+                "ok_24h": sum(p["ok_24h"] for p in ordered),
+                "fail_24h": sum(p["fail_24h"] for p in ordered),
+            },
+        }
+
     @app.get("/api/posts")
     def list_posts(date: str | None = None, limit: int = 200):
         """Read Vawn's post_ledger.jsonl and return events for a given date.
@@ -482,7 +845,7 @@ def create_app() -> FastAPI:
         target = date or _date_cls.today().isoformat()
         limit = max(1, min(int(limit), 1000))
 
-        # Stream the file — read only lines from `target`
+        # Stream the file â€” read only lines from `target`
         events: list[dict] = []
         try:
             with ledger_path.open("r", encoding="utf-8", errors="replace") as fh:
@@ -549,6 +912,275 @@ def create_app() -> FastAPI:
             },
         }
 
+    # ---- label command center ----
+    @app.get("/api/releases")
+    def list_releases():
+        rows = get_conn().execute(
+            "SELECT * FROM releases ORDER BY "
+            "CASE status WHEN 'scheduled' THEN 0 WHEN 'ready' THEN 1 WHEN 'production' THEN 2 "
+            "WHEN 'planning' THEN 3 WHEN 'released' THEN 4 ELSE 5 END, "
+            "COALESCE(release_date, '9999-12-31'), updated_at DESC"
+        ).fetchall()
+        return [_release_out(r) for r in rows]
+
+    @app.post("/api/releases")
+    def create_release(body: ReleaseIn):
+        now = _now_iso()
+        item_id = _new_id("rel")
+        data = _model_all(body)
+        conn = get_conn()
+        conn.execute(
+            """INSERT INTO releases
+               (id, title, artist, type, status, release_date, distributor, artwork_status,
+                master_status, metadata_status, distributor_status, publishing_status,
+                budget, spend_to_date, notes, created_at, updated_at)
+               VALUES (:id, :title, :artist, :type, :status, :release_date, :distributor, :artwork_status,
+                :master_status, :metadata_status, :distributor_status, :publishing_status,
+                :budget, :spend_to_date, :notes, :created_at, :updated_at)""",
+            {
+                **data,
+                "id": item_id,
+                "created_at": now,
+                "updated_at": now,
+            },
+        )
+        conn.commit()
+        return _release_out(conn.execute("SELECT * FROM releases WHERE id=?", (item_id,)).fetchone())
+
+    @app.patch("/api/releases/{release_id}")
+    def patch_release(release_id: str, body: ReleasePatch):
+        row = _patch_row(
+            "releases",
+            release_id,
+            _model_data(body),
+            {
+                "title", "artist", "type", "status", "release_date", "distributor", "artwork_status",
+                "master_status", "metadata_status", "distributor_status", "publishing_status",
+                "budget", "spend_to_date", "notes",
+            },
+        )
+        return _release_out(row)
+
+    @app.get("/api/campaigns")
+    def list_campaigns():
+        rows = get_conn().execute(
+            "SELECT * FROM campaigns ORDER BY "
+            "CASE status WHEN 'active' THEN 0 WHEN 'draft' THEN 1 WHEN 'paused' THEN 2 ELSE 3 END, "
+            "COALESCE(start_date, '9999-12-31'), updated_at DESC"
+        ).fetchall()
+        return [_campaign_out(r) for r in rows]
+
+    @app.post("/api/campaigns")
+    def create_campaign(body: CampaignIn):
+        now = _now_iso()
+        item_id = _new_id("camp")
+        data = _model_all(body)
+        data["platforms"] = json.dumps(data.get("platforms") or [])
+        conn = get_conn()
+        conn.execute(
+            """INSERT INTO campaigns
+               (id, name, artist, release_id, objective, status, start_date, end_date,
+                platforms, budget, spend_to_date, primary_metric, target_value, notes,
+                created_at, updated_at)
+               VALUES (:id, :name, :artist, :release_id, :objective, :status, :start_date,
+                :end_date, :platforms, :budget, :spend_to_date, :primary_metric,
+                :target_value, :notes, :created_at, :updated_at)""",
+            {
+                **data,
+                "id": item_id,
+                "created_at": now,
+                "updated_at": now,
+            },
+        )
+        conn.commit()
+        return _campaign_out(conn.execute("SELECT * FROM campaigns WHERE id=?", (item_id,)).fetchone())
+
+    @app.patch("/api/campaigns/{campaign_id}")
+    def patch_campaign(campaign_id: str, body: CampaignPatch):
+        data = _model_data(body)
+        if "platforms" in data:
+            data["platforms"] = json.dumps(data.get("platforms") or [])
+        row = _patch_row(
+            "campaigns",
+            campaign_id,
+            data,
+            {
+                "name", "artist", "release_id", "objective", "status", "start_date",
+                "end_date", "platforms", "budget", "spend_to_date", "primary_metric",
+                "target_value", "notes",
+            },
+        )
+        return _campaign_out(row)
+
+    @app.get("/api/approvals")
+    def list_approvals(status: str | None = None):
+        sql = "SELECT * FROM approvals"
+        args: list[str] = []
+        if status:
+            sql += " WHERE status=?"
+            args.append(status)
+        sql += (
+            " ORDER BY CASE priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 "
+            "WHEN 'medium' THEN 2 ELSE 3 END, COALESCE(due_at, '9999-12-31'), created_at DESC"
+        )
+        return [_approval_out(r) for r in get_conn().execute(sql, args).fetchall()]
+
+    @app.post("/api/approvals")
+    def create_approval(body: ApprovalIn):
+        now = _now_iso()
+        item_id = _new_id("appr")
+        data = _model_all(body)
+        conn = get_conn()
+        conn.execute(
+            """INSERT INTO approvals
+               (id, title, category, priority, status, requested_by, assigned_to,
+                due_at, linked_type, linked_id, decision_note, created_at, updated_at)
+               VALUES (:id, :title, :category, :priority, :status, :requested_by,
+                :assigned_to, :due_at, :linked_type, :linked_id, :decision_note,
+                :created_at, :updated_at)""",
+            {
+                **data,
+                "id": item_id,
+                "created_at": now,
+                "updated_at": now,
+            },
+        )
+        conn.commit()
+        return _approval_out(conn.execute("SELECT * FROM approvals WHERE id=?", (item_id,)).fetchone())
+
+    @app.patch("/api/approvals/{approval_id}")
+    def patch_approval(approval_id: str, body: ApprovalPatch):
+        row = _patch_row(
+            "approvals",
+            approval_id,
+            _model_data(body),
+            {
+                "title", "category", "priority", "status", "requested_by", "assigned_to",
+                "due_at", "linked_type", "linked_id", "decision_note",
+            },
+        )
+        return _approval_out(row)
+
+    @app.get("/api/finance/entries")
+    def list_finance_entries(limit: int = 100):
+        lim = max(1, min(int(limit), 500))
+        rows = get_conn().execute(
+            "SELECT * FROM finance_entries ORDER BY entry_date DESC, created_at DESC LIMIT ?",
+            (lim,),
+        ).fetchall()
+        return [_finance_out(r) for r in rows]
+
+    @app.post("/api/finance/entries")
+    def create_finance_entry(body: FinanceEntryIn):
+        now = _now_iso()
+        item_id = _new_id("fin")
+        data = _model_all(body)
+        data["entry_date"] = data.get("entry_date") or date_cls.today().isoformat()
+        conn = get_conn()
+        conn.execute(
+            """INSERT INTO finance_entries
+               (id, entry_type, source, vendor, category, amount, entry_date,
+                linked_type, linked_id, notes, created_at, updated_at)
+               VALUES (:id, :entry_type, :source, :vendor, :category, :amount,
+                :entry_date, :linked_type, :linked_id, :notes, :created_at, :updated_at)""",
+            {
+                **data,
+                "id": item_id,
+                "created_at": now,
+                "updated_at": now,
+            },
+        )
+        conn.commit()
+        return _finance_out(conn.execute("SELECT * FROM finance_entries WHERE id=?", (item_id,)).fetchone())
+
+    @app.get("/api/finance/summary")
+    def finance_summary():
+        conn = get_conn()
+        month = date_cls.today().isoformat()[:7]
+        rows = conn.execute(
+            "SELECT entry_type, category, SUM(amount) AS total FROM finance_entries "
+            "WHERE substr(entry_date, 1, 7)=? GROUP BY entry_type, category",
+            (month,),
+        ).fetchall()
+        spend = sum(float(r["total"] or 0) for r in rows if r["entry_type"] == "expense")
+        revenue = sum(float(r["total"] or 0) for r in rows if r["entry_type"] == "revenue")
+        cost_centers = [
+            {"category": r["category"], "amount": float(r["total"] or 0)}
+            for r in rows
+            if r["entry_type"] == "expense"
+        ]
+        cost_centers.sort(key=lambda x: x["amount"], reverse=True)
+        unassigned = conn.execute(
+            "SELECT COUNT(*) AS c, COALESCE(SUM(amount), 0) AS total FROM finance_entries "
+            "WHERE entry_type='expense' AND (linked_id IS NULL OR linked_id='')"
+        ).fetchone()
+        return {
+            "month": month,
+            "monthly_spend": spend,
+            "monthly_revenue": revenue,
+            "net": revenue - spend,
+            "estimated_runway_months": None,
+            "top_cost_centers": cost_centers[:5],
+            "unassigned_expenses": {
+                "count": unassigned["c"],
+                "amount": float(unassigned["total"] or 0),
+            },
+        }
+
+    @app.get("/api/command/summary")
+    def command_summary():
+        conn = get_conn()
+        releases = [_release_out(r) for r in conn.execute("SELECT * FROM releases").fetchall()]
+        campaigns = [_campaign_out(r) for r in conn.execute("SELECT * FROM campaigns").fetchall()]
+        approvals = [_approval_out(r) for r in conn.execute(
+            "SELECT * FROM approvals WHERE status='open' ORDER BY "
+            "CASE priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END, "
+            "COALESCE(due_at, '9999-12-31'), created_at DESC LIMIT 12"
+        ).fetchall()]
+        active_releases = [r for r in releases if r["status"] not in {"released", "archived"}]
+        active_campaigns = [c for c in campaigns if c["status"] == "active"]
+        posts = list_posts()
+        social = social_platform_status()
+        finance = finance_summary()
+        dlq_active = conn.execute(
+            "SELECT COUNT(*) AS c FROM dlq WHERE replayed_at IS NULL AND discarded_at IS NULL"
+        ).fetchone()["c"]
+        recent_failures = conn.execute(
+            "SELECT COUNT(*) AS c FROM dispatches "
+            "WHERE outcome IN ('failure','fail') AND date(started_at) >= date('now','-7 days')"
+        ).fetchone()["c"]
+        active_routines = conn.execute(
+            "SELECT COUNT(*) AS c FROM routines WHERE enabled=1"
+        ).fetchone()["c"]
+        operational_alerts = (
+            len([a for a in approvals if a["priority"] in {"urgent", "high"}])
+            + int(social["summary"].get("attention") or 0)
+            + int(posts["summary"].get("failed") or 0)
+            + int(dlq_active)
+            + int(recent_failures)
+        )
+        return {
+            "kpis": {
+                "postsToday": posts["summary"].get("succeeded", 0),
+                "activeReleases": len(active_releases),
+                "needsApproval": len(approvals),
+                "operationalAlerts": operational_alerts,
+                "activeRoutines": active_routines,
+            },
+            "releases": active_releases[:6],
+            "campaigns": active_campaigns[:6],
+            "approvals": approvals,
+            "finance": finance,
+            "posts": posts["summary"],
+            "social": social["summary"],
+            "alerts": {
+                "dlq": dlq_active,
+                "dispatchFailures7d": recent_failures,
+                "socialAttention": social["summary"].get("attention", 0),
+                "postFailuresToday": posts["summary"].get("failed", 0),
+            },
+        }
+
     # ---- recent message conversations ----
     @app.get("/api/messages/conversations")
     def list_conversations(limit: int = 20):
@@ -605,7 +1237,7 @@ def create_app() -> FastAPI:
                     agent_id, body.thread_id,
                 )
 
-        # Fire and forget — caller subscribes to WS for tokens
+        # Fire and forget â€” caller subscribes to WS for tokens
         task = asyncio.create_task(_run_chat())
         # Hold a strong ref so the task isn't GC'd mid-flight (a Python 3.11+ pitfall).
         if not hasattr(app.state, "chat_tasks"):
